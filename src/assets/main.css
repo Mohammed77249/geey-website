@@ -2,7 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .scrollable-list {
+    direction: ltr;         
+    scrollbar-width: none;    
+  }
 
+  .scrollable-list::-webkit-scrollbar {
+    display: none;           
+  }
+}
 
 /* 
 

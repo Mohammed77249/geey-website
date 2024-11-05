@@ -1,10 +1,10 @@
 
 
 <template>
-  <div v-if="isOpen"  class="fixed top-40 inset-0 bg-gray-800 bg-opacity-50 z-40 flex overflow-auto">
-    <div class="w-full h-[50%] bg-gray-50 p-5 z-50 ">
-
-      <ul class="mt-4 space-y-3 text-gray-700 text-right">
+<div @mouseover=" showhoever()"  @mouseleave=" hideSidebar()">
+  <div v-if="isOpen"   class="fixed top-28 border h-[70%] inset-0 overflow-y-auto  bg-opacity-50 z-40 flex  ">
+    <div class="w-full  bg-white p-5 z-50 ">
+      <ul class="space-y-3 text-gray-700 text-right">
         <li
           v-for="(item, index) in list"
           :key="index"
@@ -14,8 +14,8 @@
         </li>
       </ul>
     </div>
-
   </div>
+</div>
 </template>
 
 <script setup>
@@ -31,13 +31,12 @@ defineProps({
   list:{
     type: [],
     default:[],
+  },
+  showhoever:{
+    type:Function
   }
 
 });
-
-
-
-
 
 
 </script>

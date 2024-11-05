@@ -20,6 +20,13 @@
         { id: 1, name: 'منتج 1', price: 'ر.س 50', image: 'https://via.placeholder.com/150' },
         { id: 2, name: 'منتج 2', price: 'ر.س 60', image: 'https://via.placeholder.com/150' },
         { id: 3, name: 'منتج 3', price: 'ر.س 70', image: 'https://via.placeholder.com/150' },
+        { id: 4, name: 'منتج 3', price: 'ر.س 70', image: 'https://via.placeholder.com/150' },
+        { id: 5, name: 'منتج 3', price: 'ر.س 70', image: 'https://via.placeholder.com/150' },
+        { id: 6, name: 'منتج 3', price: 'ر.س 70', image: 'https://via.placeholder.com/150' },
+        { id: 7, name: 'منتج 3', price: 'ر.س 70', image: 'https://via.placeholder.com/150' },
+        { id: 8, name: 'منتج 3', price: 'ر.س 70', image: 'https://via.placeholder.com/150' },
+        { id: 9, name: 'منتج 3', price: 'ر.س 70', image: 'https://via.placeholder.com/150' },
+        { id: 10, name: 'منتج 3', price: 'ر.س 70', image: 'https://via.placeholder.com/150' },
       ]
 
 </script>
