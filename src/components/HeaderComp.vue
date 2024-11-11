@@ -1,6 +1,7 @@
 <template>
-  <header class="bg-white shadow-md pr-10 pl-10 max-w-screen-3xl mx-auto ">
-    <div class="grid grid-cols-1">
+  <header class="  bg-white shadow-md pr-10 pl-10 max-w-screen-3xl mx-auto ">
+    <div class=" grid grid-cols-1">
+
       <div class="flex items-center justify-between ">
         <!-- links -->
         <div class="flex space-x-6">
@@ -185,7 +186,7 @@
 
       </div>
 
-      <div class="flex items-center justify-between">
+      <div class=" flex items-center justify-between">
 
         <!-- buttons left and right -->
         <div class="flex space-x-6">
@@ -207,26 +208,33 @@
 
         <!-- list -->
         <div class="max-w-8xl overflow-x-auto ">
-          <ul class="flex  gap-2 scrollable-list overflow-x-auto text-[12px] text-gray-600 font-sans">
+          <ul class="flex  gap-2 scrollable-list overflow-x-auto text-[12px] text-gray-600 font-sans" style="direction: rtl;">
             <li
               v-for="(item, index) in menuItems"
               :key="index"
-              @mouseover="showSidebar()"
-              @mouseleave="hideSidebar()"
-              class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black hover:bg-gray-100"
+              @mouseenter="showDropdown = true"
+              @mouseleave="showDropdown = false"
+              @mouseover="handleHover(index)"
+              :class="{'bg-blue-200': hoveredIndex === index}"
+              class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black  hover:bg-gray-100"
             >
               {{ item.name }}
             </li>
           </ul>
-
         </div>
 
-        <!-- all button-->
-        <div class="flex space-x-6 cursor-pointer hover:text-black hover:bg-gray-100" @mouseover="showSidebar()" @mouseleave="hideSidebar()">
+         <!-- button all -->
+        <div>
+          <ul>
+        <li
+          @mouseenter="showDropdown = true"
+          @mouseleave="showDropdown = false"
+        >
+        <div class="flex space-x-6 cursor-pointer hover:text-black hover:bg-gray-100" >
           <div class=" grid grid-cols-1 justify-center items-center  h-10 pr-2 pl-2 w-16">
             <div class="flex justify-center items-center gap-2">
               <div>
-                <svg v-if="!isSidebarOpen"
+                <svg v-if="!showDropdown"
                   width="15"
                   height="15"
                   viewBox="0 0 24 24"
@@ -243,7 +251,7 @@
                   />
 
                 </svg>
-                <svg  v-if="isSidebarOpen" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg  v-if="showDropdown" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19.9201 15.05L13.4001 8.53001C12.6301 7.76001 11.3701 7.76001 10.6001 8.53001L4.08008 15.05" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
              </div>
@@ -253,15 +261,17 @@
             </div>
           </div>
         </div>
+          <SidebarComp
+          :isOpen="showDropdown"
+          :list="menuItems"
+          :hoveritem="isHoeverItem"
+        />
+        </li>
+       </ul>
+        </div>
 
       </div>
-      <div class="">
-        <SidebarComp
-          :isOpen="isSidebarOpen"
-          :list="menuItems"
-          :showhoever="showSidebar"
-        />
-      </div>
+
     </div>
   </header>
 </template>
@@ -269,7 +279,9 @@
 <script setup>
 import SidebarComp from './SidebarComp.vue'
 import { ref } from 'vue'
-const isSidebarOpen = ref(false)
+const isHoeverItem = ref(null)
+const showDropdown = ref();
+
 const menuItems = [
   { name: 'الملابس النسائية' },
   { name: 'الملابس الرجالية' },
@@ -291,34 +303,15 @@ const menuItems = [
   { name: 'اجهزة' },
   { name: 'السيارات' },
   { name: 'مستلزمات الحيوانات' },
-  { name: 'الملابس النسائية' },
-  { name: 'الملابس الرجالية' },
-  { name: 'الأطفال' },
-  { name: 'الإكسسوارات' },
-  { name: 'الجديد' },
-  { name: 'التخفيضات' },
-  { name: 'الأحذية' },
-  { name: 'الحقائب' },
-  { name: 'فساتين' },
-  { name: 'قمصان' },
-  { name: 'بناطيل' },
-  { name: 'جاكيتات' },
-  { name: 'ملابس رياضية' },
-  { name: 'المنزل والمطبخ ' },
-  { name: 'ملابس السهرة ' },
-  { name: 'إلكترونيات' },
-  { name: 'الالعاب' },
-  { name: 'اجهزة' },
-  { name: 'السيارات' },
-  { name: 'مستلزمات الحيوانات' },
+
 
 ]
 
-const showSidebar = () => {
-  isSidebarOpen.value = true
-}
-const hideSidebar = () => {
-  isSidebarOpen.value = false
+const handleHover = (index) => {
+
+  localStorage.setItem('hoveredIndex', index);
 };
+
+
 
 </script>
