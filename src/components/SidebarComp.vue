@@ -193,14 +193,15 @@
 
 
       <!-- list of item -->
-      <div class="col-span-2  border-s-2 overflow-y-auto  h-[50%]  rtl custom-scroll" ref="list2">
-        <ul ref="list2" class="space-y-2  text-gray-700 text-[12px] font-sans ltr">
+      <div class="col-span-2  border-s-2 overflow-y-auto  max-h-[50%]  rtl custom-scroll" >
+        <ul  class="space-y-2  text-gray-700 text-[12px] font-sans ltr">
         <li
           v-for="(item, index) in menuItems"
           :key="index"
-           :class="{'bg-gray-100 text-black': hoveredIndex === index}"
-          class="cursor-pointer flex-shrink-0 flex items-center pl-10 p-2 justify-between hover:text-black  hover:bg-gray-100 h-10"
-        >
+          :class="{'bg-gray-100 text-black': hoveredIndex === index}"
+          class="cursor-pointer flex-shrink-0 flex items-center pl-10 p-2 justify-between hover:text-black  hover:bg-gray-100 h-10 transition-all duration-200"
+          :ref="setItemRef"
+          >
         <div class="">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="font-bold">
                 <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="gray" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -219,7 +220,8 @@
 </template>
 
 <script setup>
-import { defineProps,ref,onMounted,watch} from 'vue'
+import { defineProps,ref,onMounted ,onBeforeUnmount} from 'vue'
+// import { useStorage } from '@vueuse/core';
 
 defineProps({
   isOpen: {
@@ -227,17 +229,14 @@ defineProps({
     default: false,
     required: true,
   },
-  list: {
-    type: [],
-    default: [],
-  },
+
   hoveritem: {
     type: String,
     default: '',
   },
 });
 
-const menuItems = [
+const menuItems = ref([
   { name: 'الملابس النسائية' },
   { name: 'الملابس الرجالية' },
   { name: 'الأطفال' },
@@ -259,8 +258,7 @@ const menuItems = [
   { name: 'السيارات' },
   { name: 'مستلزمات الحيوانات' },
 
-
-]
+]);
 
     const categories = [
         { name: 'الأزياء النسائية', image: '/public/logogeey.svg' },
@@ -280,30 +278,57 @@ const menuItems = [
 
 
       const hoveredIndex = ref(null);
-    const list2 = ref(null);
-
-    const scrollToHoveredItem = () => {
-      if (hoveredIndex.value !== null && list2.value) {
-        const itemHeight = list2.value.scrollHeight / menuItems.values.length;
-        list2.value.scrollTop = hoveredIndex.value * itemHeight;
-      }
+    let intervalId;
+    const updateHoveredIndex = () => {
+      const newIndex = localStorage.getItem("hoveredIndex");
+      hoveredIndex.value = newIndex !== null ? parseInt(newIndex) : null;
     };
 
     onMounted(() => {
-      hoveredIndex.value = localStorage.getItem('hoveredIndex') ? parseInt(localStorage.getItem('hoveredIndex')) : null;
-      scrollToHoveredItem();
+      updateHoveredIndex();
+      intervalId = setInterval(updateHoveredIndex, 500);
     });
 
+    onBeforeUnmount(() => {
+      clearInterval(intervalId);
+    });
+
+    // const hoveredIndex = ref(null);
+
+    // const itemRefs = ref([]);
+    // let intervalId;
 
 
-    watch(
-      () => localStorage.getItem('hoveredIndex'),
-      (newValue) => {
-        hoveredIndex.value = newValue ? parseInt(newValue) : null;
-        scrollToHoveredItem();
-      }
-    );
+    // const updateHoveredIndex = () => {
+    //   const storedIndex = localStorage.getItem("hoveredIndex");
+    //   hoveredIndex.value = storedIndex !== null ? parseInt(storedIndex) : null;
+    // };
 
+    // const scrollToItem = (index) => {
+    //   const itemElement = itemRefs.value[index];
+    //   if (itemElement) {
+    //     itemElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    //   }
+    // };
+
+
+    // const setItemRef = (el, index) => {
+    //   itemRefs.value[index] = el;
+    //   if (hoveredIndex.value === index) {
+    //     scrollToItem(index);
+    //   }
+    // };
+
+    // onMounted(() => {
+    //   updateHoveredIndex();
+    //   window.addEventListener("storage", updateHoveredIndex);
+    //   intervalId = setInterval(updateHoveredIndex, 500);
+    // });
+
+    // onBeforeUnmount(() => {
+    //   window.removeEventListener("storage", updateHoveredIndex);
+    //   clearInterval(intervalId);
+    // });
 
 
 </script>
@@ -321,20 +346,19 @@ const menuItems = [
   width: 5px;
   opacity: 0;
 }
-
 /* إظهار شريط التمرير عند التمرير */
 .custom-scroll:hover::-webkit-scrollbar,
 .custom-scroll:active::-webkit-scrollbar {
   opacity: 1;
 }
-
 /* نمط شريط التمرير */
 .custom-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
-
 .custom-scroll::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 4px;
 }
+
+
 </style>

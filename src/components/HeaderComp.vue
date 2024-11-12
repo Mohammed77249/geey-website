@@ -212,11 +212,11 @@
             <li
               v-for="(item, index) in menuItems"
               :key="index"
-              @mouseenter="showDropdown = true"
-              @mouseleave="showDropdown = false"
-              @mouseover="handleHover(index)"
-              :class="{'bg-blue-200': hoveredIndex === index}"
-              class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black  hover:bg-gray-100"
+              @mouseenter="handleMouseEnter(index)"
+              @mouseleave="handleMouseLeave"
+
+              :class="{'bg-blue-200': isHoeverItem === index}"
+              class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black  hover:bg-gray-100 transition-all duration-200"
             >
               {{ item.name }}
             </li>
@@ -263,7 +263,7 @@
         </div>
           <SidebarComp
           :isOpen="showDropdown"
-          :list="menuItems"
+
           :hoveritem="isHoeverItem"
         />
         </li>
@@ -279,10 +279,10 @@
 <script setup>
 import SidebarComp from './SidebarComp.vue'
 import { ref } from 'vue'
-const isHoeverItem = ref(null)
+const isHoeverItem = ref(null);
 const showDropdown = ref();
 
-const menuItems = [
+const menuItems = ref([
   { name: 'الملابس النسائية' },
   { name: 'الملابس الرجالية' },
   { name: 'الأطفال' },
@@ -305,12 +305,20 @@ const menuItems = [
   { name: 'مستلزمات الحيوانات' },
 
 
-]
+]);
 
-const handleHover = (index) => {
-
+const handleMouseEnter = (index) => {
+  showDropdown.value = true;
   localStorage.setItem('hoveredIndex', index);
 };
+
+const handleMouseLeave = () => {
+  isHoeverItem.value = null;
+  showDropdown.value = false;
+      localStorage.removeItem('hoveredIndex');
+      // localStorage.setItem("hoveredIndex", null);
+    };
+
 
 
 

@@ -1,6 +1,27 @@
 
 <template>
-  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+  <div class="pr-10 pl-10 max-w-screen-3xl mx-auto ">
+
+    <div>
+
+      <div class="bg-red-100  ">
+        mkdm
+      </div>
+
+      <div class="bg-blue-100">
+        nfvmkd
+      </div>
+
+      <div class="bg-yellow-100">
+        ljfk
+      </div>
+
+    </div>
+
+
+
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
     <div
       v-for="product in products"
       :key="product.id"
@@ -12,6 +33,11 @@
       <button class="mt-2 w-full bg-blue-500 text-white py-2 rounded-lg">أضف إلى السلة</button>
     </div>
   </div>
+
+
+  </div>
+
+
 </template>
 
 <script setup>
