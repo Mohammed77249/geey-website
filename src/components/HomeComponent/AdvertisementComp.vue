@@ -1,21 +1,21 @@
 <template>
-  <div class="grid grid-cols-12 mt-5 gap-5">
+  <div class="grid grid-cols-12 mt-5 gap-1 p-2 sm:p-0 sm:gap-5">
 
     <div class="col-span-3 rtl bg-[#F0DA97]  rounded-md ">
       <h1 class="p-2">اسعار منخفظة</h1>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-1 p-2">
+      <div class="grid grid-cols-3   gap-1 p-2">
       <ProductCard v-for="product in products" :key="product.id" :product="product" />
     </div>
     </div>
 
-    <div class="col-span-6 bg-blue-500 rounded-md">
-      <img src="/src/assets/Big Sale Banner.svg" class="object-cover rounded-md w-ull h-full" />
+    <div class="col-span-6 w-full h-80 sm:max-h-68  overflow-hidden   bg-blue-500 rounded-md">
+      <img src="/src/assets/images/Big Sale Banner.svg" class="object-cover w-full h-80 sm:h-full rounded" />
     </div>
 
-    <div class="col-span-3 bg-[#CA5BE533] rtl rounded-md">
+    <div class="col-span-3 bg-[#CA5BE533]  rtl rounded-md">
       <div>
         <h1 class="p-2">اهم الترندات</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-1 p-2">
+        <div class="grid grid-cols-3 gap-1 p-2">
       <ProductCard v-for="product in products" :key="product.id" :product="product" />
     </div>
       </div>

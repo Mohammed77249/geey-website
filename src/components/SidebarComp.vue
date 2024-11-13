@@ -127,7 +127,7 @@
               <div class="bg-white  p-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 rtl gap-6">
             <div class=" flex flex-col items-center">
               <div class="w-20 flex justify-center items-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
-                <img src="../assets/element-plus.svg" alt="no image" class="w-10  h-10 ">
+                <img src="../assets/images/element-plus.svg" alt="no image" class="w-10  h-10 ">
               </div>
                 <h3 class="text-center mt-2 text-[12px] font-sans text-gray-800">مشاهدة الكل</h3>
               </div>
@@ -170,7 +170,7 @@
               <div class=" w-full pt-4 grid grid-cols-2 sm:grid-cols-3 rtl gap-8">
                 <div class="flex flex-col items-center">
               <div class="w-20  flex  justify-center items-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
-                <img src="../assets/element-plus.svg" alt="no image" class="w-10  h-10 ">
+                <img src="../assets/images/element-plus.svg" alt="no image" class="w-10  h-10 ">
               </div>
                 <h3 class="text-center mt-2 text-[12px] font-sans text-gray-800">مشاهدة الكل</h3>
               </div>

@@ -1,5 +1,7 @@
 <template>
-  <LayoutMain />
+  <LayoutMain>
+      <RouterView/>
+    </LayoutMain>
 </template>
 
 <script setup>

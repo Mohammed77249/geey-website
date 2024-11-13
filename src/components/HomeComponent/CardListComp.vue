@@ -4,7 +4,7 @@
       <ul class="space-y-5">
         <li>
           <div
-            class=" p-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 rtl gap-6"
+            class=" p-5 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7  rtl gap-6"
           >
             <div
               v-for="(category, index) in categories"
@@ -29,7 +29,7 @@
 
 <script setup>
 const categories = [
-  { name: 'الأزياء النسائية', image: '/src/assets/Big Sale Banner.svg' },
+  { name: 'الأزياء النسائية', image: '/src/assets/images/Big Sale Banner.svg' },
   { name: 'الأزياء الرجالية', image: '/public/logogeey.svg' },
   { name: 'الأطفال', image: '/public/logogeey.svg' },
   { name: 'الإكسسوارات', image: '/public/logogeey.svg' },

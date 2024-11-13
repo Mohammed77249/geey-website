@@ -1,10 +1,10 @@
 <template>
-  <div class="container mx-auto ">
+  <div>
    <AdvertisementComp/>
    <CardListComp/>
    <DesplayAllComp/>
    <DayleDropComp/>
-
+   <ProductHome/>
   </div>
 </template>
 
@@ -13,6 +13,7 @@ import AdvertisementComp from '@/components/HomeComponent/AdvertisementComp.vue'
 import CardListComp from '@/components/HomeComponent/CardListComp.vue';
 import DayleDropComp from '@/components/HomeComponent/DayleDropComp.vue';
 import DesplayAllComp from '@/components/HomeComponent/DesplayAllComp.vue';
+import ProductHome from '@/components/HomeComponent/product/ProductHome.vue';
 
 
 </script>

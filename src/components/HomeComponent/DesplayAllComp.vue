@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5 bg-pink-100 h-96 mb-10 rounded-md">
+  <div class="mt-5 bg-pink-100 h-96 mb-10 rounded-md ">
 
     <div class="flex justify-between p-5">
       <h1>عرض المزيد</h1>

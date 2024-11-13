@@ -1,20 +1,14 @@
 <template>
-  <div class="flex">
-
-    <div class="flex-1">
-      <HeaderComp />
-      <!-- <NothingG/> -->
-     <RouterView/>
-     
-
+  <div>
+    <HeaderComp />
+    <main class="container mx-auto">
+      <slot />
+    </main>
+     <FooterComp/>
     </div>
-  </div>
 </template>
 
 <script setup>
-
-//import NothingG from '@/components/NothingG.vue';
-// import ProductGrid from '../components/ProductGrid.vue';
+import FooterComp from '@/components/FooterComp.vue';
 import HeaderComp from '@/components/HeaderComp.vue';
-
 </script>

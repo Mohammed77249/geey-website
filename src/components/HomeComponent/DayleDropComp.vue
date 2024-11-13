@@ -5,7 +5,7 @@
     </div>
 
     <div class=" flex justify-center   h-80 ">
-      <img src="/src/assets/Big Sale Banner.svg" class="object-cover  w-full h-full " />
+      <img src="/src/assets/images/Big Sale Banner.svg" class="object-cover  w-full h-full " />
     </div>
 
   </div>

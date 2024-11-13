@@ -85,7 +85,7 @@
             <span
               class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
             >
-              0
+              10
             </span>
           </div>
 
@@ -178,7 +178,7 @@
             >Geey</span
           >
           <img
-            src="../assets/logogeey.svg"
+            src="../assets/images/logogeey.svg"
             alt="SHEIN"
             class="h-8 w-8 2xl:h-16 2xl:w-16"
           />

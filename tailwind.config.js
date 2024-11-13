@@ -13,7 +13,7 @@ export default {
         'xl': '1280px',
         '2xl': '1536px',
         '3xl':'1920px',
-        '7xl':'100px'
+       
       },
 
       colors: {
@@ -69,7 +69,7 @@ export default {
           lg: '1024px',
           xl: '1200px',
           '2xl': '1367px',
-          
+
         }
       },
 
