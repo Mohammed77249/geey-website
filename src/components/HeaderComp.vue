@@ -1,5 +1,5 @@
 <template>
-  <header class="  bg-white shadow-md pr-10 pl-10 max-w-screen-3xl mx-auto ">
+  <header class="  bg-white shadow-md px-10 max-w-screen-3xl mx-auto ">
     <div class=" grid grid-cols-1">
 
       <div class="flex items-center justify-between ">
@@ -261,11 +261,15 @@
             </div>
           </div>
         </div>
+        <div>
           <SidebarComp
           :isOpen="showDropdown"
-
           :hoveritem="isHoeverItem"
+         
         />
+        </div>
+
+
         </li>
        </ul>
         </div>
@@ -316,8 +320,7 @@ const handleMouseLeave = () => {
   isHoeverItem.value = null;
   showDropdown.value = false;
       localStorage.removeItem('hoveredIndex');
-      // localStorage.setItem("hoveredIndex", null);
-    };
+  };
 
 
 

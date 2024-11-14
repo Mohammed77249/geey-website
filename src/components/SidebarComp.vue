@@ -110,10 +110,10 @@
   </div>
 </div> -->
 
-  <div>
-    <div v-if="isOpen" class="absolute left-0  border w-full h-[70%]   bg-white shadow-lg p-4 ">
+  <div >
+    <div v-if="isOpen"  class="absolute left-0 border w-full h-[70%]   bg-white shadow-lg p-4 ">
 
-      <div class="grid grid-cols-12 ">
+      <div  class="grid grid-cols-12 ">
 
         <!-- list of card 2 -->
         <div class="col-span-6  text-right  overflow-y-auto h-[50%]  rtl custom-scroll">
@@ -227,13 +227,14 @@ defineProps({
   isOpen: {
     type: Boolean,
     default: false,
-    required: true,
+
   },
 
   hoveritem: {
     type: String,
     default: '',
   },
+
 });
 
 const menuItems = ref([
@@ -329,6 +330,9 @@ const menuItems = ref([
     //   window.removeEventListener("storage", updateHoveredIndex);
     //   clearInterval(intervalId);
     // });
+
+
+
 
 
 </script>

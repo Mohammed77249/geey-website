@@ -10,7 +10,7 @@
               v-for="(category, index) in categories"
               :key="index"
               class="bg-white flex flex-col items-center"
-            >
+            >  <RouterLink to="/recommend">
               <img
                 :src="category.image"
                 :alt="category.name"
@@ -19,7 +19,9 @@
               <h3 class="text-center mt-2 text-[20px] font-sans text-gray-800">
                 {{ category.name }}
               </h3>
+            </RouterLink>
             </div>
+
           </div>
         </li>
       </ul>
