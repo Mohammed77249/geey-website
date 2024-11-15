@@ -1,64 +1,85 @@
 <template>
   <div>
 
-    <div class="grid grid-cols-12 overflow-y-auto  h-screen  gap-5  mt-10 px-10">
+    <div class="grid grid-cols-12  gap-5  mt-10 px-10">
       <div class="col-span-10">
-        <div class="rtl">
-          <div ref="dropDownStatus">
-          <button
-             class="text-[#979797]  w-[250px] h-[40px] border border-gray-900 bg-[#F5F6FA] font-medium rounded-lg text-[14px] px-5 py-2.5 text-center inline-flex items-center justify-between"
-            type="button"
-            @click="isDropdowenStatusVisable = true"
-            @mouseenter="isDropdowenStatusVisable = true"
-            @mouseleave="isDropdowenStatusVisable = false"
-          >
-          صنف ب {{ selectedStatus }}
+        <div class="rtl mt-16">
 
-
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              width="10px"
-              height="10px"
-              viewBox="0 0 10 6"
+          <div class="flex gap-5">
+            <div ref="dropDownStatus">
+            <button
+              class="text-[#979797]  w-[220px] h-[40px] border border-gray-900 bg-white font-medium rounded-lg text-[12px] px-5 py-2.5 text-center inline-flex items-center justify-between"
+              type="button"
+              @click="isDropdowenStatusVisable = true"
+              @mouseenter="isDropdowenStatusVisable = true"
+              @mouseleave="isDropdowenStatusVisable = false"
             >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 1 4 4 4-4"
-              />
-            </svg>
+              صنف ب <p class="text-black">{{ selectedStatus }}</p>
 
-          </button>
 
-          <!-- Dropdown menu -->
-          <div
-            @mouseenter="isDropdowenStatusVisable = true"
-            @mouseleave="isDropdowenStatusVisable = false"
-             class="z-50 absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-[250px]"
-              v-if="isDropdowenStatusVisable"
-          >
-            <ul
-              class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700"
-              aria-labelledby="dropdownSearchButton"
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                width="10px"
+                height="10px"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 1 4 4 4-4"
+                />
+              </svg>
+
+            </button>
+
+            <!-- Dropdown menu -->
+            <div
+              @mouseenter="isDropdowenStatusVisable = true"
+              @mouseleave="isDropdowenStatusVisable = false"
+              class="z-50 absolute bg-white divide-y  divide-gray-100 transition-all duration-300 rounded-lg shadow w-[220px]"
+                v-if="isDropdowenStatusVisable"
             >
-            <li v-for="(status, index) in statuses"
-              :key="index"
-              @click="toggleStatusSelect(status)">
-              <div class="flex items-center ps-2 rounded hover:bg-gray-100">
-                  <span
-                    for="checkbox-item-11"
-                    class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded"
-                    >{{ status }}</span>
+              <ul
+                class="h-48 px-3 pb-3 overflow-y-auto text-[12px] text-gray-700"
+                aria-labelledby="dropdownSearchButton"
+              >
+              <li v-for="(status, index) in statuses"
+                :key="index"
+                @click="toggleStatusSelect(status)">
+                <div class="flex items-center ps-2 rounded hover:bg-gray-100">
+                    <span
+                      for="checkbox-item-11"
+                      class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded"
+                      >{{ status }}</span>
+                  </div>
+              </li>
+              </ul>
+            </div>
+            </div>
+
+            <div>
+              <button type="button" class="bg-gray-50 h-[40px] w-[100px] hover:bg-gray-100 ">
+                <div class="flex items-center justify-between pe-1">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.40476 15.5264L8.93476 20.0564C10.7948 21.9164 13.8148 21.9164 15.6848 20.0564L20.0748 15.6664C21.9348 13.8064 21.9348 10.7864 20.0748 8.91637L15.5348 4.39637C14.5848 3.44637 13.2748 2.93637 11.9348 3.00637L6.93476 3.24637C4.93476 3.33637 3.34476 4.92637 3.24476 6.91637L3.00476 11.9164C2.94476 13.2664 3.45476 14.5764 4.40476 15.5264Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path opacity="0.4" d="M9.73486 12.2263C11.1156 12.2263 12.2349 11.107 12.2349 9.72632C12.2349 8.34561 11.1156 7.22632 9.73486 7.22632C8.35415 7.22632 7.23486 8.34561 7.23486 9.72632C7.23486 11.107 8.35415 12.2263 9.73486 12.2263Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"/>
+                <path opacity="0.4" d="M13.2349 17.2263L17.2349 13.2263" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p class="text-[13px]  font-semibold">بلاك فرايدي </p>
+
                 </div>
-            </li>
-            </ul>
-          </div>
-        </div>
 
+              </button>
+            </div>
+
+            <div>
+              <button type="button" class="bg-gray-50 hover:bg-gray-100  h-[40px] w-[80px] text-[13px] font-semibold text-[#BA68C8]"> ترندات</button>
+            </div>
+          </div>
         </div>
 
 

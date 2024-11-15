@@ -62,7 +62,7 @@ import { ref } from 'vue';
     <div class="relative w-full h-1 bg-gray-300 rounded-lg">
       <input
         type="range"
-        class="absolute appearance-none w-full h-1 outline-none bg-transparent pointer-events-none"
+        class="absolute appearance-none w-full  h-1 outline-none bg-transparent pointer-events-none"
         min="0"
         max="1000"
         step="1"
@@ -72,7 +72,7 @@ import { ref } from 'vue';
       />
       <input
         type="range"
-        class="absolute appearance-none w-full h-1 outline-none bg-transparent pointer-events-none"
+        class="absolute appearance-none w-full   h-1 outline-none bg-transparent pointer-events-none"
         min="0"
         max="1000"
         step="1"

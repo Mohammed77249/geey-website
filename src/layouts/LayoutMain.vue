@@ -1,11 +1,16 @@
 <template>
-  <div>
-    <HeaderComp />
-    <main class="">
+    <div class="flex flex-col min-h-screen">
+    <header class="">
+      <HeaderComp />
+    </header>
+    <main class="flex-grow p-4">
       <slot />
     </main>
-     <FooterComp/>
-    </div>
+    <footer class="mt-auto">
+      <FooterComp/>
+    </footer>
+  </div>
+
 </template>
 
 <script setup>

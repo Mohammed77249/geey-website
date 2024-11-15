@@ -207,7 +207,7 @@
         </div>
 
         <!-- list -->
-        <div class="max-w-8xl overflow-x-auto ">
+        <div ref=""  class="max-w-8xl overflow-x-auto ">
           <ul class="flex  gap-2 scrollable-list overflow-x-auto text-[12px] text-gray-600 font-sans" style="direction: rtl;">
             <li
               v-for="(item, index) in menuItems"
@@ -261,11 +261,11 @@
             </div>
           </div>
         </div>
-        <div>
+        <div @mouseenter="isOpen = true" @mouseleave="isOpen = false" >
           <SidebarComp
           :isOpen="showDropdown"
           :hoveritem="isHoeverItem"
-         
+
         />
         </div>
 
@@ -273,6 +273,7 @@
         </li>
        </ul>
         </div>
+
 
       </div>
 
@@ -282,7 +283,7 @@
 
 <script setup>
 import SidebarComp from './SidebarComp.vue'
-import { ref } from 'vue'
+import { ref,onMounted,onBeforeMount } from 'vue'
 const isHoeverItem = ref(null);
 const showDropdown = ref();
 
@@ -322,6 +323,22 @@ const handleMouseLeave = () => {
       localStorage.removeItem('hoveredIndex');
   };
 
+
+  const dropDownSidBar = ref(null)
+  const closeDropdowenSideBar = (element) => {
+
+    showDropdown.value = false
+  
+}
+
+  onMounted(() => {
+  window.addEventListener('click', closeDropdowenSideBar)
+})
+
+onBeforeMount(() => {
+  window.removeEventListener('click', closeDropdowenSideBar)
+
+});
 
 
 

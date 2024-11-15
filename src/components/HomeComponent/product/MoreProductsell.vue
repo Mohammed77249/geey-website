@@ -8,9 +8,9 @@
       :key="product.id"
       class="p-1 mt-4"
     >
-    <div class="cursor-pointer" @mouseenter="isHover = true" @mouseleave="isHover = false"  >
-      <img v-if="isHover"  :src="product.image2" alt="" class="w-full h-[280px] object-cover" />
-      <img v-else  :src="product.image" alt="" class="w-full h-[280px] object-cover" />
+    <div class="cursor-pointer w-[full] h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
+      <img :src="hoverId === product.id && isHover ? product.images[0] : product.images[1] "  alt="" class="w-full h-full object-cover transition duration-300 ease-in-out" />
+
     </div>
 
       <h3 class="font-semibold rtl text text-sm mt-1">{{ product.name }}</h3>
@@ -68,21 +68,28 @@ import { ref } from 'vue';
 
 
 const isHover = ref();
+const hoverId = ref(null);
 
+const onhover = (id)=>{
+  isHover.value = true;
 
- const products = [
-        { id: 1, name: 'منتج 1', price: 'ر.س 50', image: '/src/assets/images/Placeholder_01.svg' ,image2: '/src/assets/images/Placeholder_01 (1).svg' },
-        { id: 2, name: 'منتج 2', price: 'ر.س 60', image: '/src/assets/images/Placeholder_01 (1).svg',image2: '/src/assets/images/Placeholder_01.svg'  },
-        { id: 3, name: 'منتج 3', price: 'ر.س 70', image: '/src/assets/images/Placeholder_01.svg' ,image2: '/src/assets/images/Placeholder_01 (1).svg' },
-        { id: 4, name: 'منتج 3', price: 'ر.س 70', image: '/src/assets/images/Placeholder_01.svg' ,image2: '/src/assets/images/Placeholder_01 (1).svg' },
-        { id: 5, name: 'منتج 3', price: 'ر.س 70', image: '/src/assets/images/Placeholder_01.svg' ,image2: '/src/assets/images/Placeholder_01 (1).svg' },
-        { id: 6, name: 'منتج 3', price: 'ر.س 70', image: '/src/assets/images/Placeholder_01.svg' ,image2: '/src/assets/images/Placeholder_01 (1).svg' },
-        { id: 7, name: 'منتج 3', price: 'ر.س 70', image: '/src/assets/images/Placeholder_01.svg',image2: '/src/assets/images/Placeholder_01 (1).svg'  },
-        { id: 8, name: 'منتج 3', price: 'ر.س 70', image: '/src/assets/images/Placeholder_01.svg' ,image2: '/src/assets/images/Placeholder_01 (1).svg' },
-        { id: 9, name: 'منتج 3', price: 'ر.س 70', image: '/src/assets/images/Placeholder_01.svg' ,image2: '/src/assets/images/Placeholder_01 (1).svg' },
-        { id: 10, name: 'منتج 3', price: 'ر.س 70', image: '/src/assets/images/Placeholder_01.svg' ,image2: '/src/assets/images/Placeholder_01 (1).svg' },
-        { id: 11, name: 'منتج 3', price: 'ر.س 70', image: '/src/assets/images/Placeholder_01.svg' ,image2: '/src/assets/images/Placeholder_01 (1).svg' },
-        { id: 12, name: 'منتج 3', price: 'ر.س 70', image: '/src/assets/images/Placeholder_01.svg' ,image2: '/src/assets/images/Placeholder_01 (1).svg' },
+  hoverId.value= id;
+
+}
+
+const products = [
+        { id: 1, name: 'منتج 1', price: 'ر.س 50', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+        { id: 2, name: 'منتج 2', price: 'ر.س 60',images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+        { id: 3, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg' ],},
+        { id: 4, name: 'منتج 3', price: 'ر.س 70',images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+        { id: 5, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+        { id: 6, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+        { id: 7, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+        { id: 8, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+        { id: 9, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+        { id: 10, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+        { id: 11, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+        { id: 12, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
 
       ];
 
