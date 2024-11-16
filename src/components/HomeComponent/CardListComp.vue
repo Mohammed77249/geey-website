@@ -52,5 +52,6 @@ const categories = [
   { name: 'الأزياء النسائية', image: '/public/logogeey.svg' },
   { name: 'الأزياء الرجالية', image: '/public/logogeey.svg' },
   { name: 'الأطفال', image: '/public/logogeey.svg' },
-]
+];
+
 </script>

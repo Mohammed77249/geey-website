@@ -5,6 +5,8 @@
       <div class="flex items-center justify-between ">
         <!-- links -->
         <div class="flex space-x-6">
+
+           <!-- icon language -->
           <div class="cursor-pointer text-gray-700 hover:text-gray-900">
             <svg
               width="24"
@@ -51,9 +53,8 @@
                 />
               </g>
             </svg>
-
           </div>
-
+           <!-- icon سلة -->
           <div
             class="relative cursor-pointer text-gray-700 hover:text-gray-900"
           >
@@ -88,7 +89,7 @@
               10
             </span>
           </div>
-
+           <!-- icon likes or favoraite -->
           <div
             class="relative cursor-pointer text-gray-700 hover:text-gray-900"
           >
@@ -113,25 +114,84 @@
               0
             </span>
           </div>
-
+           <!-- icon user -->
           <div class="cursor-pointer text-gray-700 hover:text-gray-900">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="#292D32"
-              xmlns="http://www.w3.org/2000/svg"
+            <div class="relative flex items-center pr-4" >
+              <div ref="dropDownStatus">
+                <div
+              class=""
+              type="button"
+              @click="isDropdowenStatusVisable = true"
+              @mouseenter="isDropdowenStatusVisable = true"
+              @mouseleave="isDropdowenStatusVisable = false"
             >
-              <path
-                opacity="0.4"
-                d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"
-                fill="#292D32"
-              />
-              <path
-                d="M11.9999 14.5C6.98991 14.5 2.90991 17.86 2.90991 22C2.90991 22.28 3.12991 22.5 3.40991 22.5H20.5899C20.8699 22.5 21.0899 22.28 21.0899 22C21.0899 17.86 17.0099 14.5 11.9999 14.5Z"
-                fill="gray"
-              />
-            </svg>
+              <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="#292D32"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        opacity="0.4"
+                        d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"
+                        fill="#292D32"
+                      />
+                      <path
+                        d="M11.9999 14.5C6.98991 14.5 2.90991 17.86 2.90991 22C2.90991 22.28 3.12991 22.5 3.40991 22.5H20.5899C20.8699 22.5 21.0899 22.28 21.0899 22C21.0899 17.86 17.0099 14.5 11.9999 14.5Z"
+                        fill="gray"
+                      />
+              </svg>
+
+                </div>
+
+                <!-- Dropdown menu -->
+                <div
+                  @mouseenter="isDropdowenStatusVisable = true"
+                  @mouseleave="isDropdowenStatusVisable = false"
+                  class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow w-[140px]"
+                    v-if="isDropdowenStatusVisable"
+                >
+                <div class="px-4 py-3 text-[13px] font-medium text-black">
+                <div class="truncate rtl ">mohammed@..</div>
+                <div class="w-full h-[1px] mt-3 bg-gray-300"></div>
+                </div>
+                  <ul class="py-1 rtl text-[13px] text-gray-600 font-medium" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                         <li>
+                            <a href="#" class="block px-4 py-1  hover:bg-gray-100">ملفي الشخصي</a>
+                          </li>
+                            <li>
+                              <a href="#" class="block px-4 py-1  hover:bg-gray-100">طلبي</a>
+                            </li>
+                            <li>
+                              <a href="#" class="block px-4 py-1  hover:bg-gray-100">رسالتي</a>
+                            </li>
+                            <li>
+                              <a href="#" class="block px-4 py-1  hover:bg-gray-100">كوبوناتي</a>
+                            </li>
+                            <li>
+                              <a href="#" class="block px-4 py-1 hover:bg-gray-100">نقاطي</a>
+                            </li>
+                            <li>
+                              <a href="#" class="block px-4 py-1  hover:bg-gray-100">شوهد مؤخرا</a>
+                            </li>
+                            <li>
+                              <a href="#" class="block px-4 py-1 hover:bg-gray-100">المزيد من الخدمات </a>
+                            </li>
+
+                  </ul>
+                  <div class="w-full h-[1px] px-4  bg-gray-300"></div>
+                  <div class="py-1  ">
+                    <button   class="py-1 text-[13px] w-full font-medium text-gray-600 hover:bg-gray-100">
+                      تبديل الحساب
+                    </button>
+                    <button  @click="store.logout" class=" w-full py-1 font-medium text-[13px] text-gray-600 hover:bg-gray-100">
+                        تسجيل الخروج
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -207,7 +267,7 @@
         </div>
 
         <!-- list -->
-        <div ref=""  class="max-w-8xl overflow-x-auto ">
+        <div  class="max-w-8xl overflow-x-auto ">
           <ul class="flex  gap-2 scrollable-list overflow-x-auto text-[12px] text-gray-600 font-sans" style="direction: rtl;">
             <li
               v-for="(item, index) in menuItems"
@@ -283,9 +343,29 @@
 
 <script setup>
 import SidebarComp from './SidebarComp.vue'
-import { ref,onMounted,onBeforeMount } from 'vue'
+import { ref,onMounted ,onBeforeMount} from 'vue'
+import { useAuthStore } from "@/stores/auth"
 const isHoeverItem = ref(null);
 const showDropdown = ref();
+const store = useAuthStore()
+
+
+//user icon
+const dropDownStatus = ref(null)
+const isDropdowenStatusVisable = ref(false)
+const closeDropdowenStatus = (element) => {
+  if (!dropDownStatus.value.contains(element.target)) {
+    isDropdowenStatusVisable.value = false
+  }
+}
+onMounted(() => {
+  window.addEventListener('click', closeDropdowenStatus)
+})
+onBeforeMount(() => {
+  window.removeEventListener('click', closeDropdowenStatus)
+
+});
+
 
 const menuItems = ref([
   { name: 'الملابس النسائية' },
@@ -324,21 +404,21 @@ const handleMouseLeave = () => {
   };
 
 
-  const dropDownSidBar = ref(null)
-  const closeDropdowenSideBar = (element) => {
+  // const dropDownSidBar = ref(null)
+  // const closeDropdowenSideBar = (element) => {
 
-    showDropdown.value = false
-  
-}
+  //   showDropdown.value = false
 
-  onMounted(() => {
-  window.addEventListener('click', closeDropdowenSideBar)
-})
+// }
 
-onBeforeMount(() => {
-  window.removeEventListener('click', closeDropdowenSideBar)
+//   onMounted(() => {
+//   window.addEventListener('click', closeDropdowenSideBar)
+// })
 
-});
+// onBeforeMount(() => {
+//   window.removeEventListener('click', closeDropdowenSideBar)
+
+// });
 
 
 

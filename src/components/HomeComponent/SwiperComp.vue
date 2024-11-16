@@ -46,10 +46,11 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 
 import image1 from '@/assets/images/Big Sale Banner.svg';
-import image2 from '@/assets/images/logogeey.svg';
-import image3 from '@/assets/images/Placeholder_01.svg';
-import image4 from '@/assets/images/Placeholder_01 (1).svg';
-const images = ref([image1, image2,image3,image4]);
+import image2 from '@/assets/images/products/Mockup.svg';
+import image3 from '@/assets/images/products/Image (3).svg';
+import image4 from '@/assets/images/products/unsplash_jsgby4-zj44.svg';
+import image5 from '@/assets/images/products/unsplash_VpqI6WX6sEs.svg';
+const images = ref([image1, image2,image3,image4,image5]);
 const modules = [Pagination,Navigation,Autoplay]
 
 
