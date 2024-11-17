@@ -3,7 +3,7 @@
     <header v-show="authStore.isAuthenticated" class="">
       <HeaderComp />
     </header>
-    <main class="flex-grow ">
+    <main class="flex-grow">
       <slot />
     </main>
     <footer v-show="authStore.isAuthenticated" class="mt-auto">

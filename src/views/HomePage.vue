@@ -17,4 +17,5 @@ import DayleDropSection from './Home/DayleDropSection.vue';
 import DesplayAllSection from './Home/DesplayAllSection.vue';
 import ProductSection from './Home/ProductSection.vue';
 
+
 </script>

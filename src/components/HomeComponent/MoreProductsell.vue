@@ -2,17 +2,20 @@
 <template>
   <div class="mx-auto pl-2 pr-2  ">
 
-    <div class="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-1 ">
+  <div class="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-1 ">
     <div
       v-for="product in products"
       :key="product.id"
       class="p-1 mt-4"
     >
-    <div class="cursor-pointer w-[full] h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
+    <RouterLink :to="`/product/${product.id}`">
+      <div class="cursor-pointer w-[full] h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img :src="hoverId === product.id && isHover ? product.images[1] : product.images[0] "  alt="" class="w-full h-full object-cover transition duration-300 ease-in-out" />
     </div>
 
       <h3 class="font-semibold rtl text text-sm mt-1">{{ product.name }}</h3>
+    </RouterLink>
+
 
     <div class="flex items-center justify-between">
       <div class="cursor-pointer w-10 flex items-center justify-center border border-black rounded-full">

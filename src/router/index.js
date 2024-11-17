@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomePage.vue'
-import RecommendView from '@/views/RecommendPage.vue'
-import LoginPage from '@/views/LoginPage.vue'
+import LoginPage from '@/views/auth/LoginPage.vue'
 import NotFoundPage from '@/views/NotFoundPage.vue'
 import { useAuthStore } from '@/stores/auth'
+import LoginEmailPage from '@/views/auth/LoginEmailPage.vue'
+import RecommendPage from '@/views/RecommendPage.vue'
+import HomePage from '../views/HomePage.vue'
+import ProductDetailsPage from '@/views/ProductDetailsPage.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -13,26 +15,33 @@ const router = createRouter({
       name: 'login',
       component: LoginPage,
     },
+
     {
-      path: '/',
-      name: 'home',
-      component: HomeView,
-      beforeEnter: (to, from, next) => {
-        const authStore = useAuthStore();
-        if (authStore.isAuthenticated) {
-          next(
-          );
-        } else {
-          next('/user/login');
-        }
-      },
+      path: '/user/loginemail',
+      name: 'loginemail',
+      component: LoginEmailPage,
 
     },
     {
-      name: 'recommend',
-      path: '/recommend',
-      component: RecommendView,
+      path: '/',
+      name: 'home',
+      component: HomePage,
+      meta: { requiresAuth: true },
     },
+    {
+      name: 'Recommend',
+      path: '/recommend',
+      component: RecommendPage,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/product/:id',
+      name: 'ProductDetails',
+      component: ProductDetailsPage,
+      meta: { requiresAuth: true },
+    },
+
+
 
 
     // Catch-All Route for 404 Not Found
@@ -42,6 +51,15 @@ const router = createRouter({
     component: NotFoundPage,
   },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next('/user/login');
+  } else {
+    next();
+  }
 });
 
 export default router

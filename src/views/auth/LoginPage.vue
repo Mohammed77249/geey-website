@@ -4,7 +4,7 @@
     <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-10">
       <div class="mb-5">
         <div class="flex items-center justify-center gap-2">
-          <h1 class="text-3xl font-bold text-gray-800  text-center">Geey </h1>
+          <h1 class="text-3xl font-bold text-gray-800  text-center">Jeey </h1>
           <img src="/src/assets/images/logogeey.svg" class="w-20 h-16" />
         </div>
 
@@ -52,7 +52,7 @@
         <!-- Login Button -->
         <button
           type="submit"
-          class="w-full bg-black text-white py-5 mt-10 font-bold  transition duration-300"
+          class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
         >
           تسجيل الدخول
         </button>
@@ -104,8 +104,8 @@ const router = useRouter();
 
 const handleLogin = () => {
   if (email.value === 'mohammed@gmail.com' ) {
-    authStore.isAuthenticated = true;
-    router.push('/');
+    authStore.login('true');
+    router.push('/user/loginemail');
   } else {
     alert('Invalid credentials');
   }
