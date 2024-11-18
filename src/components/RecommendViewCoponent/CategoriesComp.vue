@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div>
+      <div>
         <div
             id="dropdownTop"
            class="mt-5"
@@ -27,7 +27,7 @@
               </svg>
               </li>
             </ul>
-          </div>
+        </div>
       </div>
 </div>
 </template>

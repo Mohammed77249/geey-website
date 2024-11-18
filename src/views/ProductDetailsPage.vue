@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 px-32 min-h-screen rtl">
+  <div class=" px-32 min-h-screen rtl">
     <!-- العنوان -->
     <div class=" py-4 border-b">
       <div class="container mx-auto px-4">
@@ -28,22 +28,41 @@
             />
           </div>
         </div>
+
         <div class="mt-10 mb-10">
-          التعليقات
+          <div class="mb-5">
+          <div class="flex items-center justify-between mb-5">
+            <h1 class="font-semibold text-xl"> مراجعات العملاء   (1000+)</h1>
+            <RouterLink :to="`/product/${productId}/comments`">
+              <div class="flex items-center">
+              <h1 class="text-gray-500 font-medium">الاراء الكاملة</h1>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="gray" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            </RouterLink>
+          </div>
 
-          <div class="w-full h-52 mb-5  bg-red-500">
+          <HeaderCommentsComp :isMain="true" />
+        </div>
+
+        <!-- comments -->
+          <CommentComp :commentList="listContentComment"  />
+          <CommentComp :commentList="listContentComment"  />
+          <CommentComp :commentList="listContentComment"  />
+
+          <div>
+
+              <RouterLink :to="`/product/${productId}/comments`">
+                <div class="flex items-center justify-center gap-1">
+                    <h1 class="font-semibold text-sm">عرض تقييمات جميع العملاء</h1>
+                    <img class="w-[20px] " src="/src/assets/images/arrow-left.svg" />
+                </div>
+              </RouterLink>
+
 
           </div>
 
-          <div class="w-full h-64 mb-5 bg-green-500">
-
-          </div>
-          <div class="w-full h-64 mb-5 bg-green-500">
-
-          </div>
-          <div class="w-full h-64 mb-5 bg-green-500">
-
-          </div>
         </div>
       </div>
 
@@ -122,6 +141,12 @@
 
 <script setup>
 import { ref } from "vue";
+import CommentComp from '../components/Comments/CommentComp.vue';
+import HeaderCommentsComp from '../components/Comments/HeaderComentsComp.vue';
+import { useRoute } from 'vue-router';
+const route = useRoute();
+const productId = route.params.id;
+
 const product = ref({
   name: "اسم المنتج",
   description: "هذا هو وصف المنتج بشكل مفصل.",
@@ -140,6 +165,42 @@ const product = ref({
   sizes: ["S", "M", "L", "XL"],
 });
 
+
+const listContentComment = ref([
+  {
+    title:"حجم التمثال",
+    subtitle: "us 30/EUR 65",
+  },
+  {
+    title:"خصر ",
+    subtitle: "cm/23 in 59",
+  },
+  {
+    title:"طول",
+    subtitle: "cm/62 in 165",
+  },
+  {
+    title:"الوزن",
+    subtitle: "kg/130 lbs 70",
+  },
+  {
+    title:"الوركين",
+    subtitle: "cm/30 in 80",
+  },
+  {
+    title:"المقاس العام",
+    subtitle: "مناسب",
+  },
+  {
+    title:"لون",
+    subtitle: "زمغدجي",
+  },
+  {
+    title:"مقاس",
+    subtitle: "XL",
+  },
+
+])
 
 const similarProducts = ref([
   {

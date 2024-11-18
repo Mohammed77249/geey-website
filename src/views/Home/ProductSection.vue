@@ -69,4 +69,5 @@ const taggleActiveMoreSellsProduct = () => {
   onclickLowProduct.value = onclickLowProduct.value = false
   onclickMoreSellsProduct.value = onclickMoreSellsProduct.value = true
 }
+
 </script>

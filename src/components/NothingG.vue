@@ -215,3 +215,82 @@ button:focus-visible {
   outline: 2px solid #ff6f61;
 }
 </style>
+
+
+
+
+<!-- switch kjldkjfjjfj -->
+
+<template>
+  <div class="p-6">
+    <!-- Toggle Switch -->
+    <div class="flex justify-center space-x-4 mb-6">
+      <button
+        v-for="(type, index) in commentTypes"
+        :key="index"
+        @click="switchCommentType(type)"
+        :class="[
+          'px-4 py-2 rounded-md transition-all',
+          activeType === type
+            ? 'bg-black text-white'
+            : 'bg-gray-200 text-gray-600'
+        ]"
+      >
+        {{ type }}
+      </button>
+    </div>
+
+    <!-- Comments Section -->
+    <div>
+      <h2 class="text-xl font-semibold mb-4">{{ activeType }} Comments</h2>
+      <div
+        v-if="filteredComments.length"
+        class="space-y-4"
+      >
+        <div
+          v-for="(comment, index) in filteredComments"
+          :key="index"
+          class="p-4 border rounded-md bg-white shadow-sm"
+        >
+          <p class="text-gray-800">{{ comment.text }}</p>
+          <div class="text-sm text-gray-500 mt-2">- {{ comment.author }}</div>
+        </div>
+      </div>
+      <div v-else class="text-gray-500">No comments available for this type.</div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+// Comment types
+const commentTypes = ['All Comments', 'Positive', 'Negative', 'Neutral'];
+
+// Active comment type
+const activeType = ref('All Comments');
+
+// Sample comments data
+const allComments = ref([
+  { text: 'Amazing product! Highly recommend.', author: 'User1', type: 'Positive' },
+  { text: 'Not satisfied with the quality.', author: 'User2', type: 'Negative' },
+  { text: 'It’s okay, nothing special.', author: 'User3', type: 'Neutral' },
+  { text: 'Excellent customer service!', author: 'User4', type: 'Positive' },
+]);
+
+// Computed filtered comments
+const filteredComments = ref(allComments.value);
+
+// Switch comment type
+const switchCommentType = (type) => {
+  activeType.value = type;
+  if (type === 'All Comments') {
+    filteredComments.value = allComments.value;
+  } else {
+    filteredComments.value = allComments.value.filter(
+      (comment) => comment.type === type
+    );
+  }
+};
+</script>
+

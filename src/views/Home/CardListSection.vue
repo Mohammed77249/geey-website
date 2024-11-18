@@ -10,7 +10,7 @@
               v-for="(category, index) in categories"
               :key="index"
               class="bg-white flex flex-col items-center"
-            >  <RouterLink to="/recommend">
+            >  <RouterLink :to="`/recommend/${category.name}`">
               <img
                 :src="category.image"
                 :alt="category.name"

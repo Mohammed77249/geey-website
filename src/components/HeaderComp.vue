@@ -235,7 +235,7 @@
         <!-- logo-->
         <div class="flex items-center space-x-2 cursor-pointer">
           <span class="text-2xl 2xl:text-4xl font-bold text-gray-800"
-            >Geey</span
+            >Jeey</span
           >
           <img
             src="../assets/images/logogeey.svg"

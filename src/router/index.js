@@ -6,6 +6,7 @@ import LoginEmailPage from '@/views/auth/LoginEmailPage.vue'
 import RecommendPage from '@/views/RecommendPage.vue'
 import HomePage from '../views/HomePage.vue'
 import ProductDetailsPage from '@/views/ProductDetailsPage.vue'
+import CommentsPage from '@/views/CommentsPage.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -30,7 +31,7 @@ const router = createRouter({
     },
     {
       name: 'Recommend',
-      path: '/recommend',
+      path: '/recommend/:name',
       component: RecommendPage,
       meta: { requiresAuth: true },
     },
@@ -38,6 +39,12 @@ const router = createRouter({
       path: '/product/:id',
       name: 'ProductDetails',
       component: ProductDetailsPage,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/product/:id/comments',
+      name: 'ProductComments',
+      component: CommentsPage,
       meta: { requiresAuth: true },
     },
 
