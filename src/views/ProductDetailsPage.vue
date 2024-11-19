@@ -60,7 +60,6 @@
                 </div>
               </RouterLink>
 
-
           </div>
 
         </div>
@@ -69,42 +68,234 @@
 
       <!-- product details  -->
        <div class="col-span-4">
-        <div class="bg-blue-500 w-full h-40 mb-5 ">
 
-        </div>
+        <!-- الاسم والسعر -->
+        <div class=" w-full h-28 mb-5">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-medium">فستان بجامة بحمالات متقاطعة مطبوعة بزهري على سالين للنوم</p>
 
-        <div class=" bg-gray-700 h-80 mb-5">
-          <h2 class="text-3xl font-bold mb-2">{{ product.name }}</h2>
-        <p class="text-gray-600 mb-4">{{ product.description }}</p>
-        <p class="text-2xl font-semibold text-red-500 mb-6">
-          {{ product.price }}$
-        </p>
-        <div class="mb-6">
-          <h3 class="text-lg font-bold mb-2">اختر الحجم:</h3>
-          <div class="flex gap-3">
-            <button
-              v-for="(size, index) in product.sizes"
-              :key="index"
-              class="py-2 px-4 border rounded-md hover:bg-gray-100"
-            >
-              {{ size }}
-            </button>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 9.98V9C2 4 4 2 9 2H15C20 2 22 4 22 9V15C22 20 20 22 15 22H14" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M13 11.0005L18.01 5.98047H14" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18.0098 5.98047V9.99047" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path  d="M11 16.15V18.85C11 21.1 10.1 22 7.85 22H5.15C2.9 22 2 21.1 2 18.85V16.15C2 13.9 2.9 13 5.15 13H7.85C10.1 13 11 13.9 11 16.15Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <div class="flex items-center gap-1">
+            <p class="text-[10px] text-gray-400">12684532486586453218451</p>
+            <div class="flex items-center gap-1">
+                  <span class="flex text-yellow-500">
+                    <i> <img class="w-3"  src="/src/assets/images/star.svg"/></i>
+                    <i> <img class="w-3" src="/src/assets/images/star.svg"/></i>
+                    <i> <img class="w-3" src="/src/assets/images/star.svg"/></i>
+                    <i> <img class="w-3" src="/src/assets/images/star.svg"/></i>
+                    <i> <img class="w-3" src="/src/assets/images/star.svg"/></i>
+                  </span>
+                  <h1 class=" font-medium text-[10px] text-yellow-600">(1000+تعليقات)</h1>
+                </div>
+
+          </div>
+          <div>
+            <p class="text-sm bg-purple-400 w-20 text-white">صيحات الموضة</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <p class="text-lg text-orange-700">SR12.75</p>
+            <p class="text-xs">SR1500</p>
+            <div class="w-7 h-5 flex items-center justify-center bg-black">
+              <p class="text-xs  text-white ">15-</p>
+            </div>
+
+          </div>
+
+          <div class="flex items-center gap-1 bg-amber-100">
+            <p class="text-sm font-semibold text-amber-600 ">رقم 7 الافضل مبيعا </p>
+            <p class="text-xs text-amber-600">في فساتين نوم بطباعه ازهلر</p>
           </div>
         </div>
 
-        <button
-          @click="addToCart"
-          class="w-full bg-red-500 text-white py-3 rounded-lg text-lg font-bold hover:bg-red-600 transition"
-        >
-          أضف إلى السلة
-        </button>
+        <!-- المقاس وزر الاضافة -->
+        <div class=" border-t-2 max-h-64 h-full   mb-5">
+          <div class="mb-1">
+            <div class="flex items-center gap-1 mb-5 mt-5">
+              <h3 class="text-lg font-semibold ">المقاس</h3>
+              <div ref="dropDownSize">
+              <button
+                class="text-[#979797]  w-[90px] h-[25px] border border-gray-900 bg-gray-50 font-medium rounded-full text-[14px] px-3 text-center inline-flex items-center justify-between"
+                type="button"
+                @click="isDropdowenSizeVisable = true"
+                @mouseenter="isDropdowenSizeVisable = true"
+                @mouseleave="isDropdowenSizeVisable = false"
+              >
+                المقاس <p class="text-black">{{ selectedSize }}</p>
+
+
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  width="10px"
+                  height="10px"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 1 4 4 4-4"
+                  />
+                </svg>
+
+              </button>
+
+              <!-- Dropdown menu -->
+              <div
+                @mouseenter="isDropdowenSizeVisable = true"
+                @mouseleave="isDropdowenSizeVisable = false"
+                class="z-50 absolute bg-white divide-y  divide-gray-100 transition-all duration-300 rounded-lg shadow w-[220px]"
+                  v-if="isDropdowenSizeVisable"
+              >
+                <ul
+                  class="h-48 px-3 pb-3 overflow-y-auto text-[12px] text-gray-700"
+                  aria-labelledby="dropdownSearchButton"
+                >
+                <li v-for="(size, index) in sizes"
+                  :key="index"
+                  @click="toggleSizeSelect(size)">
+                  <div class="flex items-center ps-2 cursor-pointer rounded hover:bg-gray-100">
+                      <span
+                        for="checkbox-item-11"
+                        class="w-full py-2 ms-2 cursor-pointer text-sm font-medium text-gray-900 rounded"
+                        >{{ size }}</span>
+                    </div>
+                </li>
+                </ul>
+              </div>
+
+              </div>
+            </div>
+            <!-- الاحجام -->
+            <div class="flex gap-1">
+              <button
+                v-for="(size, index) in product.sizes"
+                :key="index"
+                class="py-1 cursor-pointer  px-7 border rounded-full hover:bg-gray-100"
+              >
+                {{ size }}
+              </button>
+            </div>
+            <!-- مرجع المقاس -->
+            <div class="mt-5 h-10 ">
+              <div @click="openDialog" class="flex items-center gap-1 hover:underline ">
+                <img class="cursor-pointer" src="/src/assets/images/cart.svg"/>
+                <p class="text-blue-800 cursor-pointer" >مرجع المقاس</p>
+              </div>
+               <!-- Dialog Component -->
+            <DialogComp
+              :isOpen="isDialogOpen"
+              title="Confirmation"
+              @close="closeDialog"
+              @confirm="handleConfirm"
+            >
+              <p>Are you sure you want to proceed with this action?</p>
+            </DialogComp>
+
+            </div>
+
+          </div>
+          <!--  -->
+          <div class="flex items-center gap-1">
+            <button
+              @click="addToCart"
+              class="max-w-[350px] w-full bg-primary-900 text-white py-3 text-lg font-bold hover:bg-primary-800 transition"
+            >
+              أضف إلى السلة
+            </button>
+            <div class="w-[80px]  py-3 rounded-full border flex items-center justify-center">
+              <img class="w-10" src="/src/assets/images/heart.svg"/>
+            </div>
+          </div>
+          <p class="text-sm">اكسب حتى 3 نقاط جي ان يتم احتسابها عند الدفع.</p>
         </div>
 
-        <div class="bg-blue-500 w-full h-72 mb-5 ">
+        <!-- شحن مجاني  -->
+        <div class="bg-gray-100 w-full h-72 mb-5 p-5 ">
 
+          <div class="mb-3">
+            <div class="flex items-center gap-1">
+              <img src="/src/assets/images/truck-fast.svg" />
+              <p class="font-semibold" >شحن مجاني</p>
+              <img class="w-4 h-5 " src="/src/assets/images/message-question.svg" />
+            </div>
+
+            <div class="pr-7">
+              <p class="text-sm text-gray-600">شحن سريع مجاني للطلبات اكثر من SR334.50</p>
+            <p class="text-sm text-gray-600">تاريخ التوصيل المحتمل في 2024/11/28 - 2024/11/26 </p>
+            </div>
+
+          </div>
+
+          <div class="mb-3">
+            <div class="flex items-center gap-1">
+              <img src="/src/assets/images/dollar-square.svg" />
+              <p class="font-semibold">خدمة الدفع عند الاستلام</p>
+              <img class="w-4 h-5 " src="/src/assets/images/message-question.svg" />
+            </div>
+            <div class="pr-7">
+              <p class="text-sm text-gray-600">لمعرفة اكثر</p>
+            </div>
+
+          </div>
+
+          <div class="mb-3">
+            <div class="flex items-center gap-1">
+              <img src="/src/assets/images/clipboard-export.svg" />
+              <p class="font-semibold"> سياسة الارجاع</p>
+              <img class="w-4 h-5 " src="/src/assets/images/message-question.svg" />
+            </div>
+            <div class="pr-7">
+              <p class="text-sm text-gray-600">لمعرفة اكثر</p>
+            </div>
+
+          </div>
+
+          <div class="mb-3">
+            <div class="flex items-center  justify-between">
+              <div class="flex items-center gap-1">
+                <img src="/src/assets/images/shield-security.svg" />
+              <p class="font-semibold">امن التسوق</p>
+              <img class="w-4 h-5 " src="/src/assets/images/message-question.svg" />
+              </div>
+              <p placeholder="<1/2>" > </p>
+            </div>
+            <div class="pr-5 mt-2 flex items-center gap-1">
+              <div class="flex items-center ">
+                <img class="w-4" src="/src/assets/images/copy-success.svg" />
+                <p class="text-xs text-gray-600">طرق دفع امنة  </p>
+              </div>
+              <div class="flex">
+                <img class="w-4" src="/src/assets/images/copy-success.svg" />
+                <p class="text-xs text-gray-600">شحن امن</p>
+              </div>
+              <div class="flex">
+                <img class="w-4" src="/src/assets/images/copy-success.svg" />
+                <p class="text-xs text-gray-600">خدمة العملاء</p>
+              </div>
+
+              <div class="flex">
+                <img class="w-4" src="/src/assets/images/copy-success.svg" />
+                <p class="text-xs text-gray-600">حماية الخصوصية</p>
+              </div>
+
+            </div>
+
+          </div>
         </div>
 
         <div class="bg-blue-500 w-full h-[1020px] mb-5 ">
+
+
 
         </div>
 
@@ -140,10 +331,11 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref,onMounted,onBeforeMount } from "vue";
 import CommentComp from '../components/Comments/CommentComp.vue';
 import HeaderCommentsComp from '../components/Comments/HeaderComentsComp.vue';
 import { useRoute } from 'vue-router';
+import DialogComp from "@/components/DialogComp.vue";
 const route = useRoute();
 const productId = route.params.id;
 
@@ -162,7 +354,7 @@ const product = ref({
 
 
   ],
-  sizes: ["S", "M", "L", "XL"],
+  sizes: ["55(S)", "32(M)", "89(L)", "74(XL)"],
 });
 
 
@@ -288,6 +480,45 @@ const similarProducts = ref([
 
 const addToCart = () => {
   alert("تمت إضافة المنتج إلى السلة!");
+};
+
+
+const sizes = ['BR','EU ', 'DE', 'SG', 'AU', 'JP','UK','IT','MX','FR','ES','CA','US'];
+const dropDownSize = ref(null)
+const selectedSize = ref('UL')
+const isDropdowenSizeVisable = ref(false)
+const toggleSizeSelect = (size) => {
+  selectedSize.value = size
+  isDropdowenSizeVisable.value = false
+}
+const closeDropdowenSize = (element) => {
+  if (!dropDownSize.value.contains(element.target)) {
+    isDropdowenSizeVisable.value = false
+  }
+}
+onMounted(() => {
+  window.addEventListener('click', closeDropdowenSize)
+})
+onBeforeMount(() => {
+  window.removeEventListener('click', closeDropdowenSize)
+
+});
+
+
+
+const isDialogOpen = ref(false);
+
+const openDialog = () => {
+  isDialogOpen.value = true;
+};
+
+const closeDialog = () => {
+  isDialogOpen.value = false;
+};
+
+const handleConfirm = () => {
+  alert("Action confirmed!");
+  closeDialog();
 };
 </script>
 
