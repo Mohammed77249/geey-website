@@ -77,13 +77,13 @@
           class="w-full flex items-center justify-center px-4 py-2 border border-gray-500 transition"
         >
           <img src="/src/assets/images/google-icon.svg" alt="Google" class="w-5 h-5 mr-2" />
-          تسجيل الدخول باستخدام Google
+            Google  الاستمرار ب
         </button>
         <button
           class="w-full flex items-center justify-center px-4 py-2 border border-gray-500  transition"
         >
           <img src="/src/assets/images/facebook-icon.svg" alt="Facebook" class="w-5 h-5 mr-2" />
-          تسجيل الدخول باستخدام Facebook
+            Facebook  الاستمرار ب 
         </button>
       </div>
     </div>

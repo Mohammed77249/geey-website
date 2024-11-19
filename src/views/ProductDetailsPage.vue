@@ -293,11 +293,62 @@
           </div>
         </div>
 
-        <div class="bg-blue-500 w-full h-[1020px] mb-5 ">
 
+        <!-- الوصف و .... -->
+        <div class=" w-full  mb-5 mt-10 ">
+          <!-- الوصف -->
+          <div>
+            <div class="flex items-center justify-between ">
+            <p class="font-bold text-[15px]">وصف</p>
+            <button type="button"  @click="isDropdowenDescriptionVisable = !isDropdowenDescriptionVisable">
+              <svg v-if="!isDropdowenDescriptionVisable" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path  d="M6 12H18" stroke="#292D32" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 18V6" stroke="#292D32" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <svg v-if="isDropdowenDescriptionVisable" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 12H18" stroke="#292D32" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <DescriptionComp :types="types" :isDropdowenVisable="isDropdowenDescriptionVisable"/>
+          </div>
 
+          <!-- المقاس -->
+          <div>
+            <div class="flex items-center justify-between py-5 ">
+            <p class="font-bold text-[15px]">المقاس وصالح</p>
+            <button type="button"  @click="isDropdowenSize2Visable = !isDropdowenSize2Visable">
+              <svg v-if="!isDropdowenSize2Visable" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path  d="M6 12H18" stroke="#292D32" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 18V6" stroke="#292D32" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <svg v-if="isDropdowenSize2Visable" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 12H18" stroke="#292D32" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <SizeProDetailsComp :types="types" :isDropdowenVisable="isDropdowenSize2Visable"/>
+          </div>
+
+          <!-- حول المتجر -->
+          <div>
+            <div class="flex items-center justify-between py-5">
+            <p class="font-bold text-[15px]">حول المتجر </p>
+            <button type="button"  @click="isDropdowenAboutStoreVisable = !isDropdowenAboutStoreVisable">
+              <svg v-if="!isDropdowenAboutStoreVisable" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path  d="M6 12H18" stroke="#292D32" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 18V6" stroke="#292D32" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <svg v-if="isDropdowenAboutStoreVisable" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 12H18" stroke="#292D32" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <AboutStoreComp :types="types" :isDropdowenVisable="isDropdowenAboutStoreVisable"/>
+          </div>
 
         </div>
+
 
 
       </div>
@@ -309,20 +360,9 @@
     <div class="bg-white py-8 mb-10">
       <div class="container mx-auto px-4">
         <h3 class="text-xl font-bold mb-4"> ماينظر الية الاخرون</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div
-            v-for="(item, index) in similarProducts"
-            :key="index"
-            class="bg-white shadow-md rounded-lg p-4"
-          >
-            <img
-              :src="item.image"
-              alt="Similar Product"
-              class="w-full h-40 object-cover rounded-md"
-            />
-            <h4 class="text-sm font-semibold mt-2">{{ item.name }}</h4>
-            <p class="text-red-500 font-bold">{{ item.price }}$</p>
-          </div>
+        <div>
+          <MoreProductDetailsComp/>
+
         </div>
       </div>
     </div>
@@ -336,8 +376,17 @@ import CommentComp from '../components/Comments/CommentComp.vue';
 import HeaderCommentsComp from '../components/Comments/HeaderComentsComp.vue';
 import { useRoute } from 'vue-router';
 import DialogComp from "@/components/DialogComp.vue";
+import DescriptionComp from "@/components/ProductDetailsComponent/DescriptionComp.vue";
+import SizeProDetailsComp from "@/components/ProductDetailsComponent/SizeProDetailsComp.vue";
+import AboutStoreComp from "@/components/ProductDetailsComponent/AboutStoreComp.vue";
+import MoreProductDetailsComp from "@/components/ProductDetailsComponent/MoreProductDetailsComp.vue";
 const route = useRoute();
 const productId = route.params.id;
+const isDropdowenDescriptionVisable = ref(false);
+const isDropdowenSize2Visable = ref(false);
+const isDropdowenAboutStoreVisable = ref(false);
+
+
 
 const product = ref({
   name: "اسم المنتج",
@@ -394,88 +443,7 @@ const listContentComment = ref([
 
 ])
 
-const similarProducts = ref([
-  {
-    name: "منتج مشابه 1",
-    price: 29.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 2",
-    price: 19.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 3",
-    price: 39.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    name: "منتج مشابه 4",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
-  },
-]);
+
 
 
 const addToCart = () => {

@@ -35,5 +35,6 @@ defineProps({
     type: [],
     default: [],
   },
-})
+});
+
 </script>

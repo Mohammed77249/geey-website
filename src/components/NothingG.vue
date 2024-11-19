@@ -372,3 +372,214 @@ const confirm = () => {
   emit("confirm");
 };
 </script>
+
+
+
+
+<!-- قؤاءه المزيد -->
+
+<template>
+  <div class="p-6 bg-white shadow-md rounded-lg max-w-4xl mx-auto">
+    <!-- العنوان -->
+    <h2 class="text-xl font-bold text-gray-800 mb-4">وصف المنتج</h2>
+
+    <!-- النص -->
+    <p class="text-gray-700 leading-relaxed mb-4">
+      هذا المنتج مصنوع من مواد عالية الجودة ويوفر لك الراحة والأناقة. يتميز بتصميم عصري يناسب جميع الأذواق.
+    </p>
+
+    <!-- قائمة مواصفات -->
+    <ul class="list-disc list-inside text-gray-700 mb-6">
+      <li>مصنوع من القطن بنسبة 100%</li>
+      <li>متوفر بألوان وأحجام متعددة</li>
+      <li>تصميم مناسب لجميع المواسم</li>
+    </ul>
+
+    <!-- تفاصيل إضافية (Accordion) -->
+    <div class="border-t border-gray-300 pt-4">
+      <button
+        @click="toggleDetails"
+        class="flex items-center text-blue-500 font-medium hover:text-blue-600 focus:outline-none">
+        <span>تفاصيل إضافية</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          :class="{'rotate-180': showDetails}"
+          class="w-5 h-5 ml-2 transform transition-transform"
+          viewBox="0 0 20 20"
+          fill="currentColor">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </button>
+
+      <div v-if="showDetails" class="mt-4 text-gray-700 leading-relaxed">
+        <p>
+          تم تصميم المنتج بعناية فائقة باستخدام أفضل التقنيات الحديثة لضمان جودة طويلة الأمد. يمكن استخدامه في جميع المناسبات والأنشطة اليومية.
+        </p>
+        <p>طريقة العناية: يُغسل بالماء البارد ويُجفف في الظل.</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { ref } from "vue";
+
+export default {
+  setup() {
+    // حالة إظهار التفاصيل الإضافية
+    const showDetails = ref(false);
+
+    // تبديل حالة العرض
+    const toggleDetails = () => {
+      showDetails.value = !showDetails.value;
+    };
+
+    return { showDetails, toggleDetails };
+  },
+};
+</script>
+
+<style scoped>
+/* أي تعديلات مخصصة هنا */
+</style>
+
+
+
+
+<!-- swipper -->
+
+<template>
+  <div class="container mx-auto px-4 py-6">
+    <!-- تبويبات الوصف -->
+    <div class="border-b border-gray-200 mb-6">
+      <nav class="-mb-px flex space-x-4" aria-label="Tabs">
+        <button
+          @click="activeTab = 'description'"
+          :class="activeTab === 'description' ? activeTabClass : inactiveTabClass"
+          class="py-4 px-1 text-sm font-medium"
+        >
+          الوصف
+        </button>
+        <button
+          @click="activeTab = 'specifications'"
+          :class="activeTab === 'specifications' ? activeTabClass : inactiveTabClass"
+          class="py-4 px-1 text-sm font-medium"
+        >
+          المواصفات
+        </button>
+        <button
+          @click="activeTab = 'reviews'"
+          :class="activeTab === 'reviews' ? activeTabClass : inactiveTabClass"
+          class="py-4 px-1 text-sm font-medium"
+        >
+          التقييمات
+        </button>
+      </nav>
+    </div>
+
+    <!-- محتوى التبويبات -->
+    <div>
+      <!-- تبويب الوصف -->
+      <div v-if="activeTab === 'description'" class="text-gray-700 leading-relaxed">
+        <h2 class="text-xl font-bold mb-4">وصف المنتج</h2>
+        <p>
+          هذا المنتج مصنوع من أفضل المواد ويوفر راحة وأناقة فائقة. يتميز بتصميم عصري يناسب جميع المناسبات.
+          يمكنك ارتداؤه في المناسبات اليومية أو الرسمية بسهولة.
+        </p>
+      </div>
+
+      <!-- تبويب المواصفات -->
+      <div v-if="activeTab === 'specifications'" class="text-gray-700 leading-relaxed">
+        <h2 class="text-xl font-bold mb-4">المواصفات</h2>
+        <ul class="list-disc list-inside">
+          <li>الخامة: 100% قطن</li>
+          <li>التصميم: عصري وأنيق</li>
+          <li>الألوان: متوفر بألوان متنوعة</li>
+          <li>العناية: يُغسل بالماء البارد</li>
+        </ul>
+      </div>
+
+      <!-- تبويب التقييمات -->
+      <div v-if="activeTab === 'reviews'" class="text-gray-700 leading-relaxed">
+        <h2 class="text-xl font-bold mb-4">تقييمات العملاء</h2>
+        <!-- كروسر التقييمات -->
+        <Swiper
+        :modules="modules"
+          :slides-per-view="1"
+          :space-between="20"
+           :direction="vertical"
+          :effect="slide"
+          :loop="true"
+          :autoplay="autoplayOptions"
+          :navigation="true"
+          :pagination="{ clickable: true }"
+          class="w-full h-auto"
+
+        >
+          <SwiperSlide v-for="(review, index) in reviews" :key="index">
+            <div class="p-4 border rounded-lg shadow-sm bg-white">
+              <h3 class="font-semibold text-lg text-gray-800">{{ review.name }}</h3>
+              <p class="text-gray-600 text-sm mb-2">{{ review.date }}</p>
+              <div class="flex items-center mb-4">
+                <!-- النجوم -->
+                <span v-for="star in review.rating" :key="star" class="text-yellow-500">&#9733;</span>
+                <span v-for="empty in 5 - review.rating" :key="empty" class="text-gray-300">&#9733;</span>
+              </div>
+              <p class="text-gray-700">{{ review.comment }}</p>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+import {Pagination , Navigation,Autoplay } from 'swiper/modules'
+import { Swiper, SwiperSlide, } from 'swiper/vue';
+import 'swiper/swiper-bundle.css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/css/autoplay';
+
+const modules = [Pagination,Navigation,Autoplay]
+
+    const activeTab = ref("description");
+    const autoplayOptions = ref({
+  delay: 2000,
+  disableOnInteraction: false,
+});
+
+    // أنماط تبويبات Tailwind CSS
+    const activeTabClass =
+      "border-b-2 border-blue-500 text-blue-600";
+    const inactiveTabClass =
+      "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300";
+
+    // بيانات التقييمات
+    const reviews = ref([
+      {
+        name: "أحمد علي",
+        date: "15 نوفمبر 2024",
+        rating: 4,
+        comment: "منتج ممتاز وجودة عالية، ولكن تأخر قليلاً في الشحن."
+      },
+      {
+        name: "فاطمة الزهراء",
+        date: "10 نوفمبر 2024",
+        rating: 5,
+        comment: "رائع جدًا، التصميم جميل والخامة ممتازة."
+      },
+      {
+        name: "محمد إبراهيم",
+        date: "8 نوفمبر 2024",
+        rating: 3,
+        comment: "جيد ولكن الحجم كان صغير قليلاً."
+      }
+    ]);
+
+
+</script>
