@@ -7,6 +7,9 @@ import RecommendPage from '@/views/RecommendPage.vue'
 import HomePage from '../views/HomePage.vue'
 import ProductDetailsPage from '@/views/ProductDetailsPage.vue'
 import CommentsPage from '@/views/CommentsPage.vue'
+import OtpPage from '@/views/auth/OtpPage.vue'
+import ForgetPasswordPage from '@/views/auth/ForgetPasswordPage.vue'
+import NewPasswordPage from '@/views/auth/NewPasswordPage.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -23,6 +26,25 @@ const router = createRouter({
       component: LoginEmailPage,
 
     },
+    {
+      path: '/user/otp',
+      name: 'loginotp',
+      component: OtpPage,
+
+    },
+    {
+      path: '/user/forgetpassword',
+      name: 'forgetpassword',
+      component: ForgetPasswordPage,
+
+    },
+    {
+      path: '/user/newpassword',
+      name: 'newpassword',
+      component: NewPasswordPage,
+
+    },
+
     {
       path: '/',
       name: 'home',

@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('auth', {
     initializeAuth () {
       const token = localStorage.getItem('authToken');
       if (token) {
-        this.isAuthenticated = true;
+        this.isAuthenticated = false;
         this.token = token;
       } else {
         this.isAuthenticated = false;
@@ -23,10 +23,16 @@ export const useAuthStore = defineStore('auth', {
       this.isAuthenticated = false;
       this.token = token;
       localStorage.setItem('authToken', token);
-      
+
     },
     loginEmail() {
-      this.isAuthenticated = true;
+      this.isAuthenticated = false;
+    },
+    forgetpassword() {
+      this.isAuthenticated = false;
+    },
+    otp() {
+      this.isAuthenticated = false;
     },
     logout() {
 

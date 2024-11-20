@@ -5,8 +5,10 @@
 
       <div class="mb-5">
         <div class="flex items-center justify-end">
-          <h1 class="text-lg  font-bold text-black  "> انشاء حساب جي الخاص بك </h1>
+          <h1 v-if="isUsernew" class="text-lg  font-bold text-black  "> انشاء حساب جي الخاص بك </h1>
+          <h1 v-if="isUsernew " class="text-lg  font-bold text-black  ">  !اهلا بعودتك </h1>
         </div>
+        <h1 v-if="isUsernew" class="text-sm font-medium text-black rtl ">  ادخل كلمة المرور الخاصة بك لتسجبل الدخول الى حسابك في جي</h1>
       </div>
 
 
@@ -17,7 +19,8 @@
           <input
             type="email"
             id="email"
-            v-model="email"
+            v-model="emailUser"
+
             required
             placeholder="أدخل بريدك الإلكتروني او رقم الهاتف"
             class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
@@ -25,29 +28,80 @@
         </div>
 
         <!-- Password Input -->
-        <div class="mb-10 rtl">
+
+        <div class="rtl mb-5 ">
           <label for="password" class="block text-gray-600 mb-2">كلمة المرور</label>
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            required
-            placeholder="أدخل كلمة المرور"
-            class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
-          />
+              <!-- Form Group -->
+              <div class="relative ">
+                <input
+                  v-model="password"
+                  required
+                  :type="isPasswordVisible ? 'text' : 'password'"
+                   placeholder="أدخل كلمة المرور"
+                   class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                />
+                <button
+                  type="button"
+                  @click="togglePasswordVisibility"
+                  class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600"
+                >
+                  <svg
+                    class="shrink-0 size-5"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path class="" d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                    <path
+                      class=""
+                      d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+                    ></path>
+                    <path
+                      class=""
+                      d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+                    ></path>
+                    <line
+                      :class="isPasswordVisible ? 'hidden' : ''"
+                      x1="2"
+                      x2="22"
+                      y1="2"
+                      y2="22"
+                    ></line>
+                    <path
+                      class="hs-password-active:block"
+                      d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
+                    ></path>
+                    <circle class="hs-password-active:block" cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+              <div v-if="!isValidPassword" class="mt-2 text-[12px] text-success-500">
+                <p>8 رموز كحد ادنى</p>
+                <p>حرف واحد على الاقل</p>
+                <p>رقم واحد على الاقل</p>
+              </div>
+            </div>
+
+
+        <div  class="flex justify-between items-center mb-5 text-sm text-gray-600">
+        <RouterLink  to="/user/forgetpassword" class="hover:underline">نسيت كلمة المرور؟</RouterLink>
         </div>
+
 
         <div class="mb-4  rtl flex items-center justify-start gap-3">
 
           <input
             type="radio"
-            id="password"
-            v-model="password"
+            v-model="message"
             required
-            placeholder="أدخل كلمة المرور"
             class=" px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
           />
-          <label for="password" class=" text-gray-600 mb-2">تلقى رسائل اخبارية ونصائح حصرية حول الاناقة من جـــــي
+          <label class=" text-gray-600 mb-2">تلقى رسائل اخبارية ونصائح حصرية حول الاناقة من جـــــي
             عبر رسائل القصيرة </label>
         </div>
 
@@ -59,27 +113,51 @@
           تسجيل الاشتراك
         </button>
       </form>
+
+
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {  ref,onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
 const authStore = useAuthStore();
-const email = ref('');
+// const email = ref('');
 const password = ref('');
+const message = ref();
 const router = useRouter();
+const isPasswordVisible = ref(false)
+
+function togglePasswordVisibility() {
+  isPasswordVisible.value = !isPasswordVisible.value
+}
+const isValidPassword =ref(false);
+const emailUser =ref(localStorage.getItem('emailUser'));
+
+
+
+
+
+
+// onMounted(() => {
+//   const isUsernew = ref(null);
+//   const isnew = localStorage.getItem('userNew');
+//     isUsernew.value = isnew;
+//     alert("ddd"+isnew)
+//     alert(isUsernew.value)
+// });
+
+// //  alert("ooo"+isUsernew.value)
 
 const handleLogin = () => {
-  if (email.value === 'mohammed@gmail.com' && password.value === '123456' ) {
+  if (emailUser.value === 'mohammed@gmail.com' && password.value === '123456' ) {
     authStore.loginEmail() ;
-    router.push('/');
+    router.push('/user/otp');
   } else {
     alert('Invalid credentials');
   }
-
 
 };
 </script>

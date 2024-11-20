@@ -54,7 +54,7 @@
           type="submit"
           class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
         >
-          تسجيل الدخول
+          متابعة
         </button>
       </form>
 
@@ -83,7 +83,7 @@
           class="w-full flex items-center justify-center px-4 py-2 border border-gray-500  transition"
         >
           <img src="/src/assets/images/facebook-icon.svg" alt="Facebook" class="w-5 h-5 mr-2" />
-            Facebook  الاستمرار ب 
+            Facebook  الاستمرار ب
         </button>
       </div>
     </div>
@@ -102,12 +102,19 @@ const email = ref('');
 // const password = ref('');
 const router = useRouter();
 
+const isnew = ref(false)
+
 const handleLogin = () => {
   if (email.value === 'mohammed@gmail.com' ) {
     authStore.login('true');
     router.push('/user/loginemail');
+    localStorage.setItem('emailUser',email.value);
+    localStorage.setItem('userNew',isnew.value);
   } else {
-    alert('Invalid credentials');
+    authStore.login('true');
+    router.push('/user/loginemail');
+    localStorage.setItem('emailUser',email.value);
+    localStorage.setItem('userNew',!isnew.value);
   }
 
 
