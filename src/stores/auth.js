@@ -31,8 +31,14 @@ export const useAuthStore = defineStore('auth', {
     forgetpassword() {
       this.isAuthenticated = false;
     },
-    otp() {
-      this.isAuthenticated = false;
+    otp(RegOrForgwt) {
+      if(RegOrForgwt == 'regester')
+      {
+        this.isAuthenticated = true;
+      }else{
+        this.isAuthenticated = false;
+      }
+
     },
     logout() {
 

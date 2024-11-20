@@ -102,19 +102,19 @@ const email = ref('');
 // const password = ref('');
 const router = useRouter();
 
-const isnew = ref(false)
+// const isnew = ref(false)
 
 const handleLogin = () => {
   if (email.value === 'mohammed@gmail.com' ) {
     authStore.login('true');
     router.push('/user/loginemail');
     localStorage.setItem('emailUser',email.value);
-    localStorage.setItem('userNew',isnew.value);
+    localStorage.setItem('userNew','false');
   } else {
     authStore.login('true');
     router.push('/user/loginemail');
     localStorage.setItem('emailUser',email.value);
-    localStorage.setItem('userNew',!isnew.value);
+    localStorage.setItem('userNew','true');
   }
 
 

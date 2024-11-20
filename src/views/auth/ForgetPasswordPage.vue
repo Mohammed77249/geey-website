@@ -73,6 +73,7 @@ const router = useRouter();
 const handleForgetpassword = () => {
   if (email.value === 'mohammed@gmail.com') {
     authStore.forgetpassword() ;
+    localStorage.setItem('UserOld','old');
     router.push('/user/otp');
   } else {
     alert('Invalid credentials');

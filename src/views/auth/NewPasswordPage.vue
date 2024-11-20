@@ -1,84 +1,184 @@
-
 <template>
-
   <div class="h-screen w-full flex flex-col items-center justify-center bg-gray-50">
+    <!-- Login Form -->
+    <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-10">
 
-      <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-10">
-  <div class="z-[100]  w-full  rounded-lg md:mt-0 sm:max-w-[630px] sm:max-h-[750px] xl:p-0">
-
-          <div class="flex items-center justify-center -mb-12">
-            <img class="w-[200px] h-[200px]" src="/src/assets/images/logogeey.svg" alt="logo" />
+      <div class="mb-5">
+        <div class="flex items-center justify-center">
+          <h1 class="text-2xl font-bold text-center mb-4">إعادة تعيين كلمة المرور</h1>
+        </div>
+        <p class="text-sm text-gray-600 text-center mb-6">
+        أدخل كلمة المرور الجديدة لإعادة تعيين حسابك.
+      </p>
           </div>
 
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <div class="mb-2 flex rtl">
-              <h1
-                class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl  mr-5"
-              >
-              هل نسيت كلمة المرور الخاص يك
-              </h1>
-            </div>
-            <div class="rtl">
-              <span class="text-[#A3A3A3]"> أدخل بريدك الإلكتروني وسنرسل لك التعليمات إلى
-                إعادة تعيين كلمة المرور الخاصة بك </span>
-            </div>
 
-
-            <form  @submit.prevent="handleForgetpassword" class="space-y-4 md:space-y-6" >
-              <div class="mb-4 rtl">
-                <label for="email" class="block text-gray-600 mb-2">البريد الإلكتروني او رقم الهاتف</label>
+      <form @submit.prevent="submitNewPassword">
+        <!-- New Password Input -->
+        <div class="rtl mb-5 ">
+          <label for="password" class="block text-gray-600 mb-2">كلمة المرور الجديدة </label>
+              <!-- Form Group -->
+              <div class="relative ">
                 <input
-                  type="email"
-                  id="email"
-                  v-model="email"
+                  v-model="newPassword"
                   required
-                  placeholder="أدخل بريدك الإلكتروني او رقم الهاتف"
-                  class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                  :type="isPasswordNewVisible ? 'text' : 'password'"
+                   placeholder="********"
+                   class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                 />
+                <button
+                  type="button"
+                  @click="togglePasswordNewVisibility"
+                  class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600"
+                >
+                  <svg
+                    class="shrink-0 size-5"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path class="" d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                    <path
+                      class=""
+                      d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+                    ></path>
+                    <path
+                      class=""
+                      d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+                    ></path>
+                    <line
+                      :class="isPasswordNewVisible ? 'hidden' : ''"
+                      x1="2"
+                      x2="22"
+                      y1="2"
+                      y2="22"
+                    ></line>
+                    <path
+                      class="hs-password-active:block"
+                      d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
+                    ></path>
+                    <circle class="hs-password-active:block" cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
               </div>
-              
-
-              <button
-                type="submit"
-                class="w-full text-white bg-primary-900 py-5 font-bold  text-[15px]   text-center"
-              >
-            إرسال إعادة التعيين
-              </button>
-
-            </form>
-            <div class="flex items-center justify-center">
-                <RouterLink to="/user/login" class="text-[20px]  mb-16 font-bold text-primary-900 hover:underline flex">
-                  <img class="w-[24px] h-[24px] mt-1 mr-1 " src="/src/assets/images/arrow-left.svg" alt="logo" />
-                  العودة ال صفحة تسجيل الدخول
-              </RouterLink>
-              </div>
-          </div>
-
         </div>
 
-      </div>
+        <!-- confirmPassword Input -->
+
+        <div class="rtl mb-5 ">
+          <label  class="block text-gray-600 mb-2">تأكيد كلمة المرور  </label>
+              <!-- Form Group -->
+              <div class="relative ">
+                <input
+                  v-model="confirmPassword"
+                  required
+                  :type="isconfirmPasswordVisible ? 'text' : 'password'"
+                  placeholder="********"
+                   class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                />
+                <button
+                  type="button"
+                  @click="toggleconfirmPasswordVisibility"
+                  class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600"
+                >
+                  <svg
+                    class="shrink-0 size-5"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path class="" d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                    <path
+                      class=""
+                      d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+                    ></path>
+                    <path
+                      class=""
+                      d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+                    ></path>
+                    <line
+                      :class="isconfirmPasswordVisible ? 'hidden' : ''"
+                      x1="2"
+                      x2="22"
+                      y1="2"
+                      y2="22"
+                    ></line>
+                    <path
+                      class="hs-password-active:block"
+                      d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"
+                    ></path>
+                    <circle class="hs-password-active:block" cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+        </div>
+
+        <!-- Login Button -->
+        <button
+          type="submit"
+          class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
+        >
+        إعادة تعيين كلمة المرور
+        </button>
+      </form>
+      <p v-if="errorMessage" class="text-red-600 text-center mt-4">{{ errorMessage }}</p>
+
+
     </div>
+  </div>
+</template>
 
-  </template>
+<script setup>
+import {  ref } from 'vue';
+import { useRouter } from 'vue-router';
+// import { useAuthStore } from '@/stores/auth'
+// const authStore = useAuthStore();
+const router = useRouter();
+
+const newPassword = ref('');
+const isPasswordNewVisible = ref(false)
+function togglePasswordNewVisibility() {
+  isPasswordNewVisible.value = !isPasswordNewVisible.value;
+}
 
 
-  <script setup >
-  import { ref } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { useAuthStore } from '@/stores/auth'
-  const authStore = useAuthStore();
-  const email = ref('');
-  const router = useRouter();
+const confirmPassword = ref('');
+const isconfirmPasswordVisible = ref(false)
+function toggleconfirmPasswordVisibility() {
+  isconfirmPasswordVisible.value = !isconfirmPasswordVisible.value;
+}
 
 
-  const handleForgetpassword = () => {
-    if (email.value === 'mohammed@gmail.com') {
-      authStore.forgetpassword() ;
-      router.push('/user/otp');
-    } else {
-      alert('Invalid credentials');
-    }
+const errorMessage = ref("");
+const submitNewPassword = () => {
+  if (newPassword.value !== confirmPassword.value) {
+    errorMessage.value = "كلمتا المرور غير متطابقتين. الرجاء المحاولة مرة أخرى.";
+    return;
+  }
 
-  };
+  if (newPassword.value.length < 8) {
+    errorMessage.value = "كلمة المرور يجب أن تكون 8 أحرف أو أكثر.";
+    return;
+  }
 
-  </script>
+
+    router.push('/user/loginemail')
+  alert("تمت إعادة تعيين كلمة المرور بنجاح!");
+  errorMessage.value = "";
+};
+
+</script>
+
+
+
+

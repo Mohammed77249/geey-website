@@ -6,9 +6,9 @@
       <div class="mb-5">
         <div class="flex items-center justify-end">
           <h1 v-if="isUsernew" class="text-lg  font-bold text-black  "> انشاء حساب جي الخاص بك </h1>
-          <h1 v-if="isUsernew " class="text-lg  font-bold text-black  ">  !اهلا بعودتك </h1>
+          <h1 v-if="!isUsernew" class="text-lg  font-bold text-black  ">  !اهلا بعودتك </h1>
         </div>
-        <h1 v-if="isUsernew" class="text-sm font-medium text-black rtl ">  ادخل كلمة المرور الخاصة بك لتسجبل الدخول الى حسابك في جي</h1>
+        <h1 v-if="!isUsernew" class="text-sm font-medium text-black rtl ">  ادخل كلمة المرور الخاصة بك لتسجبل الدخول الى حسابك في جي</h1>
       </div>
 
 
@@ -88,7 +88,7 @@
             </div>
 
 
-        <div  class="flex justify-between items-center mb-5 text-sm text-gray-600">
+        <div v-if="!isUsernew" class="flex justify-between items-center mb-5 text-sm text-gray-600">
         <RouterLink  to="/user/forgetpassword" class="hover:underline">نسيت كلمة المرور؟</RouterLink>
         </div>
 
@@ -110,7 +110,8 @@
           type="submit"
           class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
         >
-          تسجيل الاشتراك
+        <p v-if="isUsernew"> تسجيل الاشتراك</p>
+        <p v-if="!isUsernew"> تسجيل الدخول</p>
         </button>
       </form>
 
@@ -137,26 +138,42 @@ const isValidPassword =ref(false);
 const emailUser =ref(localStorage.getItem('emailUser'));
 
 
+const isUsernew = ref(false);
+
+const readLocalStorage = () => {
+  try {
+    const isnew = localStorage.getItem('userNew');
+    if (isnew == 'true') {
+      isUsernew.value = true;
+    } else if(isnew == 'false'){
+      isUsernew.value = false;
+    }
+    else {
+      alert('لا توجد بيانات للمفتاح userToken في localStorage.');
+    }
 
 
+  } catch (error) {
+    alert('حدث خطأ أثناء قراءة localStorage:', error);
+  }
+};
+
+onMounted(() => {
+  readLocalStorage();
+});
 
 
-// onMounted(() => {
-//   const isUsernew = ref(null);
-//   const isnew = localStorage.getItem('userNew');
-//     isUsernew.value = isnew;
-//     alert("ddd"+isnew)
-//     alert(isUsernew.value)
-// });
-
-// //  alert("ooo"+isUsernew.value)
 
 const handleLogin = () => {
   if (emailUser.value === 'mohammed@gmail.com' && password.value === '123456' ) {
     authStore.loginEmail() ;
     router.push('/user/otp');
+    localStorage.setItem('UserOld','regester');
+
   } else {
-    alert('Invalid credentials');
+    authStore.loginEmail() ;
+    router.push('/user/otp');
+    localStorage.setItem('UserOld','regester');
   }
 
 };

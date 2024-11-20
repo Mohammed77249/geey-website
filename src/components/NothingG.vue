@@ -583,3 +583,87 @@ const modules = [Pagination,Navigation,Autoplay]
 
 
 </script>
+
+
+
+
+<!-- new password  -->
+
+<template>
+  <div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
+      <h1 class="text-2xl font-bold text-center mb-4">إعادة تعيين كلمة المرور</h1>
+      <p class="text-sm text-gray-600 text-center mb-6">
+        أدخل كلمة المرور الجديدة لإعادة تعيين حسابك.
+      </p>
+
+      <form @submit.prevent="submitNewPassword">
+        <!-- كلمة المرور الجديدة -->
+        <div class="mb-4">
+          <label for="new-password" class="block text-gray-700 font-medium mb-2">كلمة المرور الجديدة</label>
+          <input
+            type="password"
+            id="new-password"
+            v-model="newPassword"
+            class="w-full border rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
+            placeholder="********"
+            required
+          />
+        </div>
+
+        <!-- تأكيد كلمة المرور -->
+        <div class="mb-4">
+          <label for="confirm-password" class="block text-gray-700 font-medium mb-2">  تأكيد كلمة المرور </label>
+          <input
+            type="password"
+            id="confirm-password"
+            v-model="confirmPassword"
+            class="w-full border rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200"
+            placeholder="********"
+            required
+          />
+        </div>
+
+        <!-- زر إعادة التعيين -->
+        <button
+          type="submit"
+          class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200"
+        >
+          إعادة تعيين كلمة المرور
+        </button>
+      </form>
+
+      <!-- رسالة الخطأ -->
+      <p v-if="errorMessage" class="text-red-600 text-center mt-4">{{ errorMessage }}</p>
+
+      <!-- روابط -->
+      <div class="text-center mt-6">
+        <a href="/login" class="text-indigo-600 hover:underline">تسجيل الدخول</a>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const newPassword = ref("");
+const confirmPassword = ref("");
+const errorMessage = ref("");
+
+const submitNewPassword = () => {
+  if (newPassword.value !== confirmPassword.value) {
+    errorMessage.value = "كلمتا المرور غير متطابقتين. الرجاء المحاولة مرة أخرى.";
+    return;
+  }
+
+  if (newPassword.value.length < 8) {
+    errorMessage.value = "كلمة المرور يجب أن تكون 8 أحرف أو أكثر.";
+    return;
+  }
+
+  // إعادة تعيين كلمة المرور (منطق وهمي - يمكن تعديله لاحقًا)
+  alert("تمت إعادة تعيين كلمة المرور بنجاح!");
+  errorMessage.value = "";
+};
+</script>

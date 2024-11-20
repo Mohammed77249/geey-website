@@ -70,14 +70,18 @@ const moveToNextBox = (index) => {
 };
 
 
-// إرسال الرمز للتحقق
 const verifyOtp = () => {
- // alert(`تم إدخال الرمز: ${otp.value.join('')}`);
+  const isnew = localStorage.getItem('UserOld');
 
-  if(otp.value.join('') === '123456'){
+  if(otp.value.join('') === '123456' && isnew === 'old' ){
+    authStore.otp('no');
+    router.push('/user/newpassword');
+  }else if(otp.value.join('') == '123456'  && isnew === 'regester' )
+  {
     alert(`تم تسجيل الدخول بنجاح  `);
-    authStore.otp();
+    authStore.otp('regester');
     router.push('/');
+
   } else{
     alert(`تم إدخال الرمز خطاء`);
   }
@@ -85,7 +89,6 @@ const verifyOtp = () => {
 
 };
 
-// إعادة الإرسال
 const resendOtp = () => {
   alert('تم إرسال رمز جديد.');
 };
