@@ -1,9 +1,7 @@
 <template>
   <footer class="bg-gray-50 text-white text-sm">
-    <div class="container mx-auto px-4 py-8">
-      <!-- الأقسام الرئيسية -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-gray-700 pb-8 rtl">
-        <!-- القسم الأول -->
+    <div class="container mx-auto px-20 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mt-10 pb-8 rtl">
 
         <div class="col-span-6 w-full ">
           <div class="grid grid-cols-6 gap-1">
@@ -50,13 +48,14 @@
 
           </div>
         </div>
+
         <div class="col-span-6 w-full ">
 
           <div class="grid grid-cols-6 gap-1 mb-6">
 
             <!-- follow us -->
             <div class="col-span-3">
-              <h3 class="text-lg text-black font-semibold mb-2">Follow Us</h3>
+              <h3 class="text-xs text-black font-semibold mb-4">تابعنا على</h3>
               <div class="flex gap-5">
                 <a href="#" class="text-gray-900 hover:text-white">
                   <img src="/src/assets/images/bootsrap.svg" alt="App Store" class="w-7 text-black" />
@@ -81,8 +80,8 @@
 
             <!-- dowenload app -->
             <div class="col-span-3">
-              <h3 class="text-lg text-black font-semibold ">App</h3>
-                <div class="flex gap-5  mt-2">
+              <h3 class="text-xs text-black font-semibold ">App</h3>
+                <div class="flex gap-5  mt-4">
                   <a href="#">
                     <img src="/src/assets/images/android.svg" alt="Google Play" class="w-7 text-black" />
                   </a>
@@ -126,13 +125,37 @@
           </div>
         </div>
 
+      </div>
+
+      <div class="w-full text-black mt-20 grid grid-cols-12 gap-8">
+        <div class="col-span-6 w-full  rtl ">
+          <p class="text-xs text-black font-medium mb-2">تقبل</p>
+          <div class="px-2 flex gap-2">
+            <img src="/src/assets/images/ads1.svg" class="w-16" />
+            <img src="/src/assets/images/ads2.svg" class="w-16 h-8" />
+            <img src="/src/assets/images/ads1.svg" class="w-16" />
+            <img src="/src/assets/images/ads2.svg" class="w-16 h-8" />
+            <img src="/src/assets/images/ads1.svg" class="w-16" />
+            <img src="/src/assets/images/ads2.svg" class="w-16 h-8" />
+
+          </div>
+        </div>
+
+        <div class="col-span-6 w-full   rtl">
+          <div class="text-gray-800 ">
+            &copy; 2024 Jeey. All rights reserved.
+          </div>
+          <div class="text-gray-900 underline ">
+            سياسة الخصوصية     سياسة الخصوصية
+          </div>
+          <div class="text-gray-800 ">
+            سياسة الخصوصية
+          </div>
+
+        </div>
 
       </div>
 
-      <!-- حقوق النشر -->
-      <div class="text-center text-gray-400 mt-6">
-        &copy; 2024 SHEIN. All rights reserved.
-      </div>
     </div>
   </footer>
 </template>
