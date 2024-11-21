@@ -11,28 +11,27 @@
         </div>
 
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <div class="mb-2 flex rtl">
+          <div class="mb-2 flex ">
             <h1
               class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl  mr-5"
             >
-            هل نسيت كلمة المرور الخاص يك
+            {{ $t('Did you forget your password') }}
             </h1>
           </div>
-          <div class="rtl">
-            <span class="text-[#A3A3A3]"> أدخل بريدك الإلكتروني وسنرسل لك التعليمات إلى
-              إعادة تعيين كلمة المرور الخاصة بك </span>
+          <div class="">
+            <span class="text-[#A3A3A3]">{{ $t('Enter your email and we will send you instructions to reset your password') }}</span>
           </div>
 
 
           <form  @submit.prevent="handleForgetpassword" class="space-y-4 md:space-y-6" >
-            <div class="mb-4 rtl">
-              <label for="email" class="block text-gray-600 mb-2">البريد الإلكتروني او رقم الهاتف</label>
+            <div class="mb-4">
+              <label for="email" class="block text-gray-600 mb-2"> {{ $t('Email or phone number') }} </label>
               <input
                 type="email"
                 id="email"
                 v-model="email"
                 required
-                placeholder="أدخل بريدك الإلكتروني او رقم الهاتف"
+                :placeholder="$t('Email or phone number')"
                 class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
               />
             </div>
@@ -41,14 +40,14 @@
               type="submit"
               class="w-full text-white bg-primary-900 py-5 font-bold  text-[15px]   text-center"
             >
-          إرسال إعادة التعيين
+          {{ $t('Send reset') }}
             </button>
 
           </form>
           <div class="flex items-center justify-center">
               <RouterLink to="/user/login" class="text-[20px]  mb-16 font-bold text-primary-900 hover:underline flex">
-                <img class="w-[24px] h-[24px] mt-1 mr-1 " src="/src/assets/images/arrow-left.svg" alt="logo" />
-                العودة ال صفحة تسجيل الدخول
+                {{ $t('Return to the login page') }}
+                <img class="w-[24px] h-[24px] mt-1 mr-1 " :src="lang == 'ar' ? '/src/assets/images/arrow-left.svg' :'/src/assets/images/arrow-right.svg'" alt="logo" />
             </RouterLink>
             </div>
         </div>
@@ -68,6 +67,8 @@ import { useAuthStore } from '@/stores/auth'
 const authStore = useAuthStore();
 const email = ref('');
 const router = useRouter();
+
+const lang =document.documentElement.lang ;
 
 
 const handleForgetpassword = () => {

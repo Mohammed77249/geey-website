@@ -4,40 +4,39 @@
     <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-10">
 
       <div class="mb-5">
-        <div class="flex items-center justify-end">
+        <div class="flex items-center ">
           <h1 v-if="isUsernew" class="text-lg  font-bold text-black  "> انشاء حساب جي الخاص بك </h1>
-          <h1 v-if="!isUsernew" class="text-lg  font-bold text-black  ">  !اهلا بعودتك </h1>
+          <h1 v-if="!isUsernew" class="text-lg  font-bold text-black  ">{{ $t('Welcome back') }}</h1>
         </div>
-        <h1 v-if="!isUsernew" class="text-sm font-medium text-black rtl ">  ادخل كلمة المرور الخاصة بك لتسجبل الدخول الى حسابك في جي</h1>
+        <h1 v-if="!isUsernew" class="text-sm font-medium text-black ">  {{ $t('Enter your password to log in to your Jeey account') }}</h1>
       </div>
 
 
       <form @submit.prevent="handleLogin">
         <!-- Email Input -->
-        <div class="mb-4 rtl">
-          <label for="email" class="block text-gray-600 mb-2">البريد الإلكتروني او رقم الهاتف</label>
+        <div class="mb-4 ">
+          <label for="email" class="block text-gray-600 mb-2">{{ $t('Email or phone number') }}</label>
           <input
             type="email"
             id="email"
             v-model="emailUser"
-
             required
-            placeholder="أدخل بريدك الإلكتروني او رقم الهاتف"
+            :placeholder="$t('Email or phone number')"
             class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
           />
         </div>
 
         <!-- Password Input -->
 
-        <div class="rtl mb-5 ">
-          <label for="password" class="block text-gray-600 mb-2">كلمة المرور</label>
+        <div class=" mb-5 ">
+          <label for="password" class="block text-gray-600 mb-2">{{ $t('password') }}</label>
               <!-- Form Group -->
               <div class="relative ">
                 <input
                   v-model="password"
                   required
-                  :type="isPasswordVisible ? 'text' : 'password'"
-                   placeholder="أدخل كلمة المرور"
+                  :type="isPasswordVisible ? 'text' : 'password'" Enter password
+                   :placeholder="$t('Enter password')"
                    class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                 />
                 <button
@@ -81,19 +80,19 @@
                 </button>
               </div>
               <div v-if="!isValidPassword" class="mt-2 text-[12px] text-success-500">
-                <p>8 رموز كحد ادنى</p>
-                <p>حرف واحد على الاقل</p>
-                <p>رقم واحد على الاقل</p>
+                <p>{{ $t('8 symbols minimum') }}</p>
+                <p>{{ $t('At least one letter') }}</p>
+                <p>{{ $t('At least one number') }}</p>
               </div>
             </div>
 
 
         <div v-if="!isUsernew" class="flex justify-between items-center mb-5 text-sm text-gray-600">
-        <RouterLink  to="/user/forgetpassword" class="hover:underline">نسيت كلمة المرور؟</RouterLink>
+        <RouterLink  to="/user/forgetpassword" class="hover:underline">{{ $t('Forgot Password') }}</RouterLink>
         </div>
 
 
-        <div class="mb-4  rtl flex items-center justify-start gap-3">
+        <div class="mb-4   flex items-center justify-start gap-3">
 
           <input
             type="radio"
@@ -101,8 +100,7 @@
             required
             class=" px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
           />
-          <label class=" text-gray-600 mb-2">تلقى رسائل اخبارية ونصائح حصرية حول الاناقة من جـــــي
-            عبر رسائل القصيرة </label>
+          <label class=" text-gray-600 mb-2">{{ $t('Receive exclusive newsletters and tips on style from Jeey via SMS') }}</label>
         </div>
 
         <!-- Login Button -->
@@ -111,7 +109,7 @@
           class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
         >
         <p v-if="isUsernew"> تسجيل الاشتراك</p>
-        <p v-if="!isUsernew"> تسجيل الدخول</p>
+        <p v-if="!isUsernew"> {{ $t('login') }}</p>
         </button>
       </form>
 

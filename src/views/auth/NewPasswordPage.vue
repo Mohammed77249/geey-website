@@ -5,18 +5,18 @@
 
       <div class="mb-5">
         <div class="flex items-center justify-center">
-          <h1 class="text-2xl font-bold text-center mb-4">إعادة تعيين كلمة المرور</h1>
+          <h1 class="text-2xl font-bold text-center mb-4">{{ $t('Reset password') }}</h1>
         </div>
         <p class="text-sm text-gray-600 text-center mb-6">
-        أدخل كلمة المرور الجديدة لإعادة تعيين حسابك.
+       {{ $t('Enter your new password to reset your account') }}
       </p>
           </div>
 
 
       <form @submit.prevent="submitNewPassword">
         <!-- New Password Input -->
-        <div class="rtl mb-5 ">
-          <label for="password" class="block text-gray-600 mb-2">كلمة المرور الجديدة </label>
+        <div class=" mb-5 ">
+          <label for="password" class="block text-gray-600 mb-2">{{ $t('New Password') }}</label>
               <!-- Form Group -->
               <div class="relative ">
                 <input
@@ -70,8 +70,8 @@
 
         <!-- confirmPassword Input -->
 
-        <div class="rtl mb-5 ">
-          <label  class="block text-gray-600 mb-2">تأكيد كلمة المرور  </label>
+        <div class=" mb-5 ">
+          <label  class="block text-gray-600 mb-2">{{ $t('Confirm password') }} </label>
               <!-- Form Group -->
               <div class="relative ">
                 <input
@@ -128,7 +128,7 @@
           type="submit"
           class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
         >
-        إعادة تعيين كلمة المرور
+        {{ $t('Reset password') }}
         </button>
       </form>
       <p v-if="errorMessage" class="text-red-600 text-center mt-4">{{ errorMessage }}</p>

@@ -4,14 +4,14 @@
     <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-24">
 
       <div class="mb-10">
-        <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">التحقق برمز الـ OTP</h2>
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">{{ $t('Verification with OTP code') }}</h2>
 
       <!-- <p class="text-gray-600 text-center mb-6">
         أدخل الرمز المرسل إلى رقم هاتفك <br /> (1234 **** 5678)
       </p> -->
 
       <p class="text-gray-600 text-center mb-6">
-        أدخل الرمز المرسل إلى الايميل الخاص بك  <br /> (mhm****)
+        {{ $t('Enter the code sent to your email') }} <br /> (mhm****)
       </p>
       </div>
 
@@ -31,17 +31,17 @@
           type="submit" @click="verifyOtp"
           class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
         >
-              تحقق
+              {{ $t('verification') }}
         </button>
 
 
       <p class="text-center text-gray-600 mt-4">
-        لم تتلقَ الرمز؟
+        {{ $t('Did not receive the code?') }}
         <button
           class="text-blue-600 font-semibold hover:underline"
           @click="resendOtp"
         >
-          إعادة الإرسال
+          {{ $t('Resend') }}
         </button>
       </p>
 
