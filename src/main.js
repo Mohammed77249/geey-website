@@ -4,15 +4,14 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { useAuthStore } from './stores/auth'
-import {i18n,setLanguageAndDirection } from './i18n';
+import i18n from "@/plugins/i18n";
+import { useLanguageStore } from '@/stores/language'
 const app = createApp(App)
-
-app.use(createPinia())
 app.use(router)
-
-
-const authStore = useAuthStore();
-authStore.restoreAuth();
- app.use(i18n);
- setLanguageAndDirection('ar');
+app.use(createPinia())
+app.use(i18n)
+const authStore = useAuthStore()
+authStore.restoreAuth()
+const languageStore = useLanguageStore()
+languageStore.restoreLanguage()
 app.mount('#app')

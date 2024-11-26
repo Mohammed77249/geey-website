@@ -1,12 +1,11 @@
 <template>
-  <header class="  bg-white shadow-md px-10 max-w-screen-3xl mx-auto ">
-    <div class=" grid grid-cols-1">
-
-      <div class="flex items-center justify-between ">
+  <header class="bg-white shadow-md px-10 max-w-screen-3xl mx-auto">
+    <div class="grid grid-cols-1">
+      <div class="flex items-center justify-between">
         <!-- logo-->
-        <div class="flex items-center  cursor-pointer">
-          <span class="text-2xl 2xl:text-4xl font-bold text-gray-800"
-            > {{ $t('Jeey') }}</span
+        <div class="flex items-center cursor-pointer">
+          <span class="text-2xl 2xl:text-4xl font-bold text-gray-800">
+            {{ $t('Jeey') }}</span
           >
           <img
             src="../assets/images/logogeey.svg"
@@ -52,154 +51,173 @@
           </div>
         </div>
 
-
-         <!-- links -->
-         <div class="flex space-x-6">
+        <!-- links -->
+        <div class="flex space-x-6">
           <!-- icon user -->
           <div class="cursor-pointer text-gray-700 hover:text-gray-900">
-              <div class="relative flex items-center pl-5 " >
-                <div ref="dropDownStatus">
-                  <div
-                class=""
-                type="button"
-                @click="isDropdowenStatusVisable = true"
-                @mouseenter="isDropdowenStatusVisable = true"
-                @mouseleave="isDropdowenStatusVisable = false"
-              >
-                <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="#292D32"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          opacity="0.4"
-                          d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"
-                          fill="#292D32"
-                        />
-                        <path
-                          d="M11.9999 14.5C6.98991 14.5 2.90991 17.86 2.90991 22C2.90991 22.28 3.12991 22.5 3.40991 22.5H20.5899C20.8699 22.5 21.0899 22.28 21.0899 22C21.0899 17.86 17.0099 14.5 11.9999 14.5Z"
-                          fill="gray"
-                        />
-                </svg>
-
-                  </div>
-
-                  <!-- Dropdown menu -->
-                  <div
-                    @mouseenter="isDropdowenStatusVisable = true"
-                    @mouseleave="isDropdowenStatusVisable = false"
-                    class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow w-[140px]"
-                      v-if="isDropdowenStatusVisable"
-                  >
-                  <div class="px-4 py-3 text-[13px] font-medium text-black">
-                  <div class="truncate rtl ">mohammed@..</div>
-                  <div class="w-full h-[1px] mt-3 bg-gray-300"></div>
-                  </div>
-                    <ul class="py-1 rtl text-[13px] text-gray-600 font-medium" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
-                            <li>
-                              <a href="#" class="block px-4 py-1  hover:bg-gray-100">ملفي الشخصي</a>
-                            </li>
-                              <li>
-                                <a href="#" class="block px-4 py-1  hover:bg-gray-100">طلبي</a>
-                              </li>
-                              <li>
-                                <a href="#" class="block px-4 py-1  hover:bg-gray-100">رسالتي</a>
-                              </li>
-                              <li>
-                                <a href="#" class="block px-4 py-1  hover:bg-gray-100">كوبوناتي</a>
-                              </li>
-                              <li>
-                                <a href="#" class="block px-4 py-1 hover:bg-gray-100">نقاطي</a>
-                              </li>
-                              <li>
-                                <a href="#" class="block px-4 py-1  hover:bg-gray-100">شوهد مؤخرا</a>
-                              </li>
-                              <li>
-                                <a href="#" class="block px-4 py-1 hover:bg-gray-100">المزيد من الخدمات </a>
-                              </li>
-
-                    </ul>
-                    <div class="w-full h-[1px] px-4  bg-gray-300"></div>
-                    <div class="py-1  ">
-                      <button   class="py-1 text-[13px] w-full font-medium text-gray-600 hover:bg-gray-100">
-                        تبديل الحساب
-                      </button>
-                      <button  @click="store.logout" class=" w-full py-1 font-medium text-[13px] text-gray-600 hover:bg-gray-100">
-                          تسجيل الخروج
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </div>
-
-              <!-- icon سلة -->
-              <div
-              class="relative cursor-pointer text-gray-700 hover:text-gray-900"
-              >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2 2H3.74C4.82 2 5.67 2.93 5.58 4L4.75 13.96C4.71759 14.3459 4.76569 14.7342 4.89123 15.1005C5.01678 15.4669 5.21705 15.8031 5.47934 16.0879C5.74163 16.3728 6.06023 16.6001 6.41495 16.7553C6.76967 16.9106 7.15278 16.9905 7.54 16.99H18.19C19.63 16.99 20.89 15.81 21 14.38L21.54 6.88C21.66 5.22 20.4 3.87 18.73 3.87H5.82"
-                  stroke="black"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  opacity="0.4"
-                  d="M9 8H21M16.25 22C16.5815 22 16.8995 21.8683 17.1339 21.6339C17.3683 21.3995 17.5 21.0815 17.5 20.75C17.5 20.4185 17.3683 20.1005 17.1339 19.8661C16.8995 19.6317 16.5815 19.5 16.25 19.5C15.9185 19.5 15.6005 19.6317 15.3661 19.8661C15.1317 20.1005 15 20.4185 15 20.75C15 21.0815 15.1317 21.3995 15.3661 21.6339C15.6005 21.8683 15.9185 22 16.25 22ZM8.25 22C8.58152 22 8.89946 21.8683 9.13388 21.6339C9.3683 21.3995 9.5 21.0815 9.5 20.75C9.5 20.4185 9.3683 20.1005 9.13388 19.8661C8.89946 19.6317 8.58152 19.5 8.25 19.5C7.91848 19.5 7.60054 19.6317 7.36612 19.8661C7.1317 20.1005 7 20.4185 7 20.75C7 21.0815 7.1317 21.3995 7.36612 21.6339C7.60054 21.8683 7.91848 22 8.25 22Z"
-                  stroke="black"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <span
-                class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
-              >
-                10
-              </span>
-              </div>
-
-                <!-- icon likes or favoraite -->
+            <div class="relative flex items-center pl-5">
+              <div ref="dropDownStatus">
                 <div
-                class="relative cursor-pointer text-gray-700 hover:text-gray-900"
+                  class=""
+                  type="button"
+                  @click="isDropdowenStatusVisable = true"
+                  @mouseenter="isDropdowenStatusVisable = true"
+                  @mouseleave="isDropdowenStatusVisable = false"
                 >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z"
-                    stroke="black"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <span
-                  class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
-                >
-                  0
-                </span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="#292D32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      opacity="0.4"
+                      d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"
+                      fill="#292D32"
+                    />
+                    <path
+                      d="M11.9999 14.5C6.98991 14.5 2.90991 17.86 2.90991 22C2.90991 22.28 3.12991 22.5 3.40991 22.5H20.5899C20.8699 22.5 21.0899 22.28 21.0899 22C21.0899 17.86 17.0099 14.5 11.9999 14.5Z"
+                      fill="gray"
+                    />
+                  </svg>
                 </div>
 
-                 <!-- icon language -->
-            <div class="cursor-pointer text-gray-700 hover:text-gray-900">
-            <div class="relative flex items-center" >
+                <!-- Dropdown menu -->
+                <div
+                  @mouseenter="isDropdowenStatusVisable = true"
+                  @mouseleave="isDropdowenStatusVisable = false"
+                  class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow w-[140px]"
+                  v-if="isDropdowenStatusVisable"
+                >
+                  <div class="px-4 py-3 text-[13px] font-medium text-black">
+                    <div class="truncate rtl">mohammed@..</div>
+                    <div class="w-full h-[1px] mt-3 bg-gray-300"></div>
+                  </div>
+                  <ul
+                    class="py-1 rtl text-[13px] text-gray-600 font-medium"
+                    aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
+                  >
+                    <li>
+                      <a href="#" class="block px-4 py-1 hover:bg-gray-100"
+                        >ملفي الشخصي</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-1 hover:bg-gray-100"
+                        >طلبي</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-1 hover:bg-gray-100"
+                        >رسالتي</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-1 hover:bg-gray-100"
+                        >كوبوناتي</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-1 hover:bg-gray-100"
+                        >نقاطي</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-1 hover:bg-gray-100"
+                        >شوهد مؤخرا</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-1 hover:bg-gray-100"
+                        >المزيد من الخدمات
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="w-full h-[1px] px-4 bg-gray-300"></div>
+                  <div class="py-1">
+                    <button
+                      class="py-1 text-[13px] w-full font-medium text-gray-600 hover:bg-gray-100"
+                    >
+                      تبديل الحساب
+                    </button>
+                    <button
+                      @click="store.logout"
+                      class="w-full py-1 font-medium text-[13px] text-gray-600 hover:bg-gray-100"
+                    >
+                      تسجيل الخروج
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- icon سلة -->
+          <div
+            class="relative cursor-pointer text-gray-700 hover:text-gray-900"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 2H3.74C4.82 2 5.67 2.93 5.58 4L4.75 13.96C4.71759 14.3459 4.76569 14.7342 4.89123 15.1005C5.01678 15.4669 5.21705 15.8031 5.47934 16.0879C5.74163 16.3728 6.06023 16.6001 6.41495 16.7553C6.76967 16.9106 7.15278 16.9905 7.54 16.99H18.19C19.63 16.99 20.89 15.81 21 14.38L21.54 6.88C21.66 5.22 20.4 3.87 18.73 3.87H5.82"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                opacity="0.4"
+                d="M9 8H21M16.25 22C16.5815 22 16.8995 21.8683 17.1339 21.6339C17.3683 21.3995 17.5 21.0815 17.5 20.75C17.5 20.4185 17.3683 20.1005 17.1339 19.8661C16.8995 19.6317 16.5815 19.5 16.25 19.5C15.9185 19.5 15.6005 19.6317 15.3661 19.8661C15.1317 20.1005 15 20.4185 15 20.75C15 21.0815 15.1317 21.3995 15.3661 21.6339C15.6005 21.8683 15.9185 22 16.25 22ZM8.25 22C8.58152 22 8.89946 21.8683 9.13388 21.6339C9.3683 21.3995 9.5 21.0815 9.5 20.75C9.5 20.4185 9.3683 20.1005 9.13388 19.8661C8.89946 19.6317 8.58152 19.5 8.25 19.5C7.91848 19.5 7.60054 19.6317 7.36612 19.8661C7.1317 20.1005 7 20.4185 7 20.75C7 21.0815 7.1317 21.3995 7.36612 21.6339C7.60054 21.8683 7.91848 22 8.25 22Z"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span
+              class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
+            >
+              10
+            </span>
+          </div>
+
+          <!-- icon likes or favoraite -->
+          <div
+            class="relative cursor-pointer text-gray-700 hover:text-gray-900"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span
+              class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
+            >
+              0
+            </span>
+          </div>
+
+          <!-- icon language -->
+          <div class="cursor-pointer text-gray-700 hover:text-gray-900">
+            <div class="relative flex items-center">
               <div ref="dropDownLanguage">
                 <div
                   class=""
@@ -208,213 +226,290 @@
                   @mouseenter="isDropdowenLanguageVisable = true"
                   @mouseleave="isDropdowenLanguageVisable = false"
                 >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                    stroke="#292D32"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <g opacity="0.4">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
-                      d="M7.99961 3H8.99961C7.04961 8.84 7.04961 15.16 8.99961 21H7.99961"
+                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                       stroke="#292D32"
                       stroke-width="1.5"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
-                    <path
-                      d="M15 3C16.95 8.84 16.95 15.16 15 21"
-                      stroke="#292D32"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M3 16V15C8.84 16.95 15.16 16.95 21 15V16"
-                      stroke="#292D32"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M3 9.0001C8.84 7.0501 15.16 7.0501 21 9.0001"
-                      stroke="#292D32"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </g>
-                </svg>
-
+                    <g opacity="0.4">
+                      <path
+                        d="M7.99961 3H8.99961C7.04961 8.84 7.04961 15.16 8.99961 21H7.99961"
+                        stroke="#292D32"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M15 3C16.95 8.84 16.95 15.16 15 21"
+                        stroke="#292D32"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M3 16V15C8.84 16.95 15.16 16.95 21 15V16"
+                        stroke="#292D32"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M3 9.0001C8.84 7.0501 15.16 7.0501 21 9.0001"
+                        stroke="#292D32"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                  </svg>
                 </div>
 
                 <!-- Dropdown menu -->
                 <div
                   @mouseenter="isDropdowenLanguageVisable = true"
                   @mouseleave="isDropdowenLanguageVisable = false"
-                  :class="lang12 === 'en' ? 'right-0'  : 'left-0'"
-                  class="z-50 absolute  bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow   p-5  w-[10 0px]"
-                    v-if="isDropdowenLanguageVisable"
+                  :class="storedLanguage === 'en' ? 'right-0' : 'left-0'"
+                  class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow p-5 w-[10 0px]"
+                  v-if="isDropdowenLanguageVisable"
                 >
+                  <ul
+                    class="py-2 text-[13px] text-gray-600 font-medium"
+                    aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
 
-                  <ul class="py-2  text-[13px] text-gray-600 font-medium" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
-                          <li>
-                          <button class=" px-4 py-2 w-full hover:bg-gray-100" @click="changeLanguage('en')">English</button>
-                          </li>
-                          <li>
-                            <button class=" px-4 py-2  w-full hover:bg-gray-100" @click="changeLanguage('ar')">عربي</button>
-                          </li>
+                  >
+                    <li>
+                      <button
+                        class="px-4 py-2 w-full hover:bg-gray-100"
+                        @click="changeLanguage('en')"
+                      >
+                        English
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="px-4 py-2 w-full hover:bg-gray-100"
+                        @click="changeLanguage('ar')"
+                      >
+                        عربي
+                      </button>
+                    </li>
                   </ul>
                 </div>
               </div>
             </div>
-            </div>
-
+          </div>
 
         </div>
-
       </div>
 
-      <div class=" flex items-center justify-between">
-
-         <!-- button all -->
-         <div>
+      <div class="flex items-center justify-between">
+        <!-- button all -->
+        <div>
           <ul>
-        <li
-          @mouseenter="showDropdown = true"
-          @mouseleave="showDropdown = false"
-        >
-        <div class="flex space-x-6 cursor-pointer hover:text-black hover:bg-gray-100" >
-          <div class=" grid grid-cols-1 justify-center items-center  h-10 pr-2 pl-2 w-24">
-            <div class="flex justify-center items-center  gap-2">
-              <div>
-                <svg v-if="!showDropdown"
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+            <li
+              @mouseenter="showDropdown = true"
+              @mouseleave="showDropdown = false"
+            >
+              <div
+                class="flex space-x-6 cursor-pointer hover:text-black hover:bg-gray-100"
+              >
+                <div
+                  class="grid grid-cols-1 justify-center items-center h-10 pr-2 pl-2 w-24"
                 >
-                  <path
-                    d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995"
-                    stroke="#292D32"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-
-                </svg>
-                <svg  v-if="showDropdown" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.9201 15.05L13.4001 8.53001C12.6301 7.76001 11.3701 7.76001 10.6001 8.53001L4.08008 15.05" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-             </div>
-             <div>
-              <span class="text-[12px] font-sans "> {{ $t('Categories') }} </span>
-             </div>
-            </div>
-          </div>
-        </div>
-        <div @mouseenter="isOpen = true" @mouseleave="isOpen = false" >
-          <SidebarComp
-          :isOpen="showDropdown"
-          :hoveritem="isHoeverItem"
-
-        />
-        </div>
-
-
-        </li>
-       </ul>
+                  <div class="flex justify-center items-center gap-2">
+                    <div>
+                      <svg
+                        v-if="!showDropdown"
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995"
+                          stroke="#292D32"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <svg
+                        v-if="showDropdown"
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M19.9201 15.05L13.4001 8.53001C12.6301 7.76001 11.3701 7.76001 10.6001 8.53001L4.08008 15.05"
+                          stroke="#292D32"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <span class="text-[12px] font-sans">
+                        {{ $t('Categories') }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div @mouseenter="isOpen = true" @mouseleave="isOpen = false">
+                <SidebarComp :isOpen="showDropdown" :hoveritem="isHoeverItem" />
+              </div>
+            </li>
+          </ul>
         </div>
 
         <!-- list -->
-        <div  class="max-w-8xl overflow-x-auto ">
-          <ul class="flex  gap-2 scrollable-list overflow-x-auto text-[12px] text-gray-600 font-sans">
+        <div class="max-w-8xl overflow-x-auto">
+          <ul
+            class="flex gap-2 scrollable-list overflow-x-auto text-[12px] text-gray-600 font-sans"
+          >
             <li
               v-for="(item, index) in menuItems"
               :key="index"
               @mouseenter="handleMouseEnter(index)"
               @mouseleave="handleMouseLeave"
-
-              :class="{'bg-blue-200': isHoeverItem === index}"
-              class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black  hover:bg-gray-100 transition-all duration-200"
+              :class="{ 'bg-blue-200': isHoeverItem === index }"
+              class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black hover:bg-gray-100 transition-all duration-200"
             >
               {{ item.name }}
             </li>
           </ul>
         </div>
 
-         <!-- buttons left and right -->
-         <div class="flex space-x-6">
-          <div class=" grid grid-cols-1 border-e-2  justify-center items-center w-10 h-10  ">
-
-            <div class="flex gap-2" :class="lang12 == 'en' ? 'hidden'  : ''">
-
-              <div >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#292D32" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- buttons left and right -->
+        <div class="flex space-x-6">
+          <div
+            class="grid grid-cols-1 border-e-2 justify-center items-center w-10 h-10"
+          >
+            <div class="flex gap-2" :class="storedLanguage == 'en' ? 'hidden' : ''">
+              <div>
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996"
+                    stroke="#292D32"
+                    stroke-width="4"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </div>
-
               <div class="">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="font-bold">
-                  <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#292D32" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="font-bold"
+                >
+                  <path
+                    d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996"
+                    stroke="#292D32"
+                    stroke-width="4"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </div>
-
             </div>
-            <div class="flex gap-2" :class="lang12 == 'ar' ? 'hidden'  : ''">
-
+            <div class="flex gap-2" :class="storedLanguage == 'ar' ? 'hidden' : ''">
               <div class="">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="font-bold">
-                  <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#292D32" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="font-bold"
+                >
+                  <path
+                    d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996"
+                    stroke="#292D32"
+                    stroke-width="4"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </div>
-              <div >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#292D32" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              <div>
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996"
+                    stroke="#292D32"
+                    stroke-width="4"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </div>
-
             </div>
-
           </div>
         </div>
-
-
-
       </div>
-
     </div>
   </header>
 </template>
 
 <script setup>
 import SidebarComp from './SidebarComp.vue'
-import { ref,onMounted ,onBeforeMount} from 'vue'
-import { useAuthStore } from "@/stores/auth"
-import { setLanguageAndDirection } from '@/i18n';
-const isHoeverItem = ref(null);
-const showDropdown = ref();
+import { ref, onMounted, onBeforeMount } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useLanguageStore } from "@/stores/language";
+const isHoeverItem = ref(null)
+const showDropdown = ref()
 const store = useAuthStore()
-const lang12 =document.documentElement.lang ;
-const changeLanguage = (lang)=> {
-     setLanguageAndDirection(lang);
-};
+
+const languageStore = useLanguageStore();
+const storedLanguage = localStorage.getItem("language");
+function changeLanguage(lang) {
+  setTimeout(() => {
+    languageStore.setLanguage(lang);
+    window.location.reload();
+
+      }, 500);
+
+}
+
 
 //user icon   Language
 const dropDownStatus = ref(null)
 const isDropdowenStatusVisable = ref(false)
-const closeDropdowenStatus = (element) => {
+const closeDropdowenStatus = element => {
   if (!dropDownStatus.value.contains(element.target)) {
     isDropdowenStatusVisable.value = false
   }
@@ -423,12 +518,11 @@ const closeDropdowenStatus = (element) => {
 //Language icon
 const dropDownLanguage = ref(null)
 const isDropdowenLanguageVisable = ref(false)
-const closeDropdowenLanguage = (element) => {
+const closeDropdowenLanguage = element => {
   if (!dropDownLanguage.value.contains(element.target)) {
     isDropdowenLanguageVisable.value = false
   }
 }
-
 
 onMounted(() => {
   window.addEventListener('click', closeDropdowenStatus)
@@ -437,9 +531,7 @@ onMounted(() => {
 onBeforeMount(() => {
   window.removeEventListener('click', closeDropdowenStatus)
   window.removeEventListener('click', closeDropdowenLanguage)
-
-});
-
+})
 
 const menuItems = ref([
   { name: 'الملابس النسائية' },
@@ -462,26 +554,23 @@ const menuItems = ref([
   { name: 'اجهزة' },
   { name: 'السيارات' },
   { name: 'مستلزمات الحيوانات' },
+])
 
-
-]);
-
-const handleMouseEnter = (index) => {
-  showDropdown.value = true;
-  localStorage.setItem('hoveredIndex', index);
-};
+const handleMouseEnter = index => {
+  showDropdown.value = true
+  localStorage.setItem('hoveredIndex', index)
+}
 
 const handleMouseLeave = () => {
-  isHoeverItem.value = null;
-  showDropdown.value = false;
-      localStorage.removeItem('hoveredIndex');
-  };
+  isHoeverItem.value = null
+  showDropdown.value = false
+  localStorage.removeItem('hoveredIndex')
+}
 
+// const dropDownSidBar = ref(null)
+// const closeDropdowenSideBar = (element) => {
 
-  // const dropDownSidBar = ref(null)
-  // const closeDropdowenSideBar = (element) => {
-
-  //   showDropdown.value = false
+//   showDropdown.value = false
 
 // }
 
@@ -493,7 +582,5 @@ const handleMouseLeave = () => {
 //   window.removeEventListener('click', closeDropdowenSideBar)
 
 // });
-
-
 
 </script>
