@@ -1,16 +1,15 @@
 <template>
   <header class="bg-white shadow-md px-10 max-w-screen-3xl mx-auto">
     <div class="grid grid-cols-1">
-      <div class="flex items-center justify-between">
+
+      <div class="flex items-center justify-between ">
         <!-- logo-->
-        <div class="flex items-center cursor-pointer">
-          <span class="text-2xl 2xl:text-4xl font-bold text-gray-800">
-            {{ $t('Jeey') }}</span
-          >
+        <div class="flex items-center cursor-pointer ">
+          <span class="text-2xl 2xl:text-4xl font-bold text-gray-800">{{ $t('Jeey') }}</span>
           <img
             src="../assets/images/logogeey.svg"
             alt="SHEIN"
-            class="h-8 w-8 2xl:h-16 2xl:w-16"
+            class="h-8 w-8 2xl:h-16 2xl:w-14"
           />
         </div>
 
@@ -52,10 +51,10 @@
         </div>
 
         <!-- links -->
-        <div class="flex space-x-6">
+        <div class="flex gap-4">
           <!-- icon user -->
           <div class="cursor-pointer text-gray-700 hover:text-gray-900">
-            <div class="relative flex items-center pl-5">
+            <div class="relative flex items-center">
               <div ref="dropDownStatus">
                 <div
                   class=""
@@ -481,6 +480,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </header>
 </template>
