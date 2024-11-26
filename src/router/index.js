@@ -9,7 +9,7 @@ import ProductDetailsPage from '@/views/ProductDetailsPage.vue'
 import CommentsPage from '@/views/CommentsPage.vue'
 import OtpPage from '@/views/auth/OtpPage.vue'
 import ForgetPasswordPage from '@/views/auth/ForgetPasswordPage.vue'
-import NewPasswordPage from '@/views/auth/NewPasswordPage.vue'
+import ResetPasswordPage from '@/views/auth/ResatPasswordPage.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -18,30 +18,70 @@ const router = createRouter({
       path: '/user/login',
       name: 'login',
       component: LoginPage,
+      beforeEnter: (to, from, next) => {
+        const authStore = useAuthStore();
+        if (authStore.isAuthenticated) {
+          next("/");
+        } else {
+          next();
+        }
+      },
     },
 
     {
       path: '/user/loginemail',
       name: 'loginemail',
       component: LoginEmailPage,
+      beforeEnter: (to, from, next) => {
+        const authStore = useAuthStore();
+        if (authStore.isAuthenticated) {
+          next("/");
+        } else {
+          next();
+        }
+      },
 
     },
     {
       path: '/user/otp',
       name: 'loginotp',
       component: OtpPage,
+      beforeEnter: (to, from, next) => {
+        const authStore = useAuthStore();
+        if (authStore.isAuthenticated) {
+          next("/");
+        } else {
+          next();
+        }
+      },
 
     },
     {
       path: '/user/forgetpassword',
       name: 'forgetpassword',
       component: ForgetPasswordPage,
+      beforeEnter: (to, from, next) => {
+        const authStore = useAuthStore();
+        if (authStore.isAuthenticated) {
+          next("/");
+        } else {
+          next();
+        }
+      },
 
     },
     {
-      path: '/user/newpassword',
-      name: 'newpassword',
-      component: NewPasswordPage,
+      path: '/user/resetpassword',
+      name: 'resetpassword',
+      component: ResetPasswordPage,
+      beforeEnter: (to, from, next) => {
+        const authStore = useAuthStore();
+        if (authStore.isAuthenticated) {
+          next("/");
+        } else {
+          next();
+        }
+      },
 
     },
 

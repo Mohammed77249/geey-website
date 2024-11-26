@@ -35,6 +35,9 @@
                 class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
               />
             </div>
+            <p v-if="authStore.error" class="text-red-500 text-sm text-center mb-4">
+          {{ authStore.error }}
+        </p>
 
             <button
               type="submit"
@@ -55,6 +58,8 @@
       </div>
 
     </div>
+
+    <LoaderComp :is-loader="authStore.loading"/>
   </div>
 
 </template>
@@ -64,22 +69,20 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
+import LoaderComp from '@/components/LoaderComp.vue';
 const authStore = useAuthStore();
 const email = ref('');
 const router = useRouter();
-
 const lang =document.documentElement.lang ;
-
-
-const handleForgetpassword = () => {
-  if (email.value === 'mohammed@gmail.com') {
-    authStore.forgetpassword() ;
+//const emailUser =ref(authStore.email);
+const emailUser = localStorage.getItem('emailuser');
+const handleForgetpassword = async () => {
+  const forpass = await authStore.forgetpassword(emailUser);
+  if(forpass){
     localStorage.setItem('UserOld','old');
     router.push('/user/otp');
-  } else {
-    alert('Invalid credentials');
+    alert("success");
   }
-
 };
 
 </script>

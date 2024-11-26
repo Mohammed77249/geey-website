@@ -132,17 +132,17 @@
         </button>
       </form>
       <p v-if="errorMessage" class="text-red-600 text-center mt-4">{{ errorMessage }}</p>
-
-
     </div>
+    <LoaderComp :is-loader="authStore.loading" />
   </div>
 </template>
 
 <script setup>
 import {  ref } from 'vue';
 import { useRouter } from 'vue-router';
-// import { useAuthStore } from '@/stores/auth'
-// const authStore = useAuthStore();
+import { useAuthStore } from '@/stores/auth'
+import LoaderComp from '@/components/LoaderComp.vue';
+const authStore = useAuthStore();
 const router = useRouter();
 
 const newPassword = ref('');
@@ -157,10 +157,10 @@ const isconfirmPasswordVisible = ref(false)
 function toggleconfirmPasswordVisibility() {
   isconfirmPasswordVisible.value = !isconfirmPasswordVisible.value;
 }
-
-
 const errorMessage = ref("");
-const submitNewPassword = () => {
+const emailUser = localStorage.getItem('emailuser');
+const submitNewPassword = async() => {
+
   if (newPassword.value !== confirmPassword.value) {
     errorMessage.value = "كلمتا المرور غير متطابقتين. الرجاء المحاولة مرة أخرى.";
     return;
@@ -171,8 +171,11 @@ const submitNewPassword = () => {
     return;
   }
 
-
+  const respass = await authStore.resetpassword(emailUser,newPassword.value,confirmPassword.value);
+  if(respass){
+    authStore.isAuthenticated = false
     router.push('/user/loginemail')
+  }
   alert("تمت إعادة تعيين كلمة المرور بنجاح!");
   errorMessage.value = "";
 };

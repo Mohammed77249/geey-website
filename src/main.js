@@ -10,8 +10,9 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-const store = useAuthStore()
- store.initializeAuth()
+
+const authStore = useAuthStore();
+authStore.restoreAuth();
  app.use(i18n);
  setLanguageAndDirection('ar');
 app.mount('#app')

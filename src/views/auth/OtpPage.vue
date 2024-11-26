@@ -15,21 +15,27 @@
       </p>
       </div>
 
-        <div class="flex justify-between gap-2 mb-6">
-        <input
-          v-for="(box, index) in otpBoxes"
-          :key="index"
-          type="text"
-          maxlength="1"
-          class="w-12 h-12 border border-gray-300 text-center text-xl rounded focus:ring focus:ring-blue-200 focus:outline-none"
-          v-model="otp[index]"
-          @input="moveToNextBox(index)"
-        />
-      </div>
+      <div class="flex justify-between   mb-6">
+          <input
+            v-for="(input, index) in otpInputs"
+            :key="index"
+            type="text"
+            maxlength="1"
+            v-model="otp[index]"
+            @input="focusNext(index, $event)"
+            class="w-12 h-12 border border-gray-300 text-center text-xl rounded focus:ring focus:ring-blue-200 focus:outline-none"
+          />
+        </div>
+
+      <p v-if="authStore.error" class="text-red-500 text-sm text-center mb-4">
+          {{ authStore.error }}
+        </p>
+
 
         <button
           type="submit" @click="verifyOtp"
           class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
+          :disabled="authStore.loading"
         >
               {{ $t('verification') }}
         </button>
@@ -40,12 +46,15 @@
         <button
           class="text-blue-600 font-semibold hover:underline"
           @click="resendOtp"
+           :disabled="authStore.loading"
         >
           {{ $t('Resend') }}
         </button>
+
       </p>
 
     </div>
+    <LoaderComp :is-loader="authStore.loading" />
   </div>
 
 </template>
@@ -55,42 +64,45 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 import { useAuthStore } from '@/stores/auth'
+import LoaderComp from '@/components/LoaderComp.vue';
 const authStore = useAuthStore();
 
-// عدد الحقول
-const otpBoxes = Array(6).fill(null);
-const otp = ref(new Array(6).fill(''));
+const otpInputs= Array.from({ length: 6 });
+const otp = ref(["", "", "", "", "", ""]);
+const focusNext = (index, event) => {
+      if (event.target.value && index < otp.value.length - 1) {
+        const nextInput = event.target.nextElementSibling;
+        if (nextInput) nextInput.focus();
+      }
+    };
 
-// التنقل بين الحقول
-const moveToNextBox = (index) => {
-  const currentBox = document.querySelectorAll('input')[index];
-  if (currentBox.value && index < otpBoxes.length - 1) {
-    document.querySelectorAll('input')[index + 1].focus();
+//const emailUser =ref(authStore.email);
+const emailUser = localStorage.getItem('emailuser');
+const isnew = localStorage.getItem('UserOld');
+const verifyOtp = async() => {
+  const VerOtp = await authStore.verifyOtp(otp.value.join(""),emailUser);
+  if(VerOtp && isnew == 'old' ){
+    authStore.isAuthenticated = false
+    router.push('/user/resetpassword');
   }
-};
-
-
-const verifyOtp = () => {
-  const isnew = localStorage.getItem('UserOld');
-
-  if(otp.value.join('') === '123456' && isnew === 'old' ){
-    authStore.otp('no');
-    router.push('/user/newpassword');
-  }else if(otp.value.join('') == '123456'  && isnew === 'regester' )
+  if(VerOtp && isnew == 'regester' )
   {
-    alert(`تم تسجيل الدخول بنجاح  `);
-    authStore.otp('regester');
+    authStore.isAuthenticated = true
+    alert(`تم تسجيل الدخول بنجاح `);
     router.push('/');
-
-  } else{
-    alert(`تم إدخال الرمز خطاء`);
   }
 
 
 };
 
-const resendOtp = () => {
-  alert('تم إرسال رمز جديد.');
+const resendOtp = async() => {
+  const resotp = await authStore.resendOtp(emailUser);
+  if(resotp){
+    alert('تم إرسال رمز جديد.');
+  }else{
+    alert('لم بتم ارسال الرمز');
+  }
+
 };
 </script>
 

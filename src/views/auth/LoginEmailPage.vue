@@ -26,6 +26,7 @@
           />
         </div>
 
+
         <!-- Password Input -->
 
         <div class=" mb-5 ">
@@ -79,15 +80,20 @@
                   </svg>
                 </button>
               </div>
-              <div v-if="!isValidPassword" class="mt-2 text-[12px] text-success-500">
+              <div v-if="!authStore.error" class="mt-2 text-[12px] text-success-500">
                 <p>{{ $t('8 symbols minimum') }}</p>
                 <p>{{ $t('At least one letter') }}</p>
                 <p>{{ $t('At least one number') }}</p>
               </div>
             </div>
 
+            <p v-if="authStore.error" class="text-red-500 text-sm">{{ authStore.error }}</p>
+
 
         <div v-if="!isUsernew" class="flex justify-between items-center mb-5 text-sm text-gray-600">
+          <p>
+
+          </p>
         <RouterLink  to="/user/forgetpassword" class="hover:underline">{{ $t('Forgot Password') }}</RouterLink>
         </div>
 
@@ -112,8 +118,7 @@
         <p v-if="!isUsernew"> {{ $t('login') }}</p>
         </button>
       </form>
-
-
+      <LoaderComp :is-loader="authStore.loading" />
     </div>
   </div>
 </template>
@@ -122,8 +127,8 @@
 import {  ref,onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
+import LoaderComp from '@/components/LoaderComp.vue';
 const authStore = useAuthStore();
-// const email = ref('');
 const password = ref('');
 const message = ref();
 const router = useRouter();
@@ -132,24 +137,21 @@ const isPasswordVisible = ref(false)
 function togglePasswordVisibility() {
   isPasswordVisible.value = !isPasswordVisible.value
 }
-const isValidPassword =ref(false);
-const emailUser =ref(localStorage.getItem('emailUser'));
-
-
+// const emailUser =ref(authStore.email);
+const emailUser = localStorage.getItem('emailuser');
 const isUsernew = ref(false);
 
 const readLocalStorage = () => {
   try {
     const isnew = localStorage.getItem('userNew');
-    if (isnew == 'true') {
+    if (isnew == 'no exists') {
       isUsernew.value = true;
-    } else if(isnew == 'false'){
+    } else if(isnew == 'exists'){
       isUsernew.value = false;
     }
     else {
       alert('لا توجد بيانات للمفتاح userToken في localStorage.');
     }
-
 
   } catch (error) {
     alert('حدث خطأ أثناء قراءة localStorage:', error);
@@ -162,21 +164,17 @@ onMounted(() => {
 
 
 
-const handleLogin = () => {
-  if (emailUser.value === 'mohammed@gmail.com' && password.value === '123456' ) {
-    authStore.loginEmail() ;
-    router.push('/user/otp');
-    localStorage.setItem('UserOld','regester');
+const handleLogin = async () => {
 
-  } else {
-    authStore.loginEmail() ;
-    router.push('/user/otp');
-    localStorage.setItem('UserOld','regester');
-  }
+  const userLogin = await authStore.loginUser(emailUser,password.value);
+    if(userLogin)
+    {
+      router.push('/user/otp');
+      localStorage.setItem('UserOld','regester');
+    }else{
+      console.log("dddd")
+    }
 
 };
 </script>
 
-<style scoped>
-
-</style>

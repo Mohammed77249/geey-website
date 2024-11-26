@@ -32,37 +32,23 @@
             v-model="email"
             required
             :placeholder="$t('Email or phone number')"
+            :disabled="authStore.loading"
             class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
           />
+          <p v-if="authStore.error" class="text-red-500 text-sm">{{ authStore.error }}</p>
         </div>
-
-        <!-- Password Input -->
-        <!-- <div class="mb-4 rtl">
-          <label for="password" class="block text-gray-600 mb-2">كلمة المرور</label>
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            required
-            placeholder="أدخل كلمة المرور"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div> -->
-
         <!-- Login Button -->
         <button
-          type="submit"
+          type="submit"  :disabled="authStore.loading"
           class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
         >
-          {{ $t('Continue') }}
+
+          <span v-if="authStore.loading" class="loader mr-2"></span>
+          <span>{{ authStore.loading ? 'جارٍ التحقق...' : 'متابعة' }}</span>
         </button>
       </form>
+      <p v-if="successMessage" class="text-green-500 text-center mt-4">{{ successMessage }}</p>
 
-      <!-- Extra Options -->
-      <!-- <div class="flex justify-between items-center mt-4 text-sm text-gray-600">
-        <a href="#" class="hover:underline">نسيت كلمة المرور؟</a>
-        <a href="#" class="hover:underline">إنشاء حساب جديد</a>
-      </div> -->
 
       <!-- Or Divider -->
       <div class="flex items-center  my-6 ">
@@ -89,7 +75,7 @@
         </button>
       </div>
     </div>
-
+    <LoaderComp :is-loader="authStore.loading"/>
   </div>
 
 
@@ -99,30 +85,38 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
+import LoaderComp from '@/components/LoaderComp.vue';
 const authStore = useAuthStore();
 const email = ref('');
-// const password = ref('');
 const router = useRouter();
+const successMessage = ref(null);
 
-// const isnew = ref(false)
+const handleLogin = async () => {
 
-const handleLogin = () => {
-  if (email.value === 'mohammed@gmail.com' ) {
-    authStore.login('true');
-    router.push('/user/loginemail');
-    localStorage.setItem('emailUser',email.value);
-    localStorage.setItem('userNew','false');
-  } else {
-    authStore.login('true');
-    router.push('/user/loginemail');
-    localStorage.setItem('emailUser',email.value);
-    localStorage.setItem('userNew','true');
+  try {
+    const exists = await authStore.checkEmail(email.value);
+    if (exists.status =='exists') {
+      successMessage.value = 'البريد الإلكتروني متاح. يمكنك المتابعة.';
+      setTimeout(() => {
+        router.push('/user/loginemail');
+      }, 500);
+      localStorage.setItem('userNew','exists');
+
+    }
+    else {
+      successMessage.value = 'البريد الإلكتروني جديد.';
+      setTimeout(() => {
+        router.push('/user/loginemail');
+      }, 1500);
+
+      localStorage.setItem('userNew','no exists');
+    }
+  } catch (error) {
+    alert('Error checking email:', error);
   }
 
 
 };
 </script>
 
-<style scoped>
 
-</style>
