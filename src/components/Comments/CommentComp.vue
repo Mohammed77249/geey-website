@@ -50,7 +50,7 @@
                 <path d="M2.38 18.35V8.55002C2.38 7.15002 2.98 6.65002 4.38 6.65002H5.38C6.78 6.65002 7.38 7.15002 7.38 8.55002V18.35C7.38 19.75 6.78 20.25 5.38 20.25H4.38C2.98 20.25 2.38 19.75 2.38 18.35Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
-                <h1 class=text-gray-500>مفيد (3)</h1>
+                <h1 class=text-gray-500>{{ $t('Helpful') }} (3)</h1>
               </div>
 
               <div>

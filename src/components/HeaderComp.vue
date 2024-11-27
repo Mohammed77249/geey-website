@@ -14,10 +14,10 @@
         </div>
 
         <!-- search input -->
-        <div class="relative mx-6 flex-1 max-w-xl">
-          <input
+        <div class=" mx-6 flex-1 max-w-xl">
+          <!-- <input
             type="text"
-            placeholder="...البحث عن المنتجات"
+            :placeholder="$t('Search for products...')"
             class="w-full pr-10 pl-4 py-2 text-gray-700 border bg-[#F6F6F6] focus:outline-none focus:border-gray-400 text-right"
           />
           <div
@@ -47,7 +47,8 @@
                 stroke-linejoin="round"
               />
             </svg>
-          </div>
+          </div> -->
+        <SearchComp/>
         </div>
 
         <!-- links -->
@@ -310,7 +311,7 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between ">
         <!-- button all -->
         <div>
           <ul>
@@ -320,11 +321,17 @@
             >
               <div
                 class="flex space-x-6 cursor-pointer hover:text-black hover:bg-gray-100"
+
               >
                 <div
                   class="grid grid-cols-1 justify-center items-center h-10 pr-2 pl-2 w-24"
                 >
                   <div class="flex justify-center items-center gap-2">
+                    <div>
+                      <span class="text-[12px] font-sans">
+                        {{ $t('Categories') }}
+                      </span>
+                    </div>
                     <div>
                       <svg
                         v-if="!showDropdown"
@@ -360,11 +367,6 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </div>
-                    <div>
-                      <span class="text-[12px] font-sans">
-                        {{ $t('Categories') }}
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -487,6 +489,7 @@
 
 <script setup>
 import SidebarComp from './SidebarComp.vue'
+import SearchComp from './SearchComp.vue'
 import { ref, onMounted, onBeforeMount } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useLanguageStore } from "@/stores/language";

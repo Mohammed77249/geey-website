@@ -110,11 +110,10 @@
   </div>
 </div> -->
 
-  <div class="" >
-    <div    v-if="isOpen"   class="absolute left-0 border w-full h-[70%] z-50  bg-white shadow-lg p-4 ">
+  <div v-if="isOpen"  class="absolute left-0 border w-full h-[100%] z-40 bg-opacity-75  bg-gray-100 opacity-1 " >
+    <div @mouseleave="!isOpen" class="absolute h-[70%] opacity-  bg-white z-50   shadow-lg p-4 ">
 
       <div  class="grid grid-cols-12 ">
-
         <!-- list of item -->
       <div class="col-span-2  border-s-2 overflow-y-auto  max-h-[50%]   custom-scroll" >
         <ul  class="space-y-2  text-gray-700 text-[12px] font-sans">
@@ -154,7 +153,7 @@
               <path opacity="0.4" d="M15 19.5H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             </div>
-            <span class="px-3 text-[12px] font-sans">تسوق حسب الفئات</span>
+            <span class="px-3 text-[12px] font-sans">{{ $t('Shop by categories') }} </span>
 
           </div>
 
@@ -167,7 +166,7 @@
               <div class="w-20  flex  justify-center items-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
                 <img src="../assets/images/element-plus.svg" alt="no image" class="w-10  h-10 ">
               </div>
-                <h3 class="text-center mt-2 text-[12px] font-sans text-gray-800">مشاهدة الكل</h3>
+                <h3 class="text-center mt-2 text-[12px] font-sans text-gray-800">{{ $t('View all') }}</h3>
               </div>
 
                 <div
@@ -189,7 +188,7 @@
        <!-- list of card 2 -->
        <div class="col-span-6   overflow-y-auto h-[50%]   custom-scroll">
           <div>
-            <span class="p-5 text-[12px] font-sans">تسوق حسب الحجم</span>
+            <span class="p-5 text-[12px] font-sans">{{ $t('Shop by size') }}</span>
           </div>
           <div class="overflow-y-auto">
           <div>
@@ -200,7 +199,7 @@
               <div class="w-20 flex justify-center items-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
                 <img src="../assets/images/element-plus.svg" alt="no image" class="w-10  h-10 ">
               </div>
-                <h3 class="text-center mt-2 text-[12px] font-sans text-gray-800">مشاهدة الكل</h3>
+                <h3 class="text-center mt-2 text-[12px] font-sans text-gray-800">{{ $t('View all') }}</h3>
               </div>
 
                 <div
@@ -218,9 +217,6 @@
         </div>
 
         </div>
-
-
-
 
     </div>
 

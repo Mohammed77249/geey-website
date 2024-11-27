@@ -11,7 +11,7 @@
             : 'font-medium text[24px] text-[#565656]',
         ]"
       >
-        التخفيضات
+        {{ $t('Discounts') }}
         <div
           :class="[
             onclickLowProduct ? 'bg-primary-900' : 'bg-black hidden',
@@ -30,7 +30,7 @@
             : 'font-medium text[24px] text-[#565656]',
         ]"
       >
-        الاكثر مبيعا
+         {{ $t('Best Seller') }}
         <div
           :class="[
             onclickMoreSellsProduct ? 'bg-primary-900' : 'bg-black hidden',

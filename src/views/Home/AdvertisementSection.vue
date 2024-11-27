@@ -2,7 +2,7 @@
   <div class="grid grid-cols-12 mt-5 gap-1 p-2 sm:p-0 sm:gap-5">
 
     <div class="col-span-3 rtl bg-pink-200  rounded-md ">
-      <h1 class="p-2 text-primary-900 font-semibold">اسعار منخفظة</h1>
+      <h1 class="p-2 text-primary-900 font-semibold">{{ $t('Low prices') }}</h1>
       <div class="grid grid-cols-3   gap-1 p-2">
       <ProductCard :isORNot="false" v-for="product in products" :key="product.id" :product="product" />
     </div>
@@ -14,7 +14,7 @@
 
     <div class="col-span-3 bg-[#be58d733]  rtl rounded-md">
       <div>
-        <h1 class="p-2">اهم الترندات</h1>
+        <h1 class="p-2">{{ $t('The most important trends') }}</h1>
         <div class="grid grid-cols-3 gap-1 p-2">
       <ProductCard :isORNot="true" v-for="product in products2" :key="product.id" :product="product" />
     </div>

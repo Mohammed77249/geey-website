@@ -2,8 +2,8 @@
   <div class="mt-5 bg-pink-100 max-h-[400px] h-full mb-10 rounded-md ">
 
     <div class="flex justify-between p-5">
-      <h1>عرض المزيد</h1>
-      <h1>عروض كبرى</h1>
+      <h1>{{ $t('Show more') }}</h1>
+      <h1>{{ $t('Big offers') }}</h1>
 
     </div>
 

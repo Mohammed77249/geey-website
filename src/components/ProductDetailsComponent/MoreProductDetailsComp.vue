@@ -85,12 +85,9 @@ import { ref } from 'vue';
 
 const isHover = ref(false);
 const hoverId = ref(null);
-
 const onhover = (id)=>{
   isHover.value = true;
-
   hoverId.value= id;
-
 }
 
 const products = [
