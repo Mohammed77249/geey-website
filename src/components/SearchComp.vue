@@ -1,17 +1,17 @@
 <template>
-  <div class="relative max-w-md mx-auto ">
+  <div class="relative max-w-lg mx-auto ">
     <!-- شريط البحث -->
     <div class="flex items-center  overflow-hidden">
       <input
         v-model="query"
         @input="handleSearch"
         type="text"
-       class="w-full pr-10 pl-4 py-2 text-gray-700 border bg-[#F6F6F6] focus:outline-none focus:border-gray-400 "
+       class="w-full pr-10 pl-4 py-2 text-gray-700 border border-gray-900 bg-[#F6F6F6] focus:outline-none focus:border-gray-900 "
         :placeholder="$t('Search for products...')"
       />
       <button
         @click="handleSearch"
-        class="px-2 h-10  w-10 text-gray-400  cursor-pointer bg-black  transition"
+        class="px-2   w-10 text-gray-400  py-2 cursor-pointer bg-black  transition"
       >
             <svg
               width="25"

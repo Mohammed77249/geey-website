@@ -10,6 +10,7 @@ import CommentsPage from '@/views/CommentsPage.vue'
 import OtpPage from '@/views/auth/OtpPage.vue'
 import ForgetPasswordPage from '@/views/auth/ForgetPasswordPage.vue'
 import ResetPasswordPage from '@/views/auth/ResatPasswordPage.vue'
+import CartPage from '@/views/CartPage.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -93,7 +94,7 @@ const router = createRouter({
     },
     {
       name: 'Recommend',
-      path: '/recommend/:name',
+      path: '/recommend/:id/:name',
       component: RecommendPage,
       meta: { requiresAuth: true },
     },
@@ -108,6 +109,12 @@ const router = createRouter({
       name: 'ProductComments',
       component: CommentsPage,
       meta: { requiresAuth: true },
+    },
+    {
+      name: "Cart",
+      path: "/cart",
+      component: CartPage,
+      meta: { requiresAuth: true , hideHeaderFooter: true },
     },
 
 

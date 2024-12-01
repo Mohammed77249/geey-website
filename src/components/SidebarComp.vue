@@ -115,17 +115,19 @@
 
       <div  class="grid grid-cols-12 ">
         <!-- list of item -->
-      <div class="col-span-2  border-s-2 overflow-y-auto  max-h-[50%]   custom-scroll" >
+      <div class="col-span-2  border-s-2 overflow-y-auto  max-h-[90%]   custom-scroll" >
         <ul  class="space-y-2  text-gray-700 text-[12px] font-sans">
         <li
-          v-for="(item, index) in menuItems"
+          v-for="(category, index) in storeCategorie.getCategories"
           :key="index"
+          @mouseenter="handleMouseEnter(index)"
+          @mouseleave="handleMouseLeave"
           :class="{'bg-gray-100 text-black': hoveredIndex === index}"
           class="cursor-pointer flex-shrink-0 flex items-center pl-10 p-2 justify-between hover:text-black  hover:bg-gray-100 h-10 transition-all duration-200"
           :ref="setItemRef"
           >
 
-          {{ item.name }}
+          {{ category.name }}
           <div class="">
             <svg v-if="storedLanguage == 'en'" width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="font-bold">
             <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="gray" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -142,7 +144,7 @@
 
 
         <!-- list of card 1 -->
-        <div class="col-span-4  pl-10 pr-10  border-s-2  overflow-y-auto h-[50%]  custom-scroll">
+        <div class="col-span-4  pl-10 pr-10  border-s-2  overflow-y-auto max-h-[90%]  custom-scroll">
           <div class=" flex">
             <div>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -170,12 +172,12 @@
               </div>
 
                 <div
-                  v-for="(category, index) in categories"
+                  v-for="(subcategory, index) in  storeCategorie.getSubCategories"
                   :key="index"
                   class="bg-white flex flex-col items-center "
                 >
-                  <img :src="category.image" :alt="category.name" class="w-20 text-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
-                  <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ category.name }}</h3>
+                  <img src="/public/logogeey.svg" :alt="subcategory.name" class="w-20 text-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
+                  <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ subcategory.name }}</h3>
                 </div>
 
               </div>
@@ -186,7 +188,7 @@
       </div>
 
        <!-- list of card 2 -->
-       <div class="col-span-6   overflow-y-auto h-[50%]   custom-scroll">
+       <div class="col-span-6   overflow-y-auto max-h-[90%]   custom-scroll">
           <div>
             <span class="p-5 text-[12px] font-sans">{{ $t('Shop by size') }}</span>
           </div>
@@ -226,46 +228,16 @@
 
 <script setup>
 import { defineProps,ref,onMounted ,onBeforeUnmount} from 'vue'
-// import { useStorage } from '@vueuse/core';
-
+import { useCategoriesStore } from '@/stores/category'
 const storedLanguage = localStorage.getItem("language");
+const storeCategorie = useCategoriesStore();
 defineProps({
   isOpen: {
     type: Boolean,
     default: false,
-
-  },
-
-  hoveritem: {
-    type: String,
-    default: '',
   },
 
 });
-
-const menuItems = ref([
-  { name: 'الملابس النسائية' },
-  { name: 'الملابس الرجالية' },
-  { name: 'الأطفال' },
-  { name: 'الإكسسوارات' },
-  { name: 'الجديد' },
-  { name: 'التخفيضات' },
-  { name: 'الأحذية' },
-  { name: 'الحقائب' },
-  { name: 'فساتين' },
-  { name: 'قمصان' },
-  { name: 'بناطيل' },
-  { name: 'جاكيتات' },
-  { name: 'ملابس رياضية' },
-  { name: 'المنزل والمطبخ ' },
-  { name: 'ملابس السهرة ' },
-  { name: 'إلكترونيات' },
-  { name: 'الالعاب' },
-  { name: 'اجهزة' },
-  { name: 'السيارات' },
-  { name: 'مستلزمات الحيوانات' },
-
-]);
 
     const categories = [
         { name: 'الأزياء النسائية', image: '/public/logogeey.svg' },
@@ -284,7 +256,7 @@ const menuItems = ref([
       ];
 
 
-      const hoveredIndex = ref(null);
+    const hoveredIndex = ref(null);
     let intervalId;
     const updateHoveredIndex = () => {
       const newIndex = localStorage.getItem("hoveredIndex");
@@ -294,11 +266,31 @@ const menuItems = ref([
     onMounted(() => {
       updateHoveredIndex();
       intervalId = setInterval(updateHoveredIndex, 500);
+      storeCategorie.fetchCategories(filteredData);
+      storeCategorie.fetchSubCategoryByCategoryID(filteredData);
     });
 
     onBeforeUnmount(() => {
       clearInterval(intervalId);
     });
+
+
+    const handleMouseEnter = index => {
+      localStorage.setItem('hoveredIndex2', index)
+    }
+    const handleMouseLeave = () => {
+      localStorage.removeItem('hoveredIndex2')
+    };
+
+
+    const filteredData = ref({
+      categoryId: 2,
+      page: 1,
+      perPage: 20,
+    });
+
+
+
 
     // const hoveredIndex = ref(null);
 

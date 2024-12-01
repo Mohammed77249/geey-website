@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', {
       this.loading = true;
       this.error = null;
       try {
-        const response = await axiosIns.post('auth/check', { login });
+        const response = await axiosIns.post('auth/check_input', { login });
         this.email = response.data.input;
         this.status = response.data.status;
         localStorage.setItem('emailuser', response.data.input);
@@ -120,18 +120,29 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    logout() {
-      this.isAuthenticated = false;
-      this.token = null;
-      this.user = null;
-      this.email = null;
-      this.status = null;
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('emailuser');
-      router.push('/user/login');
-      setTimeout(() => {
-        window.location.reload()
-      }, 200)
+    async logout () {
+      this.loading = true;
+      this.error = null;
+      try {
+        await axiosIns.post('auth/logout');
+
+        this.isAuthenticated = false;
+        this.token = null;
+        this.user = null;
+        this.email = null;
+        this.status = null;
+
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('emailuser');
+        router.push('/user/login');
+        return true;
+      } catch (error) {
+        this.error = error.response.data.message || 'خطأ أثناء تسجيل الخروج:';
+        alert('خطأ أثناء تسجيل الخروج:', error);
+        return false;
+      } finally {
+        this.loading = false;
+      }
 
     },
   },

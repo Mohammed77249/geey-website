@@ -1,11 +1,13 @@
 import axios from 'axios';
-
+import i18n from './i18n'
+const language = i18n.global.locale.value
 const axiosIns = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  // baseURL: 'https://jsonplaceholder.typicode.com',
   timeout: 10000,
   headers: {
+    "accept-language": language,
     'Content-Type': 'application/json',
+
   },
 });
 
@@ -13,7 +15,7 @@ const axiosIns = axios.create({
 
 axiosIns.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

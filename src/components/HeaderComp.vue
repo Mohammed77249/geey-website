@@ -154,9 +154,12 @@
           </div>
 
           <!-- icon سلة -->
-          <div
+           <div>
+            <RouterLink to="/cart">
+              <div
             class="relative cursor-pointer text-gray-700 hover:text-gray-900"
           >
+
             <svg
               width="24"
               height="24"
@@ -187,7 +190,11 @@
             >
               10
             </span>
+
           </div>
+            </RouterLink>
+           </div>
+
 
           <!-- icon likes or favoraite -->
           <div
@@ -319,14 +326,9 @@
               @mouseenter="showDropdown = true"
               @mouseleave="showDropdown = false"
             >
-              <div
-                class="flex space-x-6 cursor-pointer hover:text-black hover:bg-gray-100"
-
-              >
-                <div
-                  class="grid grid-cols-1 justify-center items-center h-10 pr-2 pl-2 w-24"
-                >
-                  <div class="flex justify-center items-center gap-2">
+              <div class="flex space-x-2 cursor-pointer hover:text-black hover:bg-gray-100">
+                <div :class="{'w-20': storedLanguage === 'en' , 'w-16': storedLanguage === 'ar' }" class="grid grid-cols-1 justify-center items-center h-10">
+                  <div class="flex justify-start items-center ">
                     <div>
                       <span class="text-[12px] font-sans">
                         {{ $t('Categories') }}
@@ -384,14 +386,14 @@
             class="flex gap-2 scrollable-list overflow-x-auto text-[12px] text-gray-600 font-sans"
           >
             <li
-              v-for="(item, index) in menuItems"
+              v-for="(category, index) in storeCategorie.getCategories"
               :key="index"
               @mouseenter="handleMouseEnter(index)"
               @mouseleave="handleMouseLeave"
-              :class="{ 'bg-blue-200': isHoeverItem === index }"
+              :class="{ 'bg-gray-100 text-black': hoveredIndex === index }"
               class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black hover:bg-gray-100 transition-all duration-200"
             >
-              {{ item.name }}
+              {{ category.name }}
             </li>
           </ul>
         </div>
@@ -482,7 +484,7 @@
           </div>
         </div>
       </div>
-
+      <LoaderComp :is-loader="store.loading"/>
     </div>
   </header>
 </template>
@@ -493,10 +495,12 @@ import SearchComp from './SearchComp.vue'
 import { ref, onMounted, onBeforeMount } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useLanguageStore } from "@/stores/language";
+import LoaderComp from './LoaderComp.vue';
+import { useCategoriesStore } from '@/stores/category'
 const isHoeverItem = ref(null)
 const showDropdown = ref()
 const store = useAuthStore()
-
+const storeCategorie = useCategoriesStore();
 const languageStore = useLanguageStore();
 const storedLanguage = localStorage.getItem("language");
 function changeLanguage(lang) {
@@ -508,6 +512,12 @@ function changeLanguage(lang) {
 
 }
 
+const hoveredIndex = ref(null);
+let intervalId;
+const updateHoveredIndex = () => {
+      const newIndex = localStorage.getItem("hoveredIndex2");
+      hoveredIndex.value = newIndex !== null ? parseInt(newIndex) : null;
+    };
 
 //user icon   Language
 const dropDownStatus = ref(null)
@@ -530,34 +540,25 @@ const closeDropdowenLanguage = element => {
 onMounted(() => {
   window.addEventListener('click', closeDropdowenStatus)
   window.addEventListener('click', closeDropdowenLanguage)
+  storeCategorie.fetchCategories(filteredData)
+  updateHoveredIndex();
+  intervalId = setInterval(updateHoveredIndex, 500);
+
+
 })
 onBeforeMount(() => {
   window.removeEventListener('click', closeDropdowenStatus)
   window.removeEventListener('click', closeDropdowenLanguage)
+  clearInterval(intervalId);
 })
 
-const menuItems = ref([
-  { name: 'الملابس النسائية' },
-  { name: 'الملابس الرجالية' },
-  { name: 'الأطفال' },
-  { name: 'الإكسسوارات' },
-  { name: 'الجديد' },
-  { name: 'التخفيضات' },
-  { name: 'الأحذية' },
-  { name: 'الحقائب' },
-  { name: 'فساتين' },
-  { name: 'قمصان' },
-  { name: 'بناطيل' },
-  { name: 'جاكيتات' },
-  { name: 'ملابس رياضية' },
-  { name: 'المنزل والمطبخ ' },
-  { name: 'ملابس السهرة ' },
-  { name: 'إلكترونيات' },
-  { name: 'الالعاب' },
-  { name: 'اجهزة' },
-  { name: 'السيارات' },
-  { name: 'مستلزمات الحيوانات' },
-])
+const filteredData = ref({
+  // search: "",
+  // status: null,
+  // category_id: null,
+  page: 1,
+  perPage: 20,
+});
 
 const handleMouseEnter = index => {
   showDropdown.value = true
@@ -568,22 +569,8 @@ const handleMouseLeave = () => {
   isHoeverItem.value = null
   showDropdown.value = false
   localStorage.removeItem('hoveredIndex')
-}
+};
 
-// const dropDownSidBar = ref(null)
-// const closeDropdowenSideBar = (element) => {
 
-//   showDropdown.value = false
-
-// }
-
-//   onMounted(() => {
-//   window.addEventListener('click', closeDropdowenSideBar)
-// })
-
-// onBeforeMount(() => {
-//   window.removeEventListener('click', closeDropdowenSideBar)
-
-// });
 
 </script>

@@ -73,8 +73,8 @@ import LoaderComp from '@/components/LoaderComp.vue';
 const authStore = useAuthStore();
 const email = ref('');
 const router = useRouter();
-const lang =document.documentElement.lang ;
-//const emailUser =ref(authStore.email);
+
+const lang = localStorage.getItem('language');
 const emailUser = localStorage.getItem('emailuser');
 const handleForgetpassword = async () => {
   const forpass = await authStore.forgetpassword(emailUser);

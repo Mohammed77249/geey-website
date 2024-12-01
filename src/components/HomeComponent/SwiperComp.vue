@@ -13,10 +13,10 @@
       id="mySlider"
     >
       <SwiperSlide v-for="(image, index) in images" :key="index">
-        <img :src="image" alt="صورة المنتج" class="w-full h-full   rounded-lg" />
+        <img :src="image" alt="صورة المنتج" class="w-full h-full object-cover   rounded-lg" />
       </SwiperSlide>
-<!--
-    <button
+
+    <!-- <button
       class="swiper-button-prev custom-prev bg-gray-300 rounded-full"
       @click="goToPrevSlide"
     >

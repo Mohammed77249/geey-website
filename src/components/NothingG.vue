@@ -667,3 +667,181 @@ const submitNewPassword = () => {
   errorMessage.value = "";
 };
 </script>
+
+
+<!-- cart page -->
+
+
+<template>
+  <div class="min-h-screen bg-gray-100">
+    <!-- Breadcrumbs -->
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <div>
+        <a href="/" class="text-sm text-gray-500 hover:underline">الرئيسية</a>
+        <span class="mx-1">/</span>
+        <span class="text-sm font-semibold">حقيبة التسوق</span>
+      </div>
+    </header>
+
+    <main class="container mx-auto py-6 px-4 grid grid-cols-3 gap-6">
+
+      <!-- Cart Items -->
+      <section class="col-span-2">
+        <h2 class="font-semibold text-xl mb-4">المنتجات ({{ cartItems.length }})</h2>
+        <div class="space-y-4">
+          <div
+            v-for="(item, index) in cartItems"
+            :key="item.id"
+            class="bg-white shadow p-4 rounded-lg flex items-center"
+          >
+            <!-- Product Image -->
+            <img
+              :src="item.image"
+              alt="Product Image"
+              class="w-20 h-20 object-cover rounded-md"
+            />
+
+            <!-- Product Info -->
+            <div class="flex-1 mx-4">
+              <h3 class="font-semibold">{{ item.name }}</h3>
+              <p class="text-sm text-gray-500">الحجم: {{ item.size }}</p>
+              <p class="text-sm text-gray-500">اللون: {{ item.color }}</p>
+              <p class="text-sm font-bold text-red-600">
+                -{{ item.discount }}%
+              </p>
+              <p class="font-bold text-lg">
+                SR {{ item.price - (item.price * item.discount) / 100 }}
+              </p>
+            </div>
+
+            <!-- Quantity Controls -->
+            <div class="flex items-center space-x-2">
+              <button
+                class="bg-gray-200 text-gray-600 px-2 py-1 rounded hover:bg-gray-300"
+                @click="decrementQuantity(index)"
+              >
+                -
+              </button>
+              <span class="font-bold">{{ item.quantity }}</span>
+              <button
+                class="bg-gray-200 text-gray-600 px-2 py-1 rounded hover:bg-gray-300"
+                @click="incrementQuantity(index)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sidebar (Order Summary) -->
+      <aside class="col-span-1 bg-white rounded-lg shadow p-4">
+        <h2 class="font-semibold text-lg mb-4">ملخص الطلب</h2>
+        <div class="flex justify-between py-2">
+          <span>الإجمالي الفرعي:</span>
+          <span>SR {{ subtotal }}</span>
+        </div>
+        <div class="flex justify-between py-2">
+          <span>الخصم:</span>
+          <span>- SR {{ discount }}</span>
+        </div>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="flex justify-between font-bold text-lg">
+          <span>الإجمالي:</span>
+          <span>SR {{ total }}</span>
+        </div>
+        <button
+          class="w-full bg-black text-white py-2 rounded mt-4"
+          @click="checkout"
+        >
+          اشترِ الآن
+        </button>
+
+        <!-- Payment Methods -->
+        <div class="mt-4">
+          <h3 class="text-sm font-semibold mb-2">تقبل:</h3>
+          <div class="flex flex-wrap items-center space-x-2">
+            <img
+              src="/src/assets/images/products/Image (1).svg"
+              alt="PayPal"
+              class="w-8 h-8 object-contain"
+            />
+            <img
+              src="/src/assets/images/products/Image (1).svg"
+              alt="Visa"
+              class="w-8 h-8 object-contain"
+            />
+            <img
+              src="/src/assets/images/products/Image (1).svg"
+              alt="MasterCard"
+              class="w-8 h-8 object-contain"
+            />
+            <!-- Add other payment icons -->
+          </div>
+        </div>
+      </aside>
+
+
+    </main>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from "vue";
+
+const cartItems = ref([
+  {
+    id: 1,
+    name: "فستان زغبي أسود",
+    image: "/src/assets/images/products/Image (2).svg",
+    size: "L",
+    color: "أسود",
+    price: 320,
+    discount: 32,
+    quantity: 1,
+  },
+  {
+    id: 2,
+    name: "قميص نسائي صيفي",
+    image: "/src/assets/images/products/Image (1).svg",
+    size: "M",
+    color: "أبيض",
+    price: 210,
+    discount: 20,
+    quantity: 2,
+  },
+]);
+
+const subtotal = computed(() =>
+  cartItems.value.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  )
+);
+const discount = computed(() =>
+  cartItems.value.reduce(
+    (sum, item) =>
+      sum + (item.price * item.discount) / 100 * item.quantity,
+    0
+  )
+);
+const total = computed(() => subtotal.value - discount.value);
+
+const incrementQuantity = (index) => {
+  cartItems.value[index].quantity++;
+};
+
+const decrementQuantity = (index) => {
+  if (cartItems.value[index].quantity > 1) {
+    cartItems.value[index].quantity--;
+  }
+};
+
+const checkout = () => {
+  alert("متابعة إلى صفحة الدفع");
+};
+</script>
+
+<style scoped>
+/* يمكن إضافة أي أنماط إضافية إذا لزم الأمر */
+</style>
