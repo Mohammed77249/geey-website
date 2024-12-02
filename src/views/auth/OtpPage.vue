@@ -11,7 +11,7 @@
       </p> -->
 
       <p class="text-gray-600 text-center mb-6">
-        {{ $t('Enter the code sent to your email') }} <br /> (mhm****)
+        {{ $t('Enter the code sent to your email') }} <br />  {{ maskedEmail }}
       </p>
       </div>
 
@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,onMounted,computed} from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 import { useAuthStore } from '@/stores/auth'
@@ -78,6 +78,7 @@ const focusNext = (index, event) => {
 
 //const emailUser =ref(authStore.email);
 const emailUser = localStorage.getItem('emailuser');
+  const email = ref(null);
 const isnew = localStorage.getItem('UserOld');
 const verifyOtp = async() => {
   const VerOtp = await authStore.verifyOtp(otp.value.join(""),emailUser);
@@ -94,6 +95,25 @@ const verifyOtp = async() => {
 
 
 };
+
+const maskedEmail = computed(() => {
+      if (!email.value) return ""; // إذا لم يكن هناك بريد إلكتروني
+      const [localPart, domain] = email.value.split("@");
+      const visiblePart = localPart.slice(0, 3); // أول 3 أحرف
+      const hiddenPart = "*".repeat(localPart.length - 3); // بقية الأحرف مشفرة
+      return `${visiblePart}${hiddenPart}@${domain}`;
+    });
+
+
+
+onMounted(() => {
+      const storedEmail = localStorage.getItem("emailuser");
+      if (storedEmail) {
+        email.value = storedEmail;
+      } else {
+        alert("لم يتم العثور على بريد إلكتروني في localStorage.");
+      }
+    });
 
 const resendOtp = async() => {
   const resotp = await authStore.resendOtp(emailUser);
