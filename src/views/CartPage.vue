@@ -176,6 +176,10 @@
     </main>
 
 
+    <div v-if="onclicknoproduct" class="bg-white w-full ">
+      <ProductUnder/>
+    </div>
+
   </div>
 </template>
 
@@ -186,6 +190,9 @@ import PayMoney from './cart/PayMoney.vue';
 import RequestDone from './cart/RequestDone.vue';
 
 import { ref } from 'vue'
+import ProductUnder from './cart/ProductUnder.vue';
+
+const onclicknoproduct = ref(true)
 
 const onclickShoppingBag = ref(true)
 const onclickConfirmOrder = ref(false)
@@ -199,6 +206,8 @@ const taggleActiveShoppingBag = () => {
   onclickPay.value = onclickPay.value = false
   onclickRequestDone.value = onclickRequestDone.value = false
 
+  onclicknoproduct.value =true
+
 }
 
 const taggleActiveConfirmOrder = () => {
@@ -206,6 +215,8 @@ const taggleActiveConfirmOrder = () => {
   onclickConfirmOrder.value = onclickConfirmOrder.value = true
   onclickPay.value = onclickPay.value = false
   onclickRequestDone.value = onclickRequestDone.value = false
+
+  onclicknoproduct.value =false
 };
 
 const taggleActivePay = () => {

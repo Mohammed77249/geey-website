@@ -1,23 +1,39 @@
 
 <template>
-  <div class="mx-auto pl-2 pr-2  ">
+  <div class="container mx-auto px-20 ">
+    <div class="flex items-center justify-center py-5">
+      <span class="font-semibold text-2xl">قد ترغب فى ملء</span>
+    </div>
 
-  <div class="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-1 ">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
     <div
       v-for="product in products"
       :key="product.id"
-      class="p-1 mt-4"
+      class="p-2 cursor-pointer  hover:shadow "
     >
     <RouterLink :to="`/product/${product.id}`">
-      <div class="cursor-pointer w-[full] h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
-      <img :src="hoverId === product.id && isHover ? product.images[1] : product.images[0] "  alt="" class="w-full h-full object-cover transition duration-300 ease-in-out" />
+    <div class="cursor-pointer w-[full] h-[300px] " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
+      <img :src="hoverId === product.id && isHover ? product.images[1] : product.images[0] " alt="no image" class="w-full h-full object-cover transition duration-300 ease-in-out" />
     </div>
-
       <h3 class="font-semibold rtl text text-sm mt-1">{{ product.name }}</h3>
     </RouterLink>
+      <div class="mt-1 rtl">
 
+          <div class="flex items-center">
+            <span class="flex text-yellow-500">
+              <i> <img src="/src/assets/images/star.svg"/></i>
+              <i> <img src="/src/assets/images/star.svg"/></i>
+              <i> <img src="/src/assets/images/star.svg"/></i>
+              <i> <img src="/src/assets/images/star.svg"/></i>
+
+            </span>
+            <p class="text-[10px] mr-2">(+1000)</p>
+          </div>
+
+        </div>
 
     <div class="flex items-center justify-between">
+
       <div class="flex gap-2  items-center ">
         <div class="border border-primary-400 ">
          <p class=" text-[10px] text-primary-400 "> %50- </p>
@@ -25,6 +41,7 @@
         <p class="font-sembold text-primary-400">{{ product.price }}</p>
 
       </div>
+
       <div class="cursor-pointer w-10 flex items-center justify-center border border-black rounded-full">
         <svg
               width="20"
@@ -54,30 +71,22 @@
         </svg>
       </div>
 
-
     </div>
 
     </div>
+    </div>
   </div>
-
-
-  </div>
-
-
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
 
-const isHover = ref();
+const isHover = ref(false);
 const hoverId = ref(null);
-
 const onhover = (id)=>{
   isHover.value = true;
-
   hoverId.value= id;
-
 }
 
 const products = [
@@ -103,3 +112,10 @@ const products = [
       ];
 
 </script>
+
+
+
+
+
+
+

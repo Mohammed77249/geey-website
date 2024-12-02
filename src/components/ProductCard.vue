@@ -15,7 +15,6 @@
     <div class="absolute inset-0  pr-4 pl-4">
       <div class="bg-white rounded-full h-5 w-16 ">
         <p class="text-primary-400  mt-24">{{ product.price }} $</p>
-
       </div>
     </div>
   </div>

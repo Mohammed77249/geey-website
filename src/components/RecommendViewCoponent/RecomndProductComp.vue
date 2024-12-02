@@ -12,9 +12,9 @@
     <div class="cursor-pointe w-[full] h-[350px] " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img :src="hoverId === product.id && isHover ? product.images[1] : product.images[0] " alt="no image" class="w-full h-full object-cover transition duration-300 ease-in-out" />
     </div>
-      <h3 class="font-semibold rtl text text-sm mt-1">{{ product.name }}</h3>
+      <h3 class="font-semibold text text-sm mt-1">{{ product.name }}</h3>
     </RouterLink>
-      <div class="mt-1 rtl">
+      <div class="mt-1 ">
           <div class="flex items-center">
             <span class="flex text-yellow-500">
               <i> <img src="/src/assets/images/star.svg"/></i>
@@ -28,6 +28,13 @@
         </div>
 
     <div class="flex items-center justify-between">
+      <div class="flex gap-2  items-center ">
+        <div class="border border-primary-400 ">
+         <p class=" text-[10px] text-primary-400 "> %50- </p>
+        </div>
+        <p class="font-sembold text-primary-400">{{ product.price }}</p>
+
+      </div>
       <div class="cursor-pointer w-10 flex items-center justify-center border border-black rounded-full">
         <svg
               width="20"
@@ -56,13 +63,8 @@
               />
         </svg>
       </div>
-      <div class="flex gap-2  items-center ">
-        <div class="border border-primary-400 ">
-         <p class=" text-[10px] text-primary-400 "> %50- </p>
-        </div>
-        <p class="font-sembold text-primary-400">{{ product.price }}</p>
 
-      </div>
+
 
     </div>
 

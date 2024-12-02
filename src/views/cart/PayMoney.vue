@@ -1,4 +1,3 @@
-v
 <template>
   <div>
     Pay page

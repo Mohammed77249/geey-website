@@ -845,3 +845,176 @@ const checkout = () => {
 <style scoped>
 /* يمكن إضافة أي أنماط إضافية إذا لزم الأمر */
 </style>
+
+
+
+<!-- تاكيد الطلب -->
+<template>
+  <div class="bg-gray-100 py-8">
+    <div class="max-w-7xl mx-auto grid grid-cols-3 gap-6">
+      <!-- القسم الأيسر: ملخص الطلب -->
+      <div class="col-span-1 bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-bold text-gray-700 mb-4">ملخص الطلب</h2>
+        <!-- السعر -->
+        <div class="flex justify-between text-sm text-gray-600 mb-2">
+          <span>سعر الوحدة:</span>
+          <span class="line-through text-gray-400">SR32.00</span>
+        </div>
+        <div class="flex justify-between text-sm text-gray-600 mb-2">
+          <span>إجمالي المنتج:</span>
+          <span class="text-red-500">SR27.20</span>
+        </div>
+        <!-- نقاط المكافآت -->
+        <hr class="my-4">
+        <div class="bg-yellow-100 p-4 rounded-lg flex items-center justify-between mb-4">
+          <p class="text-sm font-semibold text-gray-700">
+            🎉 لديك <span class="text-yellow-600">7 نقاط مكافأة</span>
+          </p>
+        </div>
+        <!-- Shein Club -->
+        <div class="bg-green-50 p-4 rounded-lg text-sm mb-4">
+          <p class="text-green-700 font-bold mb-2">Shein Club</p>
+          <p>تكلفة الانضمام: <span class="text-red-500 font-bold">SR99.99</span></p>
+          <p class="text-xs text-gray-500">من خلال الانضمام، ستوافق على الشروط والأحكام</p>
+        </div>
+        <!-- رمز القسيمة -->
+        <div class="mb-4">
+          <label class="block text-sm font-semibold text-gray-600 mb-2">رمز القسيمة</label>
+          <div class="flex gap-2">
+            <input
+              type="text"
+              placeholder="أدخل الرمز"
+              class="w-full border rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+            <button class="bg-gray-200 px-4 py-2 rounded-md font-semibold text-gray-600 hover:bg-gray-300">
+              تقديم
+            </button>
+          </div>
+        </div>
+        <!-- بطاقة هدية -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-600 mb-2">بطاقة هدية</label>
+          <div class="flex gap-2">
+            <input
+              type="text"
+              placeholder="رقم البطاقة"
+              class="w-full border rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+            <button class="bg-gray-200 px-4 py-2 rounded-md font-semibold text-gray-600 hover:bg-gray-300">
+              تقديم
+            </button>
+          </div>
+        </div>
+        <!-- زر تأكيد الطلب -->
+        <button class="w-full mt-6 bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-black">
+          تأكيد الطلب
+        </button>
+      </div>
+
+      <!-- القسم الأيمن: عنوان الشحن -->
+      <div class="col-span-2 bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-bold text-gray-700 mb-4">عنوان الشحن</h2>
+        <form class="space-y-6">
+          <!-- الموقع والاسم -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-600 mb-2">موقع *</label>
+              <select
+                class="w-full border rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <option>اختر موقعك</option>
+                <option>السعودية</option>
+                <option>البحرين</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-600 mb-2">الاسم *</label>
+              <input
+                type="text"
+                placeholder="الاسم"
+                class="w-full border rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+          </div>
+          <!-- أرقام الهواتف -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-600 mb-2">رقم الهاتف *</label>
+              <input
+                type="text"
+                placeholder="BH +973"
+                class="w-full border rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-600 mb-2">
+                رقم الهاتف البديل (اختياري)
+              </label>
+              <input
+                type="text"
+                placeholder="BH +973"
+                class="w-full border rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+          </div>
+          <!-- المحافظة -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-2">المحافظة *</label>
+            <input
+              type="text"
+              placeholder="فضلًا اختر الدولة / المحافظة"
+              class="w-full border rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+          <!-- تفاصيل العنوان -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-2">تفاصيل العنوان *</label>
+            <textarea
+              placeholder="تفاصيل العنوان"
+              class="w-full border rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+              rows="3"
+            ></textarea>
+          </div>
+          <!-- المعالم الرئيسية -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-2">المعالم الرئيسية</label>
+            <input
+              type="text"
+              placeholder="معلم قريب (اختياري)"
+              class="w-full border rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+          <!-- زر الحفظ -->
+          <button
+            type="submit"
+            class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700"
+          >
+            حفظ التغييرات
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- معلومات الأمان -->
+    <div class="max-w-7xl mx-auto text-center text-gray-500 text-sm mt-8">
+      <p>جميع معلومات الدفع آمنة ومشفرة وفقًا لأعلى معايير الأمان.</p>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {};
+  },
+};
+</script>
+
+<style scoped>
+body {
+  direction: rtl;
+  font-family: 'Arial', sans-serif;
+}
+</style>
+
+

@@ -15,6 +15,14 @@
       <h3 class="font-semibold rtl text text-sm mt-1">{{ product.name }}</h3>
     </RouterLink>
     <div class="flex items-center justify-between">
+      <div class="flex gap-2  items-center ">
+        <div class="border border-primary-400 ">
+         <p class=" text-[10px] text-primary-400 "> %50- </p>
+        </div>
+        <p class="font-sembold text-primary-400">{{ product.price }}</p>
+
+      </div>
+      
       <div class="cursor-pointer w-10 flex items-center justify-center border border-black rounded-full">
         <svg
               width="20"
@@ -43,13 +51,8 @@
               />
         </svg>
       </div>
-      <div class="flex gap-2  items-center ">
-        <div class="border border-primary-400 ">
-         <p class=" text-[10px] text-primary-400 "> %50- </p>
-        </div>
-        <p class="font-sembold text-primary-400">{{ product.price }}</p>
 
-      </div>
+
 
     </div>
 
