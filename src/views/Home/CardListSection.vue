@@ -7,33 +7,38 @@
             class=" p-5 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7  rtl gap-6"
           >
             <div
-              v-for="(category, index) in storeCategorie.getCategories"
+              v-for="(section, index) in storeAllSection.getAllSections"
               :key="index"
               class="bg-white flex flex-col items-center"
-            >  <RouterLink :to="`/recommend/${category.id}/${category.name}`">
+            >  <RouterLink :to="`/recommend/${section.id}/${section.name}`">
               <img
                 src="/src/assets/images/Big Sale Banner.svg"
-                :alt="category.name"
+                :alt="section.name"
                 class="w-32 rounded-full h-32 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
               />
               <h3 class="text-center mt-2 text-[20px] font-sans text-gray-800">
-                {{ category.name }}
+                {{ section.name }}
               </h3>
             </RouterLink>
             </div>
-
           </div>
         </li>
+        <!-- <LoaderComp  :is-loader="storeAllSection.loading"/> -->
+         <LoaderDatacomp :is-loader="storeAllSection.loading"/>
       </ul>
+
     </div>
+
   </div>
 </template>
 
 <script setup>
 
-import { useCategoriesStore } from '@/stores/category'
+
+import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
+import { useSectionsStore } from '@/stores/section'
 import {ref,onMounted } from 'vue'
-const storeCategorie = useCategoriesStore();
+const storeAllSection = useSectionsStore();
 
 const filteredData = ref({
       page: 1,
@@ -41,8 +46,7 @@ const filteredData = ref({
     });
 
     onMounted(() => {
-      storeCategorie.fetchCategories(filteredData);
-      storeCategorie.fetchSubCategoryByCategoryID(filteredData);
+      storeAllSection.fetchAllSections(filteredData);
     });
 
 // const categories = [

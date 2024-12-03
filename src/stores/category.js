@@ -3,7 +3,7 @@ import axiosIns from '@/plugins/axios';
 
 export const useCategoriesStore = defineStore('categoriesProducts', {
   state: () => ({
-    categories: [],
+    allcategories: [],
     subcategories: [],
     products: [],
     totalProducts: {
@@ -16,14 +16,15 @@ export const useCategoriesStore = defineStore('categoriesProducts', {
     error: null,
   }),
   getters: {
-      getProducts: state => state.products,
-      getCategories: state => state.categories,
+    getCategories: state => state.allcategories,
+    getProducts: state => state.products,
+
       getSubCategories: state => state.subcategories,
       getTotalProducts: state => state.totalProducts,
       getProductDetails: state => state.productDetails,
     },
   actions: {
-    async fetchCategories(data) {
+    async fetchAllCategories(data) {
       this.loading = true;
       this.error = null;
       try {
@@ -62,18 +63,6 @@ export const useCategoriesStore = defineStore('categoriesProducts', {
     },
 
 
-    async fetchAllProducts() {
-      this.loading = true;
-      this.error = null;
-      try {
-        const response = await axiosIns.get('/api/products');
-        this.products = response.data.products;
-      } catch (error) {
-        this.error = 'خطأ أثناء جلب المنتجات';
-        console.error(error);
-      } finally {
-        this.loading = false;
-      }
-    },
+
   },
 });

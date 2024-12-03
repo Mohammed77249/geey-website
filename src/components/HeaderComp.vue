@@ -386,14 +386,27 @@
             class="flex gap-2 scrollable-list overflow-x-auto text-[12px] text-gray-600 font-sans"
           >
             <li
-              v-for="(category, index) in storeCategorie.getCategories"
+              v-for="(section, index) in storeSecion.getSections"
               :key="index"
               @mouseenter="handleMouseEnter(index)"
               @mouseleave="handleMouseLeave"
               :class="{ 'bg-gray-100 text-black': hoveredIndex === index }"
               class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black hover:bg-gray-100 transition-all duration-200"
             >
-              {{ category.name }}
+            <div  v-if="storedLanguage == 'ar'">
+              <RouterLink :to="`/recommend/${section.id}/${section.name_ar}`">
+               {{ section.name_ar }}
+            </RouterLink>
+            </div>
+
+            <div  v-if="storedLanguage == 'en'">
+              <RouterLink :to="`/recommend/${section.id}/${section.name_en}`">
+               {{ section.name_en }}
+            </RouterLink>
+            </div>
+
+        
+
             </li>
           </ul>
         </div>
@@ -484,7 +497,7 @@
           </div>
         </div>
       </div>
-      <LoaderComp :is-loader="store.loading"/>
+      <!-- <LoaderComp :is-loader="store.loading"/> -->
     </div>
   </header>
 </template>
@@ -495,12 +508,13 @@ import SearchComp from './SearchComp.vue'
 import { ref, onMounted, onBeforeMount } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useLanguageStore } from "@/stores/language";
-import LoaderComp from './LoaderComp.vue';
-import { useCategoriesStore } from '@/stores/category'
+// import LoaderComp from './LoaderComp.vue';
+import { useSectionsStore } from '@/stores/section'
 const isHoeverItem = ref(null)
 const showDropdown = ref()
 const store = useAuthStore()
-const storeCategorie = useCategoriesStore();
+const storeSecion = useSectionsStore();
+
 const languageStore = useLanguageStore();
 const storedLanguage = localStorage.getItem("language");
 function changeLanguage(lang) {
@@ -540,7 +554,7 @@ const closeDropdowenLanguage = element => {
 onMounted(() => {
   window.addEventListener('click', closeDropdowenStatus)
   window.addEventListener('click', closeDropdowenLanguage)
-  storeCategorie.fetchCategories(filteredData)
+  storeSecion.fetchSections(filteredData);
   updateHoveredIndex();
   intervalId = setInterval(updateHoveredIndex, 500);
 
@@ -553,9 +567,6 @@ onBeforeMount(() => {
 })
 
 const filteredData = ref({
-  // search: "",
-  // status: null,
-  // category_id: null,
   page: 1,
   perPage: 20,
 });

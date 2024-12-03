@@ -118,16 +118,18 @@
       <div class="col-span-2  border-s-2 overflow-y-auto  max-h-[90%]   custom-scroll" >
         <ul  class="space-y-2  text-gray-700 text-[12px] font-sans">
         <li
-          v-for="(category, index) in storeCategorie.getCategories"
+            v-for="(section, index) in storeSecion.getSections"
           :key="index"
           @mouseenter="handleMouseEnter(index)"
           @mouseleave="handleMouseLeave"
+          @mouseover="getID(section.id)"
           :class="{'bg-gray-100 text-black': hoveredIndex === index}"
           class="cursor-pointer flex-shrink-0 flex items-center pl-10 p-2 justify-between hover:text-black  hover:bg-gray-100 h-10 transition-all duration-200"
           :ref="setItemRef"
           >
 
-          {{ category.name }}
+          <p v-if="storedLanguage == 'ar'"> {{ section.name_ar }} </p>
+            <p v-if="storedLanguage == 'en'"> {{ section.name_en }} </p>
           <div class="">
             <svg v-if="storedLanguage == 'en'" width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="font-bold">
             <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="gray" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -162,40 +164,44 @@
         <div class="">
           <div class="">
             <ul class="space-y-2 ">
-             <li>
-              <div class=" w-full pt-4 grid grid-cols-2 sm:grid-cols-3  gap-8">
+             <li >
+              <div  v-if="!storeSecion.loading"  class=" w-full pt-4 grid grid-cols-2 sm:grid-cols-3  gap-8">
                 <div class="flex flex-col items-center">
               <div class="w-20  flex  justify-center items-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
                 <img src="../assets/images/element-plus.svg" alt="no image" class="w-10  h-10 ">
               </div>
                 <h3 class="text-center mt-2 text-[12px] font-sans text-gray-800">{{ $t('View all') }}</h3>
-              </div>
+                </div>
+
 
                 <div
-                  v-for="(subcategory, index) in  storeCategorie.getSubCategories"
+                  v-for="(subsection, index) in  storeSecion.getSubSections"
                   :key="index"
                   class="bg-white flex flex-col items-center "
                 >
-                  <img src="/public/logogeey.svg" :alt="subcategory.name" class="w-20 text-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
-                  <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ subcategory.name }}</h3>
+                  <img src="/public/logogeey.svg" :alt="subsection.name" class="w-20 text-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
+                  <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ subsection.name }}</h3>
                 </div>
 
+
               </div>
+              <LoaderDatacomp :isLoader="storeSecion.loading"/>
              </li>
+
             </ul>
           </div>
         </div>
       </div>
 
        <!-- list of card 2 -->
-       <div class="col-span-6   overflow-y-auto max-h-[90%]   custom-scroll">
+       <div class="col-span-6   overflow-y-auto max-h-[90%] w-full   custom-scroll">
           <div>
             <span class="p-5 text-[12px] font-sans">{{ $t('Shop by size') }}</span>
           </div>
           <div class="overflow-y-auto">
           <div>
-            <ul class="space-y-2">
-             <li>
+            <ul class="space-y-2 ">
+             <li v-if="!storeSecion.loading">
               <div class="bg-white  p-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7  gap-6">
             <div class=" flex flex-col items-center">
               <div class="w-20 flex justify-center items-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
@@ -205,15 +211,16 @@
               </div>
 
                 <div
-                  v-for="(category, index) in categories"
+                  v-for="(product, index) in storeSecion.getProducts"
                   :key="index"
                   class="bg-white  flex flex-col items-center"
                 >
-                  <img :src="category.image" :alt="category.name" class="w-20 rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
-                  <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ category.name }}</h3>
+                  <img src="/public/logogeey.svg" :alt="product.name" class="w-20 rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
+                  <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ product.name_ar }}</h3>
                 </div>
               </div>
              </li>
+             <LoaderDatacomp :isLoader="storeSecion.loading"/>
             </ul>
           </div>
         </div>
@@ -228,9 +235,11 @@
 
 <script setup>
 import { defineProps,ref,onMounted ,onBeforeUnmount} from 'vue'
-import { useCategoriesStore } from '@/stores/category'
+import { useSectionsStore } from '@/stores/section'
+import LoaderDatacomp from './LoaderDatacomp.vue';
 const storedLanguage = localStorage.getItem("language");
-const storeCategorie = useCategoriesStore();
+const storeSecion = useSectionsStore();
+
 defineProps({
   isOpen: {
     type: Boolean,
@@ -239,22 +248,10 @@ defineProps({
 
 });
 
-    const categories = [
-        { name: 'الأزياء النسائية', image: '/public/logogeey.svg' },
-        { name: 'الأزياء الرجالية', image: '/public/logogeey.svg' },
-        { name: 'الأطفال', image: '/public/logogeey.svg' },
-        { name: 'الإكسسوارات', image: '/public/logogeey.svg' },
-        { name: 'الأحذية', image: '/public/logogeey.svg' },
-        { name: 'الحقائب', image: '/public/logogeey.svg' },
-        { name: 'الأزياء النسائية', image: '/public/logogeey.svg' },
-        { name: 'الأزياء الرجالية', image: '/public/logogeey.svg' },
-        { name: 'الأطفال', image: '/public/logogeey.svg' },
-        { name: 'الإكسسوارات', image: '/public/logogeey.svg' },
-        { name: 'الأحذية', image: '/public/logogeey.svg' },
-        { name: 'الحقائب', image: '/public/logogeey.svg' },
-
-      ];
-
+  const getID = (id) =>{
+    filteredData.value.sectionId = id
+    storeSecion.fetchSubSectionBySectionID(filteredData);
+  }
 
     const hoveredIndex = ref(null);
     let intervalId;
@@ -266,8 +263,8 @@ defineProps({
     onMounted(() => {
       updateHoveredIndex();
       intervalId = setInterval(updateHoveredIndex, 500);
-      storeCategorie.fetchCategories(filteredData);
-      storeCategorie.fetchSubCategoryByCategoryID(filteredData);
+      storeSecion.fetchSections(filteredData);
+      storeSecion.fetchSubSectionBySectionID(filteredData);
     });
 
     onBeforeUnmount(() => {
@@ -284,9 +281,9 @@ defineProps({
 
 
     const filteredData = ref({
-      categoryId: 2,
+      sectionId: 1,
       page: 1,
-      perPage: 20,
+      perPage: 3,
     });
 
 
