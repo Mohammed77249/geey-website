@@ -15,7 +15,7 @@
                     type="radio"
                     value="false"
                     v-model="selectedCategories"
-                    class=" ml-2 rounded border-gray-300 text-black  focus:ring-black"
+                    class=" ml-2 rounded border-gray-300 text-black focus:ring-black"
                   />
                     <label class="cursor-pointer  text-[10px]">{{ status.name }}</label>
                   </div>
