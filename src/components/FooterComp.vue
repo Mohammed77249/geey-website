@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-gray-50 text-white text-sm">
-    <div class="container mx-auto px-20 py-8">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mt-10 pb-8 ">
+    <div class="container mx-auto px-10 md:px-20 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mt-5 md:mt-10 md:pb-8 ">
 
         <div class="col-span-6 w-full ">
           <div class="grid grid-cols-6 gap-1">
@@ -105,12 +105,12 @@
             />
             <button
               type="submit"
-              class="bg-black text-white px-4 py-3 hover:bg-gray-800"
+              class="bg-black text-white  px-2 md:px-4 py-3 hover:bg-gray-800"
             >
             {{ $t('subscription') }}
             </button>
           </form>
-          <form class="flex items-center mt-8">
+          <form class="flex items-center mt-4 md:mt-8">
             <input
               type="email"
               :placeholder="$t('WhatsApp account')"
@@ -118,7 +118,7 @@
             />
             <button
               type="submit"
-              class="bg-black text-white px-4 py-3 hover:bg-gray-800"
+              class="bg-black text-white px-2 md:px-4 py-3 hover:bg-gray-800"
             >
               {{ $t('subscription') }}
             </button>
@@ -128,21 +128,8 @@
 
       </div>
 
-      <div class="w-full text-black mt-20 grid grid-cols-12 gap-8">
-        <div class="col-span-6 w-full  rtl ">
-          <p class="text-xs text-black font-medium mb-2">{{ $t('Accept') }}</p>
-          <div class="px-2 flex gap-2">
-            <img src="/src/assets/images/ads1.svg" class="w-16" />
-            <img src="/src/assets/images/ads2.svg" class="w-16 h-8" />
-            <img src="/src/assets/images/ads1.svg" class="w-16" />
-            <img src="/src/assets/images/ads2.svg" class="w-16 h-8" />
-            <img src="/src/assets/images/ads1.svg" class="w-16" />
-            <img src="/src/assets/images/ads2.svg" class="w-16 h-8" />
-
-          </div>
-        </div>
-
-        <div class="col-span-6 w-full   rtl">
+      <div class="w-full text-black  mt-10 md:mt-20 grid grid-cols-6 md:grid-cols-12  gap-8">
+        <div class="col-span-6 w-full">
           <div class="text-gray-800 ">
             &copy; 2024 Jeey. All rights reserved.
           </div>
@@ -153,6 +140,19 @@
             سياسة الخصوصية
           </div>
 
+        </div>
+
+        <div class="col-span-6 w-full  ">
+          <p class="text-xs text-black font-medium mb-2">{{ $t('Accept') }}</p>
+          <div class="px-2 grid grid-cols-6 gap-2">
+            <img src="/src/assets/images/ads1.svg" class="w-16" />
+            <img src="/src/assets/images/ads2.svg" class="w-16 " />
+            <img src="/src/assets/images/ads1.svg" class="w-16" />
+            <img src="/src/assets/images/ads2.svg" class="w-16 " />
+            <img src="/src/assets/images/ads1.svg" class="w-16" />
+            <img src="/src/assets/images/ads2.svg" class="w-16 " />
+
+          </div>
         </div>
 
       </div>

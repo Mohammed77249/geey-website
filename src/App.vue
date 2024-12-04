@@ -1,5 +1,5 @@
 <template>
-  <!-- <List
+   <!-- <List
     :items="[
       {
         name: 'test',
@@ -31,12 +31,15 @@
       },
     ]"
   /> -->
+
   <LayoutMain>
       <RouterView/>
     </LayoutMain>
+
+<!-- <List :items="item"/> -->
 </template>
 
 <script setup>
 import LayoutMain from './layouts/LayoutMain.vue'
-import List from './List.vue'
+// import List from './List.vue'
 </script>

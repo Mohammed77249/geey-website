@@ -69,7 +69,6 @@ export const useSectionsStore = defineStore('sections', {
       try {
         const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
         this.subsections = response.data.sections;
-        //this.subsections = response.data.sections.categories;
         this.sections.forEach(section => {
           if (section.categories && section.categories.length > 0) {
             this.categories.push(...section.categories);

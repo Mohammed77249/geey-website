@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5 bg-pink-100 max-h-[400px] h-full mb-10 rounded-md ">
+  <div class="mt-5 bg-pink-100  h-full mb-10 md:mb-20 rounded-md ">
 
     <div class="flex justify-between p-5">
       <h1>{{ $t('Show more') }}</h1>
@@ -14,7 +14,7 @@
       :key="product.id"
       class="p-1 mt-4"
     >
-    <div class="cursor-pointer w-[full] h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
+    <div class="cursor-pointer " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img :src="hoverId === product.id && isHover ? product.images[1] : product.images[0] "  alt="" class="w-full h-full object-cover transition duration-300 ease-in-out" />
     </div>
 

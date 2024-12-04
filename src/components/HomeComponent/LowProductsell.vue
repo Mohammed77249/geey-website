@@ -22,7 +22,7 @@
         <p class="font-sembold text-primary-400">{{ product.price }}</p>
 
       </div>
-      
+
       <div class="cursor-pointer w-10 flex items-center justify-center border border-black rounded-full">
         <svg
               width="20"
@@ -73,9 +73,7 @@ const isHover = ref();
 const hoverId = ref(null);
 const onhover = (id)=>{
   isHover.value = true;
-
   hoverId.value= id;
-
 }
 
 const products = [

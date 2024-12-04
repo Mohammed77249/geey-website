@@ -110,12 +110,12 @@
   </div>
 </div> -->
 
-  <div v-if="isOpen"  class="absolute left-0 border w-full h-[100%] z-40 bg-opacity-75  bg-gray-100 opacity-1 " >
-    <div @mouseleave="!isOpen" class="absolute h-[70%] opacity-  bg-white z-50   shadow-lg p-4 ">
+  <div v-if="isOpen"  class="invisible md:visible absolute left-0 border w-screen h-screen z-40 bg-opacity-75  bg-gray-100 opacity-1 " >
+    <div @mouseleave="!isOpen" class="absolute h-[70%]   bg-white z-50  w-full shadow-lg p-4 ">
 
       <div  class="grid grid-cols-12 ">
         <!-- list of item -->
-      <div class="col-span-2  border-s-2 overflow-y-auto  max-h-[90%]   custom-scroll" >
+      <div class="col-span-3 md:col-span-2 border-s-2 overflow-y-auto  max-h-[90%]   custom-scroll" >
         <ul  class="space-y-2  text-gray-700 text-[12px] font-sans">
         <li
             v-for="(section, index) in storeSecion.getSections"
@@ -146,7 +146,7 @@
 
 
         <!-- list of card 1 -->
-        <div class="col-span-4  pl-10 pr-10  border-s-2  overflow-y-auto max-h-[90%]  custom-scroll">
+        <div class="col-span-4  pl-10 pr-10  border-s-2  overflow-y-auto h-[90%]  custom-scroll">
           <div class=" flex">
             <div>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -194,7 +194,7 @@
       </div>
 
        <!-- list of card 2 -->
-       <div class="col-span-6   overflow-y-auto max-h-[90%] w-full   custom-scroll">
+       <div class="col-span-5 md:col-span-6  overflow-y-auto  h-[90%] w-full   custom-scroll">
           <div>
             <span class="p-5 text-[12px] font-sans">{{ $t('Shop by size') }}</span>
           </div>
@@ -249,15 +249,26 @@ defineProps({
 });
 
   const getID = (id) =>{
+    // if(hoveredIndex.value ){
+    //   filteredData.value.sectionId = hoveredIndex.value
+    // }
+    // if(id !== null){
+    //
+    // }
+
     filteredData.value.sectionId = id
     storeSecion.fetchSubSectionBySectionID(filteredData);
+
   }
+
 
     const hoveredIndex = ref(null);
     let intervalId;
     const updateHoveredIndex = () => {
       const newIndex = localStorage.getItem("hoveredIndex");
       hoveredIndex.value = newIndex !== null ? parseInt(newIndex) : null;
+
+
     };
 
     onMounted(() => {
@@ -275,6 +286,7 @@ defineProps({
     const handleMouseEnter = index => {
       localStorage.setItem('hoveredIndex2', index)
     }
+
     const handleMouseLeave = () => {
       localStorage.removeItem('hoveredIndex2')
     };

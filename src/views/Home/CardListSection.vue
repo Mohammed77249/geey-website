@@ -25,6 +25,8 @@
         </li>
         <!-- <LoaderComp  :is-loader="storeAllSection.loading"/> -->
          <LoaderDatacomp :is-loader="storeAllSection.loading"/>
+
+         
       </ul>
 
     </div>

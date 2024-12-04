@@ -1,7 +1,7 @@
-import { defineStore } from 'pinia';
-import axiosIns from '@/plugins/axios';
+import { defineStore } from 'pinia'
+import axiosIns from '@/plugins/axios'
 
-export const useCategoriesStore = defineStore('categoriesProducts', {
+export const useCategoriesStore = defineStore('useCategoriesStore', {
   state: () => ({
     allcategories: [],
     subcategories: [],
@@ -18,51 +18,50 @@ export const useCategoriesStore = defineStore('categoriesProducts', {
   getters: {
     getCategories: state => state.allcategories,
     getProducts: state => state.products,
+    getSubCategories: state => state.subcategories,
 
-      getSubCategories: state => state.subcategories,
-      getTotalProducts: state => state.totalProducts,
-      getProductDetails: state => state.productDetails,
-    },
+    getTotalProducts: state => state.totalProducts,
+    getProductDetails: state => state.productDetails,
+  },
   actions: {
     async fetchAllCategories(data) {
-      this.loading = true;
-      this.error = null;
+      this.loading = true
+      this.error = null
       try {
-        const response = await axiosIns.get(`categories?page=${data.value.page}&perPage=${data.value.perPage}`);
-        this.categories = response.data.categories;
-        this.products = response.data.products.data;
+        const response = await axiosIns.get(
+          `categories?page=${data.value.page}&perPage=${data.value.perPage}`,
+        )
+        this.categories = response.data.categories
+        this.products = response.data.products.data
         this.totalProducts.currentPage = response.data.products.current_page
         this.totalProducts.totalItems = response.data.products.total
         this.totalProducts.totalPages = response.data.products.last_page
-
       } catch (error) {
-        this.error = 'خطأ أثناء جلب الفئات';
-        console.error(error);
+        this.error = 'خطأ أثناء جلب الفئات'
+        console.error(error)
       } finally {
-        this.loading = false;
+        this.loading = false
       }
     },
 
     async fetchSubCategoryByCategoryID(data) {
-      this.loading = true;
-      this.error = null;
+      this.loading = true
+      this.error = null
       try {
-        const response = await axiosIns.get(`categories/${data.value.categoryId}?page=${data.value.page}&perPage=${data.value.perPage}`);
-        this.subcategories = response.data.categories;
-        this.products = response.data.products.data;
+        const response = await axiosIns.get(
+          `categories/${data.value.categoryId}?page=${data.value.page}&perPage=${data.value.perPage}`,
+        )
+        this.subcategories = response.data.categories
+        this.products = response.data.products.data
         this.totalProducts.currentPage = response.data.products.current_page
         this.totalProducts.totalItems = response.data.products.total
         this.totalProducts.totalPages = response.data.products.last_page
-
       } catch (error) {
-        this.error = 'خطأ أثناء جلب الفئات';
-        console.error(error);
+        this.error = 'خطأ أثناء جلب الفئات'
+        console.error(error)
       } finally {
-        this.loading = false;
+        this.loading = false
       }
     },
-
-
-
   },
-});
+})

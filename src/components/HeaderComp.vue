@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-white shadow-md px-10 max-w-screen-3xl mx-auto">
+  <header class="bg-white shadow-md px-5 md:px-10 max-w-screen-3xl mx-auto">
     <div class="grid grid-cols-1">
 
       <div class="flex items-center justify-between ">
@@ -390,7 +390,8 @@
               :key="index"
               @mouseenter="handleMouseEnter(index)"
               @mouseleave="handleMouseLeave"
-              :class="{ 'bg-gray-100 text-black': hoveredIndex === index }"
+              @mouseover="getID(section.id)"
+              :class="{ 'bg-gray-100 text-black': hoveredIndex == index }"
               class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black hover:bg-gray-100 transition-all duration-200"
             >
             <div  v-if="storedLanguage == 'ar'">
@@ -405,7 +406,7 @@
             </RouterLink>
             </div>
 
-        
+
 
             </li>
           </ul>
@@ -526,6 +527,11 @@ function changeLanguage(lang) {
 
 }
 
+// const getID = (id) =>{
+
+//     localStorage.setItem('hoveredid',  id)
+//   }
+
 const hoveredIndex = ref(null);
 let intervalId;
 const updateHoveredIndex = () => {
@@ -574,6 +580,7 @@ const filteredData = ref({
 const handleMouseEnter = index => {
   showDropdown.value = true
   localStorage.setItem('hoveredIndex', index)
+
 }
 
 const handleMouseLeave = () => {
