@@ -17,7 +17,7 @@
                     v-model="selectedCategories"
                     class=" ml-2 rounded border-gray-300 text-black focus:ring-black"
                   />
-                    <label class="cursor-pointer  text-[10px]">{{ status.name }} </label>
+                    <label class="cursor-pointer  text-[10px]">{{ status.name }} 2 </label>
                   </div>
 
                    <div  v-if="status.has_children ">
@@ -74,7 +74,7 @@
 
                 </div>
 
-                <div v-if="status.has_children" class="px-5">
+                <div v-if="status.has_children" class="pr-3">
                    <ListCategory1 v-if="status.id === tempid "  :statuses="storeCategory.getSubCategories" />
                 </div>
 
@@ -116,6 +116,7 @@ const toggleGrandchildren = (childId) => {
   storeCategory.fetchSubCategoryByCategoryID(filteredData)
 
 };
+
 
 
 </script>

@@ -1,10 +1,11 @@
 <template>
   <div v-if="isDropdowenVisable" class="mt-5 mb-5">
-    <div class="grid grid-cols-12">
-      <p class="col-span-6 text-sm ">تصاميم:</p>
-      <p class="col-span-6 text-sm">انيقة</p>
+    <div v-for="(descrip , index) in types" :key="index" class="grid grid-cols-12">
+      <p class="col-span-6 text-sm ">{{ descrip.detail_name }}:</p>
+      <p class="col-span-6 text-sm">{{ descrip.detail_value }}</p>
     </div>
-    <div class="grid grid-cols-12">
+
+    <!-- <div class="grid grid-cols-12">
       <p class="col-span-6 text-sm">لون:</p>
       <p class="col-span-6 text-sm">لون شامباني</p>
     </div>
@@ -59,7 +60,7 @@
     <div class="grid grid-cols-12">
       <p class="col-span-6 text-sm ">شفاف:</p>
       <p class="col-span-6 text-sm">لا</p>
-    </div>
+    </div> -->
 
 
   </div>

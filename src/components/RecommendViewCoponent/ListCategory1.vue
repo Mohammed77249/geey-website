@@ -1,19 +1,15 @@
 <template>
   <div>
         <div>
-          <div
-              id="dropdownTop"
-             class=""
+          <div>
 
-            >
-              <ul class=" text-sm text-gray-700" aria-labelledby="dropdownTopButton">
+              <ul class="text-sm text-gray-700">
                 <li
-                  v-for="(status, index)  in statuses"
+                  v-for="(status, index) in statuses"
                   :key="index"
                   class=" space-y-2 "
                 >
-                <div  v-for="(item, itemIndex) in status" :key="itemIndex">
-                  <div class="flex items-center justify-between">
+                <div class="flex items-center  justify-between">
                     <div>
                       <input
                       type="radio"
@@ -21,17 +17,17 @@
                       v-model="selectedCategories"
                       class=" ml-2 rounded border-gray-300 text-black  focus:ring-black"
                     />
-                      <label class="cursor-pointer text-[10px]">{{ item.name }} </label>
+                      <label class="cursor-pointer text-[10px]">{{ status.name }} 3</label>
                     </div>
 
-                    <div  v-if="item.has_children ">
+                    <div  v-if="status.has_children ">
                     <button
                       type="button"
-                      @click="toggleGrandchildren(item.id)"
+                      @click="toggleGrandchildren(status.id)"
                     >
 
                     <svg
-                      v-if="item.id === tempid"
+                      v-if="status.id === tempid"
                         width="15"
                         height="15"
                         viewBox="0 0 24 24"
@@ -78,10 +74,10 @@
 
                   </div>
 
-                  <div v-if="item.has_children "  class="px-5">
-                    <ListCategory2 v-if="item.id === tempid "  :statuses="storeCategory.getSubCategories" />
+                  <div v-if="status.has_children "  class="pr-2">
+                    <ListCategory2 v-if="status.id === tempid "  :statuses="storeCategory.getSubCategories" />
                   </div>
-                </div>
+
                 </li>
               </ul>
 
@@ -109,6 +105,7 @@ const storeCategory = useCategoriesStore()
   perPage: 10,
 });
   const tempid = ref(null);
+
 const toggleGrandchildren = (childId) => {
   filteredData.value.categoryId = childId
   if (tempid.value === childId) {
@@ -118,9 +115,21 @@ const toggleGrandchildren = (childId) => {
     tempid.value = childId;
   }
 
+
   storeCategory.fetchSubCategoryByCategoryID(filteredData)
 
 };
+
+// const loadChildren = (parentId) => {
+//   filteredData.value.categoryId = parentId
+//   if (tempid.value === parentId) {
+//     tempid.value = null;
+
+//   } else {
+//     tempid.value = parentId;
+//   }
+//   storeCategory.fetchSubCategoryByCategoryID(filteredData)
+// };
 
 
 

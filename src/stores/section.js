@@ -6,6 +6,7 @@ export const useSectionsStore = defineStore('sections', {
     sections:[],
     allsections:[],
     subsections: [],
+    subsectionsforfilter: [],
     categories: [],
     subcategories: [],
     products: [],
@@ -21,6 +22,7 @@ export const useSectionsStore = defineStore('sections', {
   getters: {
     getSections: state => state.sections,
     getSubSections: state => state.subsections,
+    getSubSectionsForFilter: state => state.subsectionsforfilter,
     getAllSections: state => state.allsections,
     getProducts: state => state.products,
     getCategories: state => state.categories,
@@ -88,24 +90,30 @@ export const useSectionsStore = defineStore('sections', {
     },
 
 
-    // async fetchCategories(data) {
-    //   this.loading = true;
-    //   this.error = null;
-    //   try {
-    //     const response = await axiosIns.get(`categories?page=${data.value.page}&perPage=${data.value.perPage}`);
-    //     this.categories = response.data.categories;
-    //     this.products = response.data.products.data;
-    //     this.totalProducts.currentPage = response.data.products.current_page
-    //     this.totalProducts.totalItems = response.data.products.total
-    //     this.totalProducts.totalPages = response.data.products.last_page
+    async fetchSubSectionBySectionIDForfilter(data) {
+      this.loading = true;
+      this.error = null;
 
-    //   } catch (error) {
-    //     this.error = 'خطأ أثناء جلب الفئات';
-    //     console.error(error);
-    //   } finally {
-    //     this.loading = false;
-    //   }
-    // },
+      try {
+        const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
+        this.subsectionsforfilter = response.data.sections;
+        this.sections.forEach(section => {
+          if (section.categories && section.categories.length > 0) {
+            this.categories.push(...section.categories);
+          }
+        });
+
+        this.products = response.data.products.data;
+        this.totalProducts.currentPage = response.data.products.current_page
+        this.totalProducts.totalItems = response.data.products.total
+        this.totalProducts.totalPages = response.data.products.last_page
+      } catch (error) {
+        this.error = 'خطأ أثناء جلب الفئات';
+        alert(error(error));
+      } finally {
+        this.loading = false;
+      }
+    },
 
   },
 });

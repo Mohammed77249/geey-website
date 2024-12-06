@@ -61,7 +61,7 @@
                 </button>
               </div>
               <CategoriesComp
-                :statuses="storeSecion.getSubSections"
+                :statuses="storeSecion.getSubSectionsForFilter"
                 :isDropdowenVisable="isDropdowenCategoryVisable"
               />
             </div>
@@ -699,7 +699,7 @@ const closeDropdowenStatus = element => {
 }
 onMounted(() => {
   window.addEventListener('click', closeDropdowenStatus)
-  storeSecion.fetchSubSectionBySectionID(filteredData)
+  storeSecion.fetchSubSectionBySectionIDForfilter(filteredData)
 })
 onBeforeMount(() => {
   window.removeEventListener('click', closeDropdowenStatus)

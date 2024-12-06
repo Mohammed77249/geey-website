@@ -1,14 +1,13 @@
 <template>
   <div>
     <div>
-      <div id="dropdownTop" class="">
-        <ul class="text-sm text-gray-700" aria-labelledby="dropdownTopButton">
+      <div>
+        <ul class="text-sm text-gray-700">
           <li
-            v-for="(status, index) in statuses.id"
+            v-for="(status, index) in statuses"
             :key="index"
             class="space-y-2"
           >
-            <div v-for="(item, itemIndex) in status" :key="itemIndex">
               <div class="flex items-center justify-between">
                 <div>
                   <input
@@ -17,15 +16,14 @@
                     v-model="selectedCategories"
                     class="ml-2 rounded border-gray-300 text-black focus:ring-black"
                   />
-                  <label class="cursor-pointer text-[10px]"
-                    >{{ item.name }}
+                  <label class="cursor-pointer text-[10px]">{{ status.name }}4
                   </label>
                 </div>
 
-                <div v-if="item.has_children">
-                  <button type="button" @click="toggleGrandchildren(item.id)">
+                <div v-if="status.has_children">
+                  <button type="button" @click="toggleGrandchildren(status.id)">
                     <svg
-                      v-if="item.id === tempid"
+                      v-if="status.id === tempid"
                       width="15"
                       height="15"
                       viewBox="0 0 24 24"
@@ -68,13 +66,13 @@
                 </div>
               </div>
 
-              <div v-if="item.has_children" class="px-5">
+              <!-- <div v-if="item.has_children" class="px-5">
                 <ListCategory3
                   v-if="item.id === tempid"
                   :statuses="storeCategory.getSubCategories"
                 />
-              </div>
-            </div>
+              </div> -->
+
           </li>
         </ul>
       </div>
@@ -85,7 +83,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useCategoriesStore } from '@/stores/category'
-import ListCategory3 from './ListCategory3.vue';
+// import ListCategory3 from './ListCategory3.vue';
 const storeCategory = useCategoriesStore()
 
 defineProps({
