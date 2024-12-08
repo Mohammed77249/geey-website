@@ -194,7 +194,7 @@
       </div>
 
        <!-- list of card 2 -->
-       <div class="col-span-5 md:col-span-6  overflow-y-auto  h-[90%] w-full   custom-scroll">
+       <div class="col-span-5 md:col-span-6  overflow-y-auto  h-[90%] w-full   -scroll">
           <div>
             <span class="p-5 text-[12px] font-sans">{{ $t('Shop by size') }}</span>
           </div>
@@ -225,7 +225,7 @@
           </div>
         </div>
 
-        </div>
+        </div>custom
 
     </div>
 

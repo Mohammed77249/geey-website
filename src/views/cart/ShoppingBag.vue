@@ -54,18 +54,26 @@
         <div class="space-y-4 mb-10">
           <div class="grid grid-cols-12  w-full gap-2 p-5 shadow bg-white "  v-for="(item, index) in cartItems" :key="item.id">
             <div class="col-span-2 ">
-              <img
+              <RouterLink  :to="`/product/${item.id}`">
+                <img
                 :src="item.image"
                 alt="Product Image"
                 class="w-full h-36 object-cover "
               />
+              </RouterLink>
+
             </div>
             <div class="col-span-7">
               <div class="mx-4 mt-5">
+                <RouterLink  :to="`/product/${item.id}`">
               <h3 class="font-semibold">{{ item.name }}</h3>
-              <p class="text-sm text-gray-500">
-                الحجم: {{ item.size }} | اللون: {{ item.color }}
-              </p>
+            </RouterLink>
+              <button  @click="openDialog(item.id)"  class=" ">
+                <span class="text-sm text-gray-500 cursor-pointer ">
+                الحجم: {{ item.size }} , اللون: {{ item.color }}
+              </span>
+              </button>
+
               <p class="text-red-500 text-sm font-semibold">-{{ item.discount }}%</p>
               <p class="text-lg font-bold">
                 SR {{ item.price - (item.price * item.discount) / 100 }}
@@ -207,10 +215,34 @@
 
 
     </main>
+    <DialogAddToCart :loading="storeProduct.loading" :error="storeProduct.error" :is-open="isDialogOpen" :productDetails="storeProduct.getproductDetails" :productColors="storeProduct.getproductColors" :productSizes="storeProduct.getproductSizes" @close="closeDialog"  />
+
   </div>
 </template>
 <script setup>
 import { ref, computed } from "vue";
+
+import DialogAddToCart from '../../components/DialogAddToCart.vue';
+import { useProductStore } from '@/stores/product'
+const storeProduct = useProductStore()
+const isDialogOpen = ref(false)
+const filteredData = ref({
+  productID: null,
+})
+const openDialog = (id) => {
+  isDialogOpen.value = true
+  filteredData.value.productID = id;
+  storeProduct.fetchProductDetailsById(filteredData);
+}
+
+const closeDialog = () => {
+  isDialogOpen.value = false
+
+}
+// const handleConfirm = () => {
+//   alert('Action confirmed!')
+//   closeDialog()
+// };
 
 // Cart Items (Example Data)
 const cartItems = ref([

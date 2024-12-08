@@ -7,6 +7,7 @@
       v-for="product in products"
       :key="product.id"
       class="p-1 mt-4"
+
     >
     <RouterLink :to="`/product/${product.id}`">
       <div class="cursor-pointer w-[full] h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
@@ -18,14 +19,14 @@
 
 
     <div class="flex items-center justify-between">
-      <div class="flex gap-2  items-center ">
-        <div class="border border-primary-400 ">
+      <div class="flex gap-2 items-center ">
+        <p class="font-sembold text-primary-400">{{ product.price }}</p>
+        <div class="border border-primary-400">
          <p class=" text-[10px] text-primary-400 "> %50- </p>
         </div>
-        <p class="font-sembold text-primary-400">{{ product.price }}</p>
 
       </div>
-      <div class="cursor-pointer w-10 flex items-center justify-center border border-black rounded-full">
+      <div @click="openDialog(product.id)" class="cursor-pointer w-10 flex items-center justify-center border border-black rounded-full">
         <svg
               width="20"
               height="20"
@@ -54,21 +55,40 @@
         </svg>
       </div>
 
-
     </div>
 
-    </div>
   </div>
-
-
+  <DialogAddToCart :loading="storeProduct.loading" :error="storeProduct.error" :is-open="isDialogOpen" :productDetails="storeProduct.getproductDetails" :productColors="storeProduct.getproductColors" :productSizes="storeProduct.getproductSizes" @close="closeDialog"  />
+    </div>
   </div>
 
 
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref  } from 'vue';
+import DialogAddToCart from '../DialogAddToCart.vue';
+import { useProductStore } from '@/stores/product'
+const storeProduct = useProductStore()
+const isDialogOpen = ref(false)
+const filteredData = ref({
+  productID: null,
+})
+const openDialog = (id) => {
 
+  isDialogOpen.value = true
+  filteredData.value.productID = id;
+  storeProduct.fetchProductDetailsById(filteredData);
+}
+
+const closeDialog = () => {
+  isDialogOpen.value = false
+
+}
+// const handleConfirm = () => {
+//   alert('Action confirmed!')
+//   closeDialog()
+// };
 
 const isHover = ref();
 const hoverId = ref(null);
@@ -79,6 +99,9 @@ const onhover = (id)=>{
   hoverId.value= id;
 
 }
+
+
+
 
 const products = [
         { id: 1, name: 'منتج 1', price: 'ر.س 50', images:[ '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
@@ -101,5 +124,7 @@ const products = [
         { id: 18, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/unsplash_DyhiB_wFifk.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
 
       ];
+
+
 
 </script>

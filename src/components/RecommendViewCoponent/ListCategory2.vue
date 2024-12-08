@@ -16,7 +16,7 @@
                     v-model="selectedCategories"
                     class="ml-2 rounded border-gray-300 text-black focus:ring-black"
                   />
-                  <label class="cursor-pointer text-[10px]">{{ status.name }}4
+                  <label class="cursor-pointer text-[10px]" >{{ status.name }}4
                   </label>
                 </div>
 
@@ -66,12 +66,12 @@
                 </div>
               </div>
 
-              <!-- <div v-if="item.has_children" class="px-5">
-                <ListCategory3
-                  v-if="item.id === tempid"
+              <div v-if="status.has_children" class="px-5">
+                <ListCategory1
+                  v-if="status.id === tempid" :id="status.id"
                   :statuses="storeCategory.getSubCategories"
                 />
-              </div> -->
+              </div>
 
           </li>
         </ul>
@@ -86,7 +86,7 @@ import { useCategoriesStore } from '@/stores/category'
 // import ListCategory3 from './ListCategory3.vue';
 const storeCategory = useCategoriesStore()
 
-defineProps({
+ defineProps({
   statuses: {
     type: [],
     default: [],

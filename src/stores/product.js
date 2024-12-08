@@ -51,7 +51,6 @@ export const useProductStore = defineStore('useProductStore', {
     async fetchProductDetailsById(data) {
       this.loading = true
       this.error = null
-
       try {
         const response = await axiosIns.get(`products/show/${data.value.productID}?`)
         this.productDetails =  response.data.product;

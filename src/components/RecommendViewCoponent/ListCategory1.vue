@@ -9,7 +9,7 @@
                   :key="index"
                   class=" space-y-2 "
                 >
-                <div class="flex items-center  justify-between">
+                <div  class="flex items-center  justify-between">
                     <div>
                       <input
                       type="radio"
@@ -75,7 +75,7 @@
                   </div>
 
                   <div v-if="status.has_children "  class="pr-2">
-                    <ListCategory2 v-if="status.id === tempid "  :statuses="storeCategory.getSubCategories" />
+                    <ListCategory2 v-if="status.id === tempid " :id="status.id" :statuses="storeCategory.getSubCategories" />
                   </div>
 
                 </li>

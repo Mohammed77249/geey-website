@@ -39,7 +39,7 @@
 
       </div>
 
-      <div class="cursor-pointer w-10 flex items-center justify-center border border-black rounded-full">
+      <div @click="openDialog(product.id)"  class="cursor-pointer w-10 flex items-center justify-center border border-black rounded-full">
         <svg
               width="20"
               height="20"
@@ -72,6 +72,7 @@
 
     </div>
   </div>
+  <DialogAddToCart :loading="storeProduct.loading" :error="storeProduct.error" :is-open="isDialogOpen" :productDetails="storeProduct.getproductDetails" :productColors="storeProduct.getproductColors" :productSizes="storeProduct.getproductSizes" @close="closeDialog"  />
 
 
   </div>
@@ -80,7 +81,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref  } from 'vue';
+import DialogAddToCart from '../DialogAddToCart.vue';
+import { useProductStore } from '@/stores/product'
+const storeProduct = useProductStore()
+const isDialogOpen = ref(false)
+const filteredData = ref({
+  productID: null,
+})
+const openDialog = (id) => {
+
+  isDialogOpen.value = true
+  filteredData.value.productID = id;
+  storeProduct.fetchProductDetailsById(filteredData);
+}
+
+const closeDialog = () => {
+  isDialogOpen.value = false
+
+}
+// const handleConfirm = () => {
+//   alert('Action confirmed!')
+//   closeDialog()
+// };
 
 
 const isHover = ref(false);

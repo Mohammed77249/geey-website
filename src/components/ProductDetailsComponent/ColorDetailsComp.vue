@@ -5,7 +5,7 @@
             <ul class="space-y-5 mt-5">
               <li>
                 <div
-                  class="  grid grid-cols-5 gap-5"
+                  class="  grid grid-cols-7 gap-3"
                 >
                   <div
                     v-for="(color, index) in colors"
