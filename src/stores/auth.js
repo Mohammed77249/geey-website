@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', {
       this.loading = true;
       this.error = null;
       try {
-        const response = await axiosIns.post('auth/check_input', { login });
+        const response = await axiosIns.post(`auth/check?login=${login}`);
         this.email = response.data.input;
         this.status = response.data.status;
         localStorage.setItem('emailuser', response.data.input);
