@@ -5,7 +5,10 @@
     <!-- العنوان -->
     <div class="py-4 border-b">
       <div class="container mx-auto px-4">
-        <h1 v-if="storeProduct.getproductDetails" class="text-gray-400 font-normal">
+        <h1
+          v-if="storeProduct.getproductDetails"
+          class="text-gray-400 font-normal"
+        >
           {{ $t('Home') }} /
           {{ storeProduct.getproductDetails.category_name }} /
           {{ storeProduct.getproductDetails.name }}
@@ -13,7 +16,10 @@
       </div>
     </div>
 
-    <div  v-if=" storeProduct.getproductDetails" class="container mx-auto grid grid-cols-1 lg:grid-cols-12">
+    <div
+      v-if="storeProduct.getproductDetails"
+      class="container mx-auto grid grid-cols-1 lg:grid-cols-12"
+    >
       <!-- product image  -->
       <div class="col-span-8 px-5">
         <div class="flex gap-2">
@@ -31,7 +37,7 @@
 
           <div class="w-[700px] h-[900px]">
             <img
-              :src="isHover == false ? product.image : hoverId"
+              :src="isHover == false ? storeProduct.getproductDetails.main_image : hoverId"
               alt="Product Image"
               class="w-full h-full shadow-md object-cover"
             />
@@ -124,7 +130,7 @@
         <!-- الاسم والسعر -->
         <div class="w-full h-28 mb-5">
           <div class="flex items-center justify-between">
-            <p  class="text-sm font-medium">
+            <p class="text-sm font-medium">
               {{ storeProduct.getproductDetails.description }}
             </p>
 
@@ -187,12 +193,12 @@
             }}</span>
           </div>
           <div class="flex items-center gap-2">
-            <p  class="text-lg text-orange-700">
+            <p class="text-lg text-orange-700">
               {{ storeProduct.getproductDetails.currency
               }}{{ storeProduct.getproductDetails.base_price }}
             </p>
             <div class="h-5 px-2 flex items-center justify-center bg-black">
-              <p   class="text-xs text-white">
+              <p class="text-xs text-white">
                 {{ storeProduct.getproductDetails.discount_price }}-
               </p>
             </div>
@@ -210,84 +216,65 @@
         <div class="border-t-2 mb-5">
           <div class="mb-1">
             <!-- colors -->
-            <div   class="pb-5">
+            <div class="pb-5">
               <h3 class="text-md font-medium">{{ $t('Color: Multicolor') }}</h3>
-              <ColorDetailsComp
-                :colors="storeProduct.getproductColors"
-              />
+              <ul class="space-y-5 mt-5">
+                <li>
+                  <div class="grid grid-cols-7 gap-3">
+                    <div
+                      v-for="(color, index) in storeProduct.getproductColors"
+                      :key="index"
+                    >
+                      <button
+                        @click="toggleColor(color.color_hex)"
+                        :class="{
+                          'border-2 border-black w-10 h-10 rounded-full flex flex-col items-center ':
+                            tempidColor === color.color_hex,
+                          'w-10 h-10 rounded-full flex flex-col items-center  border-2 border-gray-500 hover:border-black':
+                            tempidColor != color.color_hex,
+                        }"
+                        :style="{ backgroundColor: color.color_hex }"
+                        type="button"
+                      ></button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
 
             <div class="flex items-center gap-1 mb-5 mt-5">
               <h3 class="text-lg font-semibold">{{ $t('Size') }}</h3>
               <div ref="dropDownSize">
                 <button
-                  class="text-[#979797]  h-[25px] border border-gray-900 bg-gray-50 font-medium rounded-full text-[14px] px-3 text-center flex items-center justify-between gap-1"
+                  class="text-[#979797] h-[25px] border border-gray-900 bg-gray-50 font-medium rounded-full text-[14px] px-3 text-center flex items-center gap-1"
                   type="button"
-                  @click="isDropdowenSizeVisable = true"
-                  @mouseenter="isDropdowenSizeVisable = true"
-                  @mouseleave="isDropdowenSizeVisable = false"
                 >
                   {{ $t('Size') }}
-                  <p class="text-black">{{ storeProduct.getproductDetails.size_type_id }}</p>
-
-                  <svg
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    width="10px"
-                    height="10px"
-                    viewBox="0 0 10 6"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="m1 1 4 4 4-4"
-                    />
-                  </svg>
+                  <p class="text-black">
+                    {{ storeProduct.getproductDetails.size_type_id }}
+                  </p>
                 </button>
-
-                <!-- Dropdown menu -->
-                <div
-                  @mouseenter="isDropdowenSizeVisable = true"
-                  @mouseleave="isDropdowenSizeVisable = false"
-                  class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow w-[220px]"
-                  v-if="isDropdowenSizeVisable"
-                >
-                  <ul
-                    class="h-48 px-3 pb-3 overflow-y-auto text-[12px] text-gray-700"
-                    aria-labelledby="dropdownSearchButton"
-                  >
-                    <li
-                      v-for="(size, index) in sizes"
-                      :key="index"
-                      @click="toggleSizeSelect(size)"
-                    >
-                      <div
-                        class="flex items-center ps-2 cursor-pointer rounded hover:bg-gray-100"
-                      >
-                        <span
-                          for="checkbox-item-11"
-                          class="w-full py-2 ms-2 cursor-pointer text-sm font-medium text-gray-900 rounded"
-                          >{{ size }}</span
-                        >
-                      </div>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
 
             <!-- الاحجام -->
             <div class="flex gap-1">
-              <button
+              <div
                 v-for="(size, index) in storeProduct.getproductSizes"
                 :key="index"
-                class="py-1 cursor-pointer px-7 border rounded-full hover:bg-gray-100"
               >
-                {{ size.size_type_name }}
-              </button>
+                <button
+                  :class="{
+                    'py-1 cursor-pointer px-7 border rounded-full bg-gray-100':
+                      tempidSize === size.size_type_name,
+                    'py-1 cursor-pointer px-7 border rounded-full hover:bg-gray-100':
+                      tempidSize != size.size_type_name,
+                  }"
+                  @click="onclickSize(size.size_type_name)"
+                >
+                  {{ size.size_type_name }}
+                </button>
+              </div>
             </div>
 
             <!-- مرجع المقاس -->
@@ -312,13 +299,15 @@
               </DialogComp>
             </div>
           </div>
-          <!--  -->
+          <!-- addToCart -->
           <div class="flex items-center gap-1">
             <button
               @click="addToCart"
               class="max-w-[350px] w-full bg-primary-900 text-white py-3 text-lg font-bold hover:bg-primary-800 transition"
             >
-              {{ $t('add to cart') }}
+              <span v-if="storeCart.loading" class="loader mr-2"></span>
+            <span>{{ storeCart.loading ? 'جارٍ التحقق...' :  $t('add to cart')  }}</span>
+
             </button>
             <div
               class="w-[80px] py-3 rounded-full border flex items-center justify-center"
@@ -615,22 +604,32 @@ import { ref, onMounted, onBeforeMount } from 'vue'
 import CommentComp from '../components/Comments/CommentComp.vue'
 import HeaderCommentsComp from '../components/Comments/HeaderComentsComp.vue'
 import { useRoute } from 'vue-router'
-import ColorDetailsComp from '../components/ProductDetailsComponent/ColorDetailsComp.vue'
 import DialogComp from '@/components/DialogComp.vue'
 import DescriptionComp from '@/components/ProductDetailsComponent/DescriptionComp.vue'
 import SizeProDetailsComp from '@/components/ProductDetailsComponent/SizeProDetailsComp.vue'
 import AboutStoreComp from '@/components/ProductDetailsComponent/AboutStoreComp.vue'
 import MoreProductDetailsComp from '@/components/ProductDetailsComponent/MoreProductDetailsComp.vue'
 import { useProductStore } from '@/stores/product'
+import { useCartStore } from '@/stores/cart'
+
 const route = useRoute()
 const storeProduct = useProductStore()
-
+const storeCart = useCartStore()
 const filteredData = ref({
   productID: null,
+  product_id:null,
+  color_id: null,
+  size_id: null,
+  quantity: null,
 })
 const id = route.params.id
 if (id != null) {
   filteredData.value.productID = id
+  filteredData.value.color_id = 10
+  filteredData.value.product_id = id
+  filteredData.value.size_id = 8
+  filteredData.value.quantity = 96
+
 }
 
 const isDropdowenDescriptionVisable = ref(false)
@@ -644,8 +643,6 @@ const onhover = image => {
   isHover.value = true
   hoverId.value = image
 }
-
-
 
 const product = ref({
   name: 'اسم المنتج',
@@ -698,33 +695,38 @@ const listContentComment = ref([
   },
 ])
 
-const addToCart = () => {
-  alert('تمت إضافة المنتج إلى السلة!')
+const tempidSize = ref(null)
+const onclickSize = id => {
+  if (tempidSize.value === id) {
+    tempidSize.value = null
+  } else {
+    tempidSize.value = id
+  }
 }
 
-const sizes = [
-  'BR',
-  'EU ',
-  'DE',
-  'SG',
-  'AU',
-  'JP',
-  'UK',
-  'IT',
-  'MX',
-  'FR',
-  'ES',
-  'CA',
-  'US',
-];
+const tempidColor = ref(null)
+const toggleColor = id => {
+  if (tempidColor.value === id) {
+    tempidColor.value = null
+  } else {
+    tempidColor.value = id
+  }
+}
+
+const addToCart = async() => {
+
+  const addcart = await storeCart.creatCart(filteredData)
+  if(addcart === true ){
+    alert('تمت إضافة المنتج إلى السلة!')
+  }else{
+    alert(storeCart.error+"error")
+  }
+
+
+}
 
 const dropDownSize = ref(null)
-const selectedSize = ref('UL')
 const isDropdowenSizeVisable = ref(false)
-const toggleSizeSelect = size => {
-  selectedSize.value = size
-  isDropdowenSizeVisable.value = false
-}
 const closeDropdowenSize = element => {
   if (!dropDownSize.value.contains(element.target)) {
     isDropdowenSizeVisable.value = false
@@ -751,7 +753,5 @@ const closeDialog = () => {
 const handleConfirm = () => {
   alert('Action confirmed!')
   closeDialog()
-};
-
-
+}
 </script>

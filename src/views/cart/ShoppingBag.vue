@@ -52,11 +52,11 @@
 
         <!-- Products List -->
         <div class="space-y-4 mb-10">
-          <div class="grid grid-cols-12  w-full gap-2 p-5 shadow bg-white "  v-for="(item, index) in cartItems" :key="item.id">
+          <div class="grid grid-cols-12  w-full gap-2 p-5 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
             <div class="col-span-2 ">
               <RouterLink  :to="`/product/${item.id}`">
                 <img
-                :src="item.image"
+                src="/src/assets/images/products/Image (1).svg"
                 alt="Product Image"
                 class="w-full h-36 object-cover "
               />
@@ -65,18 +65,18 @@
             </div>
             <div class="col-span-7">
               <div class="mx-4 mt-5">
-                <RouterLink  :to="`/product/${item.id}`">
-              <h3 class="font-semibold">{{ item.name }}</h3>
+                <RouterLink  :to="`/product/${item.product_id}`">
+              <h3 class="font-semibold">{{ item.product_name }}</h3>
             </RouterLink>
               <button  @click="openDialog(item.id)"  class=" ">
                 <span class="text-sm text-gray-500 cursor-pointer ">
-                الحجم: {{ item.size }} , اللون: {{ item.color }}
+                الحجم: {{ item.size_value }} , اللون: {{ item.color_name }}
               </span>
               </button>
 
-              <p class="text-red-500 text-sm font-semibold">-{{ item.discount }}%</p>
+              <p class="text-red-500 text-sm font-semibold">-0%</p>
               <p class="text-lg font-bold">
-                SR {{ item.price - (item.price * item.discount) / 100 }}
+                {{ item.product_currency }} {{ item.product_price - (item.product_price * 0) / 100 }}
               </p>
             </div>
 
@@ -220,10 +220,13 @@
   </div>
 </template>
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed,onMounted } from "vue";
 
 import DialogAddToCart from '../../components/DialogAddToCart.vue';
 import { useProductStore } from '@/stores/product'
+import { useCartStore } from '@/stores/cart'
+const storeCart = useCartStore()
+
 const storeProduct = useProductStore()
 const isDialogOpen = ref(false)
 const filteredData = ref({
@@ -235,10 +238,16 @@ const openDialog = (id) => {
   storeProduct.fetchProductDetailsById(filteredData);
 }
 
+
 const closeDialog = () => {
   isDialogOpen.value = false
 
 }
+
+onMounted(() => {
+   storeCart.fetchAllProductsInCart();
+})
+
 // const handleConfirm = () => {
 //   alert('Action confirmed!')
 //   closeDialog()
