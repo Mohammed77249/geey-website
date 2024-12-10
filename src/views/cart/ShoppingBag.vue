@@ -54,7 +54,7 @@
         <div class="space-y-4 mb-10">
           <div class="grid grid-cols-12  w-full gap-2 p-5 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
             <div class="col-span-2 ">
-              <RouterLink  :to="`/product/${item.id}`">
+              <RouterLink  :to="`/product/${item.product_id}`">
                 <img
                 src="/src/assets/images/products/Image (1).svg"
                 alt="Product Image"
@@ -68,7 +68,7 @@
                 <RouterLink  :to="`/product/${item.product_id}`">
               <h3 class="font-semibold">{{ item.product_name }}</h3>
             </RouterLink>
-              <button  @click="openDialog(item.id)"  class=" ">
+              <button  @click="openDialog(item.product_id, item.id)"  class=" ">
                 <span class="text-sm text-gray-500 cursor-pointer ">
                 الحجم: {{ item.size_value }} , اللون: {{ item.color_name }}
               </span>
@@ -107,7 +107,7 @@
                 <div>
                     <button
                       class="px-2"
-                      @click="removeItem(index)"
+                      @click="removeItem(item.id)"
                     >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#980000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -215,27 +215,27 @@
 
 
     </main>
-    <DialogAddToCart :loading="storeProduct.loading" :error="storeProduct.error" :is-open="isDialogOpen" :productDetails="storeProduct.getproductDetails" :productColors="storeProduct.getproductColors" :productSizes="storeProduct.getproductSizes" @close="closeDialog"  />
+    <DialogUpdateCart :loading="storeCart.loading" :error="storeCart.error" :is-open="isDialogOpen" :cartDetailsById="storeCart.getcartDetails" :productDetails="storeCart.getproductDetails" :productColors="storeCart.getproductColors" :productSizes="storeCart.getproductSizes" @close="closeDialog"  />
 
   </div>
 </template>
 <script setup>
 import { ref, computed,onMounted } from "vue";
-
-import DialogAddToCart from '../../components/DialogAddToCart.vue';
-import { useProductStore } from '@/stores/product'
 import { useCartStore } from '@/stores/cart'
-const storeCart = useCartStore()
+import DialogUpdateCart from "@/components/DialogUpdateCart.vue";
 
-const storeProduct = useProductStore()
+const storeCart = useCartStore()
 const isDialogOpen = ref(false)
 const filteredData = ref({
   productID: null,
+  cartID:null,
 })
-const openDialog = (id) => {
+const openDialog = (product_id,cart_id) => {
   isDialogOpen.value = true
-  filteredData.value.productID = id;
-  storeProduct.fetchProductDetailsById(filteredData);
+  filteredData.value.productID = product_id;
+  filteredData.value.cartID = cart_id;
+  storeCart.fetchProductDetailsByIdForCart(filteredData);
+  storeCart.fetchProductsInCartByID(filteredData)
 }
 
 
@@ -312,8 +312,17 @@ const decrementQuantity = (index) => {
   }
 };
 
-const removeItem = (index) => {
-  cartItems.value.splice(index, 1);
+const removeItem = async(cart_id) => {
+  // cartItems.value.splice(index, 1);
+  const deleteCar = await storeCart.deleteCart(cart_id)
+  if(deleteCar){
+    alert('تمت حذف المنتج من السلة!')
+    window.location.reload();
+  }else{
+    alert(storeCart.error +"error")
+  }
+
+
 };
 
 const checkout = () => {

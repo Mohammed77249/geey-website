@@ -37,7 +37,11 @@
 
           <div class="w-[700px] h-[900px]">
             <img
-              :src="isHover == false ? storeProduct.getproductDetails.main_image : hoverId"
+              :src="
+                isHover == false
+                  ? '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg'
+                  : hoverId
+              "
               alt="Product Image"
               class="w-full h-full shadow-md object-cover"
             />
@@ -50,7 +54,7 @@
               <h1 class="font-semibold text-xl">
                 {{ $t('Customer Reviews') }}
               </h1>
-              <RouterLink :to="`/product/${productId}/comments`">
+              <RouterLink :to="`/product/${filteredData2.productID}/comments`">
                 <div class="flex items-center">
                   <h1 class="text-gray-500 font-medium">
                     {{ $t('Full opinions') }}
@@ -226,12 +230,12 @@
                       :key="index"
                     >
                       <button
-                        @click="toggleColor(color.color_hex)"
+                        @click="toggleColor(color.color_id)"
                         :class="{
                           'border-2 border-black w-10 h-10 rounded-full flex flex-col items-center ':
-                            tempidColor === color.color_hex,
+                            tempidColor === color.color_id,
                           'w-10 h-10 rounded-full flex flex-col items-center  border-2 border-gray-500 hover:border-black':
-                            tempidColor != color.color_hex,
+                            tempidColor != color.color_id,
                         }"
                         :style="{ backgroundColor: color.color_hex }"
                         type="button"
@@ -251,7 +255,7 @@
                 >
                   {{ $t('Size') }}
                   <p class="text-black">
-                    {{ storeProduct.getproductDetails.size_type_id }}
+                    {{ storeProduct.getproductDetails.size_type_name}}
                   </p>
                 </button>
               </div>
@@ -266,11 +270,11 @@
                 <button
                   :class="{
                     'py-1 cursor-pointer px-7 border rounded-full bg-gray-100':
-                      tempidSize === size.size_type_name,
+                      tempidSize === size.size_type_id,
                     'py-1 cursor-pointer px-7 border rounded-full hover:bg-gray-100':
-                      tempidSize != size.size_type_name,
+                      tempidSize != size.size_type_id,
                   }"
-                  @click="onclickSize(size.size_type_name)"
+                  @click="onclickSize(size.size_type_id)"
                 >
                   {{ size.size_type_name }}
                 </button>
@@ -306,8 +310,9 @@
               class="max-w-[350px] w-full bg-primary-900 text-white py-3 text-lg font-bold hover:bg-primary-800 transition"
             >
               <span v-if="storeCart.loading" class="loader mr-2"></span>
-            <span>{{ storeCart.loading ? 'جارٍ التحقق...' :  $t('add to cart')  }}</span>
-
+              <span>{{
+                storeCart.loading ? 'جارٍ التحقق...' : $t('add to cart')
+              }}</span>
             </button>
             <div
               class="w-[80px] py-3 rounded-full border flex items-center justify-center"
@@ -615,21 +620,19 @@ import { useCartStore } from '@/stores/cart'
 const route = useRoute()
 const storeProduct = useProductStore()
 const storeCart = useCartStore()
-const filteredData = ref({
+
+
+const filteredData2 = ref({
   productID: null,
-  product_id:null,
+  product_id: null,
   color_id: null,
   size_id: null,
-  quantity: null,
+  quantity: 1,
 })
 const id = route.params.id
 if (id != null) {
-  filteredData.value.productID = id
-  filteredData.value.color_id = 10
-  filteredData.value.product_id = id
-  filteredData.value.size_id = 8
-  filteredData.value.quantity = 96
-
+  filteredData2.value.productID = id
+  filteredData2.value.product_id = id
 }
 
 const isDropdowenDescriptionVisable = ref(false)
@@ -645,9 +648,6 @@ const onhover = image => {
 }
 
 const product = ref({
-  name: 'اسم المنتج',
-  description: 'هذا هو وصف المنتج بشكل مفصل.',
-  price: 49.99,
   image: '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg',
   thumbnails: [
     '/src/assets/images/products/Image (1).svg',
@@ -657,7 +657,6 @@ const product = ref({
     '/src/assets/images/products/Image.svg',
     '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg',
   ],
-  sizes: ['55(S)', '32(M)', '89(L)', '74(XL)'],
 })
 
 const listContentComment = ref([
@@ -697,32 +696,60 @@ const listContentComment = ref([
 
 const tempidSize = ref(null)
 const onclickSize = id => {
+  if(id){
+    filteredData2.value.size_id = id
   if (tempidSize.value === id) {
     tempidSize.value = null
   } else {
     tempidSize.value = id
   }
+  }
 }
 
 const tempidColor = ref(null)
 const toggleColor = id => {
-  if (tempidColor.value === id) {
+  if(id){
+    filteredData2.value.color_id = id
+    if (tempidColor.value === id) {
     tempidColor.value = null
   } else {
     tempidColor.value = id
   }
-}
-
-const addToCart = async() => {
-
-  const addcart = await storeCart.creatCart(filteredData)
-  if(addcart === true ){
-    alert('تمت إضافة المنتج إلى السلة!')
-  }else{
-    alert(storeCart.error+"error")
   }
 
+}
 
+const addToCart = async () => {
+  if(filteredData2.value.color_id === null ){
+    alert("ادخ اللون ")
+  }else if(filteredData2.value.size_id === null){
+    alert("ادخل المقاس")
+  }
+  else{
+  const addcart = await storeCart.creatCart(
+    filteredData2.value.product_id,
+    filteredData2.value.color_id,
+    filteredData2.value.size_id,
+    filteredData2.value.quantity,
+  )
+
+  if (addcart) {
+    if (storeCart.getcartProductMessage != null) {
+      alert(storeCart.getcartProductMessage)
+
+
+    } else {
+      alert('تمت إضافة المنتج إلى السلة!')
+
+
+    }
+  } else {
+    alert(storeCart.error)
+
+
+  }
+
+}
 }
 
 const dropDownSize = ref(null)
@@ -734,7 +761,7 @@ const closeDropdowenSize = element => {
 }
 onMounted(() => {
   window.addEventListener('click', closeDropdowenSize)
-  storeProduct.fetchProductDetailsById(filteredData)
+  storeProduct.fetchProductDetailsById(filteredData2)
 })
 onBeforeMount(() => {
   window.removeEventListener('click', closeDropdowenSize)

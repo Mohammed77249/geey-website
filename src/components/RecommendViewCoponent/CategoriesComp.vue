@@ -16,9 +16,11 @@
                   <div>
                     <input
                     type="radio"
-                    value="false"
-                    v-model="selectedCategories"
+                     :value="status.id"
+                     :checked="selectedCategories === status.id"
+                      @click="toggleSelection(status.id)"
                     class=" ml-2 rounded border-gray-300 text-black  focus:ring-black"
+
                   />
                     <label @click="toggleIdeForProduct(status.id)" class="cursor-pointer  text-[10px]">{{ status.name }} 1</label>
                   </div>
@@ -102,6 +104,11 @@ defineProps({
     default: [],
   },
 });
+
+const selectedCategories = ref(null)
+const toggleSelection = (id)=> {
+  selectedCategories.value = selectedCategories.value === id ? null : id;
+};
 
 
 const tempid = ref(null);

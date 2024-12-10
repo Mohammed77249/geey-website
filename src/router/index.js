@@ -11,6 +11,7 @@ import OtpPage from '@/views/auth/OtpPage.vue'
 import ForgetPasswordPage from '@/views/auth/ForgetPasswordPage.vue'
 import ResetPasswordPage from '@/views/auth/ResatPasswordPage.vue'
 import CartPage from '@/views/CartPage.vue'
+import MyProfile from '@/views/user/MyProfile.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -115,6 +116,12 @@ const router = createRouter({
       path: "/cart",
       component: CartPage,
       meta: { requiresAuth: true , hideHeaderFooter: true },
+    },
+    {
+      path: '/user/account_setting',
+      name: 'useraccount_setting',
+      component: MyProfile,
+      meta: { requiresAuth: true },
     },
 
 

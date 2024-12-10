@@ -81,8 +81,8 @@
 <script setup>
 import { ref  } from 'vue';
 import DialogAddToCart from '../DialogAddToCart.vue';
-import { useProductStore } from '@/stores/product'
-const storeProduct = useProductStore()
+import { useCartStore } from '@/stores/cart'
+const storeProduct = useCartStore()
 const isDialogOpen = ref(false)
 const filteredData = ref({
   productID: null,
@@ -91,7 +91,7 @@ const openDialog = (id) => {
 
   isDialogOpen.value = true
   filteredData.value.productID = id;
-  storeProduct.fetchProductDetailsById(filteredData);
+  storeProduct.fetchProductDetailsByIdForCart(filteredData);
 }
 
 const closeDialog = () => {

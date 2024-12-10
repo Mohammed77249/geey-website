@@ -5,6 +5,7 @@ export const useCartStore = defineStore('cart', {
     allCarts: [],
     cartDetails: [],
     productDetails: null,
+    productMessage:null,
     totalProductsDetails: {
       productColors: null,
       productSizes: null,
@@ -17,8 +18,8 @@ export const useCartStore = defineStore('cart', {
   getters: {
     getallCarts: state => state.allCarts,
     getcartDetails: state => state.cartDetails,
-
-    getproductDetails: state => state.productDetails,
+    getcartProductMessage: state => state.productMessage,
+    getproductDetails: state => state.productDetails || [],
     getproductColors: state => state.totalProductsDetails.productColors || [],
     getproductSizes: state => state.totalProductsDetails.productSizes || [],
   },
@@ -36,7 +37,7 @@ export const useCartStore = defineStore('cart', {
         this.totalProductsDetails.productSizes =
           response.data.product.size_type_details
       } catch (error) {
-        this.error = error.response.data.message || 'خطأ أثناء جلب الفئات'
+        this.error = error.response.data || 'خطأ أثناء جلب الفئات'
       } finally {
         this.loading = false
       }
@@ -49,7 +50,7 @@ export const useCartStore = defineStore('cart', {
         const response = await axiosIns.get(`carts?`)
         this.allCarts = response.data
       } catch (error) {
-        this.error = error.response.data.message || 'خطأ أثناء جلب الفئات'
+        this.error = error.response.data || 'خطأ أثناء جلب الفئات'
         console.error(error)
       } finally {
         this.loading = false
@@ -70,28 +71,30 @@ export const useCartStore = defineStore('cart', {
       }
     },
 
-    async creatCart(data) {
+    async creatCart(product_id, color_id, size_id, quantity) {
       this.loading = true
       this.error = null
-
+      const formData = new FormData()
+      formData.append('product_id', product_id)
+      formData.append('color_id', color_id)
+      formData.append('size_id', size_id)
+      formData.append('quantity', quantity)
       try {
-        const response = await axiosIns.post('carts/store', {
-          product_id: data.value.product_id,
-          color_id: data.value.color_id,
-          size_id: data.value.size_id,
-          quantity: data.value.quantity,
-        });
-        if(response){
+        const response = await axiosIns.post('carts/store', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+
+        if (response.data.original) {
+          this.productMessage = response.data.original.message
+        } else {
           this.cartDetails = response.data
-          alert(response.data + 'fjfj')
-
-          return true
-        }else{
-          return false;
         }
-
+        return true
       } catch (err) {
-        this.error = err.response.data.original.message || 'خطأ أثناء الانشاء '
+        this.error = err + 'حدث خطأ غير متوقع، يرجى المحاولة لاحقًا'
+
         return false
       } finally {
         this.loading = false
@@ -101,18 +104,27 @@ export const useCartStore = defineStore('cart', {
     async updateCart(cart_id, product_id, color_id, size_id, quantity) {
       this.loading = true
       this.error = null
+      const formData = new FormData()
+      formData.append('product_id', product_id)
+      formData.append('color_id', color_id)
+      formData.append('size_id', size_id)
+      formData.append('quantity', quantity)
       try {
-        const response = await axiosIns.post(`carts/update/${cart_id}`, {
-          product_id,
-          color_id,
-          size_id,
-          quantity,
+        const response = await axiosIns.post(`carts/update/${cart_id}`,formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         })
-        this.cartDetails = response.data
+        if (response.data.original) {
+          this.productMessage = response.data.original.message
+        } else {
+          this.cartDetails = response.data
+        }
         return true
       } catch (err) {
-        this.error = err.response.data.message || 'خطأ أثناء تحديث البيانات'
-        return false
+        this.error = err + 'حدث خطأ غير متوقع، يرجى المحاولة لاحقًا'
+        return false;
+
       } finally {
         this.loading = false
       }
@@ -126,7 +138,7 @@ export const useCartStore = defineStore('cart', {
         this.cartDetails = response.data
         return true
       } catch (err) {
-        this.error = err.response.data.message || 'خطأ أثناء  الحذف'
+        this.error = err + 'خطأ أثناء  الحذف'
         return false
       } finally {
         this.loading = false

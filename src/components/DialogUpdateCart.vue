@@ -225,7 +225,7 @@
                   >
                     <span v-if="storeCart.loading" class="loader mr-2"></span>
                         <span>{{
-                          storeCart.loading ? 'جارٍ التحقق...' : $t('add to cart')
+                          storeCart.loading ? 'جارٍ التحقق...' : $t('updat cart')
                         }}</span>
                   </button>
                   <div
@@ -282,6 +282,9 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  cartDetailsById: {
+    type: [],
+  },
   productDetails: {
     type: [],
   },
@@ -299,6 +302,8 @@ const props = defineProps({
   }
 });
 
+
+
 const isHover = ref(false)
 const hoverId = ref(null)
 const onhover = image => {
@@ -307,6 +312,7 @@ const onhover = image => {
 }
 
 const filteredData = ref({
+  cart_id:null,
   product_id:  null,
   color_id: null,
   size_id: null,
@@ -340,8 +346,6 @@ const toggleColor = id => {
 
 }
 
-
-
 const isDialogOpen = ref(false)
 
 const openDialog = () => {
@@ -358,28 +362,33 @@ const addToCart = async() => {
   if(props.productDetails && props.productDetails.id != null){
     filteredData.value.product_id = props.productDetails.id
   }
-
-  if(filteredData.value.color_id === null ){
-    alert("ادخ اللون ")
-  }else if(filteredData.value.size_id === null){
-    alert("ادخل المقاس")
+  if(props.cartDetailsById && props.cartDetailsById.id != null){
+    filteredData.value.cart_id = props.cartDetailsById.id
   }
-  else{
-    const addcart = await storeCart.creatCart(
+  if(filteredData.value.color_id === null){
+    filteredData.value.color_id = props.productColors.color_id;
+  }
+  if(filteredData.value.size_id === null){
+    filteredData.value.size_id = props.productColors.size_type_id;
+  }
+
+    const addcart = await storeCart.updateCart(
+    filteredData.value.cart_id,
     filteredData.value.product_id,
     filteredData.value.color_id,
     filteredData.value.size_id,
     filteredData.value.quantity,
-  )
+  );
 
 
   if (addcart) {
     if (storeCart.getcartProductMessage != null) {
-      alert(storeCart.getcartProductMessage)
+      // alert(storeCart.getcartProductMessage)
+      alert("تم التحديث")
       window.location.reload();
       close()
     } else {
-      alert('تمت إضافة المنتج إلى السلة!')
+      alert('تمت تحديث المنتج !')
       window.location.reload();
       close()
     }
@@ -387,8 +396,6 @@ const addToCart = async() => {
     alert(storeCart.error)
     window.location.reload();
       close()
-  }
-
   }
 
 };

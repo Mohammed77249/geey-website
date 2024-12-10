@@ -99,9 +99,9 @@
                     aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
                   >
                     <li>
-                      <a href="#" class="block px-4 py-1 hover:bg-gray-100"
-                        >ملفي الشخصي</a
-                      >
+                      <RouterLink to="/user/account_setting"  class="block px-4 py-1 hover:bg-gray-100">
+                      ملفي الشخصي
+                      </RouterLink>
                     </li>
                     <li>
                       <a href="#" class="block px-4 py-1 hover:bg-gray-100"

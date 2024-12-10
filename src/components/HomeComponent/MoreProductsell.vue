@@ -68,8 +68,8 @@
 <script setup>
 import { ref  } from 'vue';
 import DialogAddToCart from '../DialogAddToCart.vue';
-import { useProductStore } from '@/stores/product'
-const storeProduct = useProductStore()
+import { useCartStore } from '@/stores/cart'
+const storeProduct = useCartStore()
 const isDialogOpen = ref(false)
 const filteredData = ref({
   productID: null,
@@ -78,7 +78,7 @@ const openDialog = (id) => {
 
   isDialogOpen.value = true
   filteredData.value.productID = id;
-  storeProduct.fetchProductDetailsById(filteredData);
+  storeProduct.fetchProductDetailsByIdForCart(filteredData);
 }
 
 const closeDialog = () => {
@@ -99,9 +99,6 @@ const onhover = (id)=>{
   hoverId.value= id;
 
 }
-
-
-
 
 const products = [
         { id: 1, name: 'منتج 1', price: 'ر.س 50', images:[ '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
