@@ -58,7 +58,7 @@
                 <img
                 src="/src/assets/images/products/Image (1).svg"
                 alt="Product Image"
-                class="w-full h-36 object-cover "
+                class="w-full h-36 object-cover"
               />
               </RouterLink>
 
@@ -302,11 +302,44 @@ const discount = computed(() =>
 const total = computed(() => subtotal.value - discount.value);
 
 // Functions
-const incrementQuantity = (index) => {
+const incrementQuantity = async(index) => {
+  storeCart.getallCarts[index].quantity++;
+
+  const Updatecart12 = await storeCart.updateCart(
+    storeCart.getallCarts[index].id,
+    storeCart.getallCarts[index].product_id,
+    storeCart.getallCarts[index].color_id,
+    storeCart.getallCarts[index].size_id,
+    storeCart.getallCarts[index].quantity,
+  );
+
+  if (Updatecart12) {
+    alert("تم التحديث")
+  } else {
+    alert(storeCart.error)
+  }
+
+
   cartItems.value[index].quantity++;
 };
 
-const decrementQuantity = (index) => {
+const decrementQuantity = async(index) => {
+  if( storeCart.getallCarts[index].quantity > 1){
+    storeCart.getallCarts[index].quantity--;
+    const Updatecart12 = await storeCart.updateCart(
+      storeCart.getallCarts[index].id,
+      storeCart.getallCarts[index].product_id,
+      storeCart.getallCarts[index].color_id,
+      storeCart.getallCarts[index].size_id,
+      storeCart.getallCarts[index].quantity,
+    );
+    if (Updatecart12) {
+      alert("تم التحديث")
+    } else {
+      alert(storeCart.error)
+    }
+  }
+
   if (cartItems.value[index].quantity > 1) {
     cartItems.value[index].quantity--;
   }

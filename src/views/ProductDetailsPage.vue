@@ -24,27 +24,61 @@
       <div class="col-span-8 px-5">
         <div class="flex gap-2">
           <div class="block gap-5">
-            <div v-for="(thumbnail, index) in product.thumbnails" :key="index">
-              <div @mouseenter="onhover(thumbnail)">
-                <img
-                  :src="thumbnail"
-                  alt="Thumbnail"
-                  class="w-20 h-20 object-cover my-3 rounded-md border hover:border-blue-500"
-                />
-              </div>
+            <div class="overflow-x-auto">
+               <!-- الصور الرئيسية -->
+                <div v-if="isMainSelected">
+                  <div v-for="(image,index) in mainColor.images" :key="index" >
+                    <img
+
+                      :src="image.image"
+                     @mouseover="showImageInSwiper(index)"
+                      alt="Main Product Image"
+                       class="w-20 h-20  my-3   cursor-pointer border-2 border-transparent hover:border-gray-500"
+                    />
+                  </div>
+                </div>
+
+                <!-- الصور الفرعية -->
+                  <div v-else>
+                    <div  v-for="(image,index) in selectedColorImages" :key="index">
+                      <img
+                        :src="image.image"
+                     @mouseover="showImageInSwiper(index)"
+                        alt="Sub Product Image"
+                        class="w-20 h-20   my-3   cursor-pointer border-2 border-transparent hover:border-gray-500"
+                      />
+                    </div>
+                  </div>
+
             </div>
           </div>
 
-          <div class="w-[700px] h-[900px]">
-            <img
-              :src="
-                isHover == false
-                  ? '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg'
-                  : hoverId
-              "
-              alt="Product Image"
-              class="w-full h-full shadow-md object-cover"
-            />
+          <div >
+            <swiper
+            :modules="[Navigation, Pagination]"
+            :slides-per-view="1"
+            :space-between="10"
+            navigation
+            pagination
+            class="rounded-lg custom-swiper border w-[700px] h-[900px]"
+             @swiper="setSwiperInstance"
+          >
+            <swiper-slide v-for="(image, index) in selectedColorImages" :key="index">
+              <img
+                :src="image.image"
+                alt="Product Image"
+                class="w-full h-full rounded-lg "
+              />
+            </swiper-slide>
+          </swiper>
+
+
+            <!-- <img
+              :src="selectedImage "
+              alt="No Product Image"
+              class="w-full h-full shadow-md "
+            /> -->
+
           </div>
         </div>
 
@@ -229,17 +263,13 @@
                       v-for="(color, index) in storeProduct.getproductColors"
                       :key="index"
                     >
-                      <button
-                        @click="toggleColor(color.color_id)"
-                        :class="{
-                          'border-2 border-black w-10 h-10 rounded-full flex flex-col items-center ':
-                            tempidColor === color.color_id,
-                          'w-10 h-10 rounded-full flex flex-col items-center  border-2 border-gray-500 hover:border-black':
-                            tempidColor != color.color_id,
-                        }"
-                        :style="{ backgroundColor: color.color_hex }"
-                        type="button"
-                      ></button>
+                    <div
+                      :key="color.color_id"
+                      @click="changeColor(index),toggleColor(color.color_id)"
+                      class="w-10 h-10 rounded-full border-2 cursor-pointer"
+                      :style="{ backgroundColor: color.color_hex }"
+                      :class="{ 'border-blue-500': selectedColorIndex === index }"
+                    ></div>
                     </div>
                   </div>
                 </li>
@@ -605,7 +635,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeMount } from 'vue'
+import { ref, onMounted,  } from 'vue'
 import CommentComp from '../components/Comments/CommentComp.vue'
 import HeaderCommentsComp from '../components/Comments/HeaderComentsComp.vue'
 import { useRoute } from 'vue-router'
@@ -616,6 +646,9 @@ import AboutStoreComp from '@/components/ProductDetailsComponent/AboutStoreComp.
 import MoreProductDetailsComp from '@/components/ProductDetailsComponent/MoreProductDetailsComp.vue'
 import { useProductStore } from '@/stores/product'
 import { useCartStore } from '@/stores/cart'
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/swiper-bundle.css";
 
 const route = useRoute()
 const storeProduct = useProductStore()
@@ -640,24 +673,6 @@ const isDropdowenSize2Visable = ref(false)
 const isDropdowenAboutStoreVisable = ref(false)
 const storedLanguage = localStorage.getItem('language')
 
-const isHover = ref(false)
-const hoverId = ref(null)
-const onhover = image => {
-  isHover.value = true
-  hoverId.value = image
-}
-
-const product = ref({
-  image: '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg',
-  thumbnails: [
-    '/src/assets/images/products/Image (1).svg',
-    '/src/assets/images/products/Image (2).svg',
-    '/src/assets/images/products/Image (4).svg',
-    '/src/assets/images/products/Placeholder_01 (2).svg',
-    '/src/assets/images/products/Image.svg',
-    '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg',
-  ],
-})
 
 const listContentComment = ref([
   {
@@ -752,6 +767,57 @@ const addToCart = async () => {
 }
 }
 
+
+// متغيرات الحالة
+const mainColor = ref({});
+const selectedColorIndex = ref(null);
+const selectedColorImages = ref([]);
+const selectedImage = ref(null);
+const isMainSelected = ref(true);
+
+const swiperInstance = ref(null);
+// ربط مثيل Swiper عند الإنشاء
+const setSwiperInstance = (swiper) => {
+  swiperInstance.value = swiper;
+};
+
+// عرض الصورة في السلايدر عند تمرير الماوس على صورة مصغرة
+const showImageInSwiper = (index) => {
+  if (swiperInstance.value) {
+    swiperInstance.value.slideTo(index); // التنقل إلى الصورة المحددة
+  }
+};
+
+
+// // ربط مثيل Swiper عند الإنشاء
+// const setSwiperInstance = (swiper) => {
+//   selectedImage.value = swiper;
+// };
+
+// // تغيير الصورة الرئيسية عند تمرير الماوس
+// const changeMainImage = (index) => {
+//   if (selectedImage.value) {
+//     selectedImage.value.slideTo(index); // التنقل إلى الصورة المحددة
+//   }
+//   selectedImage.value = index;
+// };
+
+
+
+
+
+
+// تغيير اللون وتحديث الصور
+const changeColor = (index) => {
+  isMainSelected.value = false;
+  selectedColorIndex.value = index;
+
+  const color = storeProduct.getproductColors[index];
+  selectedColorImages.value = color.images || [];
+  selectedImage.value = color.images[0]?.image || null;
+};
+
+
 const dropDownSize = ref(null)
 const isDropdowenSizeVisable = ref(false)
 const closeDropdowenSize = element => {
@@ -759,13 +825,23 @@ const closeDropdowenSize = element => {
     isDropdowenSizeVisable.value = false
   }
 }
-onMounted(() => {
+onMounted(async() => {
   window.addEventListener('click', closeDropdowenSize)
-  storeProduct.fetchProductDetailsById(filteredData2)
+ await storeProduct.fetchProductDetailsById(filteredData2)
+
+
+   // تعيين اللون الرئيسي
+   mainColor.value =
+   storeProduct.getproductColors.find((color) => color.is_main === 1) || {};
+  selectedImage.value = mainColor.value.images?.[0]?.image || null;
+
+  // تعيين الصور الفرعية للون الأول كافتراضي
+  if (storeProduct.getproductColors.length > 0) {
+    changeColor(0);
+  }
+
 })
-onBeforeMount(() => {
-  window.removeEventListener('click', closeDropdowenSize)
-})
+
 
 const isDialogOpen = ref(false)
 
@@ -780,5 +856,58 @@ const closeDialog = () => {
 const handleConfirm = () => {
   alert('Action confirmed!')
   closeDialog()
-}
+};
 </script>
+
+<style scoped>
+/* تخصيص أزرار التنقل */
+.custom-swiper :deep(.swiper-button-next),
+.custom-swiper :deep(.swiper-button-prev) {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.custom-swiper :deep(.swiper-button-next):hover,
+.custom-swiper :deep(.swiper-button-prev):hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #980000;
+}
+
+.custom-swiper :deep(.swiper-button-next)::after,
+.custom-swiper :deep(.swiper-button-prev)::after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* مواضع الأزرار */
+.custom-swiper :deep(.swiper-button-next) {
+  right: 650px; /* تحريك الزر الأيمن خارج الإطار قليلاً */
+  left: auto;
+}
+
+.custom-swiper :deep(.swiper-button-prev) {
+  left: 650px; /* تحريك الزر الأيسر خارج الإطار قليلاً */
+  right: auto;
+}
+
+/* تخصيص النقاط (Pagination) */
+.custom-swiper :deep(.swiper-pagination-bullet) {
+  background-color: rgba(0, 0, 0, 0.3); /* لون النقاط */
+  width: 12px;
+  height: 12px;
+  opacity: 1;
+}
+
+.custom-swiper :deep(.swiper-pagination-bullet-active) {
+  background-color: #980000; /* لون النقطة النشطة */
+  width: 16px;
+  height: 16px;
+}
+</style>

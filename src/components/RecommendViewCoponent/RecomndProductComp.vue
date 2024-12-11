@@ -2,15 +2,15 @@
 <template>
   <div class="mx-auto pl-2 pr-2 ">
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 ">
+    <div v-if="props.products123 !== null"   class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 ">
     <div
-      v-for="product in products"
+      v-for="product in props.products123"
       :key="product.id"
       class="p-1 mt-4"
     >
     <RouterLink :to="`/product/${product.id}`">
-    <div class="cursor-pointe w-[full] h-[350px] " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
-      <img :src="hoverId === product.id && isHover ? product.images[1] : product.images[0] " alt="no image" class="w-full h-full object-cover transition duration-300 ease-in-out" />
+    <div class="cursor-pointe w-[full] h-[350px] border " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
+      <img v-if="product.main_imags != null" :src="hoverId === product.id && isHover ? product.main_imags[1].image : product.main_imags[0].image " alt="no image" class="w-full h-full object-cover transition duration-300 ease-in-out" />
     </div>
       <h3 class="font-semibold text text-sm mt-1">{{ product.name }}</h3>
     </RouterLink>
@@ -29,7 +29,7 @@
 
     <div class="flex items-center justify-between">
       <div class="flex gap-2  items-center ">
-        <p class="font-sembold text-primary-400">{{ product.price }}</p>
+        <p class="font-sembold text-primary-400">{{ product.base_price }}</p>
         <div class="border border-primary-400 ">
          <p class=" text-[10px] text-primary-400 "> %50- </p>
         </div>
@@ -69,6 +69,9 @@
 
     </div>
   </div>
+  <div v-else>
+    NO DATA
+  </div>
 
   <DialogAddToCart :loading="storeProduct.loading" :error="storeProduct.error" :is-open="isDialogOpen" :productDetails="storeProduct.getproductDetails" :productColors="storeProduct.getproductColors" :productSizes="storeProduct.getproductSizes" @close="closeDialog"  />
 
@@ -82,6 +85,16 @@
 import { ref  } from 'vue';
 import DialogAddToCart from '../DialogAddToCart.vue';
 import { useCartStore } from '@/stores/cart'
+
+const props = defineProps({
+  products123: {
+    type: [],
+    default: [],
+  },
+});
+
+
+
 const storeProduct = useCartStore()
 const isDialogOpen = ref(false)
 const filteredData = ref({
@@ -104,36 +117,33 @@ const closeDialog = () => {
 // };
 
 
-
-
-
 const isHover = ref(false);
 const hoverId = ref(null);
 const onhover = (id)=>{
   isHover.value = true;
   hoverId.value= id;
-}
+};
 
-const products = [
-        { id: 1, name: 'منتج 1', price: 'ر.س 50', images:[ '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 2, name: 'منتج 2', price: 'ر.س 60',images:[ '/src/assets/images/products/Image (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 3, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image (2).svg', '/src/assets/images/Placeholder_01 (1).svg' ],},
-        { id: 4, name: 'منتج 3', price: 'ر.س 70',images:[ '/src/assets/images/products/Image (3).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 5, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image (4).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 6, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 7, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Mockup.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 8, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (2).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 9, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (3).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 10, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (4).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 11, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (5).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 12, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 1113 (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 13, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 1253.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 14, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 56.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 15, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 72 (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 16, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/unsplash_VpqI6WX6sEs.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 17, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 75.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-        { id: 18, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/unsplash_DyhiB_wFifk.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+// const products = [
+//         { id: 1, name: 'منتج 1', price: 'ر.س 50', images:[ '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 2, name: 'منتج 2', price: 'ر.س 60',images:[ '/src/assets/images/products/Image (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 3, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image (2).svg', '/src/assets/images/Placeholder_01 (1).svg' ],},
+//         { id: 4, name: 'منتج 3', price: 'ر.س 70',images:[ '/src/assets/images/products/Image (3).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 5, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image (4).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 6, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 7, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Mockup.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 8, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (2).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 9, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (3).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 10, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (4).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 11, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (5).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 12, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 1113 (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 13, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 1253.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 14, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 56.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 15, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 72 (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 16, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/unsplash_VpqI6WX6sEs.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 17, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 75.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
+//         { id: 18, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/unsplash_DyhiB_wFifk.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
 
-      ];
+//       ];
 
 </script>

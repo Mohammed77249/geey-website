@@ -5,7 +5,6 @@ export const useCartStore = defineStore('cart', {
     allCarts: [],
     cartDetails: [],
     productDetails: null,
-    productMessage:null,
     totalProductsDetails: {
       productColors: null,
       productSizes: null,
@@ -18,7 +17,6 @@ export const useCartStore = defineStore('cart', {
   getters: {
     getallCarts: state => state.allCarts,
     getcartDetails: state => state.cartDetails,
-    getcartProductMessage: state => state.productMessage,
     getproductDetails: state => state.productDetails || [],
     getproductColors: state => state.totalProductsDetails.productColors || [],
     getproductSizes: state => state.totalProductsDetails.productSizes || [],
@@ -79,6 +77,7 @@ export const useCartStore = defineStore('cart', {
       formData.append('color_id', color_id)
       formData.append('size_id', size_id)
       formData.append('quantity', quantity)
+
       try {
         const response = await axiosIns.post('carts/store', formData, {
           headers: {
@@ -115,11 +114,9 @@ export const useCartStore = defineStore('cart', {
             'Content-Type': 'multipart/form-data',
           },
         })
-        if (response.data.original) {
-          this.productMessage = response.data.original.message
-        } else {
+
           this.cartDetails = response.data
-        }
+
         return true
       } catch (err) {
         this.error = err + 'حدث خطأ غير متوقع، يرجى المحاولة لاحقًا'

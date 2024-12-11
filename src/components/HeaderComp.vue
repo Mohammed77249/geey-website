@@ -4,14 +4,17 @@
 
       <div class="flex items-center justify-between ">
         <!-- logo-->
-        <div class="flex items-center cursor-pointer ">
-          <span class="text-2xl 2xl:text-4xl font-bold text-gray-800">{{ $t('Jeey') }}</span>
-          <img
-            src="../assets/images/logogeey.svg"
-            alt="SHEIN"
-            class="h-8 w-8 2xl:h-16 2xl:w-14"
-          />
-        </div>
+
+          <RouterLink to="/">
+            <div class="flex items-center cursor-pointer ">
+              <span class="text-2xl 2xl:text-4xl font-bold text-gray-800">{{ $t('Jeey') }}</span>
+              <img
+                src="../assets/images/logogeey.svg"
+                alt="SHEIN"
+                class="h-8 w-8 2xl:h-16 2xl:w-14"
+              />
+            </div>
+          </RouterLink>
 
         <!-- search input -->
         <div class=" mx-6 flex-1 max-w-xl">

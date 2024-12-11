@@ -372,7 +372,7 @@ const addToCart = async() => {
     filteredData.value.size_id = props.productColors.size_type_id;
   }
 
-    const addcart = await storeCart.updateCart(
+    const updatecart12 = await storeCart.updateCart(
     filteredData.value.cart_id,
     filteredData.value.product_id,
     filteredData.value.color_id,
@@ -381,17 +381,10 @@ const addToCart = async() => {
   );
 
 
-  if (addcart) {
-    if (storeCart.getcartProductMessage != null) {
-      // alert(storeCart.getcartProductMessage)
-      alert("تم التحديث")
-      window.location.reload();
-      close()
-    } else {
+  if (updatecart12) {
       alert('تمت تحديث المنتج !')
       window.location.reload();
       close()
-    }
   } else {
     alert(storeCart.error)
     window.location.reload();

@@ -2,7 +2,7 @@
   <div>
     <div class="grid grid-cols-12 gap-5 mt-10 px-10">
       <div class="col-span-2 mb-5">
-        <p class="text-gray-500">الصفحة الرئيسية / الجمال</p>
+        <p class="text-gray-500">الصفحة الرئيسية / {{ sectionName }} /</p>
         <div class="overflow-y-auto h-screen custom-scroll pl-5">
           <p class="font-bold text-[13px] mt-8 mb-5">تصنيف</p>
           <div class="w-full h-[1px] mb-5 bg-gray-200"></div>
@@ -574,8 +574,13 @@
             </div>
           </div>
         </div>
-        <div>
-          <RecomndProductComp />
+        <div >
+          <div v-if="storeSecion.loading" class="mt-10">
+            <LoaderDatacomp :is-loader="storeSecion.loading"/>
+          </div>
+          <div v-else>
+            <RecomndProductComp :products123="storeSecion.getProducts"  />
+          </div>
         </div>
       </div>
     </div>
@@ -597,26 +602,27 @@ import { ref } from 'vue'
 import { onMounted, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSectionsStore } from '@/stores/section'
-
+import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
 const filteredData = ref({
   sectionId: null,
   page: 1,
-  perPage: 3,
+  perPage: 50,
 })
 const storeSecion = useSectionsStore()
 const route = useRoute()
+
+const sectionName = route.params.name
 const id = route.params.id
 if(id != null){
   filteredData.value.sectionId = id
 }
 
 
+
 const isDropdowenCategoryVisable = ref(true)
-
-
 const isDropdowenSizeVisable = ref(false)
-const sizes = ['مقاس ةاحد', 'S', 'M', 'L', 'XL', 'XXL']
 
+const sizes = ['مقاس ةاحد', 'S', 'M', 'L', 'XL', 'XXL']
 const isDropdowenColorVisable = ref(false)
 const colors = ref([
   'bg-red-300',
