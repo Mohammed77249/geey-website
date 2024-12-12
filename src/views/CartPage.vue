@@ -74,6 +74,7 @@
 
       <div class="flex items-center px-2 py-2">
       <button
+        :disabled="!cartStore.isCheckoutEnabled"
         @click="taggleActiveConfirmOrder"
         :class="[
           onclickConfirmOrder
@@ -102,6 +103,7 @@
 
       <div class="flex items-center px-2 py-2">
       <button
+      disabled
         @click="taggleActivePay"
         :class="[
           onclickPay
@@ -130,6 +132,7 @@
 
       <div class="flex items-center px-2 py-2">
       <button
+      disabled
         @click="taggleActiveRequestDone"
         :class="[
           onclickRequestDone
@@ -188,10 +191,11 @@ import ShoppingBag from './cart/ShoppingBag.vue';
 import ConfirmOrder from './cart/ConfirmOrder.vue';
 import PayMoney from './cart/PayMoney.vue';
 import RequestDone from './cart/RequestDone.vue';
-
-import { ref } from 'vue'
+import { useCartStore } from '../stores/cart.js';
+import { ref ,watch} from 'vue'
 import ProductUnder from './cart/ProductUnder.vue';
 
+const cartStore = useCartStore();
 const onclicknoproduct = ref(true)
 
 const onclickShoppingBag = ref(true)
@@ -199,6 +203,14 @@ const onclickConfirmOrder = ref(false)
 
 const onclickPay = ref(false);
 const onclickRequestDone = ref(false)
+
+watch(()=>{
+  if(cartStore.isCheckoutEnabled){
+  onclickConfirmOrder.value = true;
+  onclickShoppingBag.value = false;
+}
+})
+
 
 const taggleActiveShoppingBag = () => {
   onclickConfirmOrder.value = onclickConfirmOrder.value = false

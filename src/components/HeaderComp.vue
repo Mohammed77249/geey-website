@@ -376,7 +376,8 @@
                   </div>
                 </div>
               </div>
-              <div @mouseenter="isOpen = true" @mouseleave="isOpen = false">
+
+              <div @mouseenter="isOpen = true" @mouseleave="isOpen = false" >
                 <SidebarComp :isOpen="showDropdown" :hoveritem="isHoeverItem" />
               </div>
             </li>
@@ -529,11 +530,6 @@ function changeLanguage(lang) {
       }, 500);
 
 }
-
-// const getID = (id) =>{
-
-//     localStorage.setItem('hoveredid',  id)
-//   }
 
 const hoveredIndex = ref(null);
 let intervalId;

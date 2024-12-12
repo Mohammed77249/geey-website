@@ -9,25 +9,12 @@
       :autoplay="autoplayOptions"
       :pagination="{ clickable : true}"
        :navigation="true"
-      class="w-full h-80 Swiper"
+      :class="{'w-full h-80 Swiper custom-swiper': storedLanguage == 'ar' , 'w-full h-80 Swiper custom-swiper2': storedLanguage =='en'}"
       id="mySlider"
     >
       <SwiperSlide v-for="(image, index) in images" :key="index">
         <img :src="image" alt="صورة المنتج" class="w-full h-full object-cover   rounded-lg" />
       </SwiperSlide>
-
-    <!-- <button
-      class="swiper-button-prev custom-prev bg-gray-300 rounded-full"
-      @click="goToPrevSlide"
-    >
-
-    </button>
-    <button
-      class="swiper-button-next custom-next bg-gray-300 rounded-full"
-      @click="goToNextSlide "
-    >
-    </button> -->
-
 
     </Swiper>
 
@@ -50,6 +37,9 @@ import image2 from '@/assets/images/products/Mockup.svg';
 import image3 from '@/assets/images/products/Image (3).svg';
 import image4 from '@/assets/images/products/unsplash_jsgby4-zj44.svg';
 import image5 from '@/assets/images/products/unsplash_VpqI6WX6sEs.svg';
+
+const storedLanguage = localStorage.getItem("language");
+
 const images = ref([image1, image2,image3,image4,image5]);
 const modules = [Pagination,Navigation,Autoplay]
 
@@ -65,81 +55,121 @@ const swiper = ref(null);
 
 
 
-// const goToNextSlide = () => {
-//   if (swiper.value) {
-//     swiper.value.swiper.slideNext();
-//   }
-
-// };
-
-
-// const goToPrevSlide = () => {
-//   if (swiper.value ) {
-//     swiper.value.swiper.slidePrev();
-//   }
-// };
-
-// onMounted(() => {
-
-
-//   alert("fff1"+ swiper.value);
-//   if (swiper.value && swiper.value.swiper) {
-//     alert("fff2"+swiper.value.swiper);
-//   }
-
-// });
-
 </script>
 
 
 <style scoped>
-Swiper {
 
-    --swiper-navigation-size: 44px;
-    --swiper-navigation-color: #fff;}
-
-    .my-next-button,
-  .my-prev-button {
-    background: #000;
-    color: #fff;
-    padding: 10px 40px;
-}
-
- .my-next-button,
-  .my-prev-button {
-    background: #000;
-    color: #fff;
-    padding: 10px 40px;
-}
-
-#mySlider .swiper-button-prev,
-#mySlider .swiper-button-next {
-  width: 20px;
-  height: 20px;
+/* swiper 1 arabic =============================================================== */
+/* تخصيص أزرار التنقل */
+.custom-swiper :deep(.swiper-button-next),
+.custom-swiper :deep(.swiper-button-prev) {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 8px;
-  color: #888888;
-  --swiper-navigation-size: 20px;
+  transition: background-color 0.3s ease;
 }
 
-.custom-prev, .custom-next {
+.custom-swiper :deep(.swiper-button-next):hover,
+.custom-swiper :deep(.swiper-button-prev):hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #980000;
+}
+
+.custom-swiper :deep(.swiper-button-next)::after,
+.custom-swiper :deep(.swiper-button-prev)::after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* مواضع الأزرار */
+.custom-swiper :deep(.swiper-button-next) {
+  left: 0px;
+  right: auto;
+  margin-left: 10px;
+}
+
+.custom-swiper :deep(.swiper-button-prev) {
+  right:0px;
+  left: auto;
+  margin-right: 10px;
+}
+
+/* تخصيص النقاط (Pagination) */
+.custom-swiper :deep(.swiper-pagination-bullet) {
+  background-color: rgba(0, 0, 0, 0.3); /* لون النقاط */
+  width: 12px;
+  height: 12px;
+  opacity: 1;
+}
+
+.custom-swiper :deep(.swiper-pagination-bullet-active) {
+  background-color: #ffff; /* لون النقطة النشطة */
+  width: 16px;
+  height: 16px;
+}
+
+
+/* swiper 2 english =============================================================== */
+/* تخصيص أزرار التنقل */
+.custom-swiper2 :deep(.swiper-button-next),
+.custom-swiper2 :deep(.swiper-button-prev) {
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
-  cursor: pointer;
-  font-size: 15px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
 
+.custom-swiper2 :deep(.swiper-button-next):hover,
+.custom-swiper2 :deep(.swiper-button-prev):hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #980000;
+}
+
+.custom-swiper2 :deep(.swiper-button-next)::after,
+.custom-swiper2 :deep(.swiper-button-prev)::after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* مواضع الأزرار */
+.custom-swiper2 :deep(.swiper-button-next) {
+  right:0px;
+  left: auto;
+  margin-right: 10px;
 
 }
 
-.custom-prev {
-  left: 10px;
-
-  transform: translateY(-50%);
+.custom-swiper2 :deep(.swiper-button-prev) {
+  left: 0px;
+  right: auto;
+  margin-left: 10px;
 }
 
-.custom-next {
-  right: 10px;
-  transform: translateY(-50%);
+/* تخصيص النقاط (Pagination) */
+.custom-swiper2 :deep(.swiper-pagination-bullet) {
+  background-color: rgba(0, 0, 0, 0.3); /* لون النقاط */
+  width: 12px;
+  height: 12px;
+  opacity: 1;
 }
+
+.custom-swiper2 :deep(.swiper-pagination-bullet-active) {
+  background-color: #ffff; /* لون النقطة النشطة */
+  width: 16px;
+  height: 16px;
+}
+
+
 </style>
+

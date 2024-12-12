@@ -166,6 +166,42 @@
           </div>
           <div class=" p-2 w-full h-52 ">
             <div class="bg-gray-100 h-full">
+              <div v-for="(item,index) in storeCart.getallCarts" :key="index">
+
+                <div class="w-28 h-32 p-2">
+                  <img
+                    src="/src/assets/images/products/Image (1).svg"
+                    alt="Product Image"
+                    class="w-full h-full object-cover"
+                  />
+                  <div class="mt-1 flex justify-between ">
+                    <span class="text-sm text-black font-medium">SR500</span>
+                    <span class="text-sm text-black font-medium">%10</span>
+                  </div>
+                    <div class="mt-2 flex justify-center">
+                      <div class="flex items-center  ">
+                        <button
+                          class="bg-white border border-gray-400 hover:border-black px-2 py-[1px] text-black rounded-s-full"
+                          @click="decrementQuantity(index)"
+                        >
+                          -
+                        </button>
+                        <span class="font-semibold border-y  bg-white text-center border-gray-400 w-5 h-7 ">{{ item.quantity }}</span>
+                        <button
+                          class="bg-white border border-gray-400 hover:border-black px-2 py-[1px]  rounded-e-full text-black"
+                          @click="incrementQuantity(index)"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+
+
+
+
+                </div>
+
+              </div>
 
             </div>
           </div>
@@ -175,66 +211,76 @@
       </div>
 
       <!-- القسم الأيسر: ملخص الطلب -->
-      <div class="col-span-1  bg-white h-screen shadow  p-4">
-        <!-- عنوان القسم -->
-        <h2 class="text-lg font-bold text-gray-800 mb-4">ملخص الطلب</h2>
-        <!-- تفاصيل الأسعار -->
-        <div class="space-y-2">
-          <div class="flex justify-between text-sm text-gray-500">
-            <span>سعر الوحدة:</span>
-            <span class="line-through text-gray-400">SR32.00</span>
-          </div>
-          <div class="flex justify-between text-sm text-gray-500">
-            <span>إجمالي المنتج:</span>
-            <span class="text-red-500 font-semibold">SR27.20</span>
-          </div>
+      <div class="col-span-1 h-screen">
+        <div class="bg-white shadow  p-4">
+              <!-- عنوان القسم -->
+            <h2 class="text-lg font-bold text-gray-800 mb-4">ملخص الطلب</h2>
+            <!-- تفاصيل الأسعار -->
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm text-gray-500">
+                <span>سعر الوحدة:</span>
+                <span class="line-through text-gray-400">SR32.00</span>
+              </div>
+              <div class="flex justify-between text-sm text-gray-500">
+                <span>إجمالي المنتج:</span>
+                <span class="text-red-500 font-semibold">SR27.20</span>
+              </div>
+            </div>
         </div>
+
         <!-- نقاط المكافآت -->
-        <div class="mt-4 p-4 bg-yellow-100 rounded-lg flex items-center text-sm text-yellow-700">
+        <div class="mt-4 p-4 bg-white shadow  flex items-center text-sm text-yellow-700">
           <p>🎉 لديك <span class="font-semibold">7 نقاط مكافأة</span></p>
         </div>
         <!-- Shein Club -->
-        <div class="mt-4 bg-green-50 p-4 rounded-lg text-sm">
-          <p class="font-bold text-green-700 mb-1">Shein Club</p>
+        <div class="mt-4 bg-yellow-50 p-4 text-sm">
+          <p class="font-bold text-green-700 mb-1">Jeey Club</p>
           <p>تكلفة الانضمام: <span class="text-red-500 font-bold">SR99.99</span></p>
           <p class="text-xs text-gray-500 mt-1">
             من خلال الانضمام، ستوافق على <span class="text-blue-500 underline">الشروط والأحكام</span>
           </p>
         </div>
-        <!-- رمز القسيمة -->
-        <div class="mt-4">
-          <label class="block text-sm font-semibold text-gray-600 mb-2">رمز القسيمة</label>
-          <div class="flex items-center space-x-2 rtl:space-x-reverse">
-            <input
-              type="text"
-              placeholder="أدخل الرمز"
-              class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring focus:ring-indigo-500"
-            />
-            <button class="bg-gray-200 px-4 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-300">
-              تقديم
+        <div class="mt-4 bg-white shadow p-4">
+           <!-- رمز القسيمة -->
+            <div class="mt-4">
+              <label class="block text-md font-semibold text-black mb-2">رمز القسيمة</label>
+              <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                <input
+                disabled
+                  type="text"
+                  placeholder="أدخل الرمز"
+                  class="w-full border border-gray-300 py-3 p-2 text-sm focus:ring focus:ring-indigo-500"
+                />
+                <button disabled class="bg-white border border-black  px-4 py-3  text-sm font-semibold text-black hover:bg-gray-50">
+                  تقديم
+                </button>
+              </div>
+            </div>
+
+            <!-- بطاقة هدية -->
+            <div class="mt-4">
+              <label class="block text-md font-semibold text-black mb-2">بطاقة هدية</label>
+              <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                <input
+                disabled
+                  type="text"
+                  placeholder="رقم البطاقة"
+                  class="w-full border border-gray-300  p-2 py-3 text-sm focus:ring focus:ring-indigo-500"
+                />
+                <button disabled class="bg-white border border-black  px-4 py-3  text-sm font-semibold text-black hover:bg-gray-50">
+                  تقديم
+                </button>
+              </div>
+            </div>
+
+            <!-- زر تأكيد الطلب -->
+            <button
+            disabled class="mt-6 w-full bg-primary-900 text-white py-4  font-semibold hover:bg-primary-800 text-sm"
+            >
+              تأكيد الطلب
             </button>
-          </div>
+
         </div>
-        <!-- بطاقة هدية -->
-        <div class="mt-4">
-          <label class="block text-sm font-semibold text-gray-600 mb-2">بطاقة هدية</label>
-          <div class="flex items-center space-x-2 rtl:space-x-reverse">
-            <input
-              type="text"
-              placeholder="رقم البطاقة"
-              class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring focus:ring-indigo-500"
-            />
-            <button class="bg-gray-200 px-4 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-300">
-              تقديم
-            </button>
-          </div>
-        </div>
-        <!-- زر تأكيد الطلب -->
-        <button
-          class="mt-6 w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-black text-sm"
-        >
-          تأكيد الطلب
-        </button>
       </div>
     </div>
 
@@ -242,8 +288,10 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script setup>
+import { useCartStore } from '@/stores/cart'
+const storeCart = useCartStore()
+
 </script>
 
 

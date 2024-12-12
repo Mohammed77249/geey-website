@@ -13,6 +13,7 @@ export const useCartStore = defineStore('cart', {
 
     loading: false,
     error: null,
+    isCheckoutEnabled: false,
   }),
   getters: {
     getallCarts: state => state.allCarts,
@@ -20,6 +21,24 @@ export const useCartStore = defineStore('cart', {
     getproductDetails: state => state.productDetails || [],
     getproductColors: state => state.totalProductsDetails.productColors || [],
     getproductSizes: state => state.totalProductsDetails.productSizes || [],
+
+    totalItems(state) {
+      return state.allCarts.reduce((acc, item) => acc + item.quantity, 0);
+    },
+    totalPrice(state) {
+      return state.allCarts.reduce((acc, item) => acc + item.product_price * item.quantity, 0);
+    },
+    totalDiscount(state) {
+      return state.totalPrice * 0.1; // خصم 10%
+    },
+    finalPrice(state) {
+      return state.totalPrice - state.totalDiscount;
+    },
+
+    enableCheckout() {
+      this.isCheckoutEnabled = true;
+    },
+
   },
   actions: {
     async fetchProductDetailsByIdForCart(data) {

@@ -110,13 +110,13 @@
   </div>
 </div> -->
 
-  <div v-if="isOpen"  class="invisible md:visible absolute left-0 border w-screen h-screen z-40 bg-opacity-75  bg-gray-100 opacity-1 " >
-    <div @mouseleave="!isOpen" class="absolute h-[70%]   bg-white z-50  w-full shadow-lg p-4 ">
+  <div v-if="isOpen"  :class="{'invisible md:visible bg-white absolute  left-0 w-screen z-50 ':storedLanguage =='ar','invisible md:visible bg-white  absolute right-0 w-screen z-50 ':storedLanguage =='en'}" >
+    <div class=" border  h-[450px] ">
 
-      <div  class="grid grid-cols-12 ">
+      <div @mouseleave="isOpen" class="grid grid-cols-12 ">
         <!-- list of item -->
-      <div class="col-span-3 md:col-span-2 border-s-2 overflow-y-auto  max-h-[90%]   custom-scroll" >
-        <ul  class="space-y-2  text-gray-700 text-[12px] font-sans">
+      <div class="col-span-3 md:col-span-2 border-s-2 overflow-y-auto   h-[440px] p-4  custom-scroll " >
+        <ul  class="space-y-2 text-gray-700 text-[12px] font-sans">
         <li
             v-for="(section, index) in storeSecion.getSections"
           :key="index"
@@ -146,7 +146,7 @@
 
 
         <!-- list of card 1 -->
-        <div class="col-span-4  pl-10 pr-10  border-s-2  overflow-y-auto h-[90%]  custom-scroll">
+        <div class="col-span-4  pl-10 pr-10  border-s-2  overflow-y-auto h-[440px] p-4 custom-scroll">
           <div class=" flex">
             <div>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -194,7 +194,7 @@
       </div>
 
        <!-- list of card 2 -->
-       <div class="col-span-5 md:col-span-6  overflow-y-auto  h-[90%] w-full   -scroll">
+       <div class="col-span-5 md:col-span-6  overflow-y-auto  h-[440px] w-full p-4  custom-scroll">
           <div>
             <span class="p-5 text-[12px] font-sans">{{ $t('Shop by size') }}</span>
           </div>
@@ -225,7 +225,7 @@
           </div>
         </div>
 
-        </div>custom
+        </div>
 
     </div>
 
@@ -249,13 +249,6 @@ defineProps({
 });
 
   const getID = (id) =>{
-    // if(hoveredIndex.value ){
-    //   filteredData.value.sectionId = hoveredIndex.value
-    // }
-    // if(id !== null){
-    //
-    // }
-
     filteredData.value.sectionId = id
     storeSecion.fetchSubSectionBySectionID(filteredData);
 
@@ -297,49 +290,6 @@ defineProps({
       page: 1,
       perPage: 3,
     });
-
-
-
-
-    // const hoveredIndex = ref(null);
-
-    // const itemRefs = ref([]);
-    // let intervalId;
-
-
-    // const updateHoveredIndex = () => {
-    //   const storedIndex = localStorage.getItem("hoveredIndex");
-    //   hoveredIndex.value = storedIndex !== null ? parseInt(storedIndex) : null;
-    // };
-
-    // const scrollToItem = (index) => {
-    //   const itemElement = itemRefs.value[index];
-    //   if (itemElement) {
-    //     itemElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    //   }
-    // };
-
-
-    // const setItemRef = (el, index) => {
-    //   itemRefs.value[index] = el;
-    //   if (hoveredIndex.value === index) {
-    //     scrollToItem(index);
-    //   }
-    // };
-
-    // onMounted(() => {
-    //   updateHoveredIndex();
-    //   window.addEventListener("storage", updateHoveredIndex);
-    //   intervalId = setInterval(updateHoveredIndex, 500);
-    // });
-
-    // onBeforeUnmount(() => {
-    //   window.removeEventListener("storage", updateHoveredIndex);
-    //   clearInterval(intervalId);
-    // });
-
-
-
 
 
 </script>

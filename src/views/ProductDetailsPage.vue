@@ -60,7 +60,7 @@
             :space-between="10"
             navigation
             pagination
-            class="rounded-lg custom-swiper border w-[700px] h-[900px]"
+            :class="{'rounded-lg custom-swiper border w-[700px] h-[900px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
              @swiper="setSwiperInstance"
           >
             <swiper-slide v-for="(image, index) in selectedColorImages" :key="index">
@@ -860,6 +860,8 @@ const handleConfirm = () => {
 </script>
 
 <style scoped>
+
+/* swiper 1 arabic =============================================================== */
 /* تخصيص أزرار التنقل */
 .custom-swiper :deep(.swiper-button-next),
 .custom-swiper :deep(.swiper-button-prev) {
@@ -888,13 +890,15 @@ const handleConfirm = () => {
 
 /* مواضع الأزرار */
 .custom-swiper :deep(.swiper-button-next) {
-  right: 650px; /* تحريك الزر الأيمن خارج الإطار قليلاً */
-  left: auto;
+  left: 0px;
+  right: auto;
+  margin-left: 10px;
 }
 
 .custom-swiper :deep(.swiper-button-prev) {
-  left: 650px; /* تحريك الزر الأيسر خارج الإطار قليلاً */
-  right: auto;
+  right:0px;
+  left: auto;
+  margin-right: 10px;
 }
 
 /* تخصيص النقاط (Pagination) */
@@ -906,8 +910,66 @@ const handleConfirm = () => {
 }
 
 .custom-swiper :deep(.swiper-pagination-bullet-active) {
-  background-color: #980000; /* لون النقطة النشطة */
+  background-color: #ffff; /* لون النقطة النشطة */
   width: 16px;
   height: 16px;
 }
+
+
+/* swiper 2 english =============================================================== */
+/* تخصيص أزرار التنقل */
+.custom-swiper2 :deep(.swiper-button-next),
+.custom-swiper2 :deep(.swiper-button-prev) {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.custom-swiper2 :deep(.swiper-button-next):hover,
+.custom-swiper2 :deep(.swiper-button-prev):hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #980000;
+}
+
+.custom-swiper2 :deep(.swiper-button-next)::after,
+.custom-swiper2 :deep(.swiper-button-prev)::after {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* مواضع الأزرار */
+.custom-swiper2 :deep(.swiper-button-next) {
+  right:0px;
+  left: auto;
+  margin-right: 10px;
+
+}
+
+.custom-swiper2 :deep(.swiper-button-prev) {
+  left: 0px;
+  right: auto;
+  margin-left: 10px;
+}
+
+/* تخصيص النقاط (Pagination) */
+.custom-swiper2 :deep(.swiper-pagination-bullet) {
+  background-color: rgba(0, 0, 0, 0.3); /* لون النقاط */
+  width: 12px;
+  height: 12px;
+  opacity: 1;
+}
+
+.custom-swiper2 :deep(.swiper-pagination-bullet-active) {
+  background-color: #ffff; /* لون النقطة النشطة */
+  width: 16px;
+  height: 16px;
+}
+
+
 </style>

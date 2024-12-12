@@ -11,7 +11,7 @@
          <div class="bg-white w-full h-14 mb-3 flex items-center justify-between px-5">
           <div class="flex items-center ">
             <input type="checkbox" class="h-5 w-7 peer-checked:bg-black  peer-checked:border-black cursor-pointer transition-all duration-300 border border-black rounded-none"/>
-            <h2 class="font-medium text-lg px-2">كل المنتجات ({{ cartItems.length }})</h2>
+            <h2 class="font-medium text-lg px-2">كل المنتجات ({{ storeCart.getallCarts.length }})</h2>
           </div>
           <div class="flex items-center gap-1">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,6 +52,9 @@
 
         <!-- Products List -->
         <div class="space-y-4 mb-10">
+          <div v-if="storeCart.loading" class="mt-10">
+            <LoaderDatacomp :is-loader="storeCart.loading"/>
+          </div>
           <div class="grid grid-cols-12  w-full gap-2 p-5 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
             <div class="col-span-2 ">
               <RouterLink  :to="`/product/${item.product_id}`">
@@ -76,7 +79,7 @@
 
               <p class="text-red-500 text-sm font-semibold">-0%</p>
               <p class="text-lg font-bold">
-                {{ item.product_currency }} {{ item.product_price - (item.product_price * 0) / 100 }}
+                {{ item.product_currency }} {{ item.product_price }}
               </p>
             </div>
 
@@ -136,22 +139,30 @@
       </div>
 
       <!-- Order Summary (Left Sidebar) -->
-      <div class="col-span-1 ">
+      <div class="col-span-1 "  >
         <div class="bg-white  shadow p-4">
           <h2 class="font-semibold text-lg mb-4">ملخص الطلب</h2>
           <div class="text-sm">
             <div class="flex justify-between py-2">
+              <span> إجمالي المنتجات:</span>
+              <span> {{ storeCart.totalItems }} </span>
+            </div>
+            <div class="flex justify-between py-2">
               <span>الإجمالي الفرعي:</span>
-              <span>SR {{ subtotal }}</span>
+              <span> YER {{ storeCart.totalPrice }}</span>
             </div>
             <div class="flex justify-between py-2">
               <span>الخصم:</span>
-              <span>- SR {{ discount }}</span>
+              <span>- YER {{ storeCart.totalDiscount }}</span>
+            </div>
+            <div class="flex justify-between py-2">
+              <span>تكلفة التوصيل:</span>
+              <span> YER  600 </span>
             </div>
             <div class="border-t my-4"></div>
             <div class="flex justify-between font-semibold text-lg">
               <span>الإجمالي:</span>
-              <span>SR {{ total }}</span>
+              <span class="text-primary-900"> YER {{ storeCart.finalPrice }}</span>
             </div>
           </div>
           <button
@@ -162,7 +173,7 @@
           </button>
         </div>
 
-        <div class="bg-white mt-6 shadow p-4">
+        <div class="bg-white mt-6 shadow p-4 mb-10">
           <!-- Payment Methods -->
           <div class="">
             <h3 class="text-md font-bold mb-2">نقبل:</h3>
@@ -214,16 +225,17 @@
       </div>
 
 
+
     </main>
     <DialogUpdateCart :loading="storeCart.loading" :error="storeCart.error" :is-open="isDialogOpen" :cartDetailsById="storeCart.getcartDetails" :productDetails="storeCart.getproductDetails" :productColors="storeCart.getproductColors" :productSizes="storeCart.getproductSizes" @close="closeDialog"  />
 
   </div>
 </template>
 <script setup>
-import { ref, computed,onMounted } from "vue";
+import { ref,onMounted } from "vue";
 import { useCartStore } from '@/stores/cart'
 import DialogUpdateCart from "@/components/DialogUpdateCart.vue";
-
+import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
 const storeCart = useCartStore()
 const isDialogOpen = ref(false)
 const filteredData = ref({
@@ -238,7 +250,6 @@ const openDialog = (product_id,cart_id) => {
   storeCart.fetchProductsInCartByID(filteredData)
 }
 
-
 const closeDialog = () => {
   isDialogOpen.value = false
 
@@ -248,60 +259,7 @@ onMounted(() => {
    storeCart.fetchAllProductsInCart();
 })
 
-// const handleConfirm = () => {
-//   alert('Action confirmed!')
-//   closeDialog()
-// };
-
-// Cart Items (Example Data)
-const cartItems = ref([
-  {
-    id: 1,
-    name: "فستان زغبي أسود",
-    image: "/src/assets/images/products/Image (1).svg",
-    size: "L",
-    color: "أسود",
-    price: 320,
-    discount: 32,
-    quantity: 1,
-  },
-  {
-    id: 2,
-    name: "قميص نسائي صيفي",
-    image: "/src/assets/images/products/Image (1).svg",
-    size: "M",
-    color: "أبيض",
-    price: 210,
-    discount: 20,
-    quantity: 2,
-  },
-  {
-    id: 3,
-    name: "قميص نسائي صيفي",
-    image: "/src/assets/images/products/Image (1).svg",
-    size: "M",
-    color: "أبيض",
-    price: 210,
-    discount: 20,
-    quantity: 2,
-  },
-]);
-
-// Calculations
-const subtotal = computed(() =>
-  cartItems.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
-);
-
-const discount = computed(() =>
-  cartItems.value.reduce(
-    (sum, item) => sum + (item.price * item.discount) / 100 * item.quantity,
-    0
-  )
-);
-
-const total = computed(() => subtotal.value - discount.value);
-
-// Functions
+// update cart
 const incrementQuantity = async(index) => {
   storeCart.getallCarts[index].quantity++;
 
@@ -318,11 +276,9 @@ const incrementQuantity = async(index) => {
   } else {
     alert(storeCart.error)
   }
-
-
-  cartItems.value[index].quantity++;
 };
 
+// update cart
 const decrementQuantity = async(index) => {
   if( storeCart.getallCarts[index].quantity > 1){
     storeCart.getallCarts[index].quantity--;
@@ -339,14 +295,10 @@ const decrementQuantity = async(index) => {
       alert(storeCart.error)
     }
   }
-
-  if (cartItems.value[index].quantity > 1) {
-    cartItems.value[index].quantity--;
-  }
 };
 
+// delete cart
 const removeItem = async(cart_id) => {
-  // cartItems.value.splice(index, 1);
   const deleteCar = await storeCart.deleteCart(cart_id)
   if(deleteCar){
     alert('تمت حذف المنتج من السلة!')
@@ -354,11 +306,11 @@ const removeItem = async(cart_id) => {
   }else{
     alert(storeCart.error +"error")
   }
-
-
 };
 
 const checkout = () => {
-  alert("انتقال إلى صفحة الدفع");
+  alert("انتقال إلى صفحة تاكيد الطلب");
+  storeCart.enableCheckout();
+
 };
 </script>
