@@ -296,6 +296,9 @@ const props = defineProps({
   },
   error:{
     type:String
+  },
+  IdProduct:{
+    type:Number
   }
 });
 
@@ -306,6 +309,7 @@ const onhover = image => {
   hoverId.value = image
 }
 
+alert(props.IdProduct)
 const filteredData = ref({
   product_id:  null,
   color_id: null,

@@ -60,7 +60,6 @@ export const useProductStore = defineStore('useProductStore', {
 
       } catch (error) {
         this.error = error+ 'خطأ أثناء جلب الفئات'
-         alert(error+"dsjkn")
       } finally {
         this.loading = false
       }

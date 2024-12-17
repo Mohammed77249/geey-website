@@ -578,8 +578,8 @@
           <div v-if="storeSecion.loading" class="mt-10">
             <LoaderDatacomp :is-loader="storeSecion.loading"/>
           </div>
-          <div v-else>
-            <RecomndProductComp :products123="storeSecion.getProducts"  />
+          <div v-else class="mb-10">
+            <RecomndProductComp :products123="storeSecion.getProducts"   />
           </div>
         </div>
       </div>
@@ -606,7 +606,7 @@ import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
 const filteredData = ref({
   sectionId: null,
   page: 1,
-  perPage: 50,
+  perPage: 10,
 })
 const storeSecion = useSectionsStore()
 const route = useRoute()
@@ -703,6 +703,8 @@ const closeDropdowenStatus = element => {
     isDropdowenStatusVisable.value = false
   }
 }
+
+
 onMounted(() => {
   window.addEventListener('click', closeDropdowenStatus)
   storeSecion.fetchSubSectionBySectionIDForfilter(filteredData)

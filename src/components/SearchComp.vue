@@ -6,12 +6,12 @@
         v-model="query"
         @input="handleSearch"
         type="text"
-       class="w-full pr-10 pl-4 py-2 text-gray-700 border border-gray-900 bg-[#F6F6F6] focus:outline-none focus:border-gray-900 "
+       class="w-full pr-10 pl-4 py-2 text-gray-700 border border-primary-900 bg-[#F6F6F6] focus:outline-none focus:border-gray-900 "
         :placeholder="$t('Search for products...')"
       />
       <button
         @click="handleSearch"
-        class="px-2   w-10 text-gray-400  py-2 cursor-pointer bg-black  transition"
+        class="px-2  w-10 text-gray-400  py-2 cursor-pointer bg-primary-900  transition"
       >
             <svg
               width="25"

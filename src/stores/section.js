@@ -11,13 +11,14 @@ export const useSectionsStore = defineStore('sections', {
     subcategories: [],
     products: [],
     totalProducts: {
-      currentPage: null,
+      currentPage: 1,
       totalItems: null,
       totalPages: null,
     },
     productDetails: null,
     loading: false,
     error: null,
+
   }),
   getters: {
     getSections: state => state.sections,
@@ -50,6 +51,7 @@ export const useSectionsStore = defineStore('sections', {
       try {
         const response = await axiosIns.get(`categories/section?page=${data.value.page}&perPage=${data.value.perPage}`);
         this.allsections = response.data.sections;
+
         this.categories = response.data.categories;
         this.products = response.data.products.data;
         this.totalProducts.currentPage = response.data.products.current_page
@@ -102,11 +104,11 @@ export const useSectionsStore = defineStore('sections', {
             this.categories.push(...section.categories);
           }
         });
-
-        this.products = response.data.products.data;
-        this.totalProducts.currentPage = response.data.products.current_page
+        this.products = response.data.products.data
+        this.totalProducts.currentPage = response.data.products.current_page +1
         this.totalProducts.totalItems = response.data.products.total
         this.totalProducts.totalPages = response.data.products.last_page
+
       } catch (error) {
         this.error = 'خطأ أثناء جلب الفئات';
         alert(error(error));

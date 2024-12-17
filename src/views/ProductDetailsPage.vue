@@ -53,7 +53,7 @@
             </div>
           </div>
 
-          <div >
+          <div>
             <swiper
             :modules="[Navigation, Pagination]"
             :slides-per-view="1"
@@ -71,13 +71,6 @@
               />
             </swiper-slide>
           </swiper>
-
-
-            <!-- <img
-              :src="selectedImage "
-              alt="No Product Image"
-              class="w-full h-full shadow-md "
-            /> -->
 
           </div>
         </div>
@@ -787,25 +780,6 @@ const showImageInSwiper = (index) => {
     swiperInstance.value.slideTo(index); // التنقل إلى الصورة المحددة
   }
 };
-
-
-// // ربط مثيل Swiper عند الإنشاء
-// const setSwiperInstance = (swiper) => {
-//   selectedImage.value = swiper;
-// };
-
-// // تغيير الصورة الرئيسية عند تمرير الماوس
-// const changeMainImage = (index) => {
-//   if (selectedImage.value) {
-//     selectedImage.value.slideTo(index); // التنقل إلى الصورة المحددة
-//   }
-//   selectedImage.value = index;
-// };
-
-
-
-
-
 
 // تغيير اللون وتحديث الصور
 const changeColor = (index) => {

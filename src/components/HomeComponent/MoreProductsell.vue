@@ -95,9 +95,7 @@ const hoverId = ref(null);
 
 const onhover = (id)=>{
   isHover.value = true;
-
   hoverId.value= id;
-
 }
 
 const products = [

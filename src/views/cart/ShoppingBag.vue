@@ -59,7 +59,7 @@
             <div class="col-span-2 ">
               <RouterLink  :to="`/product/${item.product_id}`">
                 <img
-                src="/src/assets/images/products/Image (1).svg"
+                :src="item.image"
                 alt="Product Image"
                 class="w-full h-36 object-cover"
               />
@@ -263,37 +263,28 @@ onMounted(() => {
 const incrementQuantity = async(index) => {
   storeCart.getallCarts[index].quantity++;
 
-  const Updatecart12 = await storeCart.updateCart(
+
+  await storeCart.updateCart(
     storeCart.getallCarts[index].id,
     storeCart.getallCarts[index].product_id,
     storeCart.getallCarts[index].color_id,
     storeCart.getallCarts[index].size_id,
     storeCart.getallCarts[index].quantity,
   );
-
-  if (Updatecart12) {
-    alert("تم التحديث")
-  } else {
-    alert(storeCart.error)
-  }
 };
 
 // update cart
 const decrementQuantity = async(index) => {
   if( storeCart.getallCarts[index].quantity > 1){
     storeCart.getallCarts[index].quantity--;
-    const Updatecart12 = await storeCart.updateCart(
+
+    await storeCart.updateCart(
       storeCart.getallCarts[index].id,
       storeCart.getallCarts[index].product_id,
       storeCart.getallCarts[index].color_id,
       storeCart.getallCarts[index].size_id,
       storeCart.getallCarts[index].quantity,
     );
-    if (Updatecart12) {
-      alert("تم التحديث")
-    } else {
-      alert(storeCart.error)
-    }
   }
 };
 

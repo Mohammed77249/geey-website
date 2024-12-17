@@ -4,11 +4,34 @@
 
       <!-- القسم الأيمن: عنوان الشحن -->
        <div class="col-span-2">
-        <div class=" bg-white shadow  p-3">
+        <div class="p-3">
           <h2 class="text-lg font-bold text-gray-800 mb-4">عنوان الشحن</h2>
           <form class="space-y-4">
+            <!-- الصف الأول:  اضافه  الموقع  -->
+             <div class="bg-white border shadow ">
+              <div class="flex items-center ">
+                <button
+                  type="button"
+                  @click="openDialog()"
+                  class="w-full flex items-center justify-center  text-primary-900 py-6 font-semibold  text-md"
+                >
+                    العنوان
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g opacity="0.4">
+                <path d="M9.25 11H14.75" stroke="#980000" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M12 13.75V8.25" stroke="#980000" stroke-width="1.5" stroke-linecap="round"/>
+                </g>
+                <path d="M3.62001 8.49C5.59001 -0.169998 18.42 -0.159997 20.38 8.5C21.53 13.58 18.37 17.88 15.6 20.54C13.59 22.48 10.41 22.48 8.39001 20.54C5.63001 17.88 2.47001 13.57 3.62001 8.49Z" stroke="#980000" stroke-width="1.5"/>
+                </svg>
+                </button>
+
+
+              </div>
+
+             </div>
+
             <!-- الصف الأول: الموقع  -->
-              <div >
+              <!-- <div >
                 <label class="block text-sm font-semibold text-gray-600 mb-2">الموقع *</label>
                 <select
                   class="w-full border py-4 border-gray-300  p-2 text-sm  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
@@ -17,40 +40,145 @@
                   <option>السعودية</option>
                   <option>البحرين</option>
                 </select>
-              </div>
+              </div> -->
+
+
               <!-- الاسماء -->
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-2">الاسم *</label>
-                <input
-                  type="text"
-                  placeholder="الاسم"
-                  class="w-full border border-gray-300 py-4 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
-                />
-              </div>
+              <!-- <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold text-gray-600 mb-2">الاسم *</label>
+                  <input
+                    type="text"
+                    placeholder="الاسم"
+                    class="w-full border border-gray-300 py-4 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                  />
+                </div>
 
-              <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-2">اسم العائلة *</label>
-                <input
-                  type="text"
-                  placeholder="الاسم"
-                  class="w-full border border-gray-300 py-4 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
-                />
-              </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-600 mb-2">اسم العائلة *</label>
+                  <input
+                    type="text"
+                    placeholder="الاسم"
+                    class="w-full border border-gray-300 py-4 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                  />
+                </div>
 
-            </div>
+              </div> -->
+
+
             <!-- الصف الثاني: أرقام الهواتف -->
-              <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-2">رقم الهاتف *</label>
+              <div class="bg-white border shadow p-2">
+                <label class="block text-sm font-semibold text-gray-600 mb-2">رقم هاتف المستلم</label>
                 <input
                   type="text"
                   placeholder="BH +973"
-                  class="w-full border border-gray-300 py-4  p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                  class="w-full border  border-gray-300 py-4  p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                 />
               </div>
 
-            <!--رقم الهاتف البديل (اختياري)  -->
+             <!-- وسيله الشحن -->
+              <div class="bg-white p-2 border shadow">
+                <label class="block text-sm font-semibold text-gray-600 mb-2"> وسيله الشحن </label>
+
+                <div class="mb-2 p-2 border"  v-for="delevery in storeOrder.getDeliveryTypes" :key="delevery.id" >
+                  <div class="flex items-center">
+                    <input
+                      id="default-radio-1"
+                      type="radio"
+                      value="option1"
+                      name="colored-radio"
+                      class="w-4 h-4 text-primary-900 bg-gray-100 border-gray-300    focus:ring-primary-900"
+                      v-model="selectedOption"
+                    />
+                    <label for="default-radio-1" class="mr-2 text-sm font-medium text-gray-900">{{ delevery.name }}</label>
+                  </div>
+                  <div>
+                  <span class="mr-6  text-sm font-normal text-primary-700">{{ delevery.cost_of_kilo }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!--  طريقه الدفع -->
+              <div class="bg-white p-2 border shadow">
+                <label class="block text-sm font-semibold text-gray-600 mb-2">  طريقه الدفع  </label>
+
+                <div class="mb-2 p-2 border flex items-center justify-between" v-for="pay in storeOrder.getPaymentMethods" :key="pay.id" >
+                  <div class="flex items-center gap-5 ">
+                    <div class="w-10 h-10 bg-gray-200 flex items-center justify-center">
+                    </div>
+                    <label for="default-radio-3" class="mr-2 text-sm font-medium text-gray-900"> {{ pay.name }} </label>
+                  </div>
+                  <div>
+                    <input
+                      id="default-radio-3"
+                      type="radio"
+                      value="option3"
+                      name="default-radio"
+                      class="w-4 h-4 text-primary-900  bg-gray-100 end border-gray-300 focus:ring-primary-900"
+                      v-model="selectedOption"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!--   تفاصيل الطلب -->
               <div>
+                <div class="w-full  mt-10 bg-white p-3">
+                  <div class="flex items-center justify-between ">
+                    <span class="text-[16px] font-semibold">تفاصيل الطلب</span>
+
+                    <div class="flex items-center gap-2">
+                      <button class="text-[16px]  font-semibold">
+                      عرض منتج واحد
+                    </button>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    </div>
+                  </div>
+
+                  <div class=" p-2 w-full h-52 ">
+                    <div class="bg-gray-100 h-full flex">
+                      <div v-for="(item,index) in storeCart.getallCarts" :key="index">
+
+                        <div class="w-28 h-32 p-2 ">
+                          <img
+                            :src="item.image"
+                            alt="Product Image"
+                            class="w-full h-full object-cover"
+                          />
+                          <div class="mt-1 flex justify-between ">
+                            <span class="text-sm text-black font-medium">SR500</span>
+                            <span class="text-sm text-black font-medium">%10</span>
+                          </div>
+                            <div class="mt-2 flex justify-center">
+                              <div class="flex items-center  ">
+                                <button
+                                  class="bg-white border border-gray-400 hover:border-black px-2 py-[1px] text-black rounded-s-full"
+                                  @click="decrementQuantity(index)"
+                                >
+                                  -
+                                </button>
+                                <span class="font-semibold border-y  bg-white text-center border-gray-400 w-5 h-7 ">{{ item.quantity }}</span>
+                                <button
+                                  class="bg-white border border-gray-400 hover:border-black px-2 py-[1px]  rounded-e-full text-black"
+                                  @click="incrementQuantity(index)"
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               </div>
+
+              </div>
+
+
+            <!--رقم الهاتف البديل (اختياري)  -->
+              <!-- <div>
                 <label class="block text-sm font-semibold text-gray-600 mb-2">
                   رقم الهاتف البديل (اختياري)
                 </label>
@@ -59,67 +187,71 @@
                   placeholder="BH +973"
                   class="w-full border border-gray-300 py-4  p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                 />
-              </div>
+              </div> -->
+
+
             <!-- المدينة -->
-            <div>
+            <!-- <div>
               <label class="block text-sm font-semibold text-gray-600 mb-2">المدينة *</label>
               <input
                 type="text"
                 placeholder="فضلًا اختر الدولة / المحافظة"
                 class="w-full border border-gray-300 py-4 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
               />
-            </div>
+            </div> -->
+
             <!-- المنطقة -->
-            <div>
+            <!-- <div>
               <label class="block text-sm font-semibold text-gray-600 mb-2">المنطقة *</label>
               <input
                 type="text"
                 placeholder="المنطقة "
                 class="w-full border border-gray-300 py-4 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
               />
-            </div>
+            </div> -->
 
             <!-- الشارع -->
-            <div>
+            <!-- <div>
               <label class="block text-sm font-semibold text-gray-600 mb-2">الشارع *</label>
               <input
                 type="text"
                 placeholder="اسم الشارع \ رقم الشارع"
                 class="w-full border border-gray-300 py-4 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
               />
-            </div>
+            </div> -->
 
             <!-- تفاصيل العنوان -->
-            <div>
+            <!-- <div>
               <label class="block text-sm font-semibold text-gray-600 mb-2">تفاصيل العنوان *</label>
               <textarea
                 placeholder="المنطقة. المبنى.الوحدة.رقم المنزل. اسم الشركة . الخ"
                 class="w-full border border-gray-300  p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                 rows="3"
               ></textarea>
-            </div>
+            </div> -->
+
             <!-- المعالم الرئيسية -->
-            <div>
+            <!-- <div>
               <label class="block text-sm font-semibold text-gray-600 mb-2">المعالم الرئيسية</label>
               <textarea
                 placeholder="معلم قريب (اختياري)"
                 class="w-full border border-gray-300  p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                 rows="3"
               ></textarea>
-            </div>
+            </div> -->
 
               <!-- رمز البريد -->
-              <div>
+              <!-- <div>
               <label class="block text-sm font-semibold text-gray-600 mb-2">رمز البريد  *</label>
               <input
                 type="email"
                 placeholder="رمز البريد"
                 class="w-full border border-gray-300 py-4 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
               />
-            </div>
+            </div> -->
 
             <!-- الامان والخصوصية -->
-            <div>
+            <!-- <div>
               <div class="flex items-center gap-5">
                 <div class="flex items-center gap-1">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -136,22 +268,21 @@
                 <span class="text-[13px] text-gray-500  font-normal">نحافظ على معايير الصناعة المادية والتقنية والإدارية لحماية معلوماتك الشخصية.</span>
               </div>
 
-            </div>
+            </div> -->
 
             <!-- زر الحفظ -->
             <button
               type="submit"
               class="w-full bg-primary-900 text-white py-5 font-semibold  text-sm"
             >
-              حفظ
+              تاكيد الطلب
             </button>
           </form>
 
 
         </div>
 
-        <div class="w-full  mt-10 bg-white p-3">
-
+        <!-- <div class="w-full  mt-10 bg-white p-3">
           <div class="flex items-center justify-between ">
             <span class="text-[16px] font-semibold">تفاصيل الطلب</span>
 
@@ -165,10 +296,10 @@
             </div>
           </div>
           <div class=" p-2 w-full h-52 ">
-            <div class="bg-gray-100 h-full">
+            <div class="bg-gray-100 h-full flex">
               <div v-for="(item,index) in storeCart.getallCarts" :key="index">
 
-                <div class="w-28 h-32 p-2">
+                <div class="w-28 h-32 p-2 ">
                   <img
                     src="/src/assets/images/products/Image (1).svg"
                     alt="Product Image"
@@ -205,13 +336,11 @@
 
             </div>
           </div>
-
-
-        </div>
+        </div> -->
       </div>
 
       <!-- القسم الأيسر: ملخص الطلب -->
-      <div class="col-span-1 h-screen">
+      <div class="col-span-1 h-screen mt-14">
         <div class="bg-white shadow  p-4">
               <!-- عنوان القسم -->
             <h2 class="text-lg font-bold text-gray-800 mb-4">ملخص الطلب</h2>
@@ -240,9 +369,9 @@
             من خلال الانضمام، ستوافق على <span class="text-blue-500 underline">الشروط والأحكام</span>
           </p>
         </div>
-        <div class="mt-4 bg-white shadow p-4">
+        <!--  <div class="mt-4 bg-white shadow p-4"> -->
            <!-- رمز القسيمة -->
-            <div class="mt-4">
+            <!-- <div class="mt-4">
               <label class="block text-md font-semibold text-black mb-2">رمز القسيمة</label>
               <div class="flex items-center space-x-2 rtl:space-x-reverse">
                 <input
@@ -255,10 +384,10 @@
                   تقديم
                 </button>
               </div>
-            </div>
+            </div> -->
 
             <!-- بطاقة هدية -->
-            <div class="mt-4">
+            <!-- <div class="mt-4">
               <label class="block text-md font-semibold text-black mb-2">بطاقة هدية</label>
               <div class="flex items-center space-x-2 rtl:space-x-reverse">
                 <input
@@ -271,26 +400,54 @@
                   تقديم
                 </button>
               </div>
-            </div>
+            </div> -->
 
             <!-- زر تأكيد الطلب -->
-            <button
+            <!-- <button
             disabled class="mt-6 w-full bg-primary-900 text-white py-4  font-semibold hover:bg-primary-800 text-sm"
             >
               تأكيد الطلب
-            </button>
+            </button> -->
 
-        </div>
+        <!--</div>   -->
+
       </div>
     </div>
 
-
+    <DialogAddAddress :is-open="isDialogOpen" @close="closeDialog" :titles="storeOrder.getUserAddresses" :loading="storeOrder.loading" :error="storeOrder.error" />
   </div>
 </template>
 
 <script setup>
+import DialogAddAddress from '@/components/DialogAddAddress.vue';
 import { useCartStore } from '@/stores/cart'
-const storeCart = useCartStore()
+import { useConfirmOrders } from '@/stores/confirmorder'
+import { ref,onMounted } from "vue";
+const storeCart = useCartStore();
+const storeOrder = useConfirmOrders();
+
+const isDialogOpen = ref(false)
+// const filteredData = ref({
+//   productID: null,
+//   cartID:null,
+// })
+const openDialog = () => {
+  isDialogOpen.value = true
+  // filteredData.value.productID = product_id;
+  // filteredData.value.cartID = cart_id;
+  // storeCart.fetchProductDetailsByIdForCart(filteredData);
+  // storeCart.fetchProductsInCartByID(filteredData)
+}
+
+const closeDialog = () => {
+  isDialogOpen.value = false
+
+}
+
+
+onMounted(()=>{
+  storeOrder.fetchDataOrders();
+})
 
 </script>
 

@@ -49,10 +49,8 @@ export const useCartStore = defineStore('cart', {
           `product_data/${data.value.productID}?`,
         )
         this.productDetails = response.data.product
-        this.totalProductsDetails.productColors =
-          response.data.product.product_colors
-        this.totalProductsDetails.productSizes =
-          response.data.product.size_type_details
+        this.totalProductsDetails.productColors = response.data.product.product_colors
+        this.totalProductsDetails.productSizes = response.data.product.size_type_details
       } catch (error) {
         this.error = error.response.data || 'خطأ أثناء جلب الفئات'
       } finally {
