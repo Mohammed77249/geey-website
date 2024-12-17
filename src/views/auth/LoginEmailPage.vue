@@ -13,6 +13,19 @@
 
 
       <form @submit.prevent="handleLogin">
+        <!-- name  -->
+        <div v-if="isUsernew" class="mb-4 ">
+          <label for="name" class="block text-gray-600 mb-2">{{ $t('Name') }}</label>
+          <input
+            type="text"
+            id="name"
+            v-model="name"
+            required
+            :placeholder="$t('Name')"
+            class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+          />
+        </div>
+
         <!-- Email Input -->
         <div class="mb-4 ">
           <label for="email" class="block text-gray-600 mb-2">{{ $t('Email or phone number') }}</label>
@@ -133,6 +146,7 @@ const password = ref('');
 const message = ref();
 const router = useRouter();
 const isPasswordVisible = ref(false)
+const name = ref('')
 
 function togglePasswordVisibility() {
   isPasswordVisible.value = !isPasswordVisible.value
@@ -166,14 +180,28 @@ onMounted(() => {
 
 const handleLogin = async () => {
 
-  const userLogin = await authStore.loginUser(emailUser,password.value);
+  if(isUsernew.value){
+    const userLogin = await authStore.loginUserNew(emailUser,password.value,name.value);
     if(userLogin)
     {
       router.push('/user/otp');
       localStorage.setItem('UserOld','regester');
     }else{
-      console.log("dddd")
+      alert("errordddd")
     }
+  }
+  else{
+    const userLogin = await authStore.loginUser(emailUser,password.value);
+    if(userLogin)
+    {
+      router.push('/user/otp');
+      localStorage.setItem('UserOld','regester');
+    }else{
+      alert("errordddd")
+    }
+  }
+
+
 
 };
 </script>

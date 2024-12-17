@@ -80,6 +80,7 @@ const focusNext = (index, event) => {
 const emailUser = localStorage.getItem('emailuser');
   const email = ref(null);
 const isnew = localStorage.getItem('UserOld');
+
 const verifyOtp = async() => {
   const VerOtp = await authStore.verifyOtp(otp.value.join(""),emailUser);
   if(VerOtp && isnew == 'old' ){
@@ -117,6 +118,7 @@ onMounted(() => {
 
 const resendOtp = async() => {
   const resotp = await authStore.resendOtp(emailUser);
+
   if(resotp){
     alert('تم إرسال رمز جديد.');
   }else{

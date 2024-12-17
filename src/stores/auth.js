@@ -35,8 +35,27 @@ export const useAuthStore = defineStore('auth', {
     async loginUser(login,password) {
       this.loading = true;
       this.error = null;
+
+
       try {
         const response = await axiosIns.post('auth/login',{ login, password });
+        this.user = response.data.user;
+        return  true;
+      } catch (err) {
+        this.error = err.response.data.message || 'خطأ أثناء تسجيل الدخول';
+        return false;
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async loginUserNew(login,password,name) {
+      this.loading = true;
+      this.error = null;
+
+
+      try {
+        const response = await axiosIns.post('auth/login',{ login, password ,name });
         this.user = response.data.user;
         return  true;
       } catch (err) {
@@ -75,9 +94,12 @@ export const useAuthStore = defineStore('auth', {
     async resendOtp(login) {
       this.loading = true;
       this.error = null;
+
       try {
         const response = await axiosIns.post('auth/update_otp',{login});
         this.user = response.data.user;
+
+        alert(response.data.user)
         return true;
 
       } catch (error) {
