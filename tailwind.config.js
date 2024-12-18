@@ -28,7 +28,8 @@ export default {
       "primary-600":"#ff0000",
       "primary-700":"#e70000",
       "primary-800":"#be0000",
-      "primary-900":"#980000",
+      // "primary-900":"#980000",
+      "primary-900":"#8a1538",
       "primary-950":"#560000",
 
       // gray color

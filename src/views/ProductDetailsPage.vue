@@ -853,7 +853,7 @@ const handleConfirm = () => {
 .custom-swiper :deep(.swiper-button-next):hover,
 .custom-swiper :deep(.swiper-button-prev):hover {
   background-color: rgba(0, 0, 0, 0.8);
-  color: #980000;
+  color: #8a1538;
 }
 
 .custom-swiper :deep(.swiper-button-next)::after,
@@ -908,7 +908,7 @@ const handleConfirm = () => {
 .custom-swiper2 :deep(.swiper-button-next):hover,
 .custom-swiper2 :deep(.swiper-button-prev):hover {
   background-color: rgba(0, 0, 0, 0.8);
-  color: #980000;
+  color: #8a1538;
 }
 
 .custom-swiper2 :deep(.swiper-button-next)::after,

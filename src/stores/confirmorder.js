@@ -6,6 +6,7 @@ export const useConfirmOrders = defineStore('ConfirmOrders', {
     deliveryTypes:[],
     paymentMethods:[],
     userAddresses: [],
+    myOrder:null,
     allOrders:[],
     totalOrders: {
       currentPage: 1,
@@ -60,29 +61,29 @@ export const useConfirmOrders = defineStore('ConfirmOrders', {
       }
     },
 
-    async creatCart(products, address_id, payment_id, delivery_type_id,note,unit_price,phone_number) {
+    async creatOrder(data) {
       this.loading = true
       this.error = null
       const formData = new FormData()
-      formData.append('products', products)
-      formData.append('address_id', address_id)
-      formData.append('payment_id', payment_id)
-      formData.append('delivery_type_id', delivery_type_id)
-      formData.append('note', note)
-      formData.append('unit_price', unit_price)
-      formData.append('phone_number', phone_number)
+      formData.append('products', data.products)
+      formData.append('address_id', data.address_id)
+      formData.append('payment_id', data.payment_id)
+      formData.append('delivery_type_id', data.delivery_type_id)
+      formData.append('note', data.note)
+      formData.append('unit_price', data.unit_price)
+      formData.append('phone_number', data.phone_number)
 
       try {
-         await axiosIns.post('orders/store', formData, {
+        const response = await axiosIns.post('orders/store', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
 
+        this.myOrder =response.data
         return true
       } catch (err) {
         this.error = err + 'حدث خطأ غير متوقع، يرجى المحاولة لاحقًا'
-
         return false
       } finally {
         this.loading = false
