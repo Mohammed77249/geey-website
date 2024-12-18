@@ -4,7 +4,7 @@
       <!-- القسم الأيمن: عنوان الشحن -->
        <div class="col-span-2">
         <div class="p-3">
-          <h2 class="text-lg font-bold text-gray-800 mb-4">عنوان الشحن {{ localValue }}</h2>
+          <h2 class="text-lg font-bold text-gray-800 mb-4">عنوان الشحن </h2>
           <form class="space-y-4" @submit.prevent="handlOrder">
             <!-- الصف الأول:  اضافه  الموقع  -->
              <div class="bg-white border shadow ">
@@ -14,7 +14,8 @@
                   @click="openDialog()"
                   class="w-full flex items-center justify-center  text-primary-900 py-6 font-semibold  text-md"
                 >
-                    العنوان
+                   <p v-if="localValueName">{{ localValueName  }}</p>
+                   <p v-else>العنوان</p>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g opacity="0.4">
                 <path d="M9.25 11H14.75" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round"/>
@@ -105,7 +106,7 @@
                     <div class="bg-gray-100 h-full flex">
                       <div v-for="(item,index) in storeCart.getallCarts" :key="index">
 
-                        <div class="w-28 h-32 p-2 ">
+                        <div class="w-28 h-32 p-2">
                           <img
                             :src="item.image"
                             alt="Product Image"
@@ -247,34 +248,40 @@ const openDialog = () => {
 
 const filteredData = ref({
   products: null,
-  address_id: 38,
+  address_id: null,
   payment_id: null,
   delivery_type_id:null,
-  note: '',
-  unit_price:'',
+  note: 'mm',
+  unit_price:12,
   phone_number:null
 })
 
-const localValue = ref(localStorage.getItem("adressInfo") || "القيمة غير موجودة");
+
+const localValueId = ref(localStorage.getItem("adressInfoId") );
+const localValueName = ref(localStorage.getItem("adressInfoName"));
+
 const updateLocalValue = () => {
-  localValue.value = localStorage.getItem("adressInfo");
-};
-const handleStorageChange = (event) => {
-  if (event.key === "adressInfo") {
-    updateLocalValue();
-  }
+  localValueId.value = localStorage.getItem("adressInfoId");
+  localValueName.value = localStorage.getItem("adressInfoName");
 };
 
 
-// const address = localStorage.getItem('adressInfo')
-// alert(localValue)
 
+const products_for_order = ref([]);
 const handlOrder = async () => {
-   filteredData.value.products = storeCart.getallCarts;
+  products_for_order.value = storeCart.getallCarts.map((product) => ({
+    product_id: product.product_id,
+    size_type_id: product.size_id,
+    color_id: product.color_id,
+    quantity: product.quantity,
+  }));
 
+  filteredData.value.products = JSON.stringify(products_for_order.value);
+  filteredData.value.address_id = localValueId;
   const createorder = await storeOrder.creatOrder(filteredData.value);
   if(createorder){
     alert("تم الاضافه بنجاح")
+    window.location.reload();
     setTimeout(() => {
         router.push('/');
       }, 1500);
@@ -285,18 +292,16 @@ const handlOrder = async () => {
 
 const closeDialog = () => {
   isDialogOpen.value = false
-
+  window.dispatchEvent(new Event("storage"));
 }
 
 onMounted(()=>{
   storeOrder.fetchDataOrders();
-  window.addEventListener("storage", handleStorageChange);
-  window.addEventListener("localStorageUpdate", updateLocalValue);
+  window.addEventListener("storage", updateLocalValue);
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener("storage", handleStorageChange);
-  window.removeEventListener("localStorageUpdate", updateLocalValue);
+  window.removeEventListener("storage", updateLocalValue);
 });
 
 

@@ -25,6 +25,7 @@ export const useConfirmOrders = defineStore('ConfirmOrders', {
     },
   actions: {
 
+
     async fetchAllOrders(data) {
       this.loading = true;
       this.error = null;
@@ -69,7 +70,7 @@ export const useConfirmOrders = defineStore('ConfirmOrders', {
       formData.append('address_id', data.address_id)
       formData.append('payment_id', data.payment_id)
       formData.append('delivery_type_id', data.delivery_type_id)
-      formData.append('note', data.note)
+      formData.append('note', data.unit_price)
       formData.append('unit_price', data.unit_price)
       formData.append('phone_number', data.phone_number)
 

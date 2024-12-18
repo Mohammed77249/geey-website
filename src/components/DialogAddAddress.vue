@@ -286,7 +286,8 @@ const props = defineProps({
 });
 
 const chooseAdress =(address)=>{
-  localStorage.setItem('adressInfo',address.id);
+  localStorage.setItem('adressInfoId',address.id);
+  localStorage.setItem('adressInfoName',address.address);
 close()
 }
 
