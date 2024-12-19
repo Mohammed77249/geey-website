@@ -66,15 +66,14 @@
 
     </div>
 
+
     </div>
   </div>
   <div v-else>
     NO DATA
   </div>
 
-  <DialogAddToCart :IdProduct="IdProduct" :loading="storeProduct.loading" :error="storeProduct.error" :is-open="isDialogOpen" :productDetails="storeProduct.getproductDetails" :productColors="storeProduct.getproductColors" :productSizes="storeProduct.getproductSizes" @close="closeDialog"  />
-
-  <!-- <DialogAddToCart :IdProduct="IdProduct" :closeDialog="closeDialog"  /> -->
+  <DialogAddToCart v-if="filteredData != null" :IdProduct="filteredData"  :is-open="isDialogOpen"  @close="closeDialog"  />
 
 
   </div>
@@ -85,7 +84,6 @@
 <script setup>
 import { ref  } from 'vue';
 import DialogAddToCart from '../DialogAddToCart.vue';
-import { useCartStore } from '@/stores/cart'
 const props = defineProps({
   products123: {
     type: [],
@@ -94,24 +92,28 @@ const props = defineProps({
 
 });
 
-
-const IdProduct = ref(null);
-// cart store
-const storeProduct = useCartStore()
 const isDialogOpen = ref(false)
-const filteredData = ref({
-  productID: null,
+const filteredData = ref(null)
 
-})
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+const authStore = useAuthStore();
+const router = useRouter();
 const openDialog = (id) => {
+
+  if (!authStore.isAuthenticated) {
+    alert('يرجى تسجيل الدخول لإضافة منتجات إلى السلة.');
+    router.push('/user/login');
+    return;
+  }
+
   isDialogOpen.value = true
-  IdProduct.value = id;
-  filteredData.value.productID = id;
-  storeProduct.fetchProductDetailsByIdForCart(filteredData);
+  filteredData.value = id;
 }
 
 const closeDialog = () => {
   isDialogOpen.value = false
+  filteredData.value = null;
 
 }
 

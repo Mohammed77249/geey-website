@@ -23,7 +23,7 @@ export const useProductStore = defineStore('useProductStore', {
 
 
   getters: {
-
+    getAllProducts: (state) => state.allproduct,
     getproductDetails: (state) => state.productDetails,
     getproductColors: (state) => state.totalProductsDetails.productColors || [],
     getproductSizes: (state) => state.totalProductsDetails.productSizes || [],
@@ -31,11 +31,11 @@ export const useProductStore = defineStore('useProductStore', {
 
   },
   actions: {
-    async fetchAllProducts() {
+    async fetchAllProducts(data) {
       this.loading = true
       this.error = null
       try {
-        const response = await axiosIns.get(`products?`,)
+        const response = await axiosIns.get(`products?page=${data.value.page}&perPage=${data.value.perPage}`,)
         this.allproduct = response.data
         this.totalProducts.currentPage = response.data.products.current_page
         this.totalProducts.totalItems = response.data.products.total

@@ -59,7 +59,7 @@
     </div>
   </div>
 
-  <DialogAddToCart :loading="storeProduct.loading" :error="storeProduct.error" :is-open="isDialogOpen" :productDetails="storeProduct.getproductDetails" :productColors="storeProduct.getproductColors" :productSizes="storeProduct.getproductSizes" @close="closeDialog"  />
+  <DialogAddToCart v-if="filteredData != null"   :-id-product="filteredData"  :is-open="isDialogOpen"  @close="closeDialog"  />
   </div>
 
 
@@ -68,28 +68,27 @@
 <script setup>
 import { ref  } from 'vue';
 import DialogAddToCart from '../DialogAddToCart.vue';
-import { useCartStore } from '@/stores/cart'
-const storeProduct = useCartStore()
 const isDialogOpen = ref(false)
-const filteredData = ref({
-  productID: null,
-})
-const openDialog = (id) => {
+const filteredData = ref(null)
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+const authStore = useAuthStore();
+const router = useRouter();
 
+const openDialog = (id) => {
+  if (!authStore.isAuthenticated) {
+    alert('يرجى تسجيل الدخول لإضافة منتجات إلى السلة.');
+    router.push('/user/login');
+    return;
+  }
   isDialogOpen.value = true
-  filteredData.value.productID = id;
-  storeProduct.fetchProductDetailsByIdForCart(filteredData);
+  filteredData.value = id;
 }
 
 const closeDialog = () => {
   isDialogOpen.value = false
-
+  filteredData.value = null;
 }
-// const handleConfirm = () => {
-//   alert('Action confirmed!')
-//   closeDialog()
-// };
-
 
 const isHover = ref();
 const hoverId = ref(null);

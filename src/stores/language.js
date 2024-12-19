@@ -3,7 +3,7 @@ import i18n from "@/plugins/i18n";
 
 export const useLanguageStore = defineStore('language', {
   state: () => ({
-    currentLanguage: 'en',
+    currentLanguage: 'ar',
     loadin:false,
   }),
   actions: {

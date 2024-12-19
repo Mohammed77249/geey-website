@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto p-4">
    <AdvertisementSection/>
-   <CardListSection/>
+   <CardListSection />
    <DesplayAllSection/>
    <DayleDropSection/>
    <ProductSection/>

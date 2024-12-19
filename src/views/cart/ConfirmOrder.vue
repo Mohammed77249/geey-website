@@ -282,6 +282,8 @@ const handlOrder = async () => {
   if(createorder){
     alert("تم الاضافه بنجاح")
     window.location.reload();
+    localStorage.removeItem("adressInfoName");
+    localStorage.removeItem("adressInfoId");
     setTimeout(() => {
         router.push('/');
       }, 1500);

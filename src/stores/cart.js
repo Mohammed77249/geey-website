@@ -10,7 +10,7 @@ export const useCartStore = defineStore('cart', {
       productSizes: null,
       productDescriptionDetails: null,
     },
-
+    lengthCart:null,
     loading: false,
     error: null,
     isCheckoutEnabled: false,
@@ -46,7 +46,7 @@ export const useCartStore = defineStore('cart', {
       this.error = null
       try {
         const response = await axiosIns.get(
-          `product_data/${data.value.productID}?`,
+          `product_data/${data}?`,
         )
         this.productDetails = response.data.product
         this.totalProductsDetails.productColors = response.data.product.product_colors
@@ -64,6 +64,7 @@ export const useCartStore = defineStore('cart', {
       try {
         const response = await axiosIns.get(`carts?`)
         this.allCarts = response.data
+        this.lengthCart = response.data.length;
       } catch (error) {
         this.error = error.response.data || 'خطأ أثناء جلب الفئات'
         console.error(error)

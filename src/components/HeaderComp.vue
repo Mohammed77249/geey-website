@@ -17,7 +17,7 @@
           </RouterLink>
 
         <!-- search input -->
-        <div class=" mx-6 flex-1 max-w-xl">
+        <div class=" md:mx-6 flex-1 max-w-xl">
           <!-- <input
             type="text"
             :placeholder="$t('Search for products...')"
@@ -55,7 +55,7 @@
         </div>
 
         <!-- links -->
-        <div class="flex gap-4">
+        <div class="flex gap-2 md:gap-4">
           <!-- icon user -->
           <div class="cursor-pointer text-gray-700 hover:text-gray-900">
             <div class="relative flex items-center">
@@ -191,7 +191,7 @@
             <span
               class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
             >
-              10
+              {{ storeCart.lengthCart }}
             </span>
 
           </div>
@@ -201,7 +201,7 @@
 
           <!-- icon likes or favoraite -->
           <div
-            class="relative cursor-pointer text-gray-700 hover:text-gray-900"
+            class="relative cursor-pointer text-gray-700 hover:text-gray-900 hidden md:block"
           >
             <svg
               width="24"
@@ -515,6 +515,8 @@ import { useAuthStore } from '@/stores/auth'
 import { useLanguageStore } from "@/stores/language";
 // import LoaderComp from './LoaderComp.vue';
 import { useSectionsStore } from '@/stores/section'
+import { useCartStore } from '@/stores/cart'
+const storeCart = useCartStore()
 const isHoeverItem = ref(null)
 const showDropdown = ref()
 const store = useAuthStore()
@@ -560,6 +562,7 @@ onMounted(() => {
   window.addEventListener('click', closeDropdowenStatus)
   window.addEventListener('click', closeDropdowenLanguage)
   storeSecion.fetchSections(filteredData);
+  storeCart.fetchAllProductsInCart();
   updateHoveredIndex();
   intervalId = setInterval(updateHoveredIndex, 500);
 

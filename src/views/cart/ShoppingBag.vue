@@ -236,12 +236,25 @@ import { ref,onMounted } from "vue";
 import { useCartStore } from '@/stores/cart'
 import DialogUpdateCart from "@/components/DialogUpdateCart.vue";
 import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
+import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
 const storeCart = useCartStore()
 const isDialogOpen = ref(false)
 const filteredData = ref({
   productID: null,
   cartID:null,
 })
+
+
+
+const authStore = useAuthStore();
+const router = useRouter();
+
+if (!authStore.isAuthenticated) {
+  alert('يرجى تسجيل الدخول للوصول إلى السلة.');
+  router.push('/login');
+}
+
 const openDialog = (product_id,cart_id) => {
   isDialogOpen.value = true
   filteredData.value.productID = product_id;

@@ -14,7 +14,7 @@
       :key="product.id"
       class="p-1 mt-4"
     >
-    <div class="cursor-pointer " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
+    <div class="cursor-pointer w-[full] h-[280px] " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img :src="hoverId === product.id && isHover ? product.images[1] : product.images[0] "  alt="" class="w-full h-full object-cover transition duration-300 ease-in-out" />
     </div>
 

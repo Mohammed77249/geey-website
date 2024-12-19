@@ -26,6 +26,7 @@
           <div class="block gap-5">
             <div class="overflow-x-auto">
                <!-- الصور الرئيسية -->
+
                 <div v-if="isMainSelected">
                   <div v-for="(image,index) in mainColor.images" :key="index" >
                     <img
@@ -285,17 +286,17 @@
             </div>
 
             <!-- الاحجام -->
-            <div class="flex gap-1">
+            <div class="grid grid-cols-5 gap-2">
               <div
                 v-for="(size, index) in storeProduct.getproductSizes"
                 :key="index"
               >
                 <button
                   :class="{
-                    'py-1 cursor-pointer px-7 border rounded-full bg-gray-100':
+                    'py-1 cursor-pointer px-7  border rounded-full bg-gray-100':
                       tempidSize === size.size_type_id,
                     'py-1 cursor-pointer px-7 border rounded-full hover:bg-gray-100':
-                      tempidSize != size.size_type_id,
+                      tempidSize !== size.size_type_id,
                   }"
                   @click="onclickSize(size.size_type_id)"
                 >
@@ -712,6 +713,7 @@ const onclickSize = id => {
     tempidSize.value = id
   }
   }
+
 }
 
 const tempidColor = ref(null)

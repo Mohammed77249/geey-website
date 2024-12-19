@@ -58,7 +58,7 @@
     </div>
 
   </div>
-  <DialogAddToCart :loading="storeProduct.loading" :error="storeProduct.error" :is-open="isDialogOpen" :productDetails="storeProduct.getproductDetails" :productColors="storeProduct.getproductColors" :productSizes="storeProduct.getproductSizes" @close="closeDialog"  />
+  <DialogAddToCart  v-if="filteredData != null"   :-id-product="filteredData"  :is-open="isDialogOpen"  @close="closeDialog"  />
     </div>
   </div>
 
@@ -66,29 +66,30 @@
 </template>
 
 <script setup>
-import { ref  } from 'vue';
+import { ref,onMounted  } from 'vue';
 import DialogAddToCart from '../DialogAddToCart.vue';
-import { useCartStore } from '@/stores/cart'
-const storeProduct = useCartStore()
 const isDialogOpen = ref(false)
-const filteredData = ref({
-  productID: null,
-})
+const filteredData = ref(null)
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+import { useProductStore } from '@/stores/product';
+const authStore = useAuthStore();
+const productStore = useProductStore();
+const router = useRouter();
 const openDialog = (id) => {
-
+  if (!authStore.isAuthenticated) {
+    alert('يرجى تسجيل الدخول لإضافة منتجات إلى السلة.');
+    router.push('/user/login');
+    return;
+  }
   isDialogOpen.value = true
-  filteredData.value.productID = id;
-  storeProduct.fetchProductDetailsByIdForCart(filteredData);
+  filteredData.value = id;
 }
 
 const closeDialog = () => {
   isDialogOpen.value = false
-
+  filteredData.value = null;
 }
-// const handleConfirm = () => {
-//   alert('Action confirmed!')
-//   closeDialog()
-// };
 
 const isHover = ref();
 const hoverId = ref(null);
@@ -97,6 +98,20 @@ const onhover = (id)=>{
   isHover.value = true;
   hoverId.value= id;
 }
+
+
+
+const filteredData2 = ref({
+      page: 1,
+      perPage: 3,
+});
+
+
+onMounted(() => {
+
+  productStore.fetchAllProducts(filteredData2);
+});
+
 
 const products = [
         { id: 1, name: 'منتج 1', price: 'ر.س 50', images:[ '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},

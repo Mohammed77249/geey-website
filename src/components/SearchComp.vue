@@ -1,5 +1,5 @@
 <template>
-  <div class="relative max-w-lg mx-auto ">
+  <div class="relative max-w-lg mx-auto p-2">
     <!-- شريط البحث -->
     <div class="flex items-center  overflow-hidden">
       <input
@@ -29,7 +29,6 @@
                 stroke-linejoin="round"
               />
               <path
-                opacity="0.4"
                 d="M12.6199 13.7932C12.9733 14.8599 13.7799 14.9665 14.3999 14.0332C14.9666 13.1799 14.5933 12.4799 13.5666 12.4799C12.8066 12.4732 12.3799 13.0665 12.6199 13.7932Z"
                 stroke="white"
                 stroke-width="1.5"

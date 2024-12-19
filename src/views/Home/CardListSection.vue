@@ -14,7 +14,7 @@
               <img
                 src="/src/assets/images/Big Sale Banner.svg"
                 :alt="section.name"
-                class="w-32 rounded-full h-32 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
+                class="w-28 rounded-full h-28 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
               />
               <h3 class="text-center mt-2 text-[20px] font-sans text-gray-800">
                 {{ section.name }}
@@ -26,7 +26,7 @@
         <!-- <LoaderComp  :is-loader="storeAllSection.loading"/> -->
          <LoaderDatacomp :is-loader="storeAllSection.loading"/>
 
-         
+
       </ul>
 
     </div>
