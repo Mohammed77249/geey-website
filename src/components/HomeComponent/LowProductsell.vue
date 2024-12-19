@@ -9,7 +9,7 @@
       class="p-1 mt-4"
     >
     <RouterLink :to="`/product/${product.id}`">
-    <div class="cursor-pointer w-[full] h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
+    <div class="cursor-pointer w-[full] h-[200px] md:h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img :src="hoverId === product.id && isHover ? product.images[0] : product.images[1] "  alt="" class="w-full h-full object-cover transition duration-300 ease-in-out" />
     </div>
       <h3 class="font-semibold rtl text text-sm mt-1">{{ product.name }}</h3>
