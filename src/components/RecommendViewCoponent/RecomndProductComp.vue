@@ -9,7 +9,7 @@
       class="p-1 mt-4"
     >
     <RouterLink :to="`/product/${product.id}`">
-    <div class="cursor-pointe w-[full] h-[200px] md:h-[350px] border " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
+    <div class="cursor-pointe w-[full] h-[150px] md:h-[350px] border " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img v-if="product.main_imags != null" :src="hoverId === product.id && isHover ? product.main_imags[1].image : product.main_imags[0].image " alt="no image" class="w-full h-full object-cover transition duration-300 ease-in-out" />
     </div>
       <h3 class="font-semibold text text-sm mt-1">{{ product.name }}</h3>
@@ -17,27 +17,26 @@
       <div class="mt-1 ">
           <div class="flex items-center">
             <span class="flex text-yellow-500">
-              <i> <img src="/src/assets/images/star.svg"/></i>
-              <i> <img src="/src/assets/images/star.svg"/></i>
-              <i> <img src="/src/assets/images/star.svg"/></i>
-              <i> <img src="/src/assets/images/star.svg"/></i>
+              <i> <img src="/src/assets/images/star.svg" class="w-3 md:w-4"/></i>
+              <i> <img src="/src/assets/images/star.svg" class="w-3 md:w-4"/></i>
+              <i> <img src="/src/assets/images/star.svg" class="w-3 md:w-4"/></i>
+              <i> <img src="/src/assets/images/star.svg" class="w-3 md:w-4"/></i>
 
             </span>
-            <p class="text-[10px] mr-2">(+1000)</p>
+            <p class="text-[8px] md:text-[10px] mr-2">(+1000)</p>
           </div>
         </div>
 
     <div class="flex items-center justify-between">
       <div class="flex gap-2  items-center ">
-        <p class="font-sembold text-primary-400">{{ product.base_price }}</p>
+        <p class="font-sembold text-primary-400 text-[10px] md:text-[15px] ">{{ product.base_price }}</p>
         <div class="border border-primary-400 ">
-         <p class=" text-[10px] text-primary-400 "> %50- </p>
+         <p class="text-[8px] md:text-[10px] text-primary-400 "> %50- </p>
         </div>
       </div>
-      <div @click="openDialog(product.id)"  class="cursor-pointer w-10 flex items-center justify-center border border-black rounded-full">
+      <div @click="openDialog(product.id)"  class="cursor-pointer w-8 md:w-10 flex items-center justify-center border border-black rounded-full">
         <svg
-              width="20"
-              height="20"
+              class="h-4 w-4 md:h-5 md:w-5"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
