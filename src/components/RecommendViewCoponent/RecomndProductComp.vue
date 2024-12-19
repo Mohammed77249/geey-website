@@ -12,7 +12,7 @@
     <div class="cursor-pointe w-[full] h-[150px] md:h-[350px] border " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img v-if="product.main_imags != null" :src="hoverId === product.id && isHover ? product.main_imags[1].image : product.main_imags[0].image " alt="no image" class="w-full h-full object-cover transition duration-300 ease-in-out" />
     </div>
-      <h3 class="font-semibold text text-sm mt-1">{{ product.name }}</h3>
+      <h3 class="font-semibold text-xs md:text-sm mt-1">{{ product.name }}</h3>
     </RouterLink>
       <div class="mt-1 ">
           <div class="flex items-center">
