@@ -32,8 +32,8 @@
   <script setup>
 import SwiperComp from '@/components/HomeComponent/SwiperComp.vue';
 import ProductCard from '@/components/ProductCard.vue';
-
-const products = [
+import {ref } from 'vue'
+const products =ref([
         { id: 1, name: 'Dress', price: 99.99, image: '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg' },
         { id: 2, name: 'T-Shirt', price: 49.99, image: '/src/assets/images/Placeholder_01.svg' },
         { id: 3, name: 'Jeans', price: 79.99, image: '/src/assets/images/Placeholder_01 (1).svg' },
@@ -41,9 +41,9 @@ const products = [
         { id: 5, name: 'T-Shirt', price: 49.99, image: '/src/assets/images/products/Image (2).svg'},
         { id: 6, name: 'Jeans', price: 79.99, image: '/src/assets/images/products/Image (3).svg' },
         // Add more products as needed
-      ];
+      ]);
 
-      const products2 = [
+      const products2 = ref([
         { id: 1, name: 'Dress', price: 99.99, image: '/src/assets/images/products/Image (4).svg' },
         { id: 2, name: 'T-Shirt', price: 49.99, image: '/src/assets/images/products/Image.svg' },
         { id: 3, name: 'Jeans', price: 79.99, image: '/src/assets/images/products/Mockup.svg' },
@@ -51,7 +51,7 @@ const products = [
         { id: 5, name: 'T-Shirt', price: 49.99, image: '/src/assets/images/products/Placeholder_01 (3).svg'},
         { id: 6, name: 'Jeans', price: 79.99, image: '/src/assets/images/products/Rectangle 1113 (1).svg' },
         // Add more products as needed
-      ];
+      ]);
 
 
   </script>

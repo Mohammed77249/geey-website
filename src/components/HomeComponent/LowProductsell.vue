@@ -97,7 +97,7 @@ const onhover = (id)=>{
   hoverId.value= id;
 }
 
-const products = [
+const products = ref([
         { id: 1, name: 'منتج 1', price: 'ر.س 50', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
         { id: 2, name: 'منتج 2', price: 'ر.س 60',images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
         { id: 3, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg' ],},
@@ -111,6 +111,6 @@ const products = [
         { id: 11, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
         { id: 12, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/Placeholder_01.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
 
-      ];
+      ]);
 
 </script>

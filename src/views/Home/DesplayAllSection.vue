@@ -41,7 +41,7 @@ const onhover = (id)=>{
   hoverId.value= id;
 
 }
-const products = [
+const products = ref([
         { id: 1, name: 'Dress', price: 99.99, images:['/src/assets/images/products/Image (2).svg', '/src/assets/images/Placeholder_01 (1).svg' ]},
         { id: 2, name: 'T-Shirt', price: 49.99, images:['/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg', '/src/assets/images/Placeholder_01 (1).svg'] },
         { id: 3, name: 'Jeans', price: 79.99, images:['/src/assets/images/products/Mockup.svg', '/src/assets/images/Placeholder_01 (1).svg'] },
@@ -49,6 +49,6 @@ const products = [
         { id: 5, name: 'T-Shirt', price: 49.99, images:['/src/assets/images/products/unsplash_jsgby4-zj44.svg', '/src/assets/images/Placeholder_01 (1).svg'] },
         { id: 6, name: 'Jeans', price: 79.99, images:['/src/assets/images/products/unsplash_DyhiB_wFifk.svg', '/src/assets/images/Placeholder_01 (1).svg'] },
         // Add more products as needed
-      ];
+      ]);
 
 </script>

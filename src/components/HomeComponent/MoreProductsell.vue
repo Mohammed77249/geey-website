@@ -113,7 +113,7 @@ onMounted(() => {
 });
 
 
-const products = [
+const products = ref([
         { id: 1, name: 'منتج 1', price: 'ر.س 50', images:[ '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
         { id: 2, name: 'منتج 2', price: 'ر.س 60',images:[ '/src/assets/images/products/Image (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
         { id: 3, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image (2).svg', '/src/assets/images/Placeholder_01 (1).svg' ],},
@@ -133,7 +133,7 @@ const products = [
         { id: 17, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 75.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
         { id: 18, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/unsplash_DyhiB_wFifk.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
 
-      ];
+      ]);
 
 
 
