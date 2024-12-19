@@ -6,6 +6,7 @@
         <h1 class="p-2">{{ $t('The most important trends') }}</h1>
         <div class="grid grid-cols-3 gap-1 p-2">
           <ProductCard :isORNot="true" v-for="product in products2" :key="product.id" :product="product" />
+          <!-- <ProductCard :isORNot="true" /> -->
         </div>
       </div>
     </div>
@@ -20,6 +21,7 @@
       <h1 class="p-2 text-primary-900 font-semibold">{{ $t('Low prices') }}</h1>
       <div class="grid grid-cols-3   gap-1 p-2">
       <ProductCard :isORNot="false" v-for="product in products" :key="product.id" :product="product" />
+      <!-- <ProductCard :isORNot="false" /> -->
     </div>
     </div>
 

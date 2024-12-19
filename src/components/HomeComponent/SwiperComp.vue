@@ -109,7 +109,7 @@ const swiper = ref(null);
 }
 
 .custom-swiper :deep(.swiper-pagination-bullet-active) {
-  background-color: #ffff; /* لون النقطة النشطة */
+  background-color: #8a1538; /* لون النقطة النشطة */
   width: 16px;
   height: 16px;
 }
@@ -165,7 +165,7 @@ const swiper = ref(null);
 }
 
 .custom-swiper2 :deep(.swiper-pagination-bullet-active) {
-  background-color: #ffff; /* لون النقطة النشطة */
+  background-color: #8a1538; /* لون النقطة النشطة */
   width: 16px;
   height: 16px;
 }
