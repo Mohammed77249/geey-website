@@ -14,9 +14,9 @@
               <img
                 src="/src/assets/images/Big Sale Banner.svg"
                 :alt="section.name"
-                class="w-28 rounded-full h-28 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
+                class="w-24 md:w-28 rounded-full h-24 md:h-28 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
               />
-              <h3 class="text-center mt-2 text-[20px] font-sans text-gray-800">
+              <h3 class="text-center mt-2 text-[16px] md:text-[20px] font-sans text-gray-800">
                 {{ section.name }}
               </h3>
             </RouterLink>

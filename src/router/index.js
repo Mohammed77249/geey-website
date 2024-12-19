@@ -217,19 +217,19 @@ const routes = [
     name: 'Recommend',
     path: '/recommend/:id/:name',
     component: RecommendPage,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: '/product/:id',
     name: 'ProductDetails',
     component: ProductDetailsPage,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: '/product/:id/comments',
     name: 'ProductComments',
     component: CommentsPage,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     name: 'Cart',
