@@ -41,7 +41,7 @@
                               :src="image.image"
                                @mouseover="showImageInSwiper(index)"
                               alt="Main Product Image"
-                              class="w-16 h-20  my-3   cursor-pointer border-2 border-transparent hover:border-gray-500"
+                              class="w-12 h-12  md:w-16 md:h-20  my-3   cursor-pointer border-2 border-transparent hover:border-gray-500"
                             />
                           </div>
                         </div>
@@ -53,7 +53,7 @@
                                 :src="image.image"
                                 @mouseover="showImageInSwiper(index)"
                                 alt="Sub Product Image"
-                                class="w-16 h-20   my-3  shadow cursor-pointer border-2 border-transparent hover:border-gray-500"
+                                class="w-12 h-12  md:w-16 md:h-20   my-3  shadow cursor-pointer border-2 border-transparent hover:border-gray-500"
                               />
                             </div>
                           </div>
@@ -68,7 +68,7 @@
                     :space-between="10"
                     navigation
                     pagination
-                    :class="{'rounded-lg custom-swiper border w-[400px] h-[550px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
+                    :class="{'rounded-lg custom-swiper border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
                     @swiper="setSwiperInstance"
                   >
                     <swiper-slide v-for="(image, index) in selectedColorImages" :key="index">
