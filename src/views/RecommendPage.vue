@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div class="grid grid-cols-12 gap-5 mt-10 px-10">
-      <div class="col-span-2 mb-5">
-        <p class="text-gray-500">الصفحة الرئيسية / {{ sectionName }} /</p>
+  <div class="mt-6 md:mt-10 px-4 md:px-10">
+    <p class="text-gray-500 ">الصفحة الرئيسية / {{ sectionName }} /</p>
+    <div class="grid grid-cols-12 gap-5 ">
+      <div class="col-span-5 md:col-span-2 mb-5">
         <div class="overflow-y-auto h-screen custom-scroll pl-5">
           <p class="font-bold text-[13px] mt-8 mb-5">تصنيف</p>
           <div class="w-full h-[1px] mb-5 bg-gray-200"></div>
@@ -459,19 +459,19 @@
         </div>
       </div>
 
-      <div class="col-span-10">
-        <div class="mt-16">
-          <div class="flex gap-5">
+      <div class="col-span-7 md:col-span-10">
+        <div class="mt-6 md:mt-16">
+          <div class="flex gap-2 md:gap-5">
             <div ref="dropDownStatus">
               <button
-                class="text-[#979797] w-[220px] h-[40px] border border-gray-900 bg-white font-medium rounded-lg text-[12px] px-5 py-2.5 text-center inline-flex items-center justify-between"
+                class="text-[#979797] w-[180px] md:w-[220px] h-[30px] md:h-[40px] border border-gray-900 bg-white font-medium rounded-lg text-[10px] md:text-[12px] px-5 py-2.5 text-center inline-flex items-center justify-between"
                 type="button"
                 @click="isDropdowenStatusVisable = true"
                 @mouseenter="isDropdowenStatusVisable = true"
                 @mouseleave="isDropdowenStatusVisable = false"
               >
                 صنف ب
-                <p class="text-black">{{ selectedStatus }}</p>
+                <p class="text-black text-[10px]">{{ selectedStatus }}</p>
 
                 <svg
                   aria-hidden="true"
@@ -567,7 +567,7 @@
             <div>
               <button
                 type="button"
-                class="bg-gray-50 hover:bg-gray-100 h-[40px] w-[80px] text-[13px] font-semibold text-[#BA68C8]"
+                class="bg-gray-50 hover:bg-gray-100 h-[30px] md:h-[40px] w-[50px] md:w-[80px] text-[10px] md:text-[13px] font-semibold text-[#BA68C8]"
               >
                 ترندات
               </button>
