@@ -29,7 +29,7 @@ export const useCartStore = defineStore('cart', {
       return state.allCarts.reduce((acc, item) => acc + item.product_price * item.quantity, 0);
     },
     totalDiscount(state) {
-      return state.totalPrice * 0.1; // خصم 10%
+      return state.totalPrice * 0; // خصم 10%
     },
     finalPrice(state) {
       return state.totalPrice - state.totalDiscount;

@@ -155,10 +155,6 @@
               <span>الخصم:</span>
               <span>- YER {{ storeCart.totalDiscount }}</span>
             </div>
-            <div class="flex justify-between py-2">
-              <span>تكلفة التوصيل:</span>
-              <span> YER  600 </span>
-            </div>
             <div class="border-t my-4"></div>
             <div class="flex justify-between font-semibold text-lg">
               <span>الإجمالي:</span>

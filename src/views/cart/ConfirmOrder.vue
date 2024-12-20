@@ -2,7 +2,7 @@
   <div >
     <div class="container mx-auto grid grid-cols-3 gap-4 mb-5">
       <!-- القسم الأيمن: عنوان الشحن -->
-       <div class="col-span-2">
+       <div class="col-span-3 md:col-span-2">
         <div class="p-3">
           <h2 class="text-lg font-bold text-gray-800 mb-4">عنوان الشحن </h2>
           <form class="space-y-4" @submit.prevent="handlOrder">
@@ -87,8 +87,8 @@
               </div>
 
               <!--   تفاصيل الطلب -->
-              <div>
-                <div class="w-full  mt-10 bg-white p-3">
+              <div class="">
+                <div class="w-full h-full  mt-10 bg-white p-3">
                   <div class="flex items-center justify-between ">
                     <span class="text-[16px] font-semibold">تفاصيل الطلب</span>
 
@@ -102,22 +102,26 @@
                     </div>
                   </div>
 
-                  <div class=" p-2 w-full h-52 ">
-                    <div class="bg-gray-100 h-full flex">
+                  <div class=" p-2 w-full h-full ">
+                    <div class="bg-gray-100 overflow-x-auto  h-full flex ">
                       <div v-for="(item,index) in storeCart.getallCarts" :key="index">
 
-                        <div class="w-28 h-32 p-2">
-                          <img
+                        <div class="p-2">
+                          <div class="w-28 h-32 ">
+                            <img
                             :src="item.image"
                             alt="Product Image"
                             class="w-full h-full object-cover"
                           />
+                          </div>
+
                           <div class="mt-1 flex justify-between ">
-                            <span class="text-sm text-black font-medium">SR500</span>
-                            <span class="text-sm text-black font-medium">%10</span>
+                            <span class=" text-xs text-black font-medium">{{ item.product_currency }} {{ item.product_price }}</span>
+                            <span class=" text-xs text-black font-medium">%0</span>
                           </div>
                             <div class="mt-2 flex justify-center">
-                              <div class="flex items-center  ">
+                              <h3 class="font-semibold text-xs ">{{ item.product_name }}</h3>
+                              <!-- <div class="flex items-center  ">
                                 <button
                                   class="bg-white border border-gray-400 hover:border-black px-2 py-[1px] text-black rounded-s-full"
                                   @click="decrementQuantity(index)"
@@ -131,9 +135,10 @@
                                 >
                                   +
                                 </button>
-                              </div>
+                              </div> -->
                             </div>
                         </div>
+
                       </div>
                     </div>
                   </div>
@@ -153,7 +158,7 @@
       </div>
 
       <!-- القسم الأيسر: ملخص الطلب -->
-      <div class="col-span-1 h-screen mt-14">
+      <div class="col-span-1 h-screen mt-14 hidden md:block">
         <div class="bg-white shadow  p-4">
               <!-- عنوان القسم -->
             <h2 class="text-lg font-bold text-gray-800 mb-4">ملخص الطلب</h2>
