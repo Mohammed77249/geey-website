@@ -11,7 +11,7 @@
       <div class="flex justify-end  items-center ">
         <button
           @click="close"
-          class="text-gray-500 text-[20px] hover:text-black"
+          class="text-primary-900 text-[20px] hover:text-black"
         >
           &times;
         </button>
