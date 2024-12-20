@@ -5,7 +5,7 @@
   >
     <!-- Dialog Container -->
     <div
-      class="bg-white w-full max-w-4xl  gap-5 overflow-y-auto custom-scroll   max-h-[600px] h-full  shadow-lg p-2"
+      class="bg-white w-full max-w-4xl  gap-5 overflow-y-auto custom-scroll   sm:max-h-[600px] h-full  shadow-lg p-2"
     >
       <!-- Dialog Header -->
       <div class="flex justify-end  items-center ">
@@ -24,12 +24,12 @@
         </div>
         <div v-else-if="props.error || storeAddress.loading ">{{ props.error }}</div>
         <div v-else-if="props.titles">
-          <div class="grid grid-cols-12   gap-3 mt-5">
+          <div class="grid grid-cols-1 sm:grid-cols-12   gap-3 mt-5">
             <div class="col-span-6 bg-gray-100">
               <div class=" py-4 p-5 shadow bg-white m-2 ">
                 <h1 class="text-primary-900 font-bold text-xl">كل عناوينك </h1>
               </div>
-              <div class=" p-2 bg-white m-2 overflow-y-auto">
+              <div class=" p-2 bg-white m-2 max-h-72 overflow-y-auto">
 
                 <div class="border"  v-for="address in titles" :key="address.id" >
                   <div class="grid grid-cols-12 p-2 " >
