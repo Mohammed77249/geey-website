@@ -1,8 +1,8 @@
 <template>
   <div>
-    <main class="container mx-auto  grid grid-cols-3 gap-6">
+    <main class="container mx-auto  grid grid-cols-1 md:grid-cols-3 lg:gap-3">
       <!-- Cart Products -->
-      <div class="col-span-2">
+      <div class="col-span-2 px-5">
         <!-- Header -->
         <div class=" w-full bg-orange-50 border border-orange-300 h-12 mb-3 flex items-center ">
           <h2 class="text-sm   px-5">استخدم الكوبون الآن لتوفير SR15.31</h2>
@@ -66,8 +66,8 @@
               </RouterLink>
 
             </div>
-            <div class="col-span-7">
-              <div class="mx-4 mt-5">
+            <div class="col-span-7 ">
+              <div class="md:mx-4 mx-1 mt-5">
                 <RouterLink  :to="`/product/${item.product_id}`">
               <h3 class="font-semibold">{{ item.product_name }}</h3>
             </RouterLink>
@@ -123,7 +123,7 @@
                 </div>
 
                 <!-- like button -->
-                <div>
+                <div class="">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
