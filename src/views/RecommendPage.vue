@@ -579,6 +579,7 @@
             <LoaderDatacomp :is-loader="storeSecion.loading"/>
           </div>
           <div v-else class="mb-10">
+
             <RecomndProductComp :products123="storeSecion.getProducts"   />
           </div>
         </div>

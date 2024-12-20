@@ -19,6 +19,9 @@ export const useSectionsStore = defineStore('sections', {
     loading: false,
     error: null,
 
+    page: 1,
+    perPage: 500,
+    hasMore: true,
   }),
   getters: {
     getSections: state => state.sections,
@@ -67,11 +70,12 @@ export const useSectionsStore = defineStore('sections', {
     },
 
     async fetchSubSectionBySectionID(data) {
+      if (this.isLoading || !this.hasMore) return;
       this.loading = true;
       this.error = null;
 
       try {
-        const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
+        const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${this.page}&perPage=${this.perPage}`);
         this.subsections = response.data.sections;
         this.sections.forEach(section => {
           if (section.categories && section.categories.length > 0) {
@@ -79,10 +83,20 @@ export const useSectionsStore = defineStore('sections', {
           }
         });
 
-        this.products = response.data.products.data;
-        this.totalProducts.currentPage = response.data.products.current_page
-        this.totalProducts.totalItems = response.data.products.total
-        this.totalProducts.totalPages = response.data.products.last_page
+        const newProducts = response.data.products.data;
+        if (newProducts.length > 0) {
+          this.products.push(...newProducts);
+          this.totalProducts.currentPage = response.data.products.current_page
+          this.totalProducts.totalItems = response.data.products.total
+          this.totalProducts.totalPages = response.data.products.last_page
+          this.page++;
+        } else {
+          this.hasMore = false;
+        }
+        // this.products = response.data.products.data;
+        // this.totalProducts.currentPage = response.data.products.current_page
+        // this.totalProducts.totalItems = response.data.products.total
+        // this.totalProducts.totalPages = response.data.products.last_page
       } catch (error) {
         this.error = 'خطأ أثناء جلب الفئات';
         alert(error(error));
