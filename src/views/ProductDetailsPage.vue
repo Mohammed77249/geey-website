@@ -1,6 +1,6 @@
 <template>
   <div class="px-10 lg:px-20 xl:px-32 min-h-screen">
-    <div v-if="storeProduct.loading">Loading product details...</div>
+    <div v-if="storeProduct.loading"><LoaderComp :isLoader="storeProduct.loading"/></div>
     <div v-else-if="storeProduct.error">{{ storeProduct.error }}</div>
     <!-- العنوان -->
     <div class="py-4 border-b">
@@ -633,6 +633,7 @@ import { ref, onMounted,  } from 'vue'
 import CommentComp from '../components/Comments/CommentComp.vue'
 import HeaderCommentsComp from '../components/Comments/HeaderComentsComp.vue'
 import { useRoute } from 'vue-router'
+import LoaderComp from '@/components/LoaderDatacomp.vue'
 import DialogComp from '@/components/DialogComp.vue'
 import DescriptionComp from '@/components/ProductDetailsComponent/DescriptionComp.vue'
 import SizeProDetailsComp from '@/components/ProductDetailsComponent/SizeProDetailsComp.vue'
