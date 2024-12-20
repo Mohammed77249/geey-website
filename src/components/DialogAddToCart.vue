@@ -18,7 +18,7 @@
       </div>
 
       <!-- Dialog Content -->
-      <div >
+      <div>
         <div v-if="storeCart.loading">
           <LoaderDatacomp :isLoader="storeCart.loading" />
         </div>

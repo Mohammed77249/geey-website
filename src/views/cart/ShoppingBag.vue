@@ -56,7 +56,7 @@
             <LoaderDatacomp :is-loader="storeCart.loading"/>
           </div>
           <div class="grid grid-cols-12  w-full gap-2 p-5 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
-            <div class="col-span-2 ">
+            <div class="col-span-3  md:col-span-2">
               <RouterLink  :to="`/product/${item.product_id}`">
                 <img
                 :src="item.image"
@@ -66,19 +66,19 @@
               </RouterLink>
 
             </div>
-            <div class="col-span-7 ">
+            <div class="col-span-6 md:col-span-7">
               <div class="md:mx-4 mx-1 mt-5">
                 <RouterLink  :to="`/product/${item.product_id}`">
-              <h3 class="font-semibold">{{ item.product_name }}</h3>
+              <h3 class="font-semibold text-sm md:text-[17px] ">{{ item.product_name }}</h3>
             </RouterLink>
-              <button  @click="openDialog(item.product_id, item.id)"  class=" ">
-                <span class="text-sm text-gray-500 cursor-pointer ">
+              <button  @click="openDialog(item.product_id,item.id)"  class=" ">
+                <span class="text-xs md:text-sm text-gray-500 cursor-pointer ">
                 الحجم: {{ item.size_value }} , اللون: {{ item.color_name }}
               </span>
               </button>
 
-              <p class="text-red-500 text-sm font-semibold">-0%</p>
-              <p class="text-lg font-bold">
+              <p class="text-red-500 text-xs md:text-sm font-semibold">-0%</p>
+              <p class="text-sm md:text-lg font-bold">
                 {{ item.product_currency }} {{ item.product_price }}
               </p>
             </div>
@@ -227,7 +227,7 @@
 
 
     </main>
-    <DialogUpdateCart :loading="storeCart.loading" :error="storeCart.error" :is-open="isDialogOpen" :cartDetailsById="storeCart.getcartDetails" :productDetails="storeCart.getproductDetails" :productColors="storeCart.getproductColors" :productSizes="storeCart.getproductSizes" @close="closeDialog"  />
+    <DialogUpdateCart v-if="filteredData.cartID != null && filteredData.productID != null" :IdProduct="filteredData.productID" :IdCart="filteredData.cartID"  :is-open="isDialogOpen"  @close="closeDialog"  />
 
   </div>
 </template>
@@ -259,13 +259,14 @@ const openDialog = (product_id,cart_id) => {
   isDialogOpen.value = true
   filteredData.value.productID = product_id;
   filteredData.value.cartID = cart_id;
-  storeCart.fetchProductDetailsByIdForCart(filteredData);
-  storeCart.fetchProductsInCartByID(filteredData)
+
 }
 
 const closeDialog = () => {
   isDialogOpen.value = false
-
+  filteredData.value.cartID = null;
+  filteredData.value.productID = null;
+  // storeCart.fetchProductsInCartByID(filteredData)
 }
 
 onMounted(() => {
