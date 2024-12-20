@@ -1,5 +1,5 @@
 <template>
-  <div class="px-32 min-h-screen">
+  <div class="px-10 lg:px-20 xl:px-32 min-h-screen">
     <div v-if="storeProduct.loading">Loading product details...</div>
     <div v-else-if="storeProduct.error">{{ storeProduct.error }}</div>
     <!-- العنوان -->
@@ -18,10 +18,10 @@
 
     <div
       v-if="storeProduct.getproductDetails"
-      class="container mx-auto grid grid-cols-1 lg:grid-cols-12"
+      class="container mx-auto grid grid-cols-1 md:grid-cols-12"
     >
       <!-- product image  -->
-      <div class="col-span-8 px-5">
+      <div class="col-span-7 lg:col-span-8 px-5">
         <div class="flex gap-2">
           <div class="block gap-5">
             <div class="overflow-x-auto">
@@ -61,7 +61,7 @@
             :space-between="10"
             navigation
             pagination
-            :class="{'rounded-lg custom-swiper border w-[700px] h-[900px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
+            :class="{'rounded-lg custom-swiper border w-[300px] h-[400px] md:h-[600px] lg:w-[450px] lg:h-[700px] xl:w-[600px] xl:h-[800px] 2xl:w-[700px] 2xl:h-[900px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
              @swiper="setSwiperInstance"
           >
             <swiper-slide v-for="(image, index) in selectedColorImages" :key="index">
@@ -76,7 +76,7 @@
           </div>
         </div>
 
-        <div class="mt-10 mb-10">
+        <div class="mt-10 mb-10 hidden lg:block">
           <div class="mb-5">
             <div class="flex items-center justify-between mb-5">
               <h1 class="font-semibold text-xl">
@@ -158,7 +158,7 @@
       </div>
 
       <!-- product details  -->
-      <div class="col-span-4">
+      <div class="col-span-5 lg:col-span-4">
         <!-- الاسم والسعر -->
         <div class="w-full h-28 mb-5">
           <div class="flex items-center justify-between">
@@ -204,9 +204,9 @@
             </svg>
           </div>
 
-          <div class="flex items-center gap-1">
+          <div class="flex items-center gap-1 md:block">
             <p class="text-[10px] text-gray-400">12684532486586453218451</p>
-            <div class="flex items-center gap-1">
+            <div class="flex items-center gap-1 ">
               <span class="flex text-yellow-500">
                 <i> <img class="w-3" src="/src/assets/images/star.svg" /></i>
                 <i> <img class="w-3" src="/src/assets/images/star.svg" /></i>
@@ -286,16 +286,16 @@
             </div>
 
             <!-- الاحجام -->
-            <div class="grid grid-cols-5 gap-2">
+            <div class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-4 gap-2">
               <div
                 v-for="(size, index) in storeProduct.getproductSizes"
                 :key="index"
               >
                 <button
                   :class="{
-                    'py-1 cursor-pointer px-7  border rounded-full bg-gray-100':
+                    'py-1 cursor-pointer px-5   border rounded-full bg-gray-100':
                       tempidSize === size.size_type_id,
-                    'py-1 cursor-pointer px-7 border rounded-full hover:bg-gray-100':
+                    'py-1 cursor-pointer px-5 border  rounded-full hover:bg-gray-100':
                       tempidSize !== size.size_type_id,
                   }"
                   @click="onclickSize(size.size_type_id)"
@@ -350,7 +350,7 @@
         </div>
 
         <!-- شحن مجاني  -->
-        <div class="bg-gray-100 w-full h-72 mb-5 p-5">
+        <div class="bg-gray-100 w-full h-80 2xl:h-72 mb-5 p-5">
           <div class="mb-3">
             <div class="flex items-center gap-1">
               <img src="/src/assets/images/truck-fast.svg" />
@@ -413,25 +413,25 @@
               </div>
               <p placeholder="<1/2>"></p>
             </div>
-            <div class="pr-5 mt-2 flex items-center gap-1">
-              <div class="flex items-center">
+            <div class="pr-5 mt-2 grid grid-cols-6  2xl:grid-cols-12 items-center gap-1 ">
+              <div class="col-span-3 flex items-center">
                 <img class="w-4" src="/src/assets/images/copy-success.svg" />
                 <p class="text-xs text-gray-600">
                   {{ $t('Secure payment methods') }}
                 </p>
               </div>
-              <div class="flex">
+              <div class="flex col-span-3">
                 <img class="w-4" src="/src/assets/images/copy-success.svg" />
                 <p class="text-xs text-gray-600">{{ $t('Safe shipping') }}</p>
               </div>
-              <div class="flex">
+              <div class="flex col-span-3">
                 <img class="w-4" src="/src/assets/images/copy-success.svg" />
                 <p class="text-xs text-gray-600">
                   {{ $t('Customer service') }}
                 </p>
               </div>
 
-              <div class="flex">
+              <div class="flex col-span-3">
                 <img class="w-4" src="/src/assets/images/copy-success.svg" />
                 <p class="text-xs text-gray-600">
                   {{ $t('Privacy protection') }}
