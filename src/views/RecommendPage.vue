@@ -580,7 +580,7 @@
           </div>
           <div v-else class="mb-10">
 
-            <RecomndProductComp :products123="storeSecion.getProducts"   />
+            <RecomndProductComp :products123="storeSecion.getProducts"  :IdSection="filteredData.sectionId" />
           </div>
         </div>
       </div>
@@ -600,7 +600,7 @@ import SiziesComp from '@/components/RecommendViewCoponent/SiziesComp.vue'
 import TallComp from '@/components/RecommendViewCoponent/TallComp.vue'
 import TypeComp from '@/components/RecommendViewCoponent/TypeComp.vue'
 import { ref } from 'vue'
-import { onMounted, onBeforeMount } from 'vue'
+import { onMounted, onBeforeMount,onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSectionsStore } from '@/stores/section'
 import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
@@ -710,8 +710,33 @@ onMounted(() => {
   window.addEventListener('click', closeDropdowenStatus)
   storeSecion.fetchSubSectionBySectionIDForfilter(filteredData)
 })
+
 onBeforeMount(() => {
   window.removeEventListener('click', closeDropdowenStatus)
+});
+
+onMounted(() => {
+  storeSecion.fetchSubSectionBySectionID(filteredData);
+});
+// دالة التحقق عند التمرير
+const handleScroll = () => {
+
+  const nearBottom =
+    window.innerHeight + window.scrollY >= document.documentElement.offsetHeight - 10;
+
+  if (nearBottom) {
+    storeSecion.fetchSubSectionBySectionID(filteredData);
+  }
+};
+
+// إضافة مراقبة للتمرير
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+// إزالة مراقبة التمرير عند تدمير المكون
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
 });
 
 </script>
