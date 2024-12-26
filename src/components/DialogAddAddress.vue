@@ -5,10 +5,10 @@
   >
     <!-- Dialog Container -->
     <div
-      class="bg-white w-full max-w-4xl  gap-5 overflow-y-auto custom-scroll   sm:max-h-[600px] h-full  shadow-lg p-2"
+      class="bg-white w-full max-w-4xl gap-5 overflow-y-auto custom-scroll sm:max-h-[600px] h-full shadow-lg p-2"
     >
       <!-- Dialog Header -->
-      <div class="flex justify-end  items-center ">
+      <div class="flex justify-end items-center">
         <button
           @click="close"
           class="text-primary-900 text-[20px] hover:text-black"
@@ -18,255 +18,310 @@
       </div>
 
       <!-- Dialog Content -->
-      <div >
-        <div v-if="props.loading ||  storeAddress.loading ">
-          <LoaderDatacomp :isLoader="props.loading || storeAddress.loading " />
+      <div>
+        <div v-if="props.loading || storeAddress.loading">
+          <LoaderDatacomp :isLoader="props.loading || storeAddress.loading" />
         </div>
-        <div v-else-if="props.error || storeAddress.loading ">{{ props.error }}</div>
+        <div v-else-if="props.error || storeAddress.loading">
+          {{ props.error }}
+        </div>
         <div v-else-if="props.titles">
-          <div class="grid grid-cols-1 sm:grid-cols-12   gap-3 mt-5">
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 mt-5">
             <div class="col-span-6 bg-gray-100">
-              <div class=" py-4 p-5 shadow bg-white m-2 ">
-                <h1 class="text-primary-900 font-bold text-xl">كل عناوينك </h1>
+              <div class="py-4 p-5 shadow bg-white m-2">
+                <h1 class="text-primary-900 font-bold text-xl">كل عناوينك</h1>
               </div>
-              <div class=" p-2 bg-white m-2 max-h-72 overflow-y-auto">
-
-                <div class="border"  v-for="address in titles" :key="address.id" >
-                  <div class="grid grid-cols-12 p-2 " >
-                    <div class=" col-span-2 w-12  rounded-full h-12 bg-gray-200 ">
+              <div class="p-2 bg-white m-2 sm:max-h-72 md:max-h-[500px] overflow-y-auto">
+                <div class="border" v-for="address in titles" :key="address.id">
+                  <div class="grid grid-cols-12 p-2">
+                    <div class="col-span-2 w-12 rounded-full h-12 bg-gray-200">
                       <div class="flex items-center justify-center mt-[6px]">
-                        <svg  width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="36" height="36" rx="18" fill="#8A1538"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9167 16.598C10.9167 12.7647 14.12 9.6665 17.9946 9.6665C21.8802 9.6665 25.0834 12.7647 25.0834 16.598C25.0834 18.5296 24.3809 20.3229 23.2247 21.8428C21.9491 23.5194 20.3769 24.9802 18.6072 26.1269C18.2022 26.3919 17.8366 26.4119 17.3921 26.1269C15.6124 24.9802 14.0402 23.5194 12.7755 21.8428C11.6184 20.3229 10.9167 18.5296 10.9167 16.598ZM15.6619 16.8138C15.6619 18.0979 16.7098 19.1079 17.9946 19.1079C19.2803 19.1079 20.3382 18.0979 20.3382 16.8138C20.3382 15.5397 19.2803 14.4805 17.9946 14.4805C16.7098 14.4805 15.6619 15.5397 15.6619 16.8138Z" fill="white"/>
+                        <svg
+                          width="36"
+                          height="36"
+                          viewBox="0 0 36 36"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect width="36" height="36" rx="18" fill="#8A1538" />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M10.9167 16.598C10.9167 12.7647 14.12 9.6665 17.9946 9.6665C21.8802 9.6665 25.0834 12.7647 25.0834 16.598C25.0834 18.5296 24.3809 20.3229 23.2247 21.8428C21.9491 23.5194 20.3769 24.9802 18.6072 26.1269C18.2022 26.3919 17.8366 26.4119 17.3921 26.1269C15.6124 24.9802 14.0402 23.5194 12.7755 21.8428C11.6184 20.3229 10.9167 18.5296 10.9167 16.598ZM15.6619 16.8138C15.6619 18.0979 16.7098 19.1079 17.9946 19.1079C19.2803 19.1079 20.3382 18.0979 20.3382 16.8138C20.3382 15.5397 19.2803 14.4805 17.9946 14.4805C16.7098 14.4805 15.6619 15.5397 15.6619 16.8138Z"
+                            fill="white"
+                          />
                         </svg>
                       </div>
                     </div>
-                    <div class="col-span-4 cursor-pointer" @click="chooseAdress(address)">
-                      <p class="text-md font-semibold text-black">{{ address.address }}</p>
-                      <span class="text-sm font-normal text-black">{{ address.city.name }}</span> -
-                      <span class="text-sm font-normal text-black">{{ address.district.name }}</span>
+                    <div
+                      class="col-span-4 cursor-pointer"
+                      @click="chooseAdress(address)"
+                    >
+                      <p class="text-md font-semibold text-black">
+                        {{ address.address }}
+                      </p>
+                      <span class="text-sm font-normal text-black">{{
+                        address.city.name
+                      }}</span>
+                      -
+                      <span class="text-sm font-normal text-black">{{
+                        address.district.name
+                      }}</span>
                     </div>
-                    <div class="col-span-6 ">
-                      <div class="flex items-center justify-end  mt-[10px]">
+                    <div class="col-span-6">
+                      <div class="flex items-center justify-end mt-[10px]">
                         <input
                           id="default-radio-3"
                           type="radio"
                           value="option3"
                           name="default-radio"
-                          class="w-4 h-4 text-primary-900  bg-gray-100 focus:ring-primary-900 "
+                          class="w-4 h-4 text-primary-900 bg-gray-100 focus:ring-primary-900"
                         />
                       </div>
                     </div>
-
                   </div>
                 </div>
-
               </div>
             </div>
 
-            <div class="col-span-6 bg-gray-100  ">
-              <div class="py-4 p-5 shadow bg-white m-2 ">
-                <h1 class="text-primary-900 font-bold  text-xl">اضافه عنوان جديد</h1>
+            <div class="col-span-6 bg-gray-100">
+              <div class="py-4 p-5 shadow bg-white m-2">
+                <h1 class="text-primary-900 font-bold text-xl">
+                  اضافه عنوان جديد
+                </h1>
               </div>
 
-              <div class=" p-2 bg-white  m-2 ">
+              <div class="p-2 bg-white m-2">
                 <form @submit.prevent="handleAddress">
+                  <!-- المكتب الخاص أو المنزل -->
+                  <div class="bg-white border shadow p-2">
+                    <label class="block text-xs font-semibold text-black mb-2"
+                      >المكتب الخاص أو المنزل</label
+                    >
+                    <input
+                      type="text"
+                      v-model="Adress"
+                      required
+                      placeholder="المكتب الخاص أو المنزل "
+                      class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                    />
+                  </div>
 
-                    <!-- المكتب الخاص أو المنزل -->
-                    <div class="bg-white border shadow p-2">
-                      <label class="block text-xs font-semibold text-black mb-2">المكتب الخاص أو المنزل</label>
-                      <input
-                        type="text"
-                        v-model="Adress"
-                        required
-                        placeholder="المكتب الخاص أو المنزل "
-                        class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
-                      />
-                    </div>
-
-                     <!-- المحافظة -->
-                    <div class="bg-white border shadow p-2">
-                      <label class="block text-xs font-semibold text-black mb-2">المحافظة</label>
-                      <div ref="dropDownCite">
-                        <button
-                          class="text-[#979797] w-full py-2 border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]  text-sm px-5  inline-flex items-center justify-between"
-                          type="button"
-                          @click="isDropdowenCiteVisable = true"
-                          @mouseenter="isDropdowenCiteVisable = true"
-                          @mouseleave="isDropdowenCiteVisable = false"
-                        >
-                          <p class="text-black">{{ selectedCite }}</p>
-
-                          <svg
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            width="10px"
-                            height="10px"
-                            viewBox="0 0 10 6"
-                          >
-                            <path
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="m1 1 4 4 4-4"
-                            />
-                          </svg>
-                        </button>
-
-                          <!-- Dropdown menu -->
-                          <div
-                            @mouseenter="isDropdowenCiteVisable = true"
-                            @mouseleave="isDropdowenCiteVisable = false"
-                            class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow "
-                            v-if="isDropdowenCiteVisable"
-                          >
-                            <ul
-                              class="h-48 px-3 pb-3 overflow-y-auto custom-scroll text-[12px] text-gray-700"
-                              aria-labelledby="dropdownSearchButton"
-                            >
-                              <li
-                                v-for="(cite, index) in storeAddress.getCities"
-                                :key="index"
-                                @click="toggleCiteSelect(cite)"
-                              >
-                                <div
-                                  class="flex items-center ps-2  cursor-pointer rounded hover:bg-gray-100"
-                                >
-                                  <span
-                                    for="checkbox-item-11"
-                                    class="w-full py-2 ms-2 cursor-pointer text-sm font-medium text-gray-900 rounded"
-                                    >{{ cite.name }}</span
-                                  >
-                                </div>
-                              </li>
-                            </ul>
-                          </div>
-                      </div>
-
-                    </div>
-
-
-                    <!-- المنطقة -->
-                    <div class="bg-white border shadow p-2">
-                      <label class="block text-xs font-semibold text-black mb-2">المنطقة</label>
-                      <div ref="dropDownDistrict">
-                        <button
-                          class="text-[#979797] w-full py-2 border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]  text-sm px-5  inline-flex items-center justify-between"
-                          type="button"
-                          @click="isDropdowenDistrictVisable = true"
-                          @mouseenter="isDropdowenDistrictVisable = true"
-                          @mouseleave="isDropdowenDistrictVisable = false"
-                        >
-                          <p class="text-black">{{ selectedDistrict }}</p>
-
-                          <svg
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            width="10px"
-                            height="10px"
-                            viewBox="0 0 10 6"
-                          >
-                            <path
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="m1 1 4 4 4-4"
-                            />
-                          </svg>
-                        </button>
-
-                          <!-- Dropdown menu -->
-                          <div
-                            @mouseenter="isDropdowenDistrictVisable = true"
-                            @mouseleave="isDropdowenDistrictVisable = false"
-                            class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow "
-                            v-if="isDropdowenDistrictVisable"
-                          >
-                            <ul
-                              class="h-48 px-3 pb-3 overflow-y-auto custom-scroll text-[12px] text-gray-700"
-                              aria-labelledby="dropdownSearchButton"
-                            >
-                              <li
-                                v-for="(district, index) in storeAddress.getDistricts"
-                                :key="index"
-                                @click="toggleDistrictSelect(district)"
-                              >
-                                <div
-                                  class="flex items-center ps-2  cursor-pointer rounded hover:bg-gray-100"
-                                >
-                                  <span
-                                    for="checkbox-item-11"
-                                    class="w-full py-2 ms-2 cursor-pointer text-sm font-medium text-gray-900 rounded"
-                                    >{{ district.name }}</span
-                                  >
-                                </div>
-                              </li>
-                            </ul>
-                          </div>
-                      </div>
-                    </div>
-
-
-
-                    <!-- معلم قريب -->
-                    <div class="bg-white border shadow p-2">
-                      <label class="block text-xs font-semibold text-black mb-2">معلم قريب</label>
-                      <input
-                        type="text"
-                        v-model="NearestLand"
-                        required
-                        placeholder="معلم قريب "
-                        class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
-                      />
-                    </div>
-
-                    <!-- الخريطة  -->
-                    <div class="bg-white border shadow p-2">
+                  <!-- المحافظة -->
+                  <div class="bg-white border shadow p-2">
+                    <label class="block text-xs font-semibold text-black mb-2"
+                      >المحافظة</label
+                    >
+                    <div ref="dropDownCite">
                       <button
-                          type="button"
-                          @click="openDialog()"
-                          class="w-full flex items-center border border-gray-300  text-black gap-2 py-2 font-semibold  text-xs"
-                        >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g opacity="0.4">
-                        <path d="M9.25 11H14.75" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round"/>
-                        <path d="M12 13.75V8.25" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round"/>
-                        </g>
-                        <path d="M3.62001 8.49C5.59001 -0.169998 18.42 -0.159997 20.38 8.5C21.53 13.58 18.37 17.88 15.6 20.54C13.59 22.48 10.41 22.48 8.39001 20.54C5.63001 17.88 2.47001 13.57 3.62001 8.49Z" stroke="#8a1538" stroke-width="1.5"/>
-                        </svg>
-                        <p>أضغط العنوان باستخدام خريطة جوجل اسهل؟</p>
-                        </button>
-                    </div>
+                        class="text-[#979797] w-full py-2 border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
+                        type="button"
+                        @click="isDropdowenCiteVisable = true"
+                        @mouseenter="isDropdowenCiteVisable = true"
+                        @mouseleave="isDropdowenCiteVisable = false"
+                      >
+                        <p class="text-black">{{ selectedCite }}</p>
 
-                    <div class="bg-white border shadow p-2">
-                      <button type="submit" class="w-full bg-primary-900 text-white py-3 font-semibold  text-sm">
-                        اضافه عنوان جديد
+                        <svg
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          width="10px"
+                          height="10px"
+                          viewBox="0 0 10 6"
+                        >
+                          <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m1 1 4 4 4-4"
+                          />
+                        </svg>
                       </button>
+
+                      <!-- Dropdown menu -->
+                      <div
+                        @mouseenter="isDropdowenCiteVisable = true"
+                        @mouseleave="isDropdowenCiteVisable = false"
+                        class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow"
+                        v-if="isDropdowenCiteVisable"
+                      >
+                        <ul
+                          class="h-48 px-3 pb-3 overflow-y-auto custom-scroll text-[12px] text-gray-700"
+                          aria-labelledby="dropdownSearchButton"
+                        >
+                          <li
+                            v-for="(cite, index) in storeAddress.getCities"
+                            :key="index"
+                            @click="toggleCiteSelect(cite)"
+                          >
+                            <div
+                              class="flex items-center ps-2 cursor-pointer rounded hover:bg-gray-100"
+                            >
+                              <span
+                                for="checkbox-item-11"
+                                class="w-full py-2 ms-2 cursor-pointer text-sm font-medium text-gray-900 rounded"
+                                >{{ cite.name }}</span
+                              >
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
+                  </div>
+
+                  <!-- المنطقة -->
+                  <div class="bg-white border shadow p-2">
+                    <label class="block text-xs font-semibold text-black mb-2"
+                      >المنطقة</label
+                    >
+                    <div ref="dropDownDistrict">
+                      <button
+                        class="text-[#979797] w-full py-2 border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
+                        type="button"
+                        @click="isDropdowenDistrictVisable = true"
+                        @mouseenter="isDropdowenDistrictVisable = true"
+                        @mouseleave="isDropdowenDistrictVisable = false"
+                      >
+                        <p class="text-black">{{ selectedDistrict }}</p>
+
+                        <svg
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          width="10px"
+                          height="10px"
+                          viewBox="0 0 10 6"
+                        >
+                          <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m1 1 4 4 4-4"
+                          />
+                        </svg>
+                      </button>
+
+                      <!-- Dropdown menu -->
+                      <div
+                        @mouseenter="isDropdowenDistrictVisable = true"
+                        @mouseleave="isDropdowenDistrictVisable = false"
+                        class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow"
+                        v-if="isDropdowenDistrictVisable"
+                      >
+                        <ul
+                          class="h-48 px-3 pb-3 overflow-y-auto custom-scroll text-[12px] text-gray-700"
+                          aria-labelledby="dropdownSearchButton"
+                        >
+                          <li
+                            v-for="(
+                              district, index
+                            ) in storeAddress.getDistricts"
+                            :key="index"
+                            @click="toggleDistrictSelect(district)"
+                          >
+                            <div
+                              class="flex items-center ps-2 cursor-pointer rounded hover:bg-gray-100"
+                            >
+                              <span
+                                for="checkbox-item-11"
+                                class="w-full py-2 ms-2 cursor-pointer text-sm font-medium text-gray-900 rounded"
+                                >{{ district.name }}</span
+                              >
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- معلم قريب -->
+                  <div class="bg-white border shadow p-2">
+                    <label class="block text-xs font-semibold text-black mb-2"
+                      >معلم قريب</label
+                    >
+                    <input
+                      type="text"
+                      v-model="NearestLand"
+                      required
+                      placeholder="معلم قريب "
+                      class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                    />
+                  </div>
+
+                  <!-- الخريطة  -->
+                  <div class="bg-white border shadow p-2">
+                    <button
+                      type="button"
+                      @click="cklickOpenMap()"
+                      class="w-full flex items-center border border-gray-300 text-black gap-2 py-2 font-semibold text-xs"
+                    >
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g opacity="0.4">
+                          <path
+                            d="M9.25 11H14.75"
+                            stroke="#8a1538"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M12 13.75V8.25"
+                            stroke="#8a1538"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                          />
+                        </g>
+                        <path
+                          d="M3.62001 8.49C5.59001 -0.169998 18.42 -0.159997 20.38 8.5C21.53 13.58 18.37 17.88 15.6 20.54C13.59 22.48 10.41 22.48 8.39001 20.54C5.63001 17.88 2.47001 13.57 3.62001 8.49Z"
+                          stroke="#8a1538"
+                          stroke-width="1.5"
+                        />
+                      </svg>
+                      <p>أضغط العنوان باستخدام خريطة جوجل اسهل؟</p>
+                    </button>
+                  </div>
+
+                  <div class="bg-white border shadow p-2">
+                    <button
+                      type="submit"
+                      class="w-full bg-primary-900 text-white py-3 font-semibold text-sm"
+                    >
+                      اضافه عنوان جديد
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
+
+          <div v-if="isMap">
+            <GoogleMap  :isOpen="isMap" @close="closeDialog"/>
+          </div>
         </div>
         <div v-else>
-        <span>no data</span>
-      </div>
+          <span>no data</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits,ref ,onMounted,onBeforeMount} from "vue";
-import LoaderDatacomp from "./LoaderDatacomp.vue";
+import { defineProps, defineEmits, ref, onMounted, onBeforeMount } from 'vue'
+import LoaderDatacomp from './LoaderDatacomp.vue'
+import GoogleMap from './GoogleMap.vue'
 // const storedLanguage = localStorage.getItem("language");
 import { useAddressStore } from '@/stores/address'
 import { useConfirmOrders } from '@/stores/confirmorder'
-const storeOrder = useConfirmOrders();
+const storeOrder = useConfirmOrders()
 const storeAddress = useAddressStore()
 // Props
 const props = defineProps({
@@ -274,52 +329,68 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
-  titles:{
+  titles: {
     type: [],
   },
-  loading:{
-    type:Boolean
+  loading: {
+    type: Boolean,
   },
-  error:{
-    type:String
+  error: {
+    type: String,
   },
-});
+})
 
-const chooseAdress =(address)=>{
-  localStorage.setItem('adressInfoId',address.id);
-  localStorage.setItem('adressInfoName',address.address);
-close()
+const chooseAdress = address => {
+  localStorage.setItem('adressInfoId', address.id)
+  localStorage.setItem('adressInfoName', address.address)
+  close()
 }
+
+const isMap = ref(false)
+
+const cklickOpenMap = () => {
+  isMap.value = true
+}
+
+const closeDialog = () => {
+  isMap.value = false
+  // window.dispatchEvent(new Event("storage"));
+}
+
+const Getlong = ref(localStorage.getItem("long"));
+const Getlat = ref(localStorage.getItem("lat"));
 
 const Adress = ref('')
 const NearestLand = ref('')
 const filteredData = ref({
-  city_id:  null,
+  city_id: null,
   nearest_landmark: '',
   district_id: null,
-  address:'',
-  lat: '15.404179131572823',
-  lng:'44.21667210260521',
-  is_default:1
+  address: '',
+  lat: '',
+  lng: '',
+  is_default: 1,
 })
 
 // cities
 const dropDownCite = ref(null)
-const selectedCite = ref('المحافظة');
+const selectedCite = ref('المحافظة')
 const isDropdowenCiteVisable = ref(false)
 const toggleCiteSelect = city => {
   filteredData.value.city_id = city.id
   selectedCite.value = city.name
   isDropdowenCiteVisable.value = false
 }
-const closeDropdowenCite = element => {
-  if (!dropDownCite.value.contains(element.target)) {
-    isDropdowenCiteVisable.value = false
-  }
-}
+// const closeDropdowenCite = (element) => {
+//   // if (element.target !== 'undefined' && element.target !== null) {
+//     if (element && !dropDownCite.value.contains(element.target)) {
+//       isDropdowenCiteVisable.value = false
+//     }
+//   // }
+// }
 
 // District
-const dropDownDistrict = ref(null);
+const dropDownDistrict = ref(null)
 const selectedDistrict = ref('المنطقة')
 const isDropdowenDistrictVisable = ref(false)
 const toggleDistrictSelect = district => {
@@ -327,40 +398,43 @@ const toggleDistrictSelect = district => {
   selectedDistrict.value = district.name
   isDropdowenDistrictVisable.value = false
 }
-const closeDropdowenDistrict = element => {
-  if (!dropDownDistrict.value.contains(element.target)) {
-    isDropdowenDistrictVisable.value = false
-  }
-}
-
+// const closeDropdowenDistrict = (element) => {
+//   // if (element.target !== 'undefined' && element.target !== null) {
+//     if (element && !dropDownDistrict.value.contains(element.target)) {
+//       isDropdowenDistrictVisable.value = false
+//     }
+//   // }
+// }
 
 const handleAddress = async () => {
-  alert( NearestLand.value)
   filteredData.value.address = Adress.value
   filteredData.value.nearest_landmark = NearestLand.value
-  const creataddress = await storeAddress.creatAddress(filteredData.value);
-  if(creataddress){
-    alert("تم الاضافه بنجاح")
-    storeOrder.fetchDataOrders();
+  filteredData.value.lat = Getlat.value
+  filteredData.value.lng = Getlong.value;
 
-  }else{
-    alert(storeAddress.error + "error");
+  const creataddress = await storeAddress.creatAddress(filteredData.value)
+  if (creataddress) {
+    alert('تم الاضافه بنجاح')
+    storeOrder.fetchDataOrders()
+
+    localStorage.removeItem('long')
+    localStorage.removeItem('lat')
+  } else {
+    alert(storeAddress.error + 'error')
   }
-};
 
+}
 
 onMounted(() => {
-  window.addEventListener('click', closeDropdowenCite)
-  window.addEventListener('click', closeDropdowenDistrict)
-  storeAddress.fetchCities();
-  storeAddress.fetchDistricts();
+  // window.addEventListener('click', closeDropdowenCite)
+  // window.addEventListener('click', closeDropdowenDistrict)
+  storeAddress.fetchCities()
+  storeAddress.fetchDistricts()
 })
 onBeforeMount(() => {
-  window.removeEventListener('click', closeDropdowenCite)
-  window.removeEventListener('click', closeDropdowenDistrict)
-});
-
-
+  // window.removeEventListener('click', closeDropdowenCite)
+  // window.removeEventListener('click', closeDropdowenDistrict)
+})
 
 // const addToCart = async() => {
 //   if(props.productDetails && props.productDetails.id != null){
@@ -379,7 +453,6 @@ onBeforeMount(() => {
 //     filteredData.value.size_id,
 //     filteredData.value.quantity,
 //   )
-
 
 //   if (addcart) {
 //     if (storeCart.getcartProductMessage != null) {
@@ -401,19 +474,16 @@ onBeforeMount(() => {
 
 // };
 
-
-
 // Emits
-const emit = defineEmits(["close"]);
+const emit = defineEmits(['close'])
 
 // Close the dialog
 const close = () => {
-  emit("close");
-};
+  emit('close')
+}
 
 
 </script>
-
 
 <style>
 .custom-scroll::-webkit-scrollbar {
@@ -433,9 +503,3 @@ const close = () => {
   border-radius: 4px;
 }
 </style>
-
-
-
-
-
-

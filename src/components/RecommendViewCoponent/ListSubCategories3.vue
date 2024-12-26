@@ -70,7 +70,7 @@
               </div>
 
               <div v-if="item.has_children" class="px-5">
-                <ListCategory2
+                <ListSubCategories2
                   v-if="item.id === tempid"
                   :statuses="storeCategory.getSubCategories"
                 />
@@ -87,7 +87,7 @@
 import { ref } from 'vue'
 import { useCategoriesStore } from '@/stores/category'
 
-import ListCategory2 from './ListCategory2.vue';
+import ListSubCategories2 from './ListSubCategories2.vue';
 const storeCategory = useCategoriesStore()
 
 defineProps({

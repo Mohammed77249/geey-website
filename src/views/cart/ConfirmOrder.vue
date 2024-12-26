@@ -265,12 +265,11 @@ const filteredData = ref({
 const localValueId = ref(localStorage.getItem("adressInfoId") );
 const localValueName = ref(localStorage.getItem("adressInfoName"));
 
+
 const updateLocalValue = () => {
   localValueId.value = localStorage.getItem("adressInfoId");
   localValueName.value = localStorage.getItem("adressInfoName");
 };
-
-
 
 const products_for_order = ref([]);
 const handlOrder = async () => {

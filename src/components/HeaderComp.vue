@@ -395,7 +395,6 @@
               :key="index"
               @mouseenter="handleMouseEnter(index)"
               @mouseleave="handleMouseLeave"
-              @mouseover="getID(section.id)"
               :class="{ 'bg-gray-100 text-black': hoveredIndex == index }"
               class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black hover:bg-gray-100 transition-all duration-200"
             >
@@ -544,24 +543,24 @@ const updateHoveredIndex = () => {
 //user icon   Language
 const dropDownStatus = ref(null)
 const isDropdowenStatusVisable = ref(false)
-const closeDropdowenStatus = element => {
-  if (!dropDownStatus.value.contains(element.target)) {
-    isDropdowenStatusVisable.value = false
-  }
-}
+// const closeDropdowenStatus = (element) => {
+//   if (!dropDownStatus.value.contains(element.target)) {
+//     isDropdowenStatusVisable.value = false
+//   }
+// }
 
 //Language icon
 const dropDownLanguage = ref(null)
 const isDropdowenLanguageVisable = ref(false)
-const closeDropdowenLanguage = element => {
-  if (!dropDownLanguage.value.contains(element.target)) {
-    isDropdowenLanguageVisable.value = false
-  }
-}
+// const closeDropdowenLanguage = (element) => {
+//   if (!dropDownLanguage.value.contains(element.target)) {
+//     isDropdowenLanguageVisable.value = false
+//   }
+// }
 
 onMounted(() => {
-  window.addEventListener('click', closeDropdowenStatus)
-  window.addEventListener('click', closeDropdowenLanguage)
+  // window.addEventListener('click', closeDropdowenStatus)
+  // window.addEventListener('click', closeDropdowenLanguage)
   storeSecion.fetchSections(filteredData);
   storeCart.fetchAllProductsInCart();
   updateHoveredIndex();
@@ -570,8 +569,8 @@ onMounted(() => {
 
 })
 onBeforeMount(() => {
-  window.removeEventListener('click', closeDropdowenStatus)
-  window.removeEventListener('click', closeDropdowenLanguage)
+  // window.removeEventListener('click', closeDropdowenStatus)
+  // window.removeEventListener('click', closeDropdowenLanguage)
   clearInterval(intervalId);
 })
 

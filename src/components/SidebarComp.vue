@@ -113,7 +113,7 @@
   <div v-if="isOpen"  :class="{'invisible md:visible bg-white absolute  left-0 w-screen z-50 ':storedLanguage =='ar','invisible md:visible bg-white  absolute right-0 w-screen z-50 ':storedLanguage =='en'}" >
     <div class=" border  h-[450px] ">
 
-      <div @mouseleave="isOpen" class="grid grid-cols-12 ">
+      <div @mouseleave="!isOpen" class="grid grid-cols-12 ">
         <!-- list of item -->
       <div class="col-span-3 md:col-span-2 border-s-2 overflow-y-auto   h-[440px] p-4  custom-scroll " >
         <ul  class="space-y-2 text-gray-700 text-[12px] font-sans">
@@ -243,8 +243,9 @@ const storeSecion = useSectionsStore();
 defineProps({
   isOpen: {
     type: Boolean,
-    default: false,
+    required: true
   },
+
 
 });
 

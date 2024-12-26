@@ -1,34 +1,36 @@
 <template>
-  <div>
-    <div>
-      <div id="dropdownTop" class="mb-2">
-        <ul class="text-sm text-gray-700" aria-labelledby="dropdownTopButton">
-          <li
-            v-for="status in statuses"
-            :key="status.id"
-            class="space-y-2"
+<div>
+      <div>
+        <div
+            id="dropdownTop"
+           class="mt-5"
+            v-if="isDropdowenVisable"
           >
-
+            <ul class=" text-sm text-gray-700" aria-labelledby="dropdownTopButton">
+              <li
+                v-for="subSection in subSectiones"
+                :key="subSection.id"
+                class=" space-y-2 "
+              >
                 <div class="flex items-center justify-between">
                   <div>
                     <input
                     type="radio"
-                    :value="status.id"
-                    :checked="selectedCategories === status.id"
-                    @click="toggleSelection(status.id)"
-                    class=" ml-2 rounded border-gray-300 text-black focus:ring-black"
+                     :value="subSection.id"
+                     :checked="selectedCategories === subSection.id"
+                      @click="toggleChildren(subSection.id)"
+                    class=" ml-2 rounded border-gray-300 text-black  focus:ring-black"
                   />
-                    <label class="cursor-pointer  text-[10px]">{{ status.name }} 2 </label>
+                    <label @click="toggleChildren(subSection.id)" class="cursor-pointer  text-[10px]">{{ subSection.name }} </label>
                   </div>
 
-                   <div  v-if="status.has_children ">
+                  <div  v-if="subSection.has_sub">
                     <button
                       type="button"
-                      @click="toggleGrandchildren(status.id)"
+                      @click="toggleChildren(subSection.id)"
                     >
-
                     <svg
-                      v-if="status.id === tempid"
+                      v-if="subSection.id === tempid"
                         width="15"
                         height="15"
                         viewBox="0 0 24 24"
@@ -43,7 +45,6 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-
                       <svg
                       v-else
                         width="15"
@@ -75,54 +76,56 @@
 
                 </div>
 
-                <div v-if="status.has_children" class="pr-3">
-                   <ListCategory1 v-if="status.id === tempid "  :statuses="storeCategory.getSubCategories" />
+                 <div v-if="subSection.has_sub"  class="px-5">
+                   <ListCatogriesComp v-if="subSection.id === tempid "  :categories="storeSecion.getCategories"  />
                 </div>
 
-          </li>
-        </ul>
+              </li>
+            </ul>
+
+        </div>
       </div>
-    </div>
-  </div>
+</div>
 </template>
 
 <script setup>
-import { useCategoriesStore } from '@/stores/category'
 import { ref } from 'vue'
-import ListCategory1 from './ListCategory1.vue';
-const storeCategory = useCategoriesStore()
-
+import ListCatogriesComp from './ListCatogriesComp.vue';
+import { useSectionsStore } from '@/stores/section'
+const storeSecion = useSectionsStore();
 defineProps({
-  statuses: {
+  isDropdowenVisable: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+
+  subSectiones: {
     type: [],
     default: [],
   },
-})
-const filteredData = ref({
-  categoryId: null,
-  page: 1,
-  perPage: 10,
 });
 
+
+const filteredData = ref({
+  subSectionId: null,
+  page: 1,
+  perPage: 10,
+})
+
 const selectedCategories = ref(null)
-const toggleSelection = (id)=> {
-  selectedCategories.value = selectedCategories.value === id ? null : id;
-};
-
 const tempid = ref(null);
-const toggleGrandchildren = (childId) => {
-  filteredData.value.categoryId = childId
-  if (tempid.value === childId) {
+
+const toggleChildren = (id)=>{
+  if (tempid.value === id) {
     tempid.value = null;
-
+    selectedCategories.value =  null
   } else {
-    tempid.value = childId;
+    selectedCategories.value =  id
+    tempid.value = id;
+    filteredData.value.subSectionId = id
+    storeSecion.fetchCategoriesAndProducetsForSubsetion(filteredData)
   }
-
-  storeCategory.fetchSubCategoryByCategoryID(filteredData)
-
 };
-
-
 
 </script>

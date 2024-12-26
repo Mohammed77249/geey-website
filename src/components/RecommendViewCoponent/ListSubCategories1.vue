@@ -5,32 +5,32 @@
 
               <ul class="text-sm text-gray-700">
                 <li
-                  v-for="(status, index) in statuses"
-                  :key="index"
+                  v-for="subCategory in subCategories"
+                  :key="subCategory.id"
                   class=" space-y-2 "
                 >
                 <div  class="flex items-center  justify-between">
                     <div>
                       <input
                       type="radio"
-                      :value="status.id"
-                      :checked="selectedCategories === status.id"
-                      @click="toggleSelection(status.id)"
+                      :value="subCategory.id"
+                      :checked="selectedCategories === subCategory.id"
+                      @click="toggleGrandchildren(subCategory.id)"
                       class=" ml-2 rounded border-gray-300 text-black  focus:ring-black"
                     />
-                      <label class="cursor-pointer text-[10px]">{{ status.name }} 3</label>
+                      <label class="cursor-pointer text-[10px]"  @click="toggleGrandchildren(subCategory.id)">{{ subCategory.name }}</label>
                     </div>
 
-                    <div  v-if="status.has_children ">
+                    <div  v-if="subCategory.has_children ">
                     <button
                       type="button"
-                      @click="toggleGrandchildren(status.id)"
+                      @click="toggleGrandchildren(subCategory.id)"
                     >
 
                     <svg
-                      v-if="status.id === tempid"
-                        width="15"
-                        height="15"
+                      v-if="subCategory.id === tempid"
+                        width="12"
+                        height="12"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@
                         <path
                           d="M6 12H18"
                           stroke="#292D32"
-                          stroke-width="4"
+                          stroke-width="3"
                           stroke-linecap="round"
                           stroke-linejoin="round"
                         />
@@ -46,8 +46,8 @@
 
                       <svg
                       v-else
-                        width="15"
-                        height="15"
+                        width="12"
+                        height="12"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -55,14 +55,14 @@
                         <path
                           d="M6 12H18"
                           stroke="#292D32"
-                          stroke-width="4"
+                          stroke-width="3"
                           stroke-linecap="round"
                           stroke-linejoin="round"
                         />
                         <path
                           d="M12 18V6"
                           stroke="#292D32"
-                          stroke-width="4"
+                          stroke-width="3"
                           stroke-linecap="round"
                           stroke-linejoin="round"
                         />
@@ -75,8 +75,8 @@
 
                   </div>
 
-                  <div v-if="status.has_children "  class="pr-2">
-                    <ListCategory2 v-if="status.id === tempid " :id="status.id" :statuses="storeCategory.getSubCategories" />
+                  <div v-if="subCategory.has_children "  class="pr-2">
+                    <ListSubCategories2 v-if="subCategory.id === tempid " :id="subCategory.id" :subCategories="storeCategory.getSubCategories" />
                   </div>
 
                 </li>
@@ -89,14 +89,15 @@
 
   <script setup>
   import { ref } from 'vue'
-import { useCategoriesStore } from '@/stores/category'
-import ListCategory2 from './ListCategory2.vue';
-const storeCategory = useCategoriesStore()
+import { useSectionsStore } from '@/stores/section'
+import ListSubCategories2 from './ListSubCategories2.vue';
+const storeSecion = useSectionsStore()
 
   defineProps({
-    statuses: {
+    subCategories: {
       type: [],
       default: [],
+
     },
   });
 
@@ -108,37 +109,21 @@ const storeCategory = useCategoriesStore()
 
 
 const selectedCategories = ref(null)
-const toggleSelection = (id)=> {
-  selectedCategories.value = selectedCategories.value === id ? null : id;
-};
 
 const tempid = ref(null);
 
 const toggleGrandchildren = (childId) => {
-  filteredData.value.categoryId = childId
+
   if (tempid.value === childId) {
     tempid.value = null;
+    selectedCategories.value = null
 
   } else {
     tempid.value = childId;
+    filteredData.value.categoryId = childId
+    selectedCategories.value = childId
+    storeSecion.fetchSubCategoryByCategoryID(filteredData)
   }
-
-
-  storeCategory.fetchSubCategoryByCategoryID(filteredData)
-
 };
-
-// const loadChildren = (parentId) => {
-//   filteredData.value.categoryId = parentId
-//   if (tempid.value === parentId) {
-//     tempid.value = null;
-
-//   } else {
-//     tempid.value = parentId;
-//   }
-//   storeCategory.fetchSubCategoryByCategoryID(filteredData)
-// };
-
-
 
   </script>

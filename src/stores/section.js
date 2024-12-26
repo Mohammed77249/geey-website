@@ -6,7 +6,8 @@ export const useSectionsStore = defineStore('sections', {
     sections:[],
     allsections:[],
     subsections: [],
-    subsectionsforfilter: [],
+    // subsectionsforfilter: [],
+    peoductFormAllSection:[],
     categories: [],
     subcategories: [],
     products: [],
@@ -18,21 +19,24 @@ export const useSectionsStore = defineStore('sections', {
     productDetails: null,
     loading: false,
     error: null,
-    page: 2, // الصفحة الحالية
-    perPage: 10, // عدد المنتجات لكل صفحة
+    page: 1,
+    perPage: 10,
     hasMore: true,
 
   }),
   getters: {
     getSections: state => state.sections,
     getSubSections: state => state.subsections,
-    getSubSectionsForFilter: state => state.subsectionsforfilter,
+    getSubCategories: state => state.subcategories,
+    // getSubSectionsForFilter: state => state.subsectionsforfilter,
     getAllSections: state => state.allsections,
     getProducts: state => state.products,
+    getAllProductsFromAllSection: state => state.peoductFormAllSection,
     getCategories: state => state.categories,
     },
   actions: {
 
+    // onlay section
     async fetchSections(data) {
       this.loading = true;
       this.error = null;
@@ -48,6 +52,7 @@ export const useSectionsStore = defineStore('sections', {
       }
     },
 
+    // sections && categoeies && product
     async fetchAllSections(data) {
       this.loading = true;
       this.error = null;
@@ -56,7 +61,7 @@ export const useSectionsStore = defineStore('sections', {
         this.allsections = response.data.sections;
 
         this.categories = response.data.categories;
-        this.products = response.data.products.data;
+        this.peoductFormAllSection = response.data.products.data;
         this.totalProducts.currentPage = response.data.products.current_page
         this.totalProducts.totalItems = response.data.products.total
         this.totalProducts.totalPages = response.data.products.last_page
@@ -69,37 +74,38 @@ export const useSectionsStore = defineStore('sections', {
       }
     },
 
+    // get subsections for section Id  && categories && product
     async fetchSubSectionBySectionID(data) {
-      if (this.loading || !this.hasMore) return;
+      // if (this.loading || !this.hasMore) return;
       this.loading = true;
       this.error = null;
 
       try {
-        // const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
-        const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${this.page}&perPage=${this.perPage}`);
+        const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
+        // const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${this.page}&perPage=${this.perPage}`);
 
         this.subsections = response.data.sections;
-        this.sections.forEach(section => {
-          if (section.categories && section.categories.length > 0) {
-            this.categories.push(...section.categories);
-          }
-        });
+        // this.subsections.forEach(section => {
+        //   if (section.categories && section.categories.length > 0) {
+        //     this.categories.push(...section.categories);
+        //   }
+        // });
 
-        const newProducts = response.data.products.data
-        if (newProducts.length > 0) {
-          this.products.push(...newProducts);
-          this.totalProducts.currentPage = response.data.products.current_page
-          this.totalProducts.totalItems = response.data.products.total
-          this.totalProducts.totalPages = response.data.products.last_page
-          this.page++;
-        } else {
-          this.hasMore = false; 
-        }
+        // const newProducts = response.data.products.data
+        // if (newProducts.length > 0) {
+        //   this.products.push(...newProducts);
+        //   this.totalProducts.currentPage = response.data.products.current_page
+        //   this.totalProducts.totalItems = response.data.products.total
+        //   this.totalProducts.totalPages = response.data.products.last_page
+        //   this.page++;
+        // } else {
+        //   this.hasMore = false;
+        // }
 
-        // this.products = response.data.products.data;
-        // this.totalProducts.currentPage = response.data.products.current_page
-        // this.totalProducts.totalItems = response.data.products.total
-        // this.totalProducts.totalPages = response.data.products.last_page
+        this.products = response.data.products.data;
+        this.totalProducts.currentPage = response.data.products.current_page
+        this.totalProducts.totalItems = response.data.products.total
+        this.totalProducts.totalPages = response.data.products.last_page
       } catch (error) {
         this.error = 'خطأ أثناء جلب الفئات';
         alert(error(error));
@@ -109,18 +115,14 @@ export const useSectionsStore = defineStore('sections', {
     },
 
 
-    async fetchSubSectionBySectionIDForfilter(data) {
+    //get categories && products for subsection
+    async fetchCategoriesAndProducetsForSubsetion(data) {
       this.loading = true;
       this.error = null;
 
       try {
-        const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
-        this.subsectionsforfilter = response.data.sections;
-        this.sections.forEach(section => {
-          if (section.categories && section.categories.length > 0) {
-            this.categories.push(...section.categories);
-          }
-        });
+        const response = await axiosIns.get(`categories/get_subsection/${data.value.subSectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
+        this.categories = response.data.categories;
         this.products = response.data.products.data
         this.totalProducts.currentPage = response.data.products.current_page
         this.totalProducts.totalItems = response.data.products.total
@@ -133,6 +135,53 @@ export const useSectionsStore = defineStore('sections', {
         this.loading = false;
       }
     },
+
+
+    async fetchSubCategoryByCategoryID(data) {
+      this.loading = true
+      this.error = null
+
+      try {
+        const response = await axiosIns.get(`categories/${data.value.categoryId}?page=${data.value.page}&perPage=${data.value.perPage}` )
+
+        this.subcategories = response.data.categories
+        this.products = response.data.products.data
+        this.totalProducts.currentPage = response.data.products.current_page
+        this.totalProducts.totalItems = response.data.products.total
+        this.totalProducts.totalPages = response.data.products.last_page
+      } catch (error) {
+        this.error = 'خطأ أثناء جلب الفئات'
+        console.error(error)
+      } finally {
+        this.loading = false
+      }
+    },
+
+
+    // async fetchSubSectionBySectionIDForfilter(data) {
+    //   this.loading = true;
+    //   this.error = null;
+
+    //   try {
+    //     const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
+    //     this.subsectionsforfilter = response.data.sections;
+    //     this.sections.forEach(section => {
+    //       if (section.categories && section.categories.length > 0) {
+    //         this.categories.push(...section.categories);
+    //       }
+    //     });
+    //     this.products = response.data.products.data
+    //     this.totalProducts.currentPage = response.data.products.current_page
+    //     this.totalProducts.totalItems = response.data.products.total
+    //     this.totalProducts.totalPages = response.data.products.last_page
+
+    //   } catch (error) {
+    //     this.error = 'خطأ أثناء جلب الفئات';
+    //     alert(error(error));
+    //   } finally {
+    //     this.loading = false;
+    //   }
+    // },
 
   },
 });

@@ -4,7 +4,7 @@ import axiosIns from '@/plugins/axios'
 export const useCategoriesStore = defineStore('useCategoriesStore', {
   state: () => ({
     allcategories: [],
-    subcategories: null,
+    subcategories: [],
     products: [],
     totalProducts: {
       currentPage: null,
@@ -19,7 +19,6 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
     getCategories: state => state.allcategories,
     getProducts: state => state.products,
     getSubCategories: state => state.subcategories,
-
     getTotalProducts: state => state.totalProducts,
     getProductDetails: state => state.productDetails,
   },
@@ -47,9 +46,9 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
     async fetchSubCategoryByCategoryID(data) {
       this.loading = true
       this.error = null
+
       try {
         const response = await axiosIns.get(`categories/${data.value.categoryId}?page=${data.value.page}&perPage=${data.value.perPage}` )
-
         this.subcategories = response.data.categories
         this.products = response.data.products.data
         this.totalProducts.currentPage = response.data.products.current_page
@@ -62,11 +61,6 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
         this.loading = false
       }
     },
-
-
-
-
-
 
   },
 })

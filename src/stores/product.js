@@ -37,9 +37,9 @@ export const useProductStore = defineStore('useProductStore', {
       try {
         const response = await axiosIns.get(`products?page=${data.value.page}&perPage=${data.value.perPage}`,)
         this.allproduct = response.data
-        this.totalProducts.currentPage = response.data.products.current_page
-        this.totalProducts.totalItems = response.data.products.total
-        this.totalProducts.totalPages = response.data.products.last_page
+        // this.totalProducts.currentPage = response.data.products.current_page
+        // this.totalProducts.totalItems = response.data.products.total
+        // this.totalProducts.totalPages = response.data.products.last_page
       } catch (error) {
         this.error = 'خطأ أثناء جلب الفئات'
         console.error(error)

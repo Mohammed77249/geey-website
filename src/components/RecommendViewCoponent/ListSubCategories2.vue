@@ -4,29 +4,29 @@
       <div>
         <ul class="text-sm text-gray-700">
           <li
-            v-for="(status, index) in statuses"
-            :key="index"
+            v-for="subCategory in subCategories"
+            :key="subCategory.id"
             class="space-y-2"
           >
               <div class="flex items-center justify-between">
                 <div>
                   <input
                     type="radio"
-                    :value="status.id"
-                    :checked="selectedCategories === status.id"
-                    @click="toggleSelection(status.id)"
+                    :value="subCategory.id"
+                    :checked="selectedCategories === subCategory.id"
+                    @click="toggleGrandchildren(subCategory.id)"
                     class="ml-2 rounded border-gray-300 text-black focus:ring-black"
                   />
-                  <label class="cursor-pointer text-[10px]" >{{ status.name }}4
+                  <label class="cursor-pointer text-[10px]" @click="toggleGrandchildren(subCategory.id)" >{{ subCategory.name }}4
                   </label>
                 </div>
 
-                <div v-if="status.has_children">
-                  <button type="button" @click="toggleGrandchildren(status.id)">
+                <div v-if="subCategory.has_children">
+                  <button type="button" @click="toggleGrandchildren(subCategory.id)">
                     <svg
-                      v-if="status.id === tempid"
-                      width="15"
-                      height="15"
+                      v-if="subCategory.id === tempid"
+                      width="12"
+                      height="12"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@
                       <path
                         d="M6 12H18"
                         stroke="#292D32"
-                        stroke-width="4"
+                        stroke-width="3"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       />
@@ -42,8 +42,8 @@
 
                     <svg
                       v-else
-                      width="15"
-                      height="15"
+                      width="12"
+                      height="12"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -51,14 +51,14 @@
                       <path
                         d="M6 12H18"
                         stroke="#292D32"
-                        stroke-width="4"
+                        stroke-width="3"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       />
                       <path
                         d="M12 18V6"
                         stroke="#292D32"
-                        stroke-width="4"
+                        stroke-width="3"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       />
@@ -67,9 +67,9 @@
                 </div>
               </div>
 
-              <div v-if="status.has_children" class="px-5">
-                <ListCategory1
-                  v-if="status.id === tempid" :id="status.id"
+              <div v-if="subCategory.has_children" class="px-5">
+                <ListSubCategories3
+                  v-if="status.id === tempid" :id="subCategory.id"
                   :statuses="storeCategory.getSubCategories"
                 />
               </div>
@@ -82,17 +82,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
+import ListSubCategories3 from './ListSubCategories3.vue';
 import { useCategoriesStore } from '@/stores/category'
-// import ListCategory3 from './ListCategory3.vue';
 const storeCategory = useCategoriesStore()
-
- defineProps({
-  statuses: {
-    type: [],
-    default: [],
-  },
-})
+defineProps({
+    subCategories: {
+      type: [],
+      default: [],
+    },
+  });
 
 const filteredData = ref({
   categoryId: null,
@@ -100,25 +99,19 @@ const filteredData = ref({
   perPage: 10,
 })
 
-
 const selectedCategories = ref(null)
-const toggleSelection = (id)=> {
-  selectedCategories.value = selectedCategories.value === id ? null : id;
-};
-
 const tempid = ref(null)
 const toggleGrandchildren = childId => {
-  filteredData.value.categoryId = childId
+
   if (tempid.value === childId) {
     tempid.value = null
+    selectedCategories.value =null
   } else {
     tempid.value = childId
+    selectedCategories.value = childId
+    filteredData.value.categoryId = childId
+    storeCategory.fetchSubCategoryByCategoryID(filteredData)
   }
-
-  storeCategory.fetchSubCategoryByCategoryID(filteredData)
 }
 
-onMounted(() => {
-  storeCategory.fetchSubCategoryByCategoryID(filteredData)
-})
 </script>

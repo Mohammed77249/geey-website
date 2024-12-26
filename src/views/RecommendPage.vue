@@ -60,8 +60,8 @@
                   </svg>
                 </button>
               </div>
-              <CategoriesComp
-                :statuses="storeSecion.getSubSectionsForFilter"
+              <SubSectionComp
+                :subSectiones="storeSecion.getSubSections"
                 :isDropdowenVisable="isDropdowenCategoryVisable"
               />
             </div>
@@ -579,7 +579,6 @@
             <LoaderDatacomp :is-loader="storeSecion.loading"/>
           </div>
           <div v-else class="mb-10">
-
             <RecomndProductComp :products123="storeSecion.getProducts"  :IdSection="filteredData.sectionId" />
           </div>
         </div>
@@ -590,7 +589,7 @@
 
 <script setup>
 import AdvantageComp from '@/components/RecommendViewCoponent/AdvantageComp.vue'
-import CategoriesComp from '@/components/RecommendViewCoponent/CategoriesComp.vue'
+import SubSectionComp from '@/components/RecommendViewCoponent/SubSectionComp.vue'
 import ColorsComp from '@/components/RecommendViewCoponent/ColorsComp.vue'
 import DesignComp from '@/components/RecommendViewCoponent/DesignComp.vue'
 import PriceRangeComp from '@/components/RecommendViewCoponent/PriceRangeComp.vue'
@@ -708,7 +707,7 @@ const closeDropdowenStatus = element => {
 
 onMounted(() => {
   window.addEventListener('click', closeDropdowenStatus)
-  storeSecion.fetchSubSectionBySectionIDForfilter(filteredData)
+  storeSecion.fetchSubSectionBySectionID(filteredData)
 })
 
 onBeforeMount(() => {
