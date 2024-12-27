@@ -18,7 +18,7 @@
                     @click="toggleSelection(status.id)"
                     class="ml-2 rounded border-gray-300 text-black focus:ring-black"
                   />
-                  <label class="cursor-pointer text-[10px]"
+                  <label class="cursor-pointer text-[8px]  md:text-[10px]"
                     >{{ item.name }}
                   </label>
                 </div>

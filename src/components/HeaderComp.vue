@@ -7,7 +7,7 @@
 
           <RouterLink to="/">
             <div class="flex items-center cursor-pointer ">
-              <span class="text-2xl 2xl:text-4xl font-bold text-primary-900">{{ $t('Jeey') }}</span>
+              <span class="text-xl md:text-2xl 2xl:text-4xl font-bold text-primary-900">{{ $t('Jeey') }}</span>
               <img
                 src="../assets/images/logogeey.svg"
                 alt="SHEIN"

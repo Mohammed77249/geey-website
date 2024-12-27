@@ -21,7 +21,7 @@
                       @click="toggleChildren(subSection.id)"
                     class=" ml-2 rounded border-gray-300 text-black  focus:ring-black"
                   />
-                    <label @click="toggleChildren(subSection.id)" class="cursor-pointer  text-[10px]">{{ subSection.name }} </label>
+                    <label @click="toggleChildren(subSection.id)" class="cursor-pointer text-[8px]  md:text-[10px]">{{ subSection.name }} </label>
                   </div>
 
                   <div  v-if="subSection.has_sub">
@@ -31,8 +31,8 @@
                     >
                     <svg
                       v-if="subSection.id === tempid"
-                        width="15"
-                        height="15"
+                        width="12"
+                        height="12"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -47,8 +47,8 @@
                       </svg>
                       <svg
                       v-else
-                        width="15"
-                        height="15"
+                        width="12"
+                        height="12"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"

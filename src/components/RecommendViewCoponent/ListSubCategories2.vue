@@ -17,7 +17,7 @@
                     @click="toggleGrandchildren(subCategory.id)"
                     class="ml-2 rounded border-gray-300 text-black focus:ring-black"
                   />
-                  <label class="cursor-pointer text-[10px]" @click="toggleGrandchildren(subCategory.id)" >{{ subCategory.name }}4
+                  <label class="cursor-pointer text-[8px]  md:text-[10px]" @click="toggleGrandchildren(subCategory.id)" >{{ subCategory.name }}4
                   </label>
                 </div>
 

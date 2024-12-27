@@ -17,7 +17,7 @@
                     @click="toggleGrandchildren(category.id)"
                     class=" ml-2 rounded border-gray-300 text-black focus:ring-black"
                   />
-                    <label @click="toggleGrandchildren(category.id)" class="cursor-pointer  text-[10px]">{{ category.name }}</label>
+                    <label @click="toggleGrandchildren(category.id)" class="cursor-pointer  text-[8px]  md:text-[10px]">{{ category.name }}</label>
                   </div>
 
                    <div  v-if="category.has_children ">

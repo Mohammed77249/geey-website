@@ -2,7 +2,7 @@
   <div class="mt-6 md:mt-10 px-4 md:px-10">
     <p class="text-gray-500 ">الصفحة الرئيسية / {{ sectionName }} /</p>
     <div class="grid grid-cols-12 md:gap-5 ">
-      <div class="col-span-5 md:col-span-2 mb-5">
+      <div class="col-span-4 md:col-span-2 mb-5">
         <div class="overflow-y-auto h-screen custom-scroll pl-5">
           <p class="font-bold text-[13px] mt-8 mb-5">تصنيف</p>
           <div class="w-full h-[1px] mb-5 bg-gray-200"></div>
@@ -459,7 +459,7 @@
         </div>
       </div>
 
-      <div class="col-span-7 md:col-span-10">
+      <div class="col-span-8 md:col-span-10">
         <div class="mt-6 md:mt-16">
           <div class="flex gap-2 md:gap-5">
             <div ref="dropDownStatus">

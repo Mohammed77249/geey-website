@@ -845,8 +845,8 @@ const handleConfirm = () => {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -881,15 +881,15 @@ const handleConfirm = () => {
 /* تخصيص النقاط (Pagination) */
 .custom-swiper :deep(.swiper-pagination-bullet) {
   background-color: rgba(0, 0, 0, 0.3); /* لون النقاط */
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   opacity: 1;
 }
 
 .custom-swiper :deep(.swiper-pagination-bullet-active) {
   background-color: #8a1538; /* لون النقطة النشطة */
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
 }
 
 
@@ -900,8 +900,8 @@ const handleConfirm = () => {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -937,15 +937,15 @@ const handleConfirm = () => {
 /* تخصيص النقاط (Pagination) */
 .custom-swiper2 :deep(.swiper-pagination-bullet) {
   background-color: rgba(0, 0, 0, 0.3); /* لون النقاط */
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   opacity: 1;
 }
 
 .custom-swiper2 :deep(.swiper-pagination-bullet-active) {
   background-color: #8a1538; /* لون النقطة النشطة */
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
 }
 
 
