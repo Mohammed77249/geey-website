@@ -104,7 +104,7 @@
 
                   <div class=" p-2 w-full h-full ">
                     <div class="bg-gray-100 overflow-x-auto  h-full flex ">
-                      <div v-for="(item,index) in storeCart.getallCarts" :key="index">
+                      <div v-for="(item,index) in storeCart.selectedItems" :key="index">
 
                         <div class="p-2">
                           <div class="w-28 h-32 ">
@@ -273,7 +273,7 @@ const updateLocalValue = () => {
 
 const products_for_order = ref([]);
 const handlOrder = async () => {
-  products_for_order.value = storeCart.getallCarts.map((product) => ({
+  products_for_order.value = storeCart.selectedItems.map((product) => ({
     product_id: product.product_id,
     size_type_id: product.size_id,
     color_id: product.color_id,

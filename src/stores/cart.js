@@ -4,6 +4,8 @@ export const useCartStore = defineStore('cart', {
   state: () => ({
     allCarts: [],
     cartDetails: [],
+    selectedItems:[],
+
     productDetails: null,
     totalProductsDetails: {
       productColors: null,
@@ -39,6 +41,9 @@ export const useCartStore = defineStore('cart', {
       this.isCheckoutEnabled = true;
     },
 
+
+
+
   },
   actions: {
     async fetchProductDetailsByIdForCart(data) {
@@ -63,7 +68,11 @@ export const useCartStore = defineStore('cart', {
       this.error = null
       try {
         const response = await axiosIns.get(`carts?`)
-        this.allCarts = response.data
+        const data =  await response.data;
+        this.allCarts = data.map((product) => ({
+          ...product,
+          selected: false,
+        }));
         this.lengthCart = response.data.length;
       } catch (error) {
         this.error = error.response.data || 'خطأ أثناء جلب الفئات'
@@ -159,5 +168,10 @@ export const useCartStore = defineStore('cart', {
         this.loading = false
       }
     },
+
+     // حفظ العناصر المختارة
+     saveSelectedItems(){
+      this.selectedItems = this.allCarts.filter((product) => product.selected);
+    }
   },
 })

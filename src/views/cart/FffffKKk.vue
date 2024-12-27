@@ -8,13 +8,13 @@
           <h2 class="text-sm   px-5">استخدم الكوبون الآن لتوفير SR15.31</h2>
          </div>
 
-         <div v-if="storeCart.getallCarts.length > 0" class="bg-white w-full h-14 mb-3 flex items-center justify-between px-5">
-          <div class="flex items-center " >
+         <div class="bg-white w-full h-14 mb-3 flex items-center justify-between px-5">
+          <div class="flex items-center ">
             <input type="checkbox"
               v-model="selectAll"
               @change="toggleSelectAll"
               class="h-5 w-7 peer-checked:bg-black  peer-checked:border-black cursor-pointer transition-all duration-300 border border-black rounded-none"/>
-            <h2 class="font-medium text-lg px-2">كل المنتجات ({{ selectedCount }})</h2>
+            <h2 class="font-medium text-lg px-2">كل المنتجات ({{ storeCart.getallCarts.length }})</h2>
           </div>
           <div class="flex items-center gap-1">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,9 +63,9 @@
             <div class="col-span-3 flex gap-2 md:col-span-2">
               <input
                 type="checkbox"
-                v-model="item.selected"
+
                 class="w-4 h-3 text-primary-900"
-                @change="updateSelectAll"
+
               />
               <RouterLink  :to="`/product/${item.product_id}`">
                 <img
@@ -155,12 +155,12 @@
           <div class="text-sm">
             <div class="flex justify-between py-2">
               <span> إجمالي المنتجات:</span>
-              <span> {{ selectedCount }} </span>
+              <span> {{ storeCart.totalItems }} </span>
             </div>
-            <!-- <div class="flex justify-between py-2">
+            <div class="flex justify-between py-2">
               <span>الإجمالي الفرعي:</span>
               <span> YER {{ storeCart.totalPrice }}</span>
-            </div> -->
+            </div>
             <div class="flex justify-between py-2">
               <span>الخصم:</span>
               <span>- YER {{ storeCart.totalDiscount }}</span>
@@ -168,7 +168,7 @@
             <div class="border-t my-4"></div>
             <div class="flex justify-between font-semibold text-lg">
               <span>الإجمالي:</span>
-              <span class="text-primary-900"> YER {{ selectedTotalPrice }}</span>
+              <span class="text-primary-900"> YER {{ storeCart.finalPrice }}</span>
             </div>
           </div>
           <button
@@ -238,7 +238,7 @@
   </div>
 </template>
 <script setup>
-import { ref,onMounted,computed } from "vue";
+import { ref,onMounted } from "vue";
 import { useCartStore } from '@/stores/cart'
 import DialogUpdateCart from "@/components/DialogUpdateCart.vue";
 import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
@@ -252,27 +252,6 @@ const filteredData = ref({
 })
 
 
-const selectAll = ref(false);
-
-const toggleSelectAll = () => {
-  storeCart.allCarts.forEach((product) => {
-    product.selected = selectAll.value;
-  });
-};
-
-// عدد المنتجات المختارة
-const selectedCount = computed(() =>
-storeCart.allCarts.filter((product) => product.selected).length
-);
-
-// إجمالي السعر بناءً على المنتجات المحددة
-const selectedTotalPrice = computed(() =>
-storeCart.allCarts.filter((product) => product.selected).reduce((sum, product) => sum + product.product_price * product.quantity, 0)
-);
-
-const updateSelectAll = () => {
-  selectAll.value = storeCart.allCarts.every((product) => product.selected);
-};
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -341,17 +320,8 @@ const removeItem = async(cart_id) => {
 };
 
 const checkout = () => {
-  const selectedProducts = storeCart.allCarts.filter((product) => product.selected);
-
-  if (selectedProducts.length === 0) {
-    alert("لم تقم باختيار أي منتجات!");
-    return;
-  }else{
-    alert("انتقال إلى صفحة تاكيد الطلب");
-    storeCart.saveSelectedItems();
-    storeCart.enableCheckout();
-  }
-
+  alert("انتقال إلى صفحة تاكيد الطلب");
+  storeCart.enableCheckout();
 
 };
 </script>

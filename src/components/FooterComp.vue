@@ -59,22 +59,22 @@
               <h3 class="text-xs text-black font-semibold mb-4">{{ $t('Follow us on') }}</h3>
               <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5">
                 <a href="#" class="text-gray-900 hover:text-white">
-                  <img src="/src/assets/images/bootsrap.svg" alt="App Store" class="w-7 text-black" />
+                  <img src="/src/assets/images/bootsrap.svg" alt="App Store" class="w-5 lg:w-7 text-black" />
                 </a>
                 <a href="#" class="text-gray-900 hover:text-white">
-                  <img src="/src/assets/images/facebook.svg" alt="App Store" class="w-7 text-black" />
+                  <img src="/src/assets/images/facebook.svg" alt="App Store" class="w-5 lg:w-7 text-black" />
                 </a>
                 <a href="#" class="text-gray-900 hover:text-white">
-                  <img src="/src/assets/images/google-play.svg" alt="App Store" class="w-7 text-black" />
+                  <img src="/src/assets/images/google-play.svg" alt="App Store" class="w-5 lg:w-7 text-black" />
                 </a>
                 <a href="#" class="text-gray-900 hover:text-white">
-                  <img src="/src/assets/images/snapchat.svg" alt="App Store" class="w-7 text-black" />
+                  <img src="/src/assets/images/snapchat.svg" alt="App Store" class="w-5 lg:w-7 text-black" />
                 </a>
                 <a href="#" class="text-gray-900 hover:text-white">
-                  <img src="/src/assets/images/whatsapp.svg" alt="App Store" class="w-7 text-black" />
+                  <img src="/src/assets/images/whatsapp.svg" alt="App Store" class="w-5 lg:w-7 text-black" />
                 </a>
                 <a href="#" class="text-gray-900 hover:text-white">
-                  <img src="/src/assets/images/youtube.svg" alt="App Store" class="w-7 text-black" />
+                  <img src="/src/assets/images/youtube.svg" alt="App Store" class="w-5 lg:w-7 text-black" />
                 </a>
               </div>
             </div>
@@ -84,10 +84,10 @@
               <h3 class="text-xs text-black font-semibold ">{{ $t('App') }}</h3>
                 <div class="flex gap-5  mt-4">
                   <a href="#">
-                    <img src="/src/assets/images/android.svg" alt="Google Play" class="w-7 text-primary-900" />
+                    <img src="/src/assets/images/android.svg" alt="Google Play" class="w-5 lg:w-7 text-primary-900" />
                   </a>
                   <a href="#">
-                    <img src="/src/assets/images/apple.svg" alt="App Store" class="w-7 text-primary-900" />
+                    <img src="/src/assets/images/apple.svg" alt="App Store" class="w-5 lg:w-7 text-primary-900" />
                   </a>
                 </div>
             </div>
