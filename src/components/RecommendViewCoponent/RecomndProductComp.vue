@@ -2,14 +2,14 @@
 <template>
   <div class="mx-auto pl-2 pr-2 ">
 
-    <div v-if="storeSecion.getProducts !== null"   class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 ">
+    <div v-if="storeSecion.getProducts !== null"   class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1 ">
     <div
       v-for="product in storeSecion.getProducts"
       :key="product.id"
       class="p-1 mt-4"
     >
     <RouterLink :to="`/product/${product.id}`">
-    <div class="cursor-pointe w-[full] h-[150px] md:h-[350px] border " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
+    <div class="cursor-pointe w-[full] h-[200px] md:h-[350px] border " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img v-if="product.main_imags != null " :src="hoverId === product.id && isHover && product.main_imags[1].image  ? product.main_imags[1].image : product.main_imags[0].image " alt="no image" class="w-full h-full object-cover transition duration-300 ease-in-out" />
 
     </div>

@@ -84,10 +84,10 @@
               <h3 class="text-xs text-black font-semibold ">{{ $t('App') }}</h3>
                 <div class="flex gap-5  mt-4">
                   <a href="#">
-                    <img src="/src/assets/images/android.svg" alt="Google Play" class="w-7 text-black" />
+                    <img src="/src/assets/images/android.svg" alt="Google Play" class="w-7 text-primary-900" />
                   </a>
                   <a href="#">
-                    <img src="/src/assets/images/apple.svg" alt="App Store" class="w-7 text-black" />
+                    <img src="/src/assets/images/apple.svg" alt="App Store" class="w-7 text-primary-900" />
                   </a>
                 </div>
             </div>
@@ -105,7 +105,7 @@
             />
             <button
               type="submit"
-              class="bg-black text-white  px-2 md:px-4 py-3 hover:bg-gray-800"
+              class="bg-primary-900 text-white  px-2 md:px-4 py-3 hover:bg-gray-800"
             >
             {{ $t('subscription') }}
             </button>
@@ -118,7 +118,7 @@
             />
             <button
               type="submit"
-              class="bg-black text-white px-2 md:px-4 py-3 hover:bg-gray-800"
+              class="bg-primary-900 text-white px-2 md:px-4 py-3 hover:bg-gray-800"
             >
               {{ $t('subscription') }}
             </button>

@@ -61,7 +61,7 @@
             :space-between="10"
             navigation
             pagination
-            :class="{'rounded-lg custom-swiper border w-[300px] h-[400px] md:h-[600px] lg:w-[450px] lg:h-[700px] xl:w-[600px] xl:h-[800px] 2xl:w-[700px] 2xl:h-[900px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
+            :class="{'rounded-lg custom-swiper border w-[250px] h-[250px] md:h-[600px] lg:w-[450px] lg:h-[700px] xl:w-[600px] xl:h-[800px] 2xl:w-[700px] 2xl:h-[900px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
              @swiper="setSwiperInstance"
           >
             <swiper-slide v-for="(image, index) in selectedColorImages" :key="index">
