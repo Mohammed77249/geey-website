@@ -57,7 +57,7 @@
             <!-- follow us -->
             <div class="col-span-3">
               <h3 class="text-xs text-black font-semibold mb-4">{{ $t('Follow us on') }}</h3>
-              <div class="flex gap-5">
+              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5">
                 <a href="#" class="text-gray-900 hover:text-white">
                   <img src="/src/assets/images/bootsrap.svg" alt="App Store" class="w-7 text-black" />
                 </a>
