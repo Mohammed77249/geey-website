@@ -202,7 +202,7 @@ defineExpose({
     class="fixed inset-0 flex items-center justify-center z-50"
   >
     <div
-      class="flex flex-col items-center h-full max-h-[600px] p-2 bg-gray-200 w-full max-w-2xl"
+      class="flex flex-col items-center h-full md:max-h-[600px] p-2 bg-gray-200 w-full max-w-2xl"
     >
       <div class="flex justify-end items-center">
         <button

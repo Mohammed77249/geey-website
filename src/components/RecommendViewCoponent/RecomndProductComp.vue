@@ -1,8 +1,8 @@
 
 <template>
-  <div class="mx-auto pl-2 pr-2 ">
+  <div class="mx-auto pl-2 pr-2 " >
 
-    <div v-if="storeSecion.getProducts !== null"   class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1 ">
+    <div v-if="storeSecion.getProducts !== null"    class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1 ">
     <div
       v-for="product in storeSecion.getProducts"
       :key="product.id"
@@ -66,7 +66,14 @@
 
         </div>
     </div>
-          <!-- مؤشر التحميل -->
+
+  </div>
+  <div v-else>
+    NO DATA
+  </div>
+
+  <DialogAddToCart v-if="filteredData != null" :IdProduct="filteredData"  :is-open="isDialogOpen"  @close="closeDialog"  />
+            <!-- مؤشر التحميل -->
             <!-- <div v-if="storeSecion.loading" class="text-center mt-4">
               <p>جارٍ تحميل المزيد من المنتجات...</p>
               <LoaderDatacomp :is-loader="storeSecion.loading"/>
@@ -76,23 +83,6 @@
             <!-- <div v-if="!storeSecion.hasMore && !storeSecion.loading" class="text-center mt-4">
               <p>تم الوصول إلى نهاية القائمة.</p>
             </div> -->
-
-  </div>
-  <div v-else>
-    NO DATA
-  </div>
-
-  <DialogAddToCart v-if="filteredData != null" :IdProduct="filteredData"  :is-open="isDialogOpen"  @close="closeDialog"  />
-            <!-- مؤشر التحميل -->
-            <div v-if="storeSecion.loading" class="text-center mt-4">
-              <p>جارٍ تحميل المزيد من المنتجات...</p>
-              <LoaderDatacomp :is-loader="storeSecion.loading"/>
-            </div>
-
-            <!-- رسالة نهاية القائمة -->
-            <div v-if="!storeSecion.hasMore && !storeSecion.loading" class="text-center mt-4">
-              <p>تم الوصول إلى نهاية القائمة.</p>
-            </div>
 
   </div>
 
@@ -122,7 +112,7 @@ const filteredData = ref(null)
 
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
-import LoaderDatacomp from '../LoaderDatacomp.vue';
+// import LoaderDatacomp from '../LoaderDatacomp.vue';
 const authStore = useAuthStore();
 const router = useRouter();
 const openDialog = (id) => {

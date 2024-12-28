@@ -19,7 +19,9 @@ export const useSectionsStore = defineStore('sections', {
     productDetails: null,
     loading: false,
     error: null,
-    page: 1,
+
+    lastPage: null,
+    currentPage: 1,
     perPage: 10,
     hasMore: true,
 
@@ -82,9 +84,9 @@ export const useSectionsStore = defineStore('sections', {
 
       try {
         const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
-        // const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${this.page}&perPage=${this.perPage}`);
 
-        this.subsections = response.data.sections;
+        this.subsections = await response.data.sections;
+
         // this.subsections.forEach(section => {
         //   if (section.categories && section.categories.length > 0) {
         //     this.categories.push(...section.categories);
@@ -99,6 +101,18 @@ export const useSectionsStore = defineStore('sections', {
         //   this.totalProducts.totalPages = response.data.products.last_page
         //   this.page++;
         // } else {
+        //   this.hasMore = false;
+        // }
+
+        // const datass = await  response.data.products;
+
+        // تحديث البيانات
+        // this.products = [...this.products, ...datass.data];
+        // this.lastPage = datass.last_page || Math.ceil(datass.total / this.perPage);
+        // this.currentPage++;
+
+        // تحقق إذا انتهت جميع المنتجات
+        // if (this.currentPage > this.lastPage) {
         //   this.hasMore = false;
         // }
 

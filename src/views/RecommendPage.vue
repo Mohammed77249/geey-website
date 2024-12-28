@@ -460,18 +460,18 @@
       </div>
 
       <div class="col-span-7 md:col-span-10">
-        <div class="mt-6 md:mt-16">
+        <div class="mt-6 md:mt-16 px-2">
           <div class="flex gap-2 md:gap-5">
             <div ref="dropDownStatus">
               <button
-                class="text-[#979797] w-[180px] md:w-[220px] h-[30px] md:h-[40px] border border-gray-900 bg-white font-medium rounded-lg text-[10px] md:text-[12px] px-5 py-2.5 text-center inline-flex items-center justify-between"
+                class="text-[#979797] overflow-x-auto w-[150px] md:w-[220px] h-[30px] md:h-[40px] border border-gray-900 bg-white font-medium rounded-lg text-[10px] md:text-[12px] px-5 py-2.5 text-center inline-flex items-center justify-between"
                 type="button"
                 @click="isDropdowenStatusVisable = true"
                 @mouseenter="isDropdowenStatusVisable = true"
                 @mouseleave="isDropdowenStatusVisable = false"
               >
                 صنف ب
-                <p class="text-black text-[10px]">{{ selectedStatus }}</p>
+                <p class="text-black text-[10px] ">{{ selectedStatus }}</p>
 
                 <svg
                   aria-hidden="true"
@@ -499,7 +499,7 @@
                 v-if="isDropdowenStatusVisable"
               >
                 <ul
-                  class="h-48 px-3 pb-3 overflow-y-auto text-[12px] text-gray-700"
+                  class="h-48 px-3 pb-3 overflow-y-auto text-[10px] text-gray-700"
                   aria-labelledby="dropdownSearchButton"
                 >
                   <li
