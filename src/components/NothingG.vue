@@ -1018,3 +1018,529 @@ body {
 </style>
 
 
+
+
+
+ <!-- my reqest -->
+
+ <template>
+  <div class="flex min-h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <aside class="w-1/4 bg-white shadow p-4">
+      <h2 class="text-lg font-bold mb-4">المركز الشخصي</h2>
+      <ul class="space-y-2 text-gray-700">
+        <li><button class="flex justify-between w-full p-2 hover:bg-gray-100">حسابي <span>+</span></button></li>
+        <li><button class="flex justify-between w-full p-2 hover:bg-gray-100">ممتلكاتي <span>+</span></button></li>
+        <li><button class="flex justify-between w-full p-2 hover:bg-gray-100">طلبي <span>+</span></button></li>
+        <li><button class="flex justify-between w-full p-2 hover:bg-gray-100">اهتمامي <span>+</span></button></li>
+        <li><button class="flex justify-between w-full p-2 hover:bg-gray-100">خدمة العملاء <span>+</span></button></li>
+        <li><button class="flex justify-between w-full p-2 hover:bg-gray-100">سياسات <span>+</span></button></li>
+        <li><button class="flex justify-between w-full p-2 hover:bg-gray-100">تسجيل الخروج <span>+</span></button></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 space-y-6">
+      <!-- Profile -->
+      <section class="bg-white shadow p-4 rounded">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-lg font-bold">مرحباً، mhmdh7550</h2>
+            <p class="text-sm text-gray-500">S0 🌟</p>
+          </div>
+          <button class="bg-orange-100 text-orange-600 px-4 py-2 rounded">انضم الآن</button>
+        </div>
+        <div class="mt-4 grid grid-cols-4 gap-4">
+          <div class="text-center">
+            <p class="text-gray-500">كوبونات</p>
+            <p class="text-lg font-bold">***</p>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-500">نقاط</p>
+            <p class="text-lg font-bold">***</p>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-500">محفظة</p>
+            <p class="text-lg font-bold">بطاقة</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customer Service -->
+      <section class="bg-white shadow p-4 rounded">
+        <h2 class="text-lg font-bold mb-4">خدمة العملاء</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <button class="bg-gray-100 p-4 rounded flex items-center space-x-2">
+            📝 <span>سجلات الخدمة</span>
+          </button>
+          <button class="bg-gray-100 p-4 rounded flex items-center space-x-2">
+            📧 <span>رسائلي</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Wishlist -->
+      <section class="bg-white shadow p-4 rounded">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-bold">قائمة الإرادة</h2>
+          <button class="text-sm text-blue-500">0 منتج &gt;</button>
+        </div>
+      </section>
+
+      <!-- Orders -->
+      <section class="bg-white shadow p-4 rounded">
+        <h2 class="text-lg font-bold mb-4">طلبي</h2>
+        <div class="grid grid-cols-4 gap-4 text-center">
+          <div>
+            <p class="text-gray-500">غير مدفوع</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+          <div>
+            <p class="text-gray-500">قيد التجهيز</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+          <div>
+            <p class="text-gray-500">تم الشحن</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+          <div>
+            <p class="text-gray-500">المنتجات المسترجعة</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recently Viewed -->
+      <section class="bg-white shadow p-4 rounded">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-bold">شُوهِد مؤخراً</h2>
+          <button class="text-sm text-blue-500">أكثر &gt;</button>
+        </div>
+        <div class="mt-4 flex space-x-4 overflow-x-auto">
+          <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded" alt="product" />
+          <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded" alt="product" />
+          <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded" alt="product" />
+        </div>
+      </section>
+    </main>
+  </div>
+</template>
+
+<script setup>
+// يمكن تحسين البيانات بشكل ديناميكي لاحقاً عبر API
+</script>
+
+<style>
+/* أضف أي تخصيص هنا */
+</style>
+
+
+
+<!-- ,y request 2 -->
+<template>
+  <div class="flex min-h-screen bg-gray-100">
+
+    <!-- Sidebar -->
+    <aside class="w-1/6 bg-white shadow  p-6 space-y-6">
+      <h2 class="text-lg font-bold mb-4">المركز الشخصي</h2>
+      <ul class="space-y-4">
+        <li>
+          <h3 class="font-semibold text-gray-700">حسابي</h3>
+          <ul class="mt-2 space-y-2 text-gray-600 text-sm">
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>🏅</span> <span>Shein Club</span>
+              </button>
+            </li>
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>⭐</span> <span>VIP شي إن</span>
+              </button>
+            </li>
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>📍</span> <span>ملفي الشخصي</span>
+              </button>
+            </li>
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>💳</span> <span>خيارات الدفع</span>
+              </button>
+            </li>
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>📏</span> <span>القياسات الخاصة بي</span>
+              </button>
+            </li>
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>🔧</span> <span>إدارة حسابي</span>
+              </button>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <button class="flex justify-between w-full p-2 hover:bg-gray-100">ممتلكاتي <span>+</span></button>
+        </li>
+        <li>
+          <button class="flex justify-between w-full p-2 hover:bg-gray-100">طلبي <span>+</span></button>
+        </li>
+        <li>
+          <button class="flex justify-between w-full p-2 hover:bg-gray-100">اهتمامي <span>+</span></button>
+        </li>
+        <li>
+          <button class="flex justify-between w-full p-2 hover:bg-gray-100">خدمة العملاء <span>+</span></button>
+        </li>
+        <li>
+          <button class="flex justify-between w-full p-2 hover:bg-gray-100">السياسات <span>+</span></button>
+        </li>
+        <li>
+          <button class="flex justify-between w-full p-2 hover:bg-gray-100">تسجيل الخروج <span>+</span></button>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 space-y-6">
+      <!-- Header Section -->
+      <section class="bg-white shadow p-4 rounded">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-lg font-bold">مرحباً، mhmdh7550</h2>
+            <p class="text-sm text-gray-500">S0 🌟</p>
+          </div>
+          <button class="bg-orange-100 text-orange-600 px-4 py-2 rounded">انضم الآن</button>
+        </div>
+        <div class="mt-4 grid grid-cols-4 gap-4">
+          <div class="text-center">
+            <p class="text-gray-500">كوبونات</p>
+            <p class="text-lg font-bold">***</p>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-500">نقاط</p>
+            <p class="text-lg font-bold">***</p>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-500">محفظة</p>
+            <p class="text-lg font-bold">بطاقة</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customer Service -->
+      <section class="bg-white shadow p-4 rounded">
+        <h2 class="text-lg font-bold mb-4">خدمة العملاء</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <button class="bg-gray-100 p-4 rounded flex items-center space-x-2">
+            📝 <span>سجلات الخدمة</span>
+          </button>
+          <button class="bg-gray-100 p-4 rounded flex items-center space-x-2">
+            📧 <span>رسائلي</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Wishlist -->
+      <section class="bg-white shadow p-4 rounded">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-bold">قائمة الإرادة</h2>
+          <button class="text-sm text-blue-500">0 منتج &gt;</button>
+        </div>
+      </section>
+
+      <!-- Orders -->
+      <section class="bg-white shadow p-4 rounded">
+        <h2 class="text-lg font-bold mb-4">طلبي</h2>
+        <div class="grid grid-cols-4 gap-4 text-center">
+          <div>
+            <p class="text-gray-500">غير مدفوع</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+          <div>
+            <p class="text-gray-500">قيد التجهيز</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+          <div>
+            <p class="text-gray-500">تم الشحن</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+          <div>
+            <p class="text-gray-500">المنتجات المسترجعة</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recently Viewed -->
+      <section class="bg-white shadow p-4 rounded">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-bold">شُوهِد مؤخراً</h2>
+          <button class="text-sm text-blue-500">أكثر &gt;</button>
+        </div>
+        <div class="mt-4 flex space-x-4 overflow-x-auto">
+          <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded" alt="product" />
+          <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded" alt="product" />
+          <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded" alt="product" />
+        </div>
+      </section>
+
+    </main>
+    <main class="flex-2 p-6 space-y-6">
+      <!-- Header Section -->
+      <section class="bg-white shadow p-4 rounded">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-lg font-bold">مرحباً، mhmdh7550</h2>
+            <p class="text-sm text-gray-500">S0 🌟</p>
+          </div>
+          <button class="bg-orange-100 text-orange-600 px-4 py-2 rounded">انضم الآن</button>
+        </div>
+        <div class="mt-4 grid grid-cols-4 gap-4">
+          <div class="text-center">
+            <p class="text-gray-500">كوبونات</p>
+            <p class="text-lg font-bold">***</p>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-500">نقاط</p>
+            <p class="text-lg font-bold">***</p>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-500">محفظة</p>
+            <p class="text-lg font-bold">بطاقة</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customer Service -->
+      <section class="bg-white shadow p-4 rounded">
+        <h2 class="text-lg font-bold mb-4">خدمة العملاء</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <button class="bg-gray-100 p-4 rounded flex items-center space-x-2">
+            📝 <span>سجلات الخدمة</span>
+          </button>
+          <button class="bg-gray-100 p-4 rounded flex items-center space-x-2">
+            📧 <span>رسائلي</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Wishlist -->
+      <section class="bg-white shadow p-4 rounded">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-bold">قائمة الإرادة</h2>
+          <button class="text-sm text-blue-500">0 منتج &gt;</button>
+        </div>
+      </section>
+
+      <!-- Orders -->
+      <section class="bg-white shadow p-4 rounded">
+        <h2 class="text-lg font-bold mb-4">طلبي</h2>
+        <div class="grid grid-cols-4 gap-4 text-center">
+          <div>
+            <p class="text-gray-500">غير مدفوع</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+          <div>
+            <p class="text-gray-500">قيد التجهيز</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+          <div>
+            <p class="text-gray-500">تم الشحن</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+          <div>
+            <p class="text-gray-500">المنتجات المسترجعة</p>
+            <p class="text-lg font-bold">0</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recently Viewed -->
+      <section class="bg-white shadow p-4 rounded">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-bold">شُوهِد مؤخراً</h2>
+          <button class="text-sm text-blue-500">أكثر &gt;</button>
+        </div>
+        <div class="mt-4 flex space-x-4 overflow-x-auto">
+          <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded" alt="product" />
+          <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded" alt="product" />
+          <img src="https://via.placeholder.com/100" class="w-24 h-24 rounded" alt="product" />
+        </div>
+      </section>
+
+    </main>
+  </div>
+</template>
+
+<script setup>
+// البيانات يمكن أن تكون ديناميكية لاحقاً باستخدام API
+</script>
+
+<style>
+/* أضف تخصيصات إضافية عند الحاجة */
+</style>
+
+
+<!-- myrequest 3 -->
+<template>
+  <div class="grid grid-cols-12 gap-4 min-h-screen bg-gray-100">
+    <!-- Right Sidebar -->
+    <aside class="col-span-2 bg-white shadow p-4">
+      <h2 class="text-lg font-bold mb-4">المركز الشخصي</h2>
+      <ul class="space-y-4">
+        <!-- حسابي -->
+        <li>
+          <div class="flex justify-between items-center cursor-pointer" @click="toggleSection('account')">
+            <h3 class="font-semibold text-gray-700">حسابي</h3>
+            <span>{{ sections.account ? '-' : '+' }}</span>
+          </div>
+          <ul v-if="sections.account" class="mt-2 space-y-2 text-gray-600 text-sm">
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>🏅</span> <span>Shein Club</span>
+              </button>
+            </li>
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>⭐</span> <span>VIP شي إن</span>
+              </button>
+            </li>
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>📍</span> <span>ملفي الشخصي</span>
+              </button>
+            </li>
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>💳</span> <span>خيارات الدفع</span>
+              </button>
+            </li>
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>📏</span> <span>القياسات الخاصة بي</span>
+              </button>
+            </li>
+            <li>
+              <button class="flex items-center space-x-2 hover:text-blue-500">
+                <span>🔧</span> <span>إدارة حسابي</span>
+              </button>
+            </li>
+          </ul>
+        </li>
+
+        <!-- ممتلكاتي -->
+        <li>
+          <div class="flex justify-between items-center cursor-pointer" @click="toggleSection('properties')">
+            <h3 class="font-semibold text-gray-700">ممتلكاتي</h3>
+            <span>{{ sections.properties ? '-' : '+' }}</span>
+          </div>
+          <ul v-if="sections.properties" class="mt-2 space-y-2 text-gray-600 text-sm">
+            <li>عنصر ممتلكاتي 1</li>
+            <li>عنصر ممتلكاتي 2</li>
+          </ul>
+        </li>
+
+        <!-- طلبي -->
+        <li>
+          <div class="flex justify-between items-center cursor-pointer" @click="toggleSection('orders')">
+            <h3 class="font-semibold text-gray-700">طلبي</h3>
+            <span>{{ sections.orders ? '-' : '+' }}</span>
+          </div>
+          <ul v-if="sections.orders" class="mt-2 space-y-2 text-gray-600 text-sm">
+            <li>طلب 1</li>
+            <li>طلب 2</li>
+          </ul>
+        </li>
+
+        <!-- إضافة المزيد من الأقسام -->
+      </ul>
+    </aside>
+
+    <!-- باقي الصفحة -->
+    <main class="col-span-10 bg-white shadow p-6">
+      <!-- المحتوى هنا -->
+      <h1>محتوى الصفحة الرئيسية</h1>
+    </main>
+  </div>
+</template>
+
+<script setup>
+import { reactive } from 'vue';
+
+// حالة الأقسام المفتوحة/المغلقة
+const sections = reactive({
+  account: false,
+  properties: false,
+  orders: false,
+});
+
+// دالة تبديل حالة القسم
+const toggleSection = (section) => {
+  sections[section] = !sections[section];
+};
+</script>
+
+<style>
+/* تخصيصات إضافية */
+</style>
+
+
+ <!-- Right Sidebar -->
+ <aside class="col-span-3 bg-white  p-4 ">
+  <h2 class="text-lg font-bold mb-4">المركز الشخصي</h2>
+  <ul class="space-y-4">
+    <li>
+      <h3 class="font-semibold text-gray-700">حسابي</h3>
+      <ul class="mt-2 space-y-2 text-gray-600 text-sm">
+        <li>
+          <button class="flex items-center space-x-2 hover:text-blue-500">
+            <span>🏅</span> <span>Shein Club</span>
+          </button>
+        </li>
+        <li>
+          <button class="flex items-center space-x-2 hover:text-blue-500">
+            <span>⭐</span> <span>VIP شي إن</span>
+          </button>
+        </li>
+        <li>
+          <button class="flex items-center space-x-2 hover:text-blue-500">
+            <span>📍</span> <span>ملفي الشخصي</span>
+          </button>
+        </li>
+        <li>
+          <button class="flex items-center space-x-2 hover:text-blue-500">
+            <span>💳</span> <span>خيارات الدفع</span>
+          </button>
+        </li>
+        <li>
+          <button class="flex items-center space-x-2 hover:text-blue-500">
+            <span>📏</span> <span>القياسات الخاصة بي</span>
+          </button>
+        </li>
+        <li>
+          <button class="flex items-center space-x-2 hover:text-blue-500">
+            <span>🔧</span> <span>إدارة حسابي</span>
+          </button>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <button class="flex justify-between w-full p-2 hover:bg-gray-100">ممتلكاتي <span>+</span></button>
+    </li>
+    <li>
+      <button class="flex justify-between w-full p-2 hover:bg-gray-100">طلبي <span>+</span></button>
+    </li>
+    <li>
+      <button class="flex justify-between w-full p-2 hover:bg-gray-100">اهتمامي <span>+</span></button>
+    </li>
+    <li>
+      <button class="flex justify-between w-full p-2 hover:bg-gray-100">خدمة العملاء <span>+</span></button>
+    </li>
+    <li>
+      <button class="flex justify-between w-full p-2 hover:bg-gray-100">السياسات <span>+</span></button>
+    </li>
+    <li>
+      <button class="flex justify-between w-full p-2 hover:bg-gray-100">تسجيل الخروج <span>+</span></button>
+    </li>
+  </ul>
+</aside>
