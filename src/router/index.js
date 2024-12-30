@@ -247,7 +247,7 @@ const routes = [
 
   {
     path: '/user/user_index',
-    name: 'user_index',
+    name: 'User_index',
     component: User_Index,
     meta: { requiresAuth: true },
   },
