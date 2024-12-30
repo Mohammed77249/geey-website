@@ -67,6 +67,7 @@
                   @mouseenter="isDropdowenStatusVisable = true"
                   @mouseleave="isDropdowenStatusVisable = false"
                 >
+                <RouterLink to="/user/user_index">
                   <svg
                     width="24"
                     height="24"
@@ -85,6 +86,7 @@
                        stroke-width="1.5"
                     />
                   </svg>
+                </RouterLink>
                 </div>
 
                 <!-- Dropdown menu -->
@@ -111,7 +113,7 @@
                       </RouterLink> -->
                     </li>
                     <li>
-                      <RouterLink to="/user/my_requests" class="block px-4 py-1 hover:bg-gray-100">
+                      <RouterLink to="" class="block px-4 py-1 hover:bg-gray-100">
                         طلبي</RouterLink>
                     </li>
                     <li>
@@ -518,6 +520,7 @@ import { useLanguageStore } from "@/stores/language";
 // import LoaderComp from './LoaderComp.vue';
 import { useSectionsStore } from '@/stores/section'
 import { useCartStore } from '@/stores/cart'
+import { RouterLink } from 'vue-router';
 const storeCart = useCartStore()
 const isHoeverItem = ref(null)
 const showDropdown = ref()

@@ -162,7 +162,7 @@ import ForgetPasswordPage from '@/views/auth/ForgetPasswordPage.vue';
 import ResetPasswordPage from '@/views/auth/ResatPasswordPage.vue';
 import CartPage from '@/views/CartPage.vue';
 import MyProfile from '@/views/user/MyProfile.vue';
-import MyRequests from '@/views/user/MyRequests.vue';
+import User_Index from '@/views/user/User_Index.vue';
 
 const requiresAuth = (to, from, next) => {
   const authStore = useAuthStore();
@@ -246,9 +246,9 @@ const routes = [
   // },
 
   {
-    path: '/user/my_requests',
-    name: 'user_requests',
-    component: MyRequests,
+    path: '/user/user_index',
+    name: 'user_index',
+    component: User_Index,
     meta: { requiresAuth: true },
   },
   // Catch-All Route for 404 Not Found
