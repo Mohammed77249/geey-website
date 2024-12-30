@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mt-5 bg-pink-100  h-full max-h-[400px] mb-10 md:mb-20 rounded-md"
+    class="mt-5 bg-pink-100 h-[320px] md:h-[400px] mb-10 md:mb-20 rounded-md"
   >
     <div class="flex justify-between p-5">
       <h1>{{ $t('Show more') }}</h1>
@@ -9,11 +9,11 @@
 
     <div class="">
       <div
-        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  2xl:grid-cols-6 overflow-x-auto  gap-1 px-5 mb-5"
+        class="flex  overflow-x-auto custom-scroll gap-1 px-5 mb-5"
       >
         <div v-for="product in products" :key="product.id" class="p-1 mt-4 ">
           <div
-            class="cursor-pointer w-[full] h-[200px] md:h-[280px]"
+            class="cursor-pointer w-[150px] md:w-[200px] h-[200px] md:h-[280px]"
             @mouseenter="onhover(product.id)"
             @mouseleave="isHover = false"
           >
@@ -102,60 +102,82 @@ const products = ref([
     ],
   },
 
-  // {
-  //   id: 7,
-  //   name: 'Dress',
-  //   price: 99.99,
-  //   images: [
-  //     '/src/assets/images/products/Image (2).svg',
-  //     '/src/assets/images/Placeholder_01 (1).svg',
-  //   ],
-  // },
-  // {
-  //   id: 8,
-  //   name: 'T-Shirt',
-  //   price: 49.99,
-  //   images: [
-  //     '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg',
-  //     '/src/assets/images/Placeholder_01 (1).svg',
-  //   ],
-  // },
-  // {
-  //   id: 9,
-  //   name: 'Jeans',
-  //   price: 79.99,
-  //   images: [
-  //     '/src/assets/images/products/Mockup.svg',
-  //     '/src/assets/images/Placeholder_01 (1).svg',
-  //   ],
-  // },
-  // {
-  //   id: 10,
-  //   name: 'Dress',
-  //   price: 99.99,
-  //   images: [
-  //     '/src/assets/images/products/unsplash_VpqI6WX6sEs.svg',
-  //     '/src/assets/images/Placeholder_01 (1).svg',
-  //   ],
-  // },
-  // {
-  //   id: 11,
-  //   name: 'T-Shirt',
-  //   price: 49.99,
-  //   images: [
-  //     '/src/assets/images/products/unsplash_jsgby4-zj44.svg',
-  //     '/src/assets/images/Placeholder_01 (1).svg',
-  //   ],
-  // },
-  // {
-  //   id: 12,
-  //   name: 'Jeans',
-  //   price: 79.99,
-  //   images: [
-  //     '/src/assets/images/products/unsplash_DyhiB_wFifk.svg',
-  //     '/src/assets/images/Placeholder_01 (1).svg',
-  //   ],
-  // },
+  {
+    id: 7,
+    name: 'Dress',
+    price: 99.99,
+    images: [
+      '/src/assets/images/products/Image (2).svg',
+      '/src/assets/images/Placeholder_01 (1).svg',
+    ],
+  },
+  {
+    id: 8,
+    name: 'T-Shirt',
+    price: 49.99,
+    images: [
+      '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg',
+      '/src/assets/images/Placeholder_01 (1).svg',
+    ],
+  },
+  {
+    id: 9,
+    name: 'Jeans',
+    price: 79.99,
+    images: [
+      '/src/assets/images/products/Mockup.svg',
+      '/src/assets/images/Placeholder_01 (1).svg',
+    ],
+  },
+  {
+    id: 10,
+    name: 'Dress',
+    price: 99.99,
+    images: [
+      '/src/assets/images/products/unsplash_VpqI6WX6sEs.svg',
+      '/src/assets/images/Placeholder_01 (1).svg',
+    ],
+  },
+  {
+    id: 11,
+    name: 'T-Shirt',
+    price: 49.99,
+    images: [
+      '/src/assets/images/products/unsplash_jsgby4-zj44.svg',
+      '/src/assets/images/Placeholder_01 (1).svg',
+    ],
+  },
+  {
+    id: 12,
+    name: 'Jeans',
+    price: 79.99,
+    images: [
+      '/src/assets/images/products/unsplash_DyhiB_wFifk.svg',
+      '/src/assets/images/Placeholder_01 (1).svg',
+    ],
+  },
   // Add more products as needed
-])
+]);
 </script>
+
+
+<style>
+.custom-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  opacity: 0;
+}
+.custom-scroll:hover::-webkit-scrollbar,
+.custom-scroll:active::-webkit-scrollbar {
+  opacity: 1;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+
+}
+</style>
