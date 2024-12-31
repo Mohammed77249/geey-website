@@ -10,7 +10,8 @@
                   </div>
                   <div class="flex items-center gap-2">
                     <button class="text-[12px] text-gray-500 font-medium">
-                      ملفي الشخصي
+                      <RouterLink to="/my_profile">  ملفي الشخصي</RouterLink>
+
                     </button>
                     <svg
                       width="15"
@@ -51,7 +52,7 @@
                   <h2 class="text-md font-bold mb-4">طلبي</h2>
                   <div class="flex items-center gap-2">
                     <button class="text-[12px] text-gray-500 font-medium">
-                      الاراء الكاملة
+                      <RouterLink to="/myrequests">الاراء الكاملة</RouterLink>
                     </button>
                     <svg
                       width="15"

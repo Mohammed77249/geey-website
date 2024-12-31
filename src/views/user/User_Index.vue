@@ -43,7 +43,8 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>📍</span>
-                    <span class="font-medium">ملفي الشخصي </span>
+                    <RouterLink to="/my_profile"><span class="font-medium">ملفي الشخصي </span></RouterLink>
+
                   </button>
                 </li>
                 <li>

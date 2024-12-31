@@ -165,6 +165,7 @@ import User_Index from '@/views/user/User_Index.vue';
 import User_main from '@/views/user/User_main.vue';
 import MyRequest from '@/views/user/MyRequest.vue';
 import MyAddresses from '@/views/user/MyAddresses.vue';
+import MyProfile from '@/views/user/MyProfile.vue';
 
 const requiresAuth = (to, from, next) => {
   const authStore = useAuthStore();
@@ -267,6 +268,11 @@ const routes = [
         name: 'myaddresses',
         path: '/myaddresses',
         component: MyAddresses
+      },
+      {
+        name: 'myProfile',
+        path: '/my_profile',
+        component: MyProfile
       },
     ]
   },
