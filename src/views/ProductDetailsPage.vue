@@ -272,7 +272,7 @@
 
             <div class="flex items-center gap-1 mb-5 mt-5">
               <h3 class="text-lg font-semibold">{{ $t('Size') }}</h3>
-              <div ref="dropDownSize">
+              <div>
                 <button
                   class="text-[#979797] h-[25px] border border-gray-900 bg-gray-50 font-medium rounded-full text-[14px] px-3 text-center flex items-center gap-1"
                   type="button"
@@ -794,16 +794,7 @@ const changeColor = (index) => {
   selectedImage.value = color.images[0]?.image || null;
 };
 
-
-const dropDownSize = ref(null)
-const isDropdowenSizeVisable = ref(false)
-const closeDropdowenSize = element => {
-  if (!dropDownSize.value.contains(element.target)) {
-    isDropdowenSizeVisable.value = false
-  }
-}
 onMounted(async() => {
-  window.addEventListener('click', closeDropdowenSize)
  await storeProduct.fetchProductDetailsById(filteredData2)
 
 

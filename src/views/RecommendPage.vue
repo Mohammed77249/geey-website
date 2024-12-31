@@ -698,20 +698,20 @@ const toggleStatusSelect = status => {
   selectedStatus.value = status
   isDropdowenStatusVisable.value = false
 }
-const closeDropdowenStatus = element => {
-  if (!dropDownStatus.value.contains(element.target)) {
-    isDropdowenStatusVisable.value = false
-  }
-}
+// const closeDropdowenStatus = element => {
+//   if (!dropDownStatus.value.contains(element.target)) {
+//     isDropdowenStatusVisable.value = false
+//   }
+// }
 
 
 onMounted(() => {
-  window.addEventListener('click', closeDropdowenStatus)
+  // window.addEventListener('click', closeDropdowenStatus)
   storeSecion.fetchSubSectionBySectionID(filteredData)
 })
 
 onBeforeMount(() => {
-  window.removeEventListener('click', closeDropdowenStatus)
+  // window.removeEventListener('click', closeDropdowenStatus)
 });
 
 onMounted(() => {
