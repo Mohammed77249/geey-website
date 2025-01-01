@@ -60,7 +60,7 @@
                   </svg>
                 </button>
               </div>
-              <SubSectionComp
+              <SubSectionComp v-if="storeSecion.subsections && storeSecion.subsections.length > 0"
                 :subSectiones="storeSecion.getSubSections"
                 :isDropdowenVisable="isDropdowenCategoryVisable"
               />
@@ -575,11 +575,8 @@
           </div>
         </div>
         <div >
-          <div v-if="storeSecion.loading" class="mt-10">
-            <LoaderDatacomp :is-loader="storeSecion.loading"/>
-          </div>
-          <div v-else class="mb-10">
-            <RecomndProductComp :products123="storeSecion.getProducts"  :IdSection="filteredData.sectionId" />
+          <div  class="mb-10">
+            <RecomndProductComp   :IdSection="filteredData.sectionId" />
           </div>
         </div>
       </div>
@@ -599,10 +596,8 @@ import SiziesComp from '@/components/RecommendViewCoponent/SiziesComp.vue'
 import TallComp from '@/components/RecommendViewCoponent/TallComp.vue'
 import TypeComp from '@/components/RecommendViewCoponent/TypeComp.vue'
 import { ref } from 'vue'
-import { onMounted, onBeforeMount,onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSectionsStore } from '@/stores/section'
-import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
 const filteredData = ref({
   sectionId: null,
   page: 1,
@@ -697,46 +692,7 @@ const isDropdowenStatusVisable = ref(false)
 const toggleStatusSelect = status => {
   selectedStatus.value = status
   isDropdowenStatusVisable.value = false
-}
-// const closeDropdowenStatus = element => {
-//   if (!dropDownStatus.value.contains(element.target)) {
-//     isDropdowenStatusVisable.value = false
-//   }
-// }
-
-
-onMounted(() => {
-  // window.addEventListener('click', closeDropdowenStatus)
-  storeSecion.fetchSubSectionBySectionID(filteredData)
-})
-
-onBeforeMount(() => {
-  // window.removeEventListener('click', closeDropdowenStatus)
-});
-
-onMounted(() => {
-  storeSecion.fetchSubSectionBySectionID(filteredData);
-});
-// دالة التحقق عند التمرير
-const handleScroll = () => {
-
-  const nearBottom =
-    window.innerHeight + window.scrollY >= document.documentElement.offsetHeight - 10;
-
-  if (nearBottom) {
-    storeSecion.fetchSubSectionBySectionID(filteredData);
-  }
 };
-
-// إضافة مراقبة للتمرير
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
-
-// إزالة مراقبة التمرير عند تدمير المكون
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
 
 </script>
 

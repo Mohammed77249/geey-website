@@ -4,11 +4,11 @@
         <div
             id="dropdownTop"
            class="mt-5"
-            v-if="isDropdowenVisable"
+            v-if="props.isDropdowenVisable"
           >
-            <ul class=" text-sm text-gray-700" aria-labelledby="dropdownTopButton">
+            <ul  class=" text-sm text-gray-700" aria-labelledby="dropdownTopButton">
               <li
-                v-for="subSection in subSectiones"
+                v-for="subSection in props.subSectiones"
                 :key="subSection.id"
                 class=" space-y-2 "
               >
@@ -93,7 +93,7 @@ import { ref } from 'vue'
 import ListCatogriesComp from './ListCatogriesComp.vue';
 import { useSectionsStore } from '@/stores/section'
 const storeSecion = useSectionsStore();
-defineProps({
+const props = defineProps({
   isDropdowenVisable: {
     type: Boolean,
     default: false,
@@ -107,6 +107,7 @@ defineProps({
 });
 
 
+// alert(subSectiones)
 const filteredData = ref({
   subSectionId: null,
   page: 1,
