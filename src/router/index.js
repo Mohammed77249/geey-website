@@ -241,13 +241,6 @@ const routes = [
     component: CartPage,
     meta: { requiresAuth: true, hideHeaderFooter: true },
   },
-  // {
-  //   path: '/user/account_setting',
-  //   name: 'useraccount_setting',
-  //   component: MyProfile,
-  //   meta: { requiresAuth: true },
-  // },
-
   {
     path: '/user/user_index',
     name: 'User_index',

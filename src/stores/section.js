@@ -207,9 +207,6 @@ export const useSectionsStore = defineStore('sections', {
 
 
 
-
-
-
           // async changeSubSection(subsectionId) {
           //   if (this.currentSubSectionId === subsectionId) return
           //   this.currentSubSectionId = subsectionId
