@@ -162,6 +162,7 @@ export const useSectionsStore = defineStore('sections', {
 
     // تحديث البيانات عند إعادة تحميل الصفحة
     async refreshData() {
+      this.loading = true
       try {
         const response = await axiosIns.get(`categories/section/${this.currentSectionId}?page=${this.page}&perPage=${this.perPage}`);
 
