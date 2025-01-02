@@ -36,8 +36,7 @@ export const useConfirmOrders = defineStore('ConfirmOrders', {
         this.totalProducts.totalItems = response.data.total
         this.totalProducts.totalPages = response.data.products.last_page
       } catch (error) {
-        this.error = 'خطأ أثناء جلب الاقسام';
-        alert(error(error));
+        this.error = error+ 'خطأ أثناء جلب الاقسام';
         this.loading = false;
       } finally {
         this.loading = false;

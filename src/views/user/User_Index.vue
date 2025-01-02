@@ -6,8 +6,8 @@
       </h1>
       <div class="grid grid-cols-12 gap-2">
         <!-- Right Sidebar -->
-        <aside class="col-span-3 bg-white p-4">
-          <h2 class="text-lg font-bold mb-4">المركز الشخصي</h2>
+        <aside class="col-span-4 md:col-span-3 bg-white p-4">
+          <span class="text-xs md:text-lg font-bold mb-4">المركز الشخصي</span>
           <ul class="space-y-5">
             <!-- حسابي -->
             <li>
@@ -15,27 +15,27 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('account')"
               >
-                <h3 class="font-bold text-md text-black">حسابي</h3>
+                <span class="font-bold text-black text-xs md:text-[16px] ">حسابي</span>
                 <span class="font-bold text-lg">{{
                   sections.account ? '-' : '+'
                 }}</span>
               </div>
               <ul
                 v-if="sections.account"
-                class="mt-2 space-y-3 p-4 text-gray-600 text-sm"
+                class="mt-2 space-y-3  text-gray-600 text-sm"
               >
                 <li>
                   <button
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
-                    <span>🏅</span> <span class="font-medium">Jeeey Club</span>
+                    <span>🏅</span> <span class="text-xs md:text-sm font-medium">Jeeey Club</span>
                   </button>
                 </li>
                 <li>
                   <button
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
-                    <span>⭐</span> <span class="font-medium">VIP جي</span>
+                    <span>⭐</span> <span class=" text-xs md:text-sm font-medium">VIP جي</span>
                   </button>
                 </li>
                 <li>
@@ -43,7 +43,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>📍</span>
-                    <RouterLink to="/my_profile"><span class="font-medium">ملفي الشخصي </span></RouterLink>
+                    <RouterLink to="/my_profile"><span class=" text-xs md:text-sm font-medium">ملفي الشخصي </span></RouterLink>
 
                   </button>
                 </li>
@@ -52,7 +52,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>📍</span>
-                    <RouterLink to="/myaddresses"><span class="font-medium"> دفتر العناوين </span></RouterLink>
+                    <RouterLink to="/myaddresses"><span class=" text-xs md:text-sm font-medium"> دفتر العناوين </span></RouterLink>
 
                   </button>
                 </li>
@@ -61,7 +61,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>💳</span>
-                    <span class="font-medium">خيارات الدفع</span>
+                    <span class="font-medium text-xs md:text-sm">خيارات الدفع</span>
                   </button>
                 </li>
                 <li>
@@ -69,7 +69,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>📏</span>
-                    <span class="font-medium">القياسات الخاصة بي</span>
+                    <span class="font-medium text-xs md:text-sm">القياسات الخاصة بي</span>
                   </button>
                 </li>
                 <li>
@@ -77,7 +77,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🔧</span>
-                    <span class="font-medium"> إدارة حسابي</span>
+                    <span class="font-medium text-xs md:text-sm"> إدارة حسابي</span>
                   </button>
                 </li>
               </ul>
@@ -89,7 +89,7 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('properties')"
               >
-                <h3 class="font-bold text-md text-black">ممتلكاتي</h3>
+                <h3 class="font-bold text-xs md:text-[16px]  text-black">ممتلكاتي</h3>
                 <span class="font-bold text-lg">{{
                   sections.properties ? '-' : '+'
                 }}</span>
@@ -102,28 +102,28 @@
                   <button
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
-                    <span>🏅</span> <span class="font-medium">كوبوناتي</span>
+                    <span>🏅</span> <span class="text-xs md:text-sm  font-medium">كوبوناتي</span>
                   </button>
                 </li>
                 <li>
                   <button
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
-                    <span>🏅</span> <span class="font-medium">نقاطي</span>
+                    <span>🏅</span> <span class="text-xs md:text-sm  font-medium">نقاطي</span>
                   </button>
                 </li>
                 <li>
                   <button
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
-                    <span>🏅</span> <span class="font-medium">محفظتي</span>
+                    <span>🏅</span> <span class="text-xs md:text-sm  font-medium">محفظتي</span>
                   </button>
                 </li>
                 <li>
                   <button
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
-                    <span>🏅</span> <span class="font-medium">بطاقه هديه</span>
+                    <span>🏅</span> <span class=" text-xs md:text-sm  font-medium">بطاقه هديه</span>
                   </button>
                 </li>
               </ul>
@@ -136,11 +136,12 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('orders')"
               >
-                <h3 class="font-bold text-md text-black">طلبي</h3>
+                <h3 class="font-bold text-xs md:text-[16px]  text-black">طلبي</h3>
                 <span class="font-bold text-lg">{{
                   sections.orders ? '-' : '+'
                 }}</span>
               </div>
+
               <ul
                 v-if="sections.orders"
                 class="mt-2 space-y-3 p-4 text-gray-600 text-sm"
@@ -151,7 +152,7 @@
                   >
                     <span>🏅</span>
                     <RouterLink to="/myrequests">
-                      <span class="font-medium">جميع الطلبات</span>
+                      <span class="font-medium text-xs md:text-sm ">جميع الطلبات</span>
                     </RouterLink>
 
                   </button>
@@ -161,7 +162,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> طلبات غير مدفوعه</span>
+                    <span class="font-medium text-xs md:text-sm "> طلبات غير مدفوعه</span>
                   </button>
                 </li>
                 <li>
@@ -169,7 +170,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> طلبات قيد التجهيز</span>
+                    <span class="font-medium text-xs md:text-sm "> طلبات قيد التجهيز</span>
                   </button>
                 </li>
                 <li>
@@ -177,7 +178,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> طلبات مشحونه</span>
+                    <span class="font-medium text-xs md:text-sm "> طلبات مشحونه</span>
                   </button>
                 </li>
                 <li>
@@ -185,7 +186,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> طلبات التقييم</span>
+                    <span class="font-medium text-xs md:text-sm "> طلبات التقييم</span>
                   </button>
                 </li>
                 <li>
@@ -193,7 +194,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> طلبات الارجاع</span>
+                    <span class="font-medium text-xs md:text-sm "> طلبات الارجاع</span>
                   </button>
                 </li>
               </ul>
@@ -205,7 +206,7 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('favorites')"
               >
-                <h3 class="font-bold text-md text-black">اهتمامي</h3>
+                <h3 class="font-bold text-xs md:text-[16px]  text-black">اهتمامي</h3>
                 <span class="font-bold text-lg">{{
                   sections.favorites ? '-' : '+'
                 }}</span>
@@ -218,21 +219,21 @@
                   <button
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
-                    <span>🏅</span> <span class="font-medium"> قائمه الحب</span>
+                    <span>🏅</span> <span class="text-xs md:text-sm  font-medium"> قائمه الحب</span>
                   </button>
                 </li>
                 <li>
                   <button
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
-                    <span>🏅</span> <span class="font-medium"> شوهد مؤخرا</span>
+                    <span>🏅</span> <span class="text-xs md:text-sm  font-medium"> شوهد مؤخرا</span>
                   </button>
                 </li>
                 <li>
                   <button
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
-                    <span>🏅</span> <span class="font-medium"> متابع</span>
+                    <span>🏅</span> <span class="font-medium text-xs md:text-sm "> متابع</span>
                   </button>
                 </li>
               </ul>
@@ -244,7 +245,7 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('customerService')"
               >
-                <h3 class="font-bold text-md text-black">خدمة العملاء</h3>
+                <h3 class="font-bold text-xs md:text-[16px]  text-black">خدمة العملاء</h3>
                 <span class="font-bold text-lg">{{
                   sections.customerService ? '-' : '+'
                 }}</span>
@@ -257,7 +258,7 @@
                   <button
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
-                    <span>🏅</span> <span class="font-medium">رسائلي </span>
+                    <span>🏅</span> <span class="font-medium text-xs md:text-sm ">رسائلي </span>
                   </button>
                 </li>
                 <li>
@@ -265,7 +266,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium">سجلات الخدمة</span>
+                    <span class="font-medium text-xs md:text-sm ">سجلات الخدمة</span>
                   </button>
                 </li>
               </ul>
@@ -277,7 +278,7 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('otherServices')"
               >
-                <h3 class="font-bold text-md text-black">خدمات اخرى</h3>
+                <h3 class="font-bold text-xs md:text-[16px]  text-black">خدمات اخرى</h3>
                 <span class="font-bold text-lg">{{
                   sections.otherServices ? '-' : '+'
                 }}</span>
@@ -291,7 +292,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> تجربه الازياء المجانيه</span>
+                    <span class="font-medium text-xs md:text-sm "> تجربه الازياء المجانيه</span>
                   </button>
                 </li>
                 <li>
@@ -299,7 +300,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> مركز استطلاعات الراي</span>
+                    <span class="font-medium text-xs md:text-sm "> مركز استطلاعات الراي</span>
                   </button>
                 </li>
                 <li>
@@ -307,7 +308,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> شاركوا واكسبوا</span>
+                    <span class="font-medium text-xs md:text-sm "> شاركوا واكسبوا</span>
                   </button>
                 </li>
                 <li>
@@ -315,7 +316,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> جهات الاتصال المفضله</span>
+                    <span class="font-medium text-xs md:text-sm "> جهات الاتصال المفضله</span>
                   </button>
                 </li>
               </ul>
@@ -327,7 +328,7 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('policies')"
               >
-                <h3 class="font-bold text-md text-black">السياسات</h3>
+                <h3 class="font-bold text-xs md:text-[16px]  text-black">السياسات</h3>
                 <span class="font-bold text-lg">{{
                   sections.policies ? '-' : '+'
                 }}</span>
@@ -341,7 +342,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> معلومات الشحن</span>
+                    <span class="font-medium text-xs md:text-sm "> معلومات الشحن</span>
                   </button>
                 </li>
                 <li>
@@ -349,7 +350,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium">سياسه الارجاع </span>
+                    <span class="font-medium text-xs md:text-sm ">سياسه الارجاع </span>
                   </button>
                 </li>
                 <li>
@@ -357,7 +358,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <span class="font-medium"> سياسه الخصوصيه</span>
+                    <span class="font-medium text-xs md:text-sm "> سياسه الخصوصيه</span>
                   </button>
                 </li>
               </ul>
@@ -376,7 +377,7 @@
         </aside>
 
         <!-- Center Content -->
-        <main class="col-span-9">
+        <main class="col-span-8 md:col-span-9">
           <RouterView />
         </main>
       </div>
