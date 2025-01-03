@@ -21,11 +21,10 @@
       <div>
         <div>
           <div class="grid grid-cols-1 gap-3 mt-5">
-
             <div class="col-span-12 bg-gray-100">
               <div class="py-4 p-5 shadow bg-white m-2">
                 <h1 class="text-primary-900 font-bold text-xl">
-                  {{  'تعديل العنوان ' }}
+                  {{ 'تعديل العنوان ' }}
                 </h1>
               </div>
 
@@ -38,7 +37,7 @@
                     >
                     <input
                       type="text"
-                      v-model="Adress"
+                      v-model="filteredData.address"
                       required
                       placeholder="المكتب الخاص أو المنزل "
                       class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
@@ -58,7 +57,7 @@
                         @mouseenter="isDropdowenCiteVisable = true"
                         @mouseleave="isDropdowenCiteVisable = false"
                       >
-                        <p class="text-black">{{ selectedCite }}</p>
+                        <p class="text-black">{{ filteredData.city_name }}</p>
 
                         <svg
                           aria-hidden="true"
@@ -122,7 +121,9 @@
                         @mouseenter="isDropdowenDistrictVisable = true"
                         @mouseleave="isDropdowenDistrictVisable = false"
                       >
-                        <p class="text-black">{{ selectedDistrict }}</p>
+                        <p class="text-black">
+                          {{ filteredData.district_name }}
+                        </p>
 
                         <svg
                           aria-hidden="true"
@@ -178,11 +179,11 @@
                   <!-- معلم قريب -->
                   <div class="bg-white border shadow p-2">
                     <label class="block text-xs font-semibold text-black mb-2"
-                      >معلم قريب </label
-                    >
+                      >معلم قريب
+                    </label>
                     <input
                       type="text"
-                      v-model="NearestLand"
+                      v-model="filteredData.nearest_landmark"
                       required
                       placeholder="معلم قريب "
                       class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
@@ -232,7 +233,8 @@
                       type="submit"
                       class="w-full bg-primary-900 text-white py-3 font-semibold text-sm"
                     >
-                    {{' حفظ التعديلات' }}</button>
+                      {{ ' حفظ التعديلات' }}
+                    </button>
                   </div>
                 </form>
               </div>
@@ -240,7 +242,7 @@
           </div>
 
           <div v-if="isMap">
-            <GoogleMap  :isOpen="isMap" @close="closeDialog"/>
+            <GoogleMap :isOpen="isMap" @close="closeDialog" />
           </div>
         </div>
       </div>
@@ -249,7 +251,15 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, onMounted } from 'vue'
+import {
+  defineProps,
+  defineEmits,
+  ref,
+  onMounted,
+  watch,
+  reactive,
+  onUnmounted,
+} from 'vue'
 import GoogleMap from '../../components/GoogleMap.vue'
 import { useAddressStore } from '@/stores/address'
 const storeAddress = useAddressStore()
@@ -259,12 +269,11 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
-  formEdit:{
-    type: Array,
-    required: true
-  }
+  formEdit: {
+    type: Object,
+    required: true,
+  },
 })
-
 
 const isMap = ref(false)
 
@@ -276,97 +285,112 @@ const closeDialog = () => {
   isMap.value = false
 }
 
-// const Getlong = ref(localStorage.getItem("long"));
-// const Getlat = ref(localStorage.getItem("lat"));
+const Getlong = ref(localStorage.getItem('long'))
+const Getlat = ref(localStorage.getItem('lat') || 'لا توجد قيمة')
 
-const Adress = ref(props.formEdit.address || '')
-const NearestLand = ref(props.formEdit.nearest_landmark || '')
-const selectedCite = ref(props.formEdit.city_name || 'المحافظة')
-const selectedDistrict = ref(props.formEdit.district_name || 'المنطقة')
-const filteredData = ref({
-  // address_id:'',
-  // city_id: null,
-  // nearest_landmark: '',
-  // district_id: null,
-  // address: '',
-  // lat: '',
-  // lng: '',
-  // is_default: 1,
+function updateStoredValue(key) {
+  if (key === 'lat') {
+    Getlat.value = localStorage.getItem('lat') || 'لا توجد قيمة'
+  } else if (key === 'long') {
+    Getlong.value = localStorage.getItem('long') || 'لا توجد قيمة'
+  }
+}
 
-  address_id: props.formEdit.id || '',
-  city_id: props.formEdit.city_id || null,
-  nearest_landmark: props.formEdit.nearest_landmark || '',
-  district_id: props.formEdit.district_id || null,
-  address: props.formEdit.address || '',
-  lat: props.formEdit.lat || '',
-  lng: props.formEdit.lng || '',
-  is_default: props.formEdit.is_default || 1,
-})
+// التعامل مع حدث `storage` لتحديث القيم من نوافذ أو تبويبات أخرى
+function handleStorageEvent(event) {
+  if (event.key === 'lat' || event.key === 'long') {
+    updateStoredValue(event.key)
+  }
+}
+
+// تعديل `localStorage.setItem` لمراقبة التغييرات من نفس التبويب
+function overrideLocalStorageSetItem() {
+  const originalSetItem = localStorage.setItem
+  localStorage.setItem = function (key, value) {
+    originalSetItem.apply(this, [key, value]) // استدعاء الطريقة الأصلية
+    if (key === 'lat' || key === 'long') {
+      updateStoredValue(key) // تحديث القيم محليًا
+    }
+  }
+}
+
+const filteredData = reactive({ ...props.formEdit })
 
 // cities
 const dropDownCite = ref(null)
 const isDropdowenCiteVisable = ref(false)
 const toggleCiteSelect = city => {
-  filteredData.value.city_id = city.id
-  selectedCite.value = city.name
+  filteredData.city_id = city.id
+  filteredData.city_name = city.name
   isDropdowenCiteVisable.value = false
 }
-
 
 // District
 const dropDownDistrict = ref(null)
 const isDropdowenDistrictVisable = ref(false)
 const toggleDistrictSelect = district => {
-  filteredData.value.district_id = district.id
-  selectedDistrict.value = district.name
+  filteredData.district_id = district.id
+  filteredData.district_name = district.name
   isDropdowenDistrictVisable.value = false
 }
 
+// تحديث البيانات عند تغيير العنوان المحدد
+watch(
+  () => props.formEdit,
+  newAddress => {
+    Object.assign(filteredData, newAddress)
+  },
+  { deep: true },
+)
 
 const handleEditAddress = async () => {
-  try {
-    filteredData.value.address = Adress.value;
-    filteredData.value.nearest_landmark = NearestLand.value;
+  const filteredData2 = ref({
+    address_id: filteredData.id,
+    city_id: filteredData.city_id,
+    nearest_landmark: filteredData.nearest_landmark,
+    district_id: filteredData.district_id,
+    address: filteredData.address,
+    lat: filteredData.lat,
+    lng: filteredData.lng,
+    is_default: filteredData.is_default,
+  })
 
-    const result = await storeAddress.updateAddress(filteredData.value);
+  if (Getlong.value !== null && Getlong.value !== 'لا توجد قيمة') {
+    filteredData.lng = Getlong.value
+  }
+
+  if (Getlat.value !== null && Getlat.value !== 'لا توجد قيمة') {
+    filteredData.lat = Getlat.value
+  }
+
+  try {
+    const result = await storeAddress.updateAddress(filteredData2.value)
 
     if (result) {
-      alert('تم التعديل بنجاح');
-      storeAddress.fetchAllAddresses();
-      localStorage.removeItem('lat');
-      localStorage.removeItem('long');
-      closeDialog();
+      alert('تم التعديل بنجاح')
+      storeAddress.fetchAllAddresses()
+      localStorage.removeItem('lat')
+      localStorage.removeItem('long')
+      closeDialog()
+      close()
     } else {
-      alert('حدث خطأ أثناء تعديل العنوان');
+      alert('حدث خطأ أثناء تعديل العنوان')
     }
   } catch (error) {
-    console.error('Error updating address:', error);
+    console.error('Error updating address:', error)
+    close()
   }
-  // filteredData.value.address_id = props.formEdit.id;
-  // filteredData.value.address = Adress.value
-  // filteredData.value.nearest_landmark = NearestLand.value
-  // filteredData.value.lat = Getlat.value
-  // filteredData.value.lng = Getlong.value;
-
-  // const creataddress = await storeAddress.updateAddress(filteredData.value)
-  // if (creataddress) {
-  //   alert('تم التعديل بنجاح')
-  //   storeAddress.fetchAllAddresses()
-  //   localStorage.removeItem('long')
-  //   localStorage.removeItem('lat')
-  //   window.location.reload();
-  // } else {
-  //   alert(storeAddress.error + 'error')
-  // }
-
-  // close();
-
 }
 
 onMounted(() => {
   storeAddress.fetchCities()
   storeAddress.fetchDistricts()
+  window.addEventListener('storage', handleStorageEvent)
+  overrideLocalStorageSetItem() // مراقبة التغييرات في نفس التبويب
+})
 
+onUnmounted(() => {
+  window.removeEventListener('storage', handleStorageEvent)
 })
 
 // Emits
@@ -375,8 +399,7 @@ const emit = defineEmits(['close'])
 // Close the dialog
 const close = () => {
   emit('close')
-};
-
+}
 </script>
 
 <style>

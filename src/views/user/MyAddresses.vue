@@ -123,13 +123,15 @@ const storeAddress = useAddressStore()
 const isDialogOpen = ref(false)
 const isEditing = ref(false);
 const openDialog = () => {
+
   isDialogOpen.value = true
 }
 
-const formEdit = ref([]);
+const formEdit = ref(null);
+
 const openEdit = (address) => {
   isEditing.value = true
-  formEdit.value = address
+  formEdit.value = {...address}
 }
 
 
