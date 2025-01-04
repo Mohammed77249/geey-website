@@ -6,7 +6,7 @@
       ></div>
       <span class="ml-4 text-primary-900">جاري تحميل المنتجات...</span>
     </div>
-    
+
 
     <div v-else class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1">
       <div
