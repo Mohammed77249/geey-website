@@ -12,6 +12,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-sans-arabic": "^5.1.1",
     "@vueuse/core": "^11.2.0",
     "axios": "^1.7.7",
     "pinia": "^2.2.4",

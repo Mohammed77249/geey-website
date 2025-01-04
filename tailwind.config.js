@@ -6,6 +6,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+        
       },
       screens: {
         'sm': '640px',

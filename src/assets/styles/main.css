@@ -13,6 +13,16 @@
   }
 }
 
+:root {
+  --tw-font-sans: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+/* main.css أو App.vue داخل قسم <style> */
+/* body {
+  font-family: 'Roboto', sans-serif;
+} */
+
+
 /* 
 
 #app {
