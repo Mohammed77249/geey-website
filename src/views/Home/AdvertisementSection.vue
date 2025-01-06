@@ -6,7 +6,6 @@
         <h1 class="p-2">{{ $t('The most important trends') }}</h1>
         <div class="grid grid-cols-3 gap-1 p-2">
           <ProductCard :isORNot="true" v-for="product in products2" :key="product.id" :product="product" />
-          <!-- <ProductCard :isORNot="true" /> -->
         </div>
       </div>
     </div>
