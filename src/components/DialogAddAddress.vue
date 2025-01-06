@@ -315,7 +315,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, onMounted, onBeforeMount } from 'vue'
+import { defineProps, defineEmits, ref, onMounted, onBeforeMount,onUnmounted } from 'vue'
 import LoaderDatacomp from './LoaderDatacomp.vue'
 import GoogleMap from './GoogleMap.vue'
 // const storedLanguage = localStorage.getItem("language");
@@ -354,11 +354,46 @@ const cklickOpenMap = () => {
 
 const closeDialog = () => {
   isMap.value = false
-  // window.dispatchEvent(new Event("storage"));
 }
 
 const Getlong = ref(localStorage.getItem("long"));
 const Getlat = ref(localStorage.getItem("lat"));
+const Getcity = ref(localStorage.getItem('city')); // قراءة القيمة الأولية
+let intervalId = null; // تعريف متغير لتخزين المعرف الخاص بـ setInterval
+
+// وظيفة لتحديث القيمة عند حدوث تغييرات
+const checkLocalStorageChanges = () => {
+  const currentValue = localStorage.getItem('city'); // قراءة القيمة الحالية من localStorage
+  if (currentValue !== Getcity.value) {
+    Getcity.value = currentValue; // تحديث القيمة تلقائيًا
+  }
+
+  checkName()
+};
+
+// بدء المراقبة عند تحميل المكون
+onMounted(() => {
+  intervalId = setInterval(checkLocalStorageChanges, 500); // التحقق من التغييرات كل 500 ملي ثانية
+});
+
+// إيقاف المراقبة عند إلغاء تحميل المكون
+onUnmounted(() => {
+  clearInterval(intervalId);
+});
+
+
+const resultMessage = ref('');
+const checkName = () => {
+  const exists =  storeAddress.getCities.find(item => item.name ===  Getcity.value);
+  if (exists) {
+    resultMessage.value = `${Getcity.value} موجود داخل المصفوفة`;
+    selectedCite.value = Getcity.value;
+    filteredData.value.city_id = exists.id
+  } else {
+    resultMessage.value = `${Getcity.value} غير موجود داخل المصفوفة`;
+  }
+};
+
 
 const Adress = ref('')
 const NearestLand = ref('')
@@ -374,20 +409,14 @@ const filteredData = ref({
 
 // cities
 const dropDownCite = ref(null)
-const selectedCite = ref('المحافظة')
+const selectedCite = ref('المدينه')
 const isDropdowenCiteVisable = ref(false)
 const toggleCiteSelect = city => {
   filteredData.value.city_id = city.id
   selectedCite.value = city.name
   isDropdowenCiteVisable.value = false
 }
-// const closeDropdowenCite = (element) => {
-//   // if (element.target !== 'undefined' && element.target !== null) {
-//     if (element && !dropDownCite.value.contains(element.target)) {
-//       isDropdowenCiteVisable.value = false
-//     }
-//   // }
-// }
+
 
 // District
 const dropDownDistrict = ref(null)
@@ -398,13 +427,9 @@ const toggleDistrictSelect = district => {
   selectedDistrict.value = district.name
   isDropdowenDistrictVisable.value = false
 }
-// const closeDropdowenDistrict = (element) => {
-//   // if (element.target !== 'undefined' && element.target !== null) {
-//     if (element && !dropDownDistrict.value.contains(element.target)) {
-//       isDropdowenDistrictVisable.value = false
-//     }
-//   // }
-// }
+
+
+
 
 const handleAddress = async () => {
   filteredData.value.address = Adress.value
@@ -412,13 +437,22 @@ const handleAddress = async () => {
   filteredData.value.lat = Getlat.value
   filteredData.value.lng = Getlong.value;
 
+
+
   const creataddress = await storeAddress.creatAddress(filteredData.value)
   if (creataddress) {
     alert('تم الاضافه بنجاح')
     storeOrder.fetchDataOrders()
+    Adress.value = "";
+    NearestLand.value= "";
+    selectedDistrict.value = "المنطقة";
+    selectedCite.value ="المدينه"
 
     localStorage.removeItem('long')
     localStorage.removeItem('lat')
+    localStorage.removeItem('city')
+    localStorage.removeItem('region')
+
   } else {
     alert(storeAddress.error + 'error')
   }
@@ -426,53 +460,13 @@ const handleAddress = async () => {
 }
 
 onMounted(() => {
-  // window.addEventListener('click', closeDropdowenCite)
-  // window.addEventListener('click', closeDropdowenDistrict)
   storeAddress.fetchCities()
   storeAddress.fetchDistricts()
 })
 onBeforeMount(() => {
-  // window.removeEventListener('click', closeDropdowenCite)
-  // window.removeEventListener('click', closeDropdowenDistrict)
+
 })
 
-// const addToCart = async() => {
-//   if(props.productDetails && props.productDetails.id != null){
-//     filteredData.value.product_id = props.productDetails.id
-//   }
-
-//   if(filteredData.value.color_id === null ){
-//     alert("ادخ اللون ")
-//   }else if(filteredData.value.size_id === null){
-//     alert("ادخل المقاس")
-//   }
-//   else{
-//     const addcart = await storeCart.creatCart(
-//     filteredData.value.product_id,
-//     filteredData.value.color_id,
-//     filteredData.value.size_id,
-//     filteredData.value.quantity,
-//   )
-
-//   if (addcart) {
-//     if (storeCart.getcartProductMessage != null) {
-//       // alert(storeCart.getcartProductMessage)
-//       window.location.reload();
-//       close()
-//     } else {
-//       alert('تمت إضافة المنتج إلى السلة!')
-//       window.location.reload();
-//       close()
-//     }
-//   } else {
-//     alert(storeCart.error)
-//     window.location.reload();
-//       close()
-//   }
-
-//   }
-
-// };
 
 // Emits
 const emit = defineEmits(['close'])

@@ -196,6 +196,7 @@ defineExpose({
 });
 </script> -->
 
+
 <template>
   <div
     v-if="props.isOpen"
@@ -227,9 +228,9 @@ defineExpose({
             :position="marker"
             :clickable="true"
             :draggable="true"
-            @click="showInfoWindow(index, marker) , onMarkerClick(marker)"
+            @click="showInfoWindow(index, marker)"
           />
-           <!-- نافذة المعلومات -->
+          <!-- نافذة المعلومات -->
           <InfoWindow
             v-if="infoWindow.visible"
             :position="infoWindow.position"
@@ -256,9 +257,11 @@ defineExpose({
   </div>
 </template>
 
+
+
 <script setup>
-import { ref, defineEmits, reactive } from 'vue'
-import { GoogleMap, Marker ,InfoWindow} from 'vue3-google-map'
+import { ref, reactive, defineEmits } from 'vue'
+import { GoogleMap, Marker, InfoWindow } from 'vue3-google-map'
 
 const props = defineProps({
   isOpen: {
@@ -274,45 +277,242 @@ const zoom = ref(12)
 const infoWindow = reactive({
   visible: false,
   position: { lat: 0, lng: 0 },
-});
-
-const showInfoWindow = (index, marker) => {
-  infoWindow.position = marker;
-  infoWindow.visible = true;
-}
+})
 
 const latitude = ref(null)
 const longitude = ref(null)
+const city = ref(null)
+const region = ref(null)
 
-const onMapClick = event => {
+const showInfoWindow = (index, marker) => {
+  infoWindow.position = marker
+  infoWindow.visible = true
+}
+
+const onMapClick = async event => {
   const latLng = event.latLng
   latitude.value = latLng.lat()
   longitude.value = latLng.lng()
   markers.push({ lat: latLng.lat(), lng: latLng.lng() })
+
+  // استدعاء Nominatim للحصول على العنوان
+  await fetchAddressFromNominatim(latLng.lat(), latLng.lng())
+
+  // alert(city.value)
+  // alert(region.value)
 }
 
-const onMarkerClick = marker => {
-  alert(`Marker clicked at: ${marker.lat}, ${marker.lng}`)
+// const fetchAddressFromNominatim = async (lat, lng) => {
+//   const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`
+
+//   try {
+//     const response = await fetch(url, {
+//       headers: {
+//         'User-Agent': 'Mozilla/5.0 (YourAppName)',
+//       },
+//     })
+//     const data = await response.json()
+
+//     if (data.address) {
+//       city.value = data.address.city || data.address.town || data.address.village || 'Unknown'
+//       region.value = data.address.state || 'Unknown'
+//     } else {
+//       city.value = 'Unknown'
+//       region.value = 'Unknown'
+//     }
+//   } catch (error) {
+//     console.error('Error fetching address from Nominatim:', error)
+//     city.value = 'Unknown'
+//     region.value = 'Unknown'
+//   }
+// }
+
+// const fetchAddressFromNominatim = async (lat, lng) => {
+//   const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`;
+
+//   try {
+//     const response = await fetch(url, {
+//       headers: {
+//         'User-Agent': 'Mozilla/5.0 (YourAppName)',
+//       },
+//     });
+//     const data = await response.json();
+
+//     if (data.address) {
+//       // استخراج اسم المدينة وإزالة الكلمات الإضافية
+//       const rawCity = data.address.city || data.address.town || data.address.village || 'Unknown';
+//       alert('Before Cleaning:', rawCity);
+//       city.value = cleanCityName(rawCity);
+//       alert('After Cleaning:', city.value);
+
+//       // استخراج اسم المنطقة (المحافظة)
+//       region.value = data.address.state || 'Unknown';
+//     } else {
+//       city.value = 'Unknown';
+//       region.value = 'Unknown';
+//     }
+//   } catch (error) {
+//     console.error('Error fetching address from Nominatim:', error);
+//     city.value = 'Unknown';
+//     region.value = 'Unknown';
+//   }
+// };
+
+// const fetchAddressFromNominatim = async (lat, lng) => {
+//   const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`;
+
+//   try {
+//     const response = await fetch(url, {
+//       headers: {
+//         'User-Agent': 'Mozilla/5.0 (YourAppName)',
+//       },
+//     });
+//     const data = await response.json();
+
+//     // تسجيل البيانات المستلمة بالكامل
+//     console.log('Full API Response:', data);
+
+//     if (data.address) {
+//       // استخراج اسم المدينة
+//       const rawCity = data.address.city || data.address.town || data.address.village || 'Unknown';
+//       console.log('Raw City:', rawCity);
+
+//       city.value = cleanCityName(rawCity);
+//       console.log('Cleaned City:', city.value);
+
+//       alert(`Before Cleaning: ${rawCity}`);
+//       alert(`After Cleaning: ${city.value}`);
+//     } else {
+//       console.error('Address not found in API response');
+//     }
+//   } catch (error) {
+//     console.error('Error fetching address from Nominatim:', error);
+//   }
+// };
+
+const fetchAddressFromNominatim = async (lat, lng) => {
+  const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (YourAppName)',
+      },
+    });
+    const data = await response.json();
+
+    if (data.address) {
+      // الحصول على النص الخام للمدينة
+      const rawCity = data.address.city || data.address.town || data.address.village || 'Unknown';
+      // console.log('Raw City:', rawCity); // عرض النص الخام
+
+      // تنظيف النص
+      const cleanedCity = cleanCityName(rawCity);
+      console.log('Cleaned City:', cleanedCity); // عرض النص بعد التنظيف
+      // alert(`Before Cleaning: ${rawCity}`);
+      // alert(`After Cleaning: ${cleanedCity}`);
+
+      // تخزين النص النظيف في city
+      city.value = cleanedCity;
+      region.value = data.address.state || 'Unknown'
+    } else {
+      console.error('Address not found in API response');
+      city.value = 'Unknown';
+      region.value = 'Unknown';
+    }
+  } catch (error) {
+    console.error('Error fetching address from Nominatim:', error);
+    city.value = 'Unknown';
+    region.value = 'Unknown';
+  }
+};
+
+
+
+// // دالة لتنظيف اسم المدينة
+// const cleanCityName = (rawCity) => {
+//   // الكلمات التي نريد حذفها
+//   const unwantedWords = ['مدينة', 'محافظة', 'ولاية'];
+
+//   // إزالة الكلمات غير المرغوب فيها من اسم المدينة
+//   let cleanedCity = rawCity;
+//   unwantedWords.forEach((word) => {
+//     const regex = new RegExp(`\\b${word}\\b`, 'gi'); // البحث عن الكلمة مع مراعاة حالة الأحرف
+//     cleanedCity = cleanedCity.replace(regex, '').trim();
+//   });
+
+
+//   return cleanedCity; // إعادة اسم المدينة بعد التنظيف
+// };
+
+// const cleanCityName = (rawCity) => {
+//   if (!rawCity) return 'Unknown'; // إذا لم يكن هناك اسم مدينة
+
+//   // الكلمات التي نريد حذفها
+//   const unwantedWords = ['مدينة', 'محافظة', 'ولاية'];
+
+//   // إزالة الكلمات غير المرغوب فيها
+//   unwantedWords.forEach((word) => {
+//     const regex = new RegExp(`\\b${word}\\s*`, 'gi'); // حذف الكلمة والمسافة بعدها
+//     rawCity = rawCity.replace(regex, '').trim(); // تنظيف النص
+//   });
+
+
+//   return rawCity;
+// };
+
+// const cleanCityName = (rawCity) => {
+//   if (!rawCity) return 'Unknown'; // إذا لم يكن هناك اسم مدينة
+
+//   // الكلمات التي نريد حذفها
+//   const unwantedWords = ['مدينة', 'محافظة', 'ولاية'];
+
+//   // إزالة الكلمات غير المرغوب فيها
+//   unwantedWords.forEach((word) => {
+//     const regex = new RegExp(`\\b${word}\\s*`, 'gi'); // حذف الكلمة والمسافة بعدها
+//     rawCity = rawCity.replace(regex, '').trim(); // تنظيف النص
+//   });
+
+//   return rawCity;
+// };
+
+
+const cleanCityName = (rawCity) => {
+  if (!rawCity) return 'Unknown'; // إذا لم يكن هناك نص
+
+  // الكلمات التي نريد حذفها
+  const unwantedWords = ['مدينة', 'محافظة', 'ولاية'];
+
+  // إزالة الكلمات غير المرغوب فيها باستخدام التعبير المنتظم
+  unwantedWords.forEach((word) => {
+    const regex = new RegExp(`${word}\\s*`, 'gi'); // حذف الكلمة والمسافة بعدها
+    rawCity = rawCity.replace(regex, '').trim(); // تنظيف النص
+  });
+
+  return rawCity;
+};
+
+
+
+const emit = defineEmits(['close'])
+
+const ConfirmLanLat = () => {
+  // تخزين الإحداثيات والمدينة والمنطقة في localStorage
+
+  localStorage.setItem('long', longitude.value)
+  localStorage.setItem('lat', latitude.value)
+  // localStorage.setItem('latitude', latitude.value)
+  // localStorage.setItem('longitude', longitude.value)
+
+  localStorage.setItem('city', city.value || 'Unknown')
+  localStorage.setItem('region', region.value || 'Unknown')
+
+  emit('close')
 }
 
-// const mapOptions = reactive({});
-
-// const mapOptions = reactive({
-//   styles: [
-//     {
-//       elementType: 'geometry',
-//       stylers: [{ color: '#ffffff' }],
-//     },
-//     {
-//       elementType: 'labels.text.stroke',
-//       stylers: [{ color: '#ffffff' }],
-//     },
-//     {
-//       elementType: 'labels.text.fill',
-//       stylers: [{ color: '#000000' }],
-//     },
-//   ],
-// });
+const close = () => {
+  emit('close')
+}
 
 const mapOptions = reactive({
   styles: [
@@ -350,13 +550,82 @@ const mapOptions = reactive({
     },
   ],
 })
+</script>
 
+<!--
+<script setup>
+import { ref, defineEmits, reactive } from 'vue'
+import { GoogleMap, Marker, InfoWindow } from 'vue3-google-map'
 
+const props = defineProps({
+  isOpen: {
+    type: Boolean,
+    required: true,
+  },
+})
+
+const mapCenter = reactive({ lat: 15.369445, lng: 44.191006 })
+const markers = reactive([{ lat: 15.369445, lng: 44.191006 }])
+const zoom = ref(12)
+
+const infoWindow = reactive({
+  visible: false,
+  position: { lat: 0, lng: 0 },
+})
+
+const latitude = ref(null)
+const longitude = ref(null)
+const city = ref(null)
+const region = ref(null)
+
+const showInfoWindow = (index, marker) => {
+  infoWindow.position = marker
+  infoWindow.visible = true
+}
+
+const onMapClick = async event => {
+  const latLng = event.latLng
+  latitude.value = latLng.lat()
+  longitude.value = latLng.lng()
+  markers.push({ lat: latLng.lat(), lng: latLng.lng() })
+
+  // استدعاء API للحصول على اسم المدينة والمنطقة
+  await fetchAddress(latLng.lat(), latLng.lng())
+
+}
+
+const fetchAddress = async (lat, lng) => {
+  const apiKey = 'YOUR_GOOGLE_MAPS_API_KEY' // ضع مفتاح Google Maps API الخاص بك هنا
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
+
+  try {
+    const response = await fetch(url)
+    const data = await response.json()
+
+    if (data.results && data.results.length > 0) {
+      const addressComponents = data.results[0].address_components
+
+      // استخراج المدينة والمنطقة
+      city.value = addressComponents.find(component =>
+        component.types.includes('locality')
+      )?.long_name
+      region.value = addressComponents.find(component =>
+        component.types.includes('administrative_area_level_1')
+      )?.long_name
+    }
+  } catch (error) {
+    console.error('Error fetching address:', error)
+  }
+}
 
 const emit = defineEmits(['close'])
+
 const ConfirmLanLat = () => {
-  localStorage.setItem('long', longitude.value)
-  localStorage.setItem('lat', latitude.value)
+  // تخزين الإحداثيات والمدينة والمنطقة في localStorage
+  localStorage.setItem('latitude', latitude.value)
+  localStorage.setItem('longitude', longitude.value)
+  localStorage.setItem('city', city.value || 'Unknown')
+  localStorage.setItem('region', region.value || 'Unknown')
 
   emit('close')
 }
@@ -364,8 +633,43 @@ const ConfirmLanLat = () => {
 const close = () => {
   emit('close')
 }
-</script>
 
-<style>
+const mapOptions = reactive({
+  styles: [
+    {
+      elementType: 'geometry',
+      stylers: [{ color: '#ebe3cd' }],
+    },
+    {
+      elementType: 'labels.text.fill',
+      stylers: [{ color: '#523735' }],
+    },
+    {
+      elementType: 'labels.text.stroke',
+      stylers: [{ color: '#f5f1e6' }],
+    },
+    {
+      featureType: 'administrative',
+      elementType: 'geometry.stroke',
+      stylers: [{ color: '#c9b2a6' }],
+    },
+    {
+      featureType: 'landscape.man_made',
+      elementType: 'geometry',
+      stylers: [{ color: '#f0f0f0' }],
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry',
+      stylers: [{ color: '#ffffff' }],
+    },
+    {
+      featureType: 'water',
+      elementType: 'geometry',
+      stylers: [{ color: '#aaddff' }],
+    },
+  ],
+})
+</script> -->
 
-</style>
+<style></style>

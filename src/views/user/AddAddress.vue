@@ -249,7 +249,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, onMounted } from 'vue'
+import { defineProps, defineEmits, ref, onMounted,onUnmounted } from 'vue'
 import GoogleMap from '../../components/GoogleMap.vue'
 import { useAddressStore } from '@/stores/address'
 
@@ -274,8 +274,44 @@ const closeDialog = () => {
   isMap.value = false
 }
 
+
 const Getlong = ref(localStorage.getItem("long"));
 const Getlat = ref(localStorage.getItem("lat"));
+const Getcity = ref(localStorage.getItem('city')); // قراءة القيمة الأولية
+let intervalId = null; // تعريف متغير لتخزين المعرف الخاص بـ setInterval
+
+// وظيفة لتحديث القيمة عند حدوث تغييرات
+const checkLocalStorageChanges = () => {
+  const currentValue = localStorage.getItem('city'); // قراءة القيمة الحالية من localStorage
+  if (currentValue !== Getcity.value) {
+    Getcity.value = currentValue; // تحديث القيمة تلقائيًا
+  }
+
+  checkName()
+};
+
+// بدء المراقبة عند تحميل المكون
+onMounted(() => {
+  intervalId = setInterval(checkLocalStorageChanges, 500); // التحقق من التغييرات كل 500 ملي ثانية
+});
+
+// إيقاف المراقبة عند إلغاء تحميل المكون
+onUnmounted(() => {
+  clearInterval(intervalId);
+});
+
+
+const resultMessage = ref('');
+const checkName = () => {
+  const exists =  storeAddress.getCities.find(item => item.name ===  Getcity.value);
+  if (exists) {
+    resultMessage.value = `${Getcity.value} موجود داخل المصفوفة`;
+    selectedCite.value = Getcity.value;
+    filteredData.value.city_id = exists.id
+  } else {
+    resultMessage.value = `${Getcity.value} غير موجود داخل المصفوفة`;
+  }
+};
 
 const Adress = ref('')
 const NearestLand = ref('')
@@ -291,7 +327,7 @@ const filteredData = ref({
 
 // cities
 const dropDownCite = ref(null)
-const selectedCite = ref('المحافظة')
+const selectedCite = ref('المدينه')
 const isDropdowenCiteVisable = ref(false)
 const toggleCiteSelect = city => {
   filteredData.value.city_id = city.id
@@ -321,8 +357,15 @@ const handleAddress = async () => {
   if (creataddress) {
     alert('تم الاضافه بنجاح')
     storeAddress.fetchAllAddresses()
+    Adress.value = "";
+    NearestLand.value= "";
+    selectedDistrict.value = "المنطقة";
+    selectedCite.value ="المدينه"
+
     localStorage.removeItem('long')
     localStorage.removeItem('lat')
+    localStorage.removeItem('city')
+    localStorage.removeItem('region')
     window.location.reload();
   } else {
     alert(storeAddress.error + 'error')

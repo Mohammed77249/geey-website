@@ -137,6 +137,10 @@ const openEdit = (address) => {
 
 const closeDialog = () => {
   isDialogOpen.value = false
+    localStorage.removeItem('long')
+    localStorage.removeItem('lat')
+    localStorage.removeItem('city')
+    localStorage.removeItem('region')
   window.dispatchEvent(new Event("storage"));
 }
 
