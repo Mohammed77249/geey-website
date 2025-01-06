@@ -24,12 +24,12 @@
                   required
                   :type="isPasswordNewVisible ? 'text' : 'password'"
                    placeholder="********"
-                   class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                   class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
                 />
                 <button
                   type="button"
                   @click="togglePasswordNewVisibility"
-                  class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600"
+                  class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-primary-900"
                 >
                   <svg
                     class="shrink-0 size-5"
@@ -79,12 +79,12 @@
                   required
                   :type="isconfirmPasswordVisible ? 'text' : 'password'"
                   placeholder="********"
-                   class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                   class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
                 />
                 <button
                   type="button"
                   @click="toggleconfirmPasswordVisibility"
-                  class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600"
+                  class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-primary-900"
                 >
                   <svg
                     class="shrink-0 size-5"

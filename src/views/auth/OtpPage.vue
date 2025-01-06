@@ -23,7 +23,7 @@
             maxlength="1"
             v-model="otp[index]"
             @input="focusNext(index, $event)"
-            class="w-12 h-12 border border-gray-300 text-center text-xl rounded focus:ring focus:ring-blue-200 focus:outline-none"
+            class="w-12 h-12 border border-gray-300 text-center text-xl rounded focus:ring-2 focus:ring-primary-900 focus:outline-none"
           />
         </div>
 

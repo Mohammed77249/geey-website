@@ -32,7 +32,7 @@
                 v-model="email"
                 required
                 :placeholder="$t('Email or phone number')"
-                class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
               />
             </div>
             <p v-if="authStore.error" class="text-red-500 text-sm text-center mb-4">
