@@ -207,30 +207,10 @@ export const useSectionsStore = defineStore('sections', {
 
 
 
-          // async changeSubSection(subsectionId) {
-          //   if (this.currentSubSectionId === subsectionId) return
-          //   this.currentSubSectionId = subsectionId
-
-          //   // تحقق من وجود البيانات في LocalStorage
-          //   const storedData = JSON.parse(localStorage.getItem(`subsection${subsectionId}`))
-          //   if (storedData) {
-          //     this.subsections = storedData.subsections
-          //     this.products = storedData.products
-          //   } else {
-          //     this.subsections = []
-          //     this.products = []
-          //     await this.fetchCategoriesAndProducetsForSubsetion(subsectionId)
-          //   }
-          // },
-
     //get categories && products for subsection
     async fetchCategoriesAndProducetsForSubsetion(data) {
       this.loading = true;
       this.error = null;
-
-      // this.selectedSubSection = data.value.subSectionId
-      // this.categories = []
-      // this.products = []
 
       try {
         const response = await axiosIns.get(`categories/get_subsection/${data.value.subSectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
@@ -247,6 +227,46 @@ export const useSectionsStore = defineStore('sections', {
         this.loading = false;
       }
     },
+
+
+
+
+
+    // async fetchCategoriesAndProducetsForSubsetion(data) {
+    //   this.loading = true;
+    //   this.error = null;
+
+    //   try {
+    //     const response = await axiosIns.get(
+    //       `categories/get_subsection/${data.value.subSectionId}?page=${data.value.page}&perPage=${data.value.perPage}`
+    //     );
+
+    //     // إضافة الفئات إلى القائمة categories
+    //     if (response.data.categories) {
+    //       this.categories = [...this.categories, response.data.categories];
+    //     }
+
+    //     // إضافة المنتجات إلى القائمة products
+    //     if (response.data.products && response.data.products.data) {
+    //       this.products = [...this.products, ...response.data.products.data];
+    //     }
+
+    //     // تحديث بيانات المنتجات الإجمالية
+    //     this.totalProducts.currentPage = response.data.products.current_page;
+    //     this.totalProducts.totalItems = response.data.products.total;
+    //     this.totalProducts.totalPages = response.data.products.last_page;
+
+    //     // التحقق إذا كان هناك المزيد من المنتجات
+    //     this.hasMore = this.totalProducts.currentPage < this.totalProducts.totalPages;
+    //   } catch (error) {
+    //     this.error = "خطأ أثناء جلب الفئات";
+    //     console.error("خطأ أثناء جلب البيانات:", error);
+    //     alert(error.message);
+    //   } finally {
+    //     this.loading = false;
+    //   }
+    // },
+
 
 
 
@@ -272,30 +292,6 @@ export const useSectionsStore = defineStore('sections', {
     },
 
 
-    // async fetchSubSectionBySectionIDForfilter(data) {
-    //   this.loading = true;
-    //   this.error = null;
-
-    //   try {
-    //     const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
-    //     this.subsectionsforfilter = response.data.sections;
-    //     this.sections.forEach(section => {
-    //       if (section.categories && section.categories.length > 0) {
-    //         this.categories.push(...section.categories);
-    //       }
-    //     });
-    //     this.products = response.data.products.data
-    //     this.totalProducts.currentPage = response.data.products.current_page
-    //     this.totalProducts.totalItems = response.data.products.total
-    //     this.totalProducts.totalPages = response.data.products.last_page
-
-    //   } catch (error) {
-    //     this.error = 'خطأ أثناء جلب الفئات';
-    //     alert(error(error));
-    //   } finally {
-    //     this.loading = false;
-    //   }
-    // },
 
   },
 });
