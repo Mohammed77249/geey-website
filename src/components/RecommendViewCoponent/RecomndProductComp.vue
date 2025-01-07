@@ -1,14 +1,14 @@
 <template>
   <div class="mx-auto pl-2 pr-2">
-    <div v-if="initialLoading" class="flex justify-center items-center mt-10">
+    <!-- <div v-if="initialLoading" class="flex justify-center items-center mt-10">
       <div
         class="w-8 h-8 border-4 border-primary-900 border-t-transparent rounded-full animate-spin"
       ></div>
       <span class="ml-4 text-primary-900">جاري تحميل المنتجات...</span>
-    </div>
+    </div> -->
 
 
-    <div v-else class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1">
+    <div  class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1">
       <div
         v-for="product in storeSecion.getProducts"
         :key="product.id"
@@ -107,7 +107,7 @@
       @close="closeDialog"
     />
     <!-- مؤشر التحميل -->
-    <div
+    <!-- <div
       v-if="loadingMore && !initialLoading"
       class="flex justify-center items-center mt-4"
     >
@@ -115,26 +115,31 @@
         class="w-8 h-8 border-4 border-primary-900 border-t-transparent rounded-full animate-spin"
       ></div>
       <span class="ml-4 text-primary-900">جاري تحميل المزيد...</span>
-    </div>
+    </div> -->
     <!-- مراقبة العنصر الأخير -->
-    <div ref="loadMoreRef" class="h-10"></div>
+    <!-- <div ref="loadMoreRef" class="h-10"></div> -->
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref ,onMounted } from 'vue'
 import DialogAddToCart from '../DialogAddToCart.vue'
-import { useIntersectionObserver } from '@vueuse/core'
+// import { useIntersectionObserver } from '@vueuse/core'
 const props = defineProps({
   IdSection: {
-    type: Number,
+    type: String,
   },
+
+  lev:{
+    type:Number
+  }
 })
 import { useSectionsStore } from '@/stores/section'
 const storeSecion = useSectionsStore()
 
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
+
 
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
@@ -165,50 +170,80 @@ const onhover = id => {
 
 const filteredData2 = ref({
   sectionId: null,
+  page: 1,
+  perPage: 10,
 })
+
+const filteredData3 = ref({
+  categoryId:null,
+      page: 1,
+      perPage: 10,
+    });
 
 if (props.IdSection != null) {
   filteredData2.value.sectionId = props.IdSection
+  filteredData3.value.categoryId = props.IdSection
+
+
 }
 
-const sectionId = ref(null)
-const changeSection = async newSectionId => {
-  sectionId.value = newSectionId
-  initialLoading.value = true
-  await storeSecion.changeSection(sectionId.value) // تغيير القسم في Store
-  initialLoading.value = false
-}
-const initialLoading = ref(false)
-const loadingMore = ref(false)
+// const sectionId = ref(null)
+// const changeSection = async newSectionId => {
+//   sectionId.value = newSectionId
+//   initialLoading.value = true
+//   await storeSecion.changeSection(sectionId.value) // تغيير القسم في Store
+//   initialLoading.value = false
+// }
+// const initialLoading = ref(false)
+// const loadingMore = ref(false)
 
-const loadMoreProducts = async () => {
-  if (loadingMore.value || storeSecion.loading || !storeSecion.hasMore) return
-  try {
-    loadingMore.value = true
-    await storeSecion.fetchMoreProducts(filteredData2)
-  } catch (error) {
-    console.error('خطأ أثناء تحميل المزيد من المنتجات:', error)
-  } finally {
-    loadingMore.value = false
-  }
-}
+// const loadMoreProducts = async () => {
+//   if (loadingMore.value || storeSecion.loading || !storeSecion.hasMore) return
+//   try {
+//     loadingMore.value = true
+//     await storeSecion.fetchMoreProducts(filteredData2)
+//   } catch (error) {
+//     console.error('خطأ أثناء تحميل المزيد من المنتجات:', error)
+//   } finally {
+//     loadingMore.value = false
+//   }
+// }
 
 // مراقبة العنصر الأخير
-const loadMoreRef = ref(null)
-useIntersectionObserver(
-  loadMoreRef,
-  ([{ isIntersecting }]) => {
-    if (isIntersecting && !initialLoading.value) {
-      loadMoreProducts() // جلب المزيد عند رؤية العنصر الأخير
-    }
-  },
-  { threshold: 0.5 },
-)
+// const loadMoreRef = ref(null)
+// useIntersectionObserver(
+//   loadMoreRef,
+//   ([{ isIntersecting }]) => {
+//     if (isIntersecting && !initialLoading.value) {
+//       loadMoreProducts() // جلب المزيد عند رؤية العنصر الأخير
+//     }
+//   },
+//   { threshold: 0.5 },
+// )
+
+// onMounted(() => {
+//   // storeSecion.loadFromLocalStorage(props.IdSection)
+//   storeSecion.fetchSubSectionBySectionID(filteredData)
+//   // changeSection(props.IdSection) // قسم افتراضي، يمكن تغييره حسب الحاجة
+// })
 
 onMounted(() => {
-  storeSecion.loadFromLocalStorage(props.IdSection)
-  changeSection(props.IdSection) // قسم افتراضي، يمكن تغييره حسب الحاجة
-})
+
+  if(props.lev == "no"){
+    storeSecion.fetchSubSectionBySectionID(filteredData2)
+
+  }else{
+    storeSecion.fetchSubCategoryByCategoryID(filteredData3)
+  }
+
+  // storeSecion.fetchSubCategoryByCategoryID(filteredData2)
+
+  // if(storeSecion.getSubCategories && storeSecion.getSubCategories.length > 0 ){
+  //   storeSecion.fetchSubCategoryByCategoryID(filteredData2)
+  // }
+
+});
+
 </script>
 <style scoped>
 @keyframes spin {

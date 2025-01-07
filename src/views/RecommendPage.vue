@@ -60,10 +60,25 @@
                   </svg>
                 </button>
               </div>
-              <SubSectionComp v-if="storeSecion.subsections && storeSecion.subsections.length > 0"
+
+              <!-- <div v-if="storeSecion.getSubCategories">
+
+                <ListCatogriesComp
+                :categories="storeSecion.getSubCategories"/>
+              </div> -->
+              <div>
+                <SubSectionComp v-if="storeSecion.subsections && storeSecion.subsections.length > 0 "
                 :subSectiones="storeSecion.getSubSections"
                 :isDropdowenVisable="isDropdowenCategoryVisable"
+                :lev="level_cat"
               />
+              </div>
+              <!-- <div v-else>
+
+                <ListCatogriesComp v-if="storeSecion.getSubCategories && storeSecion.getSubCategories.length > 0"
+                :categories="storeSecion.getSubCategories"/>
+              </div> -->
+
             </div>
             <!-- مقاس -->
             <div>
@@ -576,7 +591,7 @@
         </div>
         <div >
           <div  class="mb-10">
-            <RecomndProductComp   :IdSection="filteredData.sectionId" />
+            <RecomndProductComp :IdSection="filteredData.sectionId" :lev="level_cat"/>
           </div>
         </div>
       </div>
@@ -595,7 +610,7 @@ import ResourccesComp from '@/components/RecommendViewCoponent/ResourccesComp.vu
 import SiziesComp from '@/components/RecommendViewCoponent/SiziesComp.vue'
 import TallComp from '@/components/RecommendViewCoponent/TallComp.vue'
 import TypeComp from '@/components/RecommendViewCoponent/TypeComp.vue'
-import { ref } from 'vue'
+import { ref ,} from 'vue'
 import { useRoute } from 'vue-router'
 import { useSectionsStore } from '@/stores/section'
 const filteredData = ref({
@@ -608,6 +623,7 @@ const route = useRoute()
 
 const sectionName = route.params.name
 const id = route.params.id
+const level_cat =  route.params.category_level || "no";
 if(id != null){
   filteredData.value.sectionId = id
 }
@@ -693,6 +709,12 @@ const toggleStatusSelect = status => {
   selectedStatus.value = status
   isDropdowenStatusVisable.value = false
 };
+
+
+// onMounted(() => {
+//   storeSecion.fetchSubSectionBySectionID(filteredData)
+
+// })
 
 </script>
 

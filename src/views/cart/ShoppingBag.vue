@@ -251,6 +251,13 @@ const filteredData = ref({
   cartID:null,
 })
 
+const authStore = useAuthStore();
+const router = useRouter();
+
+if (!authStore.isAuthenticated) {
+  alert('يرجى تسجيل الدخول للوصول إلى السلة.');
+  router.push('/login');
+}
 
 const selectAll = ref(false);
 
@@ -274,13 +281,13 @@ const updateSelectAll = () => {
   selectAll.value = storeCart.allCarts.every((product) => product.selected);
 };
 
-const authStore = useAuthStore();
-const router = useRouter();
+// const authStore = useAuthStore();
+// const router = useRouter();
 
-if (!authStore.isAuthenticated) {
-  alert('يرجى تسجيل الدخول للوصول إلى السلة.');
-  router.push('/login');
-}
+// if (!authStore.isAuthenticated) {
+//   alert('يرجى تسجيل الدخول للوصول إلى السلة.');
+//   router.push('/login');
+// }
 
 const openDialog = (product_id,cart_id) => {
   isDialogOpen.value = true

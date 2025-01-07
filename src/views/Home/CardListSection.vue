@@ -2,22 +2,24 @@
   <div class="mt-5">
     <div>
       <ul class="space-y-5">
-        <li v-if="storeAllSection.getAllSections.length > 0">
+        <li v-if="storeCategories.getCategories">
           <div
             class=" p-5 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7  rtl gap-6"
           >
             <div
-              v-for="(section, index) in storeAllSection.getAllSections"
+              v-for="(category, index) in storeCategories.getCategories"
               :key="index"
+
               class="bg-white flex flex-col items-center"
-            >  <RouterLink :to="`/recommend/${section.id}/${section.name}`">
+            >  <RouterLink :to="`/recommend/${category.category_level}/${category.id}/${category.name}`">
               <img
                 src="/src/assets/images/Big Sale Banner.svg"
-                :alt="section.name"
+                :alt="category.name"
+                  @click="toggleChildren(category.id)"
                 class="w-20 md:w-28 rounded-full h-20 md:h-28 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
               />
-              <h3 class="text-center mt-2 text-[12px] md:text-[15px] font-sans text-gray-800">
-                {{ section.name }}
+              <h3   @click="toggleChildren(category.id)" class="text-center mt-2 text-[12px] md:text-[15px] font-sans text-gray-800">
+                {{ category.name }}
               </h3>
             </RouterLink>
             </div>
@@ -27,8 +29,8 @@
             no data
         </div>
         <!-- <LoaderComp  :is-loader="storeAllSection.loading"/> -->
-         <div v-if="storeAllSection.getAllSections.length  <1 ">
-          <LoaderDatacomp :is-loader="storeAllSection.loading"/>
+         <div v-if=" storeCategories.loading">
+          <LoaderDatacomp :is-loader="storeCategories.loading"/>
          </div>
 
 
@@ -69,17 +71,30 @@
 import ProductCard from '@/components/ProductCard.vue';
 import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
 import { useSectionsStore } from '@/stores/section'
-import {ref,onMounted } from 'vue'
-const storeAllSection = useSectionsStore();
+import {ref } from 'vue'
+const storeCategories = useSectionsStore();
 
 const filteredData = ref({
+  categoryId:null,
       page: 1,
-      perPage: 20,
+      perPage: 10,
     });
 
-    onMounted(() => {
-      storeAllSection.fetchAllSections(filteredData);
-    });
+    // onMounted(() => {
+    //   storeAllSection.fetchAllSections(filteredData);
+    // });
+
+    const toggleChildren = id => {
+  if (id) {
+
+
+    filteredData.value.categoryId = id
+    // storeCategories.fetchSubCategoryByCategoryID(filteredData)
+  }
+   else {
+  alert("hghghg")
+  }
+}
 
 // const categories = [
 //   { name: 'الأزياء النسائية', image: '/src/assets/images/Big Sale Banner.svg' },

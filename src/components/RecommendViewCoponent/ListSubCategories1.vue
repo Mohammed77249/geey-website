@@ -76,7 +76,7 @@
                   </div>
 
                   <div v-if="subCategory.has_children "  class="pr-2">
-                    <ListSubCategories2 v-if="subCategory.id === tempid " :id="subCategory.id" :subCategories="storeCategory.getSubCategories" />
+                    <ListSubCategories1 v-if="subCategory.id === tempid " :id="subCategory.id" :subCategories="storeCategory.getSubCategories" />
                   </div>
 
                 </li>
@@ -90,7 +90,7 @@
   <script setup>
   import { ref } from 'vue'
 import { useSectionsStore } from '@/stores/section'
-import ListSubCategories2 from './ListSubCategories2.vue';
+import ListSubCategories1 from './ListSubCategories1.vue';
 const storeSecion = useSectionsStore()
 
   defineProps({

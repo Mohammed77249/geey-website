@@ -46,6 +46,8 @@ export const useCartStore = defineStore('cart', {
 
   },
   actions: {
+
+
     async fetchProductDetailsByIdForCart(data) {
       this.loading = true
       this.error = null
@@ -68,14 +70,14 @@ export const useCartStore = defineStore('cart', {
       this.error = null
       try {
         const response = await axiosIns.get(`carts?`)
-        const data =  await response.data;
+        const data =   response.data;
         this.allCarts = data.map((product) => ({
           ...product,
           selected: false,
         }));
         this.lengthCart = response.data.length;
       } catch (error) {
-        this.error = error.response.data || 'خطأ أثناء جلب الفئات'
+        this.error = error+ 'خطأ أثناء جلب الفئات';
         console.error(error)
       } finally {
         this.loading = false

@@ -8,76 +8,74 @@
             :key="category.id"
             class="space-y-2"
           >
-                <div class="flex items-center justify-between">
-                  <div>
-                    <input
-                    type="radio"
-                    :value="category.id"
-                    :checked="selectedcategory === category.id"
-                    @click="toggleGrandchildren(category.id)"
-                    class=" ml-2 rounded border-gray-300 text-black focus:ring-black"
-                  />
-                    <label @click="toggleGrandchildren(category.id)" class="cursor-pointer  text-[8px]  md:text-[10px]">{{ category.name }}</label>
-                  </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <input
+                  type="radio"
+                  :value="category.id"
+                  :checked="selectedcategory === category.id"
+                  @click="toggleGrandchildren(category)"
+                  class="ml-2 rounded border-gray-300 text-black focus:ring-black"
+                />
+                <label
+                  @click="toggleGrandchildren(category)"
+                  class="cursor-pointer text-[8px] md:text-[10px]"
+                  >{{ category.name }}</label
+                >
+              </div>
 
-                   <div  v-if="category.has_children ">
-                    <button
-                      type="button"
-                      @click="toggleGrandchildren(category.id)"
-                    >
+              <div v-if="category.has_children">
+                <button type="button" @click="toggleGrandchildren(category)">
+                  <svg
+                    v-if="category.id === tempid"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6 12H18"
+                      stroke="#292D32"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
 
-                    <svg
-                      v-if="category.id === tempid"
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6 12H18"
-                          stroke="#292D32"
-                          stroke-width="3"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
+                  <svg
+                    v-else
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6 12H18"
+                      stroke="#292D32"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12 18V6"
+                      stroke="#292D32"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
 
-                      <svg
-                      v-else
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6 12H18"
-                          stroke="#292D32"
-                          stroke-width="3"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M12 18V6"
-                          stroke="#292D32"
-                          stroke-width="3"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-
-
-                    </button>
-
-                  </div>
-
-                </div>
-
-                <div v-if="category.has_children" class="pr-3">
-                   <ListSubCategories1 v-if="category.id === tempid "  :subCategories="storeSecion.getSubCategories" />
-                </div>
-
+            <div v-if="category.has_children" class="pr-3">
+              <ListCatogriesComp
+                v-if="category.id === tempid"
+                :categories="subcat"
+              />
+            </div>
           </li>
         </ul>
       </div>
@@ -87,8 +85,9 @@
 
 <script setup>
 import { useSectionsStore } from '@/stores/section'
-import { ref } from 'vue'
-import ListSubCategories1 from './ListSubCategories1.vue';
+import { ref ,watch} from 'vue'
+import ListCatogriesComp
+from './ListCatogriesComp.vue'
 const storeSecion = useSectionsStore()
 
 defineProps({
@@ -97,27 +96,46 @@ defineProps({
     default: [],
   },
 })
+
+
+let subcat = ref([{}])
+
 const filteredData = ref({
   categoryId: null,
   page: 1,
   perPage: 10,
-});
+})
 
 const selectedcategory = ref(null)
-const tempid = ref(null);
-const toggleGrandchildren = (id) => {
-  if (tempid.value == id) {
-    tempid.value = null;
+const tempid = ref(null)
+const toggleGrandchildren = async (category) => {
+
+  if(category.has_children === true){
+    if (tempid.value == category.id) {
+    tempid.value = null
     selectedcategory.value = null
-  } else {
-    tempid.value = id;
-    selectedcategory.value = id
-    filteredData.value.categoryId = id;
-    storeSecion.fetchSubCategoryByCategoryID(filteredData)
+    subcat.value = [{}];
+    } else {
+      tempid.value = category.id
+      selectedcategory.value = category.id
+      filteredData.value.categoryId = category.id
+      await storeSecion.fetchSubCategoryByCategoryID(filteredData)
+      subcat.value =  storeSecion.subcategories;
+    }
+  }else{
+    console.log("no")
   }
 
-};
 
 
+// alert(subcat.value)
+}
 
+watch(
+  () => storeSecion.getSubCategories, // المراقبة على getter
+  (newVal) => {
+    subcat.value = [...subcat.value,...newVal]; // تحديث قيمة subcat عند حدوث تغيير
+  },
+  { immediate: true } // تشغيل المراقبة فورًا عند التحميل
+);
 </script>

@@ -148,6 +148,8 @@
 // export default router
 
 
+
+///=========================================================================
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from '@/views/auth/LoginPage.vue';
 import NotFoundPage from '@/views/NotFoundPage.vue';
@@ -224,6 +226,12 @@ const routes = [
     // meta: { requiresAuth: true },
   },
   {
+    name: 'Recommendcat',
+    path: '/recommend/:category_level/:id/:name',
+    component: RecommendPage,
+    // meta: { requiresAuth: true },
+  },
+  {
     path: '/product/:id',
     name: 'ProductDetails',
     component: ProductDetailsPage,
@@ -296,3 +304,144 @@ router.beforeEach((to, from, next) => {
 });
 
 export default router;
+
+
+
+
+// import { createRouter, createWebHistory } from 'vue-router';
+// import LoginPage from '@/views/auth/LoginPage.vue';
+// import NotFoundPage from '@/views/NotFoundPage.vue';
+// import { useAuthStore } from '@/stores/auth';
+// import LoginEmailPage from '@/views/auth/LoginEmailPage.vue';
+// import RecommendPage from '@/views/RecommendPage.vue';
+// import HomePage from '@/views/HomePage.vue';
+// import ProductDetailsPage from '@/views/ProductDetailsPage.vue';
+// import CommentsPage from '@/views/CommentsPage.vue';
+// import OtpPage from '@/views/auth/OtpPage.vue';
+// import ForgetPasswordPage from '@/views/auth/ForgetPasswordPage.vue';
+// import ResetPasswordPage from '@/views/auth/ResatPasswordPage.vue';
+// import CartPage from '@/views/CartPage.vue';
+// import User_Index from '@/views/user/User_Index.vue';
+// import User_main from '@/views/user/User_main.vue';
+// import MyRequest from '@/views/user/MyRequest.vue';
+// import MyAddresses from '@/views/user/MyAddresses.vue';
+// import MyProfile from '@/views/user/MyProfile.vue';
+
+// // تعريف المسارات
+// const routes = [
+//   {
+//     path: '/user/login',
+//     name: 'login',
+//     component: LoginPage,
+//     meta: { hideHeaderFooter: true },
+//   },
+//   {
+//     path: '/user/loginemail',
+//     name: 'loginemail',
+//     component: LoginEmailPage,
+//     meta: { hideHeaderFooter: true },
+//   },
+//   {
+//     path: '/user/otp',
+//     name: 'loginotp',
+//     component: OtpPage,
+//     meta: { hideHeaderFooter: true },
+//   },
+//   {
+//     path: '/user/forgetpassword',
+//     name: 'forgetpassword',
+//     component: ForgetPasswordPage,
+//     meta: { hideHeaderFooter: true },
+//   },
+//   {
+//     path: '/user/resetpassword',
+//     name: 'resetpassword',
+//     component: ResetPasswordPage,
+//     meta: { hideHeaderFooter: true },
+//   },
+//   {
+//     path: '/',
+//     name: 'home',
+//     component: HomePage,
+//   },
+//   {
+//     name: 'Recommend',
+//     path: '/recommend/:id/:name',
+//     component: RecommendPage,
+//   },
+//   {
+//     path: '/product/:id',
+//     name: 'ProductDetails',
+//     component: ProductDetailsPage,
+//   },
+//   {
+//     path: '/product/:id/comments',
+//     name: 'ProductComments',
+//     component: CommentsPage,
+//   },
+//   {
+//     name: 'Cart',
+//     path: '/cart',
+//     component: CartPage,
+//     meta: { requiresAuth: true, hideHeaderFooter: true },
+//   },
+//   {
+//     path: '/user/user_index',
+//     name: 'User_index',
+//     component: User_Index,
+//     meta: { requiresAuth: true },
+//     children: [
+//       {
+//         name: 'main',
+//         path: '',
+//         component: User_main,
+//       },
+//       {
+//         name: 'myrequests',
+//         path: 'myrequests',
+//         component: MyRequest,
+//       },
+//       {
+//         name: 'myaddresses',
+//         path: 'myaddresses',
+//         component: MyAddresses,
+//       },
+//       {
+//         name: 'myProfile',
+//         path: 'my_profile',
+//         component: MyProfile,
+//       },
+//     ],
+//   },
+//   // Catch-All Route for 404
+//   {
+//     path: '/:pathMatch(.*)*',
+//     name: 'NotFound',
+//     component: NotFoundPage,
+//   },
+// ];
+
+// // إنشاء الروتر
+// const router = createRouter({
+//   history: createWebHistory(import.meta.env.BASE_URL),
+//   routes,
+// });
+
+// // الحماية العامة للمسارات التي تحتاج إلى تسجيل الدخول
+// router.beforeEach((to, from, next) => {
+//   const authStore = useAuthStore();
+
+//   // التحقق من المصادقة للمسارات المحمية
+//   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+//     // إعادة توجيه المستخدم إلى تسجيل الدخول مع حفظ الصفحة المطلوبة
+//     next({
+//       path: '/user/login',
+//       query: { redirect: to.fullPath }, // حفظ المسار المطلوب
+//     });
+//   } else {
+//     // السماح بالمتابعة
+//     next();
+//   }
+// });
+
+// export default router;

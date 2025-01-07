@@ -251,7 +251,7 @@ defineProps({
 
   const getID = (id) =>{
     filteredData.value.sectionId = id
-    storeSecion.fetchSubSectionBySectionID(filteredData);
+    // storeSecion.fetchSubSectionBySectionID(filteredData);
 
   }
 
@@ -269,7 +269,9 @@ defineProps({
       updateHoveredIndex();
       intervalId = setInterval(updateHoveredIndex, 500);
       storeSecion.fetchSections(filteredData);
+      // storeSecion.fetchSubSectionBySectionID(filteredData);
       storeSecion.fetchSubSectionBySectionID(filteredData);
+
     });
 
     onBeforeUnmount(() => {
@@ -287,9 +289,9 @@ defineProps({
 
 
     const filteredData = ref({
-      sectionId: 1,
+      sectionId: 11,
       page: 1,
-      perPage: 3,
+      perPage: 10,
     });
 
 

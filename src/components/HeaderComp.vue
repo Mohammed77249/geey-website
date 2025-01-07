@@ -7,11 +7,11 @@
 
           <RouterLink to="/">
             <div class="flex items-center cursor-pointer ">
-              <span class="text-xl md:text-2xl 2xl:text-4xl font-bold text-primary-900">{{ $t('Jeey') }}</span>
+              <!-- <span class="text-xl md:text-2xl 2xl:text-4xl font-bold text-primary-900">{{ $t('Jeey') }}</span> -->
               <img
-                src="../assets/images/logogeey.svg"
+                src="/public/jeeeeylogo3.jpg"
                 alt="SHEIN"
-                class="h-8 w-8 2xl:h-16 2xl:w-14"
+                class="h-8 w-8 2xl:h-10 2xl:w-20"
               />
             </div>
           </RouterLink>
@@ -217,7 +217,7 @@
             <span
               class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"
             >
-            <p v-if="storeCart.lengthCart!== null">{{ storeCart.lengthCart }} </p>
+            <p v-if="storeCart.lengthCart !== null ">{{ storeCart.lengthCart }} </p>
              <p v-else>0</p>
             </span>
 
@@ -549,6 +549,9 @@ const showDropdown = ref()
 const store = useAuthStore()
 const storeSecion = useSectionsStore();
 
+
+
+
 const languageStore = useLanguageStore();
 const storedLanguage = localStorage.getItem("language");
 function changeLanguage(lang) {
@@ -589,7 +592,10 @@ onMounted(() => {
   // window.addEventListener('click', closeDropdowenStatus)
   // window.addEventListener('click', closeDropdowenLanguage)
   storeSecion.fetchSections(filteredData);
-  storeCart.fetchAllProductsInCart();
+  if(store.isAuthenticated){
+    storeCart.fetchAllProductsInCart();
+  }
+
   updateHoveredIndex();
   intervalId = setInterval(updateHoveredIndex, 500);
 

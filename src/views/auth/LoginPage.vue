@@ -5,7 +5,7 @@
       <div class="mb-5">
         <div class="flex items-center justify-center gap-2">
           <h1 class="text-3xl font-bold text-gray-800  text-center"> {{ $t('Jeey') }} </h1>
-          <img src="/src/assets/images/logogeey.svg" class="w-20 h-16" />
+          <img src="/public/jeeeeylogo3.jpg" class="w-20 h-16" />
         </div>
 
         <div class="flex items-center justify-center gap-1 ">

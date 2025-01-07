@@ -6,8 +6,8 @@
     <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-10">
 <div class="z-[100]  w-full  rounded-lg md:mt-0 sm:max-w-[630px] sm:max-h-[750px] xl:p-0">
 
-        <div class="flex items-center justify-center -mb-12">
-          <img class="w-[200px] h-[200px]" src="/src/assets/images/logogeey.svg" alt="logo" />
+        <div class="flex items-center justify-center ">
+          <img class="w-[150px] h-[150px]" src="/public/jeeeeylogo3.jpg" alt="logo" />
         </div>
 
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
