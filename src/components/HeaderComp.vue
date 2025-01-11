@@ -597,9 +597,9 @@ onMounted(() => {
   // window.addEventListener('click', closeDropdowenStatus)
   // window.addEventListener('click', closeDropdowenLanguage)
   storeSecion.fetchSections(filteredData);
-  if(store.isAuthenticated){
-    storeCart.fetchAllProductsInCart();
-  }
+  // if(store.isAuthenticated){
+  //   storeCart.fetchAllProductsInCart();
+  // }
 
   updateHoveredIndex();
   intervalId = setInterval(updateHoveredIndex, 500);
