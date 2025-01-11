@@ -52,7 +52,7 @@ export const useProductStore = defineStore('useProductStore', {
       this.loading = true
       this.error = null
       try {
-        const response = await axiosIns.get(`products/show/${data.value.productID}?`)
+        const response = await axiosIns.get(`products/${data.value.productID}?`)
         this.productDetails =  response.data.product;
         this.totalProductsDetails.productColors = response.data.product.product_colors;
         this.totalProductsDetails.productDescriptionDetails = response.data.product.product_details;

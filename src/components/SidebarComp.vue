@@ -127,9 +127,9 @@
           class="cursor-pointer flex-shrink-0 flex items-center pl-10 p-2 justify-between hover:text-black  hover:bg-gray-100 h-10 transition-all duration-200"
           :ref="setItemRef"
           >
-
-          <p v-if="storedLanguage == 'ar'"> {{ section.name_ar }} </p>
-            <p v-if="storedLanguage == 'en'"> {{ section.name_en }} </p>
+          <p > {{ section.name }} </p>
+          <!-- <p v-if="storedLanguage == 'ar'"> {{ section.name_ar }} </p> -->
+            <!-- <p v-if="storedLanguage == 'en'"> {{ section.name_en }} </p> -->
           <div class="">
             <svg v-if="storedLanguage == 'en'" width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="font-bold">
             <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="gray" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -269,8 +269,8 @@ defineProps({
       updateHoveredIndex();
       intervalId = setInterval(updateHoveredIndex, 500);
       storeSecion.fetchSections(filteredData);
-      // storeSecion.fetchSubSectionBySectionID(filteredData);
       storeSecion.fetchSubSectionBySectionID(filteredData);
+      // storeSecion.fetchSubSectionBySectionID(filteredData);
 
     });
 
@@ -289,9 +289,9 @@ defineProps({
 
 
     const filteredData = ref({
-      sectionId: 11,
+      sectionId: 1,
       page: 1,
-      perPage: 10,
+      perPage: 70,
     });
 
 

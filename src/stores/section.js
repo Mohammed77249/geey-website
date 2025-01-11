@@ -3,13 +3,15 @@ import axiosIns from '@/plugins/axios';
 
 export const useSectionsStore = defineStore('sections', {
   state: () => ({
-    sections:JSON.parse(localStorage.getItem("sections")) || [],
-    allsections:JSON.parse(localStorage.getItem("allsections")) || [],
+    sections:[],
+    allsections:[],
     subsections:[],
     productFormAllSection:[],
     categories: [],
+    categories_Main: [],
     subcategories: [],
     products:[],
+    products_main:[],
     totalProducts: {
       currentPage: 1,
       totalItems: null,
@@ -28,24 +30,49 @@ export const useSectionsStore = defineStore('sections', {
   getters: {
     getSections: state => state.sections,
     getSubSections: state => state.subsections,
-    getSubCategories: state => state.subcategories ,
+    getSubCategories: state => state.subcategories || [],
     getAllSections: state => state.allsections,
     getProducts: state => state.products,
     getAllProductsFromAllSection: state => state.productFormAllSection,
     getCategories: state => state.categories,
+    getCategoriesMain: state => state.categories_Main,
+    getProducts_Main:state => state.products_main
     },
   actions: {
 
     // onlay section
     async fetchSections(data) {
-      if (this.sections.length > 0) return;
       this.loading = true;
       this.error = null;
       try {
         const response = await axiosIns.get(`sections?page=${data.value.page}&perPage=${data.value.perPage}`);
-        const data1 =  response.data
-        this.sections = data1;
-        localStorage.setItem("sections", JSON.stringify(data1));
+        this.sections =  response.data.sections
+        this.categories_Main =  response.data.categories
+        this.products_main = response.data.products.data
+
+
+      } catch (error) {
+        this.error = 'خطأ أثناء جلب الاقسام';
+        alert(error(error));
+        this.loading = false;
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async fetchAllSections(data) {
+
+      if (this.allsections.length > 0) return;
+      this.loading = true;
+      this.error = null;
+      try {
+        const response = await axiosIns.get(`categories/section?page=${data.value.page}&perPage=${data.value.perPage}`);
+        this.allsections = response.data.sections
+        this.categories = response.data.categories;
+        this.productFormAllSection = response.data.products.data;
+        this.totalProducts.currentPage = response.data.products.current_page;
+        this.totalProducts.totalItems = response.data.products.total;
+        this.totalProducts.totalPages = response.data.products.last_page;
       } catch (error) {
         this.error = 'خطأ أثناء جلب الاقسام';
         alert(error(error));
@@ -57,29 +84,34 @@ export const useSectionsStore = defineStore('sections', {
 
     async fetchSubSectionBySectionID(data) {
 
-      // if (this.loading) return; // منع استدعاءات متكررة أثناء التحميل
-      // if (this.totalProducts.currentPage >= this.totalProducts.totalPages) return;
-
-
       this.loading = true;
       this.error = null;
       try {
-        const response = await axiosIns.get(`categories/section/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
+        const response = await axiosIns.get(`sections/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
         if(response.data.sections[0].has_sub == "false"){
           this.categories =  response.data.sections[0].categories;
           this.subsections =  response.data.sections;
+          this.products =  response.data.products.data;
+          this.totalProducts.currentPage = response.data.products.current_page
+          this.totalProducts.totalItems = response.data.products.total
+          this.totalProducts.totalPages = response.data.products.last_page
 
         }else{
           this.subsections =  response.data.sections;
+          this.products =  response.data.products.data;
+          this.totalProducts.currentPage = response.data.products.current_page
+          this.totalProducts.totalItems = response.data.products.total
+          this.totalProducts.totalPages = response.data.products.last_page
         }
 
+        // this.products =  response.data.products.data;
+        // this.totalProducts.currentPage = response.data.products.current_page
+        // this.totalProducts.totalItems = response.data.products.total
+        // this.totalProducts.totalPages = response.data.products.last_page
 
 
-         this.products =  response.data.products.data;
-        // this.products = [...this.products, ...response.data.products.data];
-        this.totalProducts.currentPage = response.data.products.current_page
-        this.totalProducts.totalItems = response.data.products.total
-        this.totalProducts.totalPages = response.data.products.last_page
+
+
 
       } catch (error) {
         this.error = error+ 'خطأ أثناء جلب الفئات';
@@ -88,10 +120,33 @@ export const useSectionsStore = defineStore('sections', {
       }
     },
 
-    async fetchSubCategoryByCategoryID(data) {
-      // if (this.loading) return;
-      // if (this.totalProducts.currentPage >= this.totalProducts.totalPages) return;
 
+        // sections && categoeies && product
+    // async fetchCategoriesAndProducetsForSubsetion(data) {
+    //   this.loading = true;
+    //   this.error = null;
+
+    //   try {
+    //     const response = await axiosIns.get(
+    //       `categories/get_subsection/${data.value.subSectionId}?page=${data.value.page}&perPage=${data.value.perPage}`
+    //     );
+    //     // this.categories = response.data.categories;
+    //     this.products =  response.data.products.data
+    //     this.totalProducts.currentPage = response.data.products.current_page;
+    //     this.totalProducts.totalItems = response.data.products.total;
+    //     this.totalProducts.totalPages = response.data.products.last_page;
+
+    //   } catch (error) {
+    //     this.error = "خطأ أثناء جلب الفئات";
+    //     console.error("خطأ أثناء جلب البيانات:", error);
+    //     alert(error.message);
+    //   } finally {
+    //     this.loading = false;
+    //   }
+    // },
+
+
+    async fetchSubCategoryByCategoryID(data) {
       this.loading = true
       this.error = null
 
@@ -99,8 +154,6 @@ export const useSectionsStore = defineStore('sections', {
         const response = await axiosIns.get(`categories/${data.value.categoryId}?page=${data.value.page}&perPage=${data.value.perPage}` )
         this.subcategories = response.data.categories
         this.products = response.data.products.data
-
-        // this.products = [...this.products, ...response.data.products.data];
         this.totalProducts.currentPage = response.data.products.current_page
         this.totalProducts.totalItems = response.data.products.total
         this.totalProducts.totalPages = response.data.products.last_page
@@ -111,27 +164,6 @@ export const useSectionsStore = defineStore('sections', {
         this.loading = false
       }
     },
-
-
-
-
-
-
-
-
-
-
-
-
-    // sections && categoeies && product
-
-
-
-
-
-
-
-
 
 
 
@@ -209,34 +241,6 @@ export const useSectionsStore = defineStore('sections', {
 
 
 
-
-
-
-
-
-    async fetchAllSections(data) {
-
-      if (this.allsections.length > 0) return;
-      this.loading = true;
-      this.error = null;
-      try {
-        const response = await axiosIns.get(`categories/section?page=${data.value.page}&perPage=${data.value.perPage}`);
-        const data1 = response.data.sections
-        this.allsections = data1;
-        localStorage.setItem("allsections", JSON.stringify(data1));
-        this.categories = response.data.categories;
-        this.productFormAllSection = response.data.products.data;
-        this.totalProducts.currentPage = response.data.products.current_page;
-        this.totalProducts.totalItems = response.data.products.total;
-        this.totalProducts.totalPages = response.data.products.last_page;
-      } catch (error) {
-        this.error = 'خطأ أثناء جلب الاقسام';
-        alert(error(error));
-        this.loading = false;
-      } finally {
-        this.loading = false;
-      }
-    },
 
     // async changeSection(sectionId) {
     //   if (this.currentSectionId === sectionId) return // إذا كان القسم الحالي نفسه

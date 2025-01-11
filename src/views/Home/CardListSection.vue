@@ -4,19 +4,19 @@
       <ul class="space-y-5">
         <li v-if="storeCategories.getCategories">
           <div
-            class=" p-5 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7  rtl gap-6"
+            class=" p-5 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8  custom-scroll  overflow-x-auto  gap-6"
           >
             <div
-              v-for="(category, index) in storeCategories.getCategories"
+              v-for="(category, index) in storeCategories.getCategoriesMain"
               :key="index"
 
               class="bg-white flex flex-col items-center"
             >  <RouterLink :to="`/recommend/${category.category_level}/${category.id}/${category.name}`">
               <img
-                src="/src/assets/images/Big Sale Banner.svg"
+                src="/public/jeeeylogo.jpg"
                 :alt="category.name"
                   @click="toggleChildren(category.id)"
-                class="w-20 md:w-28 rounded-full h-20 md:h-28 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
+                class="w-20 md:w-24 rounded-full h-20 md:h-24 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
               />
               <h3   @click="toggleChildren(category.id)" class="text-center mt-2 text-[12px] md:text-[15px] font-sans text-gray-800">
                 {{ category.name }}
@@ -143,3 +143,24 @@ const products =ref([
 
 
 </script>
+
+<style>
+.custom-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  opacity: 0;
+}
+.custom-scroll:hover::-webkit-scrollbar,
+.custom-scroll:active::-webkit-scrollbar {
+  opacity: 1;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+
+}
+</style>

@@ -15,6 +15,7 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
 
+    // check user email in the first
     async checkEmail(login) {
       this.loading = true;
       this.error = null;
@@ -32,6 +33,7 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+    // login if user old
     async loginUser(login,password) {
       this.loading = true;
       this.error = null;
@@ -49,6 +51,7 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+    // login if user new
     async loginUserNew(login,password,name) {
       this.loading = true;
       this.error = null;
@@ -66,6 +69,9 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+
+
+    // check otp
     async verifyOtp(otp,login) {
       this.loading = true;
       this.error = null;
@@ -83,6 +89,7 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+
     restoreAuth() {
       const token = localStorage.getItem("authToken");
       if (token) {
@@ -91,6 +98,8 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+
+    //resendOtp
     async resendOtp(login) {
       this.loading = true;
       this.error = null;
@@ -98,8 +107,6 @@ export const useAuthStore = defineStore('auth', {
       try {
         const response = await axiosIns.post('auth/update_otp',{login});
         this.user = response.data.user;
-
-        alert(response.data.user)
         return true;
 
       } catch (error) {
@@ -110,6 +117,7 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+    //forgetpassword
     async forgetpassword(login) {
       this.loading = true;
       this.error = null;
@@ -126,6 +134,8 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+
+    // resetpassword
     async resetpassword(login ,password , password_confirmation) {
       this.loading = true;
       this.error = null;
@@ -142,6 +152,8 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+
+    // logout api
     async logout () {
       this.loading = true;
       this.error = null;

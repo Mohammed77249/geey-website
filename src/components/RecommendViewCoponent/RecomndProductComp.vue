@@ -1,14 +1,9 @@
 <template>
   <div class="mx-auto pl-2 pr-2">
-    <!-- <div v-if="initialLoading" class="flex justify-center items-center mt-10">
-      <div
-        class="w-8 h-8 border-4 border-primary-900 border-t-transparent rounded-full animate-spin"
-      ></div>
-      <span class="ml-4 text-primary-900">جاري تحميل المنتجات...</span>
-    </div> -->
-
-
-    <div  class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1">
+    <div v-if="storeSecion.loading">
+      <LoaderDatacomp :is-loader="storeSecion.loading"/>
+    </div>
+    <div v-else  class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1">
       <div
         v-for="product in storeSecion.getProducts"
         :key="product.id"
@@ -22,7 +17,7 @@
             @mouseleave="isHover = false"
           >
             <img
-              v-if="product.main_imags != null"
+              v-if="product.main_imags != null && product.main_imags.length > 0 "
               :src="
                 hoverId === product.id &&
                 isHover &&
@@ -33,6 +28,11 @@
               alt="no image"
               class="w-full h-full object-cover transition duration-300 ease-in-out"
             />
+
+
+            <img v-else
+              src="/public/jeeeylogo.jpg"  alt="" class="w-full h-full object-cover transition duration-300 ease-in-out"
+              />
           </div>
           <h3 class="font-semibold text-xs md:text-sm mt-1">
             {{ product.name }}
@@ -98,6 +98,13 @@
           </div>
         </div>
       </div>
+
+
+
+       <!-- Spinner عند التحميل -->
+    <div v-if="isLoading" class="flex justify-center mt-4">
+      <div class="custom-spinner w-8 h-8 border-4 border-gray-400 rounded-full"></div>
+    </div>
     </div>
 
     <DialogAddToCart
@@ -106,25 +113,13 @@
       :is-open="isDialogOpen"
       @close="closeDialog"
     />
-    <!-- مؤشر التحميل -->
-    <!-- <div
-      v-if="loadingMore && !initialLoading"
-      class="flex justify-center items-center mt-4"
-    >
-      <div
-        class="w-8 h-8 border-4 border-primary-900 border-t-transparent rounded-full animate-spin"
-      ></div>
-      <span class="ml-4 text-primary-900">جاري تحميل المزيد...</span>
-    </div> -->
-    <!-- مراقبة العنصر الأخير -->
-    <!-- <div ref="loadMoreRef" class="h-10"></div> -->
   </div>
 </template>
 
 <script setup>
-import { ref ,onMounted } from 'vue'
+import { ref ,onMounted,watch } from 'vue'
+import { useIntersectionObserver } from '@vueuse/core'
 import DialogAddToCart from '../DialogAddToCart.vue'
-// import { useIntersectionObserver } from '@vueuse/core'
 const props = defineProps({
   IdSection: {
     type: String,
@@ -140,9 +135,13 @@ const storeSecion = useSectionsStore()
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
 
+const isLoading = ref(false)
+const productsRefs = ref([])
+
 
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import LoaderDatacomp from '../LoaderDatacomp.vue'
 const authStore = useAuthStore()
 const router = useRouter()
 const openDialog = id => {
@@ -171,63 +170,67 @@ const onhover = id => {
 const filteredData2 = ref({
   sectionId: null,
   page: 1,
-  perPage: 10,
+  perPage: 30,
 })
 
 const filteredData3 = ref({
   categoryId:null,
       page: 1,
-      perPage: 10,
+      perPage: 30,
     });
 
 if (props.IdSection != null) {
   filteredData2.value.sectionId = props.IdSection
   filteredData3.value.categoryId = props.IdSection
 
-
 }
 
-// const sectionId = ref(null)
-// const changeSection = async newSectionId => {
-//   sectionId.value = newSectionId
-//   initialLoading.value = true
-//   await storeSecion.changeSection(sectionId.value) // تغيير القسم في Store
-//   initialLoading.value = false
-// }
-// const initialLoading = ref(false)
-// const loadingMore = ref(false)
-
-// const loadMoreProducts = async () => {
-//   if (loadingMore.value || storeSecion.loading || !storeSecion.hasMore) return
-//   try {
-//     loadingMore.value = true
-//     await storeSecion.fetchMoreProducts(filteredData2)
-//   } catch (error) {
-//     console.error('خطأ أثناء تحميل المزيد من المنتجات:', error)
-//   } finally {
-//     loadingMore.value = false
-//   }
-// }
 
 // مراقبة العنصر الأخير
-// const loadMoreRef = ref(null)
-// useIntersectionObserver(
-//   loadMoreRef,
-//   ([{ isIntersecting }]) => {
-//     if (isIntersecting && !initialLoading.value) {
-//       loadMoreProducts() // جلب المزيد عند رؤية العنصر الأخير
-//     }
-//   },
-//   { threshold: 0.5 },
-// )
+const observeLastProduct = () => {
+  if (!productsRefs.value.length) return
 
-// onMounted(() => {
-//   // storeSecion.loadFromLocalStorage(props.IdSection)
-//   storeSecion.fetchSubSectionBySectionID(filteredData)
-//   // changeSection(props.IdSection) // قسم افتراضي، يمكن تغييره حسب الحاجة
-// })
+  const lastProductRef = productsRefs.value[productsRefs.value.length - 1]
+
+  useIntersectionObserver(
+    lastProductRef,
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        loadMoreProducts()
+      }
+    },
+    { threshold: 0.5 }
+  )
+}
+
+
+// تحميل المزيد من المنتجات
+const loadMoreProducts = async () => {
+  if (isLoading.value) return
+
+  isLoading.value = true
+  filteredData.value.page += 1
+
+  await storeSecion.fetchSubSectionBySectionID(filteredData2)
+  isLoading.value = false
+}
+
+
+// تحديث مراقبة العنصر الأخير عند تحديث المنتجات
+watch(
+  () => storeSecion.getProducts,
+  () => {
+    observeLastProduct()
+  }
+)
+
+
 
 onMounted(() => {
+
+  filteredData2.value.sectionId = props.IdSection
+
+  // storeSecion.fetchSubSectionBySectionID(filteredData2)
 
   if(props.lev == "no"){
     storeSecion.fetchSubSectionBySectionID(filteredData2)
@@ -236,16 +239,10 @@ onMounted(() => {
     storeSecion.fetchSubCategoryByCategoryID(filteredData3)
   }
 
-  // storeSecion.fetchSubCategoryByCategoryID(filteredData2)
-
-  // if(storeSecion.getSubCategories && storeSecion.getSubCategories.length > 0 ){
-  //   storeSecion.fetchSubCategoryByCategoryID(filteredData2)
-  // }
-
 });
 
 </script>
-<style scoped>
+<!-- <style scoped>
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -258,4 +255,22 @@ onMounted(() => {
 .custom-spinner {
   animation: spin 1s linear infinite;
 }
+</style> -->
+
+<style scoped>
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.custom-spinner {
+  animation: spin 1s linear infinite;
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
 </style>
+

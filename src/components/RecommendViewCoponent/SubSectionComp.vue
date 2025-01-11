@@ -20,7 +20,7 @@
           aria-labelledby="dropdownTopButton"
         >
           <li
-            v-for="subSection in props.subSectiones "
+            v-for="subSection in props.subSectiones"
             :key="subSection.id"
             class="space-y-2"
           >
@@ -40,7 +40,7 @@
                 </label>
               </div>
 
-              <div v-if="subSection.has_sub">
+              <div v-if="subSection.has_sub ">
                 <button type="button" @click="toggleChildren(subSection.id)">
                   <svg
                     v-if="subSection.id === tempid"
@@ -130,11 +130,11 @@ const props = defineProps({
 })
 
 // alert(subSectiones)
-// const filteredData = ref({
-//   subSectionId: null,
-//   page: 1,
-//   perPage: 10,
-// })
+const filteredData = ref({
+  subSectionId: null,
+  page: 1,
+  perPage: 30,
+})
 
 const selectedCategories = ref(null)
 const tempid = ref(null)
@@ -144,9 +144,10 @@ const toggleChildren = id => {
     tempid.value = null
     selectedCategories.value = null
   } else {
+
     selectedCategories.value = id
     tempid.value = id
-    // filteredData.value.subSectionId = id
+    filteredData.value.subSectionId = id
     // storeSecion.fetchCategoriesAndProducetsForSubsetion(filteredData)
   }
 }

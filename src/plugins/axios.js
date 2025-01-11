@@ -1,16 +1,19 @@
 import axios from 'axios';
 import i18n from './i18n'
-const language = i18n.global.locale.value
+const language = i18n.global.locale
+
+const BaseUrl =  import.meta.env.VITE_API_URL
 const axiosIns = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL:BaseUrl,
   timeout: 10000,
   headers: {
     "accept-language": language,
     'Content-Type': 'application/json',
 
   },
-});
 
+
+});
 
 
 axiosIns.interceptors.request.use(

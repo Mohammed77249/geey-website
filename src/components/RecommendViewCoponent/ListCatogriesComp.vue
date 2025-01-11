@@ -2,7 +2,7 @@
   <div>
     <div>
       <div id="dropdownTop" class="mb-2">
-        <ul class="text-sm text-gray-700" aria-labelledby="dropdownTopButton">
+        <ul  class="text-sm text-gray-700" aria-labelledby="dropdownTopButton">
           <li
             v-for="category in categories"
             :key="category.id"
@@ -13,7 +13,7 @@
                 <input
                   type="radio"
                   :value="category.id"
-                  :checked="selectedcategory === category.id"
+                  :checked="selectedcategory == category.id"
                   @click="toggleGrandchildren(category)"
                   class="ml-2 rounded border-gray-300 text-black focus:ring-black"
                 />
@@ -27,7 +27,7 @@
               <div v-if="category.has_children">
                 <button type="button" @click="toggleGrandchildren(category)">
                   <svg
-                    v-if="category.id === tempid"
+                    v-if="category.id == tempid"
                     width="12"
                     height="12"
                     viewBox="0 0 24 24"
@@ -72,7 +72,7 @@
 
             <div v-if="category.has_children" class="pr-3">
               <ListCatogriesComp
-                v-if="category.id === tempid"
+                v-if="category.id == tempid"
                 :categories="subcat"
               />
             </div>
@@ -123,7 +123,12 @@ const toggleGrandchildren = async (category) => {
       subcat.value =  storeSecion.subcategories;
     }
   }else{
-    console.log("no")
+
+    if(category.categories ==  null){
+      filteredData.value.categoryId = category.id
+      await storeSecion.fetchSubCategoryByCategoryID(filteredData)
+      subcat.value = [{}];
+    }
   }
 
 
@@ -138,4 +143,21 @@ watch(
   },
   { immediate: true } // تشغيل المراقبة فورًا عند التحميل
 );
+
+// watch(
+//   () => storeSecion.getSubCategories, // المراقبة على getter
+//   (newVal) => {
+//     // تحقق من أن newVal هو مصفوفة قبل محاولة التكرار عليها
+//     if (Array.isArray(newVal)) {
+//       subcat.value = [...subcat.value, ...newVal]; // تحديث قيمة subcat عند حدوث تغيير
+//     } else {
+//       console.error("getSubCategories returned a non-iterable value:", newVal);
+//       subcat.value = []; // تعيين قيمة فارغة في حالة عدم كونها مصفوفة
+//     }
+//   },
+//   { immediate: true } // تشغيل المراقبة فورًا عند التحميل
+// );
+
+
+
 </script>

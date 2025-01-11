@@ -590,7 +590,7 @@
           </div>
         </div>
         <div >
-          <div  class="mb-10">
+          <div   class="mb-10">
             <RecomndProductComp :IdSection="filteredData.sectionId" :lev="level_cat"/>
           </div>
         </div>
@@ -709,12 +709,6 @@ const toggleStatusSelect = status => {
   selectedStatus.value = status
   isDropdowenStatusVisable.value = false
 };
-
-
-// onMounted(() => {
-//   storeSecion.fetchSubSectionBySectionID(filteredData)
-
-// })
 
 </script>
 

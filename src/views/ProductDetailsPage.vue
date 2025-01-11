@@ -27,6 +27,18 @@
             <div class="overflow-x-auto">
                <!-- الصور الرئيسية -->
 
+               <div v-if="storeProduct.getproductDetails.color_has_imgs == false">
+                  <div v-for="(image,index) in storeProduct.getproductDetails.all_images" :key="index" >
+                    <img
+
+                      :src="image.image"
+                     @mouseover="showImageInSwiper(index)"
+                      alt="Main Product Image"
+                       class="w-20 h-20  my-3   cursor-pointer border-2 border-transparent hover:border-gray-500"
+                    />
+                  </div>
+                </div>
+
                 <div v-if="isMainSelected">
                   <div v-for="(image,index) in mainColor.images" :key="index" >
                     <img
@@ -44,7 +56,7 @@
                     <div  v-for="(image,index) in selectedColorImages" :key="index">
                       <img
                         :src="image.image"
-                     @mouseover="showImageInSwiper(index)"
+                        @mouseover="showImageInSwiper(index)"
                         alt="Sub Product Image"
                         class="w-20 h-20   my-3   cursor-pointer border-2 border-transparent hover:border-gray-500"
                       />
@@ -54,7 +66,7 @@
             </div>
           </div>
 
-          <div>
+          <div v-if="storeProduct.getproductDetails.color_has_imgs == false">
             <swiper
             :modules="[Navigation, Pagination]"
             :slides-per-view="1"
@@ -64,6 +76,29 @@
             :class="{'rounded-lg custom-swiper border w-[250px] h-[250px] md:h-[600px] lg:w-[450px] lg:h-[700px] xl:w-[600px] xl:h-[800px] 2xl:w-[700px] 2xl:h-[900px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
              @swiper="setSwiperInstance"
           >
+
+            <swiper-slide v-for="(image, index) in storeProduct.getproductDetails.all_images" :key="index">
+              <img
+                :src="image.image"
+                alt="Product Image"
+                class="w-full h-full rounded-lg "
+              />
+            </swiper-slide>
+          </swiper>
+
+          </div>
+
+          <div v-else>
+            <swiper
+            :modules="[Navigation, Pagination]"
+            :slides-per-view="1"
+            :space-between="10"
+            navigation
+            pagination
+            :class="{'rounded-lg custom-swiper border w-[250px] h-[250px] md:h-[600px] lg:w-[450px] lg:h-[700px] xl:w-[600px] xl:h-[800px] 2xl:w-[700px] 2xl:h-[900px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
+             @swiper="setSwiperInstance"
+          >
+
             <swiper-slide v-for="(image, index) in selectedColorImages" :key="index">
               <img
                 :src="image.image"
@@ -74,6 +109,8 @@
           </swiper>
 
           </div>
+
+
         </div>
 
         <div class="mt-10 mb-10 hidden lg:block">
@@ -160,10 +197,10 @@
       <!-- product details  -->
       <div class="col-span-5 lg:col-span-4">
         <!-- الاسم والسعر -->
-        <div class="w-full h-28 mb-5">
+        <div class="w-full  mb-5">
           <div class="flex items-center justify-between">
-            <p class="text-sm font-medium">
-              {{ storeProduct.getproductDetails.description }}
+            <p class="text-sm  font-medium">
+              {{ storeProduct.getproductDetails.name }}
             </p>
 
             <svg
@@ -203,6 +240,12 @@
               />
             </svg>
           </div>
+          <div class="mb-3">
+            <p class="text-[10px]  font-medium">
+            {{ storeProduct.getproductDetails.description }}
+            </p>
+
+          </div>
 
           <div class="flex items-center gap-1 md:block">
             <p class="text-[10px] text-gray-400">12684532486586453218451</p>
@@ -225,10 +268,23 @@
             }}</span>
           </div>
           <div class="flex items-center gap-2">
-            <p class="text-lg text-orange-700">
-              {{ storeProduct.getproductDetails.currency
-              }}{{ storeProduct.getproductDetails.base_price }}
+
+            <p v-if="storeProduct.getproductDetails.price_options_type ==  'by_color_and_measuring' " class="text-lg text-orange-700">
+              {{ searchedOption  ? searchedOption.price : storeProduct.getproductDetails.base_price }}
             </p>
+
+            <p v-else-if="storeProduct.getproductDetails.price_options_type ==  'by_color' " class="text-lg text-orange-700">
+              {{ priceColor != null ? priceColor : storeProduct.getproductDetails.base_price }}
+            </p>
+
+            <p v-else-if="storeProduct.getproductDetails.price_options_type ==  'by_measuring' " class="text-lg text-orange-700">
+              {{ priceSize != null ? priceSize : storeProduct.getproductDetails.base_price }}
+            </p>
+
+            <p v-else class="text-lg text-orange-700">
+              {{  storeProduct.getproductDetails.base_price }}
+            </p>
+
             <div class="h-5 px-2 flex items-center justify-center bg-black">
               <p class="text-xs text-white">
                 {{ storeProduct.getproductDetails.discount_price }}-
@@ -259,7 +315,7 @@
                     >
                     <div
                       :key="color.color_id"
-                      @click="changeColor(index),toggleColor(color.color_id)"
+                      @click="changeColor(index),toggleColor(color)"
                       class="w-10 h-10 rounded-full border-2 cursor-pointer"
                       :style="{ backgroundColor: color.color_hex }"
                       :class="{ 'border-blue-500': selectedColorIndex === index }"
@@ -278,15 +334,38 @@
                   type="button"
                 >
                   {{ $t('Size') }}
-                  <p class="text-black">
-                    {{ storeProduct.getproductDetails.size_type_name}}
+                  <p v-if=" storeProduct.getproductDetails.measuring_type == 'size'" class="text-black">
+                      size
+                  </p>
+                  <p v-if=" storeProduct.getproductDetails.measuring_type == 'unit'" class="text-black">
+                    unit
                   </p>
                 </button>
               </div>
             </div>
 
             <!-- الاحجام -->
-            <div class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-4 gap-2">
+            <div v-if="color_sizes != null && storeProduct.getproductDetails.color_has_sizes " class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-4 gap-2">
+                <div
+                v-for="(size, index) in color_sizes"
+                :key="index"
+              >
+                <button
+                  :class="{
+                    'py-1 cursor-pointer px-5   border rounded-full bg-gray-100':
+                      tempidSize === size.sizel_id,
+                    'py-1 cursor-pointer px-5 border  rounded-full hover:bg-gray-100':
+                      tempidSize !== size.sizel_id,
+                  }"
+                  @click="onclickSize(size)"
+                >
+                  {{ size.size_value }}
+                </button>
+              </div>
+
+            </div>
+
+            <div v-else class="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-4 gap-2">
               <div
                 v-for="(size, index) in storeProduct.getproductSizes"
                 :key="index"
@@ -294,16 +373,17 @@
                 <button
                   :class="{
                     'py-1 cursor-pointer px-5   border rounded-full bg-gray-100':
-                      tempidSize === size.size_type_id,
+                      tempidSize === size.sizel_id,
                     'py-1 cursor-pointer px-5 border  rounded-full hover:bg-gray-100':
-                      tempidSize !== size.size_type_id,
+                      tempidSize !== size.sizel_id,
                   }"
-                  @click="onclickSize(size.size_type_id)"
+                  @click="onclickSize(size)"
                 >
-                  {{ size.size_type_name }}
+                  {{ size.size_value }}
                 </button>
               </div>
             </div>
+
 
             <!-- مرجع المقاس -->
             <div class="mt-5 h-10">
@@ -629,7 +709,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted,  } from 'vue'
+import { ref, onMounted,  computed} from 'vue'
 import CommentComp from '../components/Comments/CommentComp.vue'
 import HeaderCommentsComp from '../components/Comments/HeaderComentsComp.vue'
 import { useRoute } from 'vue-router'
@@ -669,6 +749,8 @@ const isDropdowenAboutStoreVisable = ref(false)
 const storedLanguage = localStorage.getItem('language')
 
 
+
+
 const listContentComment = ref([
   {
     title: 'حجم التمثال',
@@ -704,31 +786,58 @@ const listContentComment = ref([
   },
 ])
 
+
+const color_id_measuring = ref(null);
+const size_value_measuring = ref(null);
+const color_sizes = ref(null);
+
+
 const tempidSize = ref(null)
-const onclickSize = id => {
-  if(id){
-    filteredData2.value.size_id = id
+const priceSize = ref(null)
+const onclickSize = (size) => {
+
+  if(size){
+    priceSize.value =size.price
+    size_value_measuring.value = size.size_value;
+    filteredData2.value.size_id = size.sizel_id
   if (tempidSize.value === id) {
     tempidSize.value = null
   } else {
-    tempidSize.value = id
+    tempidSize.value = size.sizel_id
   }
   }
 
 }
 
+const priceColor = ref(null);
 const tempidColor = ref(null)
-const toggleColor = id => {
-  if(id){
-    filteredData2.value.color_id = id
-    if (tempidColor.value === id) {
+const toggleColor = (color) => {
+  if(color){
+    priceColor.value = color.price
+    color_id_measuring.value = color.color_id;
+    if(color.sizes){
+      color_sizes.value = color.sizes
+    }else {
+      color_sizes.value = null
+    }
+
+    filteredData2.value.color_id = color.color_id
+    if (tempidColor.value === color.color_id) {
     tempidColor.value = null
   } else {
-    tempidColor.value = id
+    tempidColor.value = color.color_id
   }
   }
 
+
 }
+
+const searchedOption = computed(() => {
+  return storeProduct.getproductDetails.optionPrices.find(option =>
+    option.color_id == color_id_measuring.value && option.measuring_value.toLowerCase() === size_value_measuring.value.toLowerCase()
+  );
+});
+
 
 const addToCart = async () => {
   if(filteredData2.value.color_id === null ){
@@ -789,9 +898,11 @@ const changeColor = (index) => {
   isMainSelected.value = false;
   selectedColorIndex.value = index;
 
+
   const color = storeProduct.getproductColors[index];
   selectedColorImages.value = color.images || [];
   selectedImage.value = color.images[0]?.image || null;
+
 };
 
 onMounted(async() => {

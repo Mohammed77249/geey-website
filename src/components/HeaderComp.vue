@@ -424,7 +424,12 @@
               :class="{ 'bg-gray-100 text-black': hoveredIndex == index }"
               class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black hover:bg-gray-100 transition-all duration-200"
             >
-            <div  v-if="storedLanguage == 'ar'">
+
+            <RouterLink :to="`/recommend/${section.id}/${section.name}`">
+               {{ section.name }}
+            </RouterLink>
+
+            <!-- <div  v-if="storedLanguage == 'ar'">
               <RouterLink :to="`/recommend/${section.id}/${section.name_ar}`">
                {{ section.name_ar }}
             </RouterLink>
@@ -434,7 +439,7 @@
               <RouterLink :to="`/recommend/${section.id}/${section.name_en}`">
                {{ section.name_en }}
             </RouterLink>
-            </div>
+            </div> -->
 
 
 
@@ -601,6 +606,8 @@ onMounted(() => {
 
 
 })
+
+
 onBeforeMount(() => {
   // window.removeEventListener('click', closeDropdowenStatus)
   // window.removeEventListener('click', closeDropdowenLanguage)
