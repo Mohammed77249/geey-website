@@ -11,7 +11,7 @@
       <div class="flex justify-end  items-center ">
         <button
           @click="close"
-          class="text-primary-900 text-[20px] hover:text-black"
+          class="text-primary-900 text-[20px] hover:text-primary-950"
         >
           &times;
         </button>
@@ -34,6 +34,18 @@
                     <div class="overflow-x-auto">
                       <!-- الصور الرئيسية -->
 
+                      <div v-if="storeCart.productDetails.color_has_imgs == false">
+                        <div v-for="(image,index) in storeCart.productDetails.all_images" :key="index" >
+                          <img
+
+                            :src="image.image"
+                            @mouseover="showImageInSwiper(index)"
+                            alt="Main Product Image"
+                            class="w-12 h-12  md:w-16 md:h-20  rounded-lg   cursor-pointer border-2 border-transparent hover:border-gray-500"
+                            />
+                        </div>
+                      </div>
+
                         <div v-if="isMainSelected">
                           <div v-for="(image,index) in mainColor.images" :key="index" >
                             <img
@@ -41,7 +53,7 @@
                               :src="image.image"
                                @mouseover="showImageInSwiper(index)"
                               alt="Main Product Image"
-                              class="w-12 h-12  md:w-16 md:h-20  my-3   cursor-pointer border-2 border-transparent hover:border-gray-500"
+                              class="w-12 h-12  md:w-16 md:h-20  rounded-lg   cursor-pointer border-2 border-transparent hover:border-gray-500"
                             />
                           </div>
                         </div>
@@ -53,7 +65,7 @@
                                 :src="image.image"
                                 @mouseover="showImageInSwiper(index)"
                                 alt="Sub Product Image"
-                                class="w-12 h-12  md:w-16 md:h-20   my-3  shadow cursor-pointer border-2 border-transparent hover:border-gray-500"
+                                class="w-12 h-12  md:w-16 md:h-20  rounded-lg  shadow cursor-pointer border-2 border-transparent hover:border-gray-500"
                               />
                             </div>
                           </div>
@@ -61,7 +73,29 @@
                     </div>
                   </div>
 
-                  <div>
+                  <div v-if="storeCart.productDetails.color_has_imgs == false">
+                    <swiper
+                    :modules="[Navigation, Pagination]"
+                    :slides-per-view="1"
+                    :space-between="10"
+                    navigation
+                    pagination
+                    :class="{'rounded-lg custom-swiper border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
+                    @swiper="setSwiperInstance"
+                  >
+
+                    <swiper-slide v-for="(image, index) in storeCart.productDetails.all_images" :key="index">
+                      <img
+                        :src="image.image"
+                        alt="Product Image"
+                        class="w-full h-full rounded-lg "
+                      />
+                    </swiper-slide>
+                  </swiper>
+
+                  </div>
+
+                  <div v-else>
                     <swiper
                     :modules="[Navigation, Pagination]"
                     :slides-per-view="1"
@@ -90,7 +124,7 @@
 
                 <div class="flex items-center justify-between">
                   <p  class="text-md font-medium">
-                    {{ storeCart.productDetails.description }}
+                    {{ storeCart.productDetails.name }}
                   </p>
 
                   <svg
@@ -130,9 +164,15 @@
                     />
                   </svg>
                 </div>
+                <div class="mb-3">
+                  <p class="text-[10px]  font-medium">
+                  {{ storeCart.productDetails.description }}
+                  </p>
+
+                </div>
 
                 <div class="  mt-3">
-                  <p class="text-sm text-gray-400">12684532486586453218451</p>
+                  <p class="text-sm text-gray-400">12684532486586453218451 </p>
                 </div>
 
                 <div class="mt-3">
@@ -151,9 +191,25 @@
                 </div>
 
                 <div class="flex items-center gap-2 mt-3">
-                  <p  class="text-xl text-orange-700 font-semibold">
-                    {{ storeCart.productDetails.currency}}{{ storeCart.productDetails.base_price }}
+
+                  <p v-if="storeCart.productDetails.price_options_type ==  'by_color_and_measuring' "  class="text-xl text-orange-700 font-semibold">
+                    {{ searchedOption  ? searchedOption.price : storeCart.productDetails.base_price }}
                   </p>
+
+                  <p v-else-if="storeCart.productDetails.price_options_type ==  'by_color' " class="text-lg text-orange-700">
+                    {{ priceColor != null ? priceColor : storeCart.productDetails.base_price }}
+                  </p>
+
+                  <p v-else-if="storeCart.productDetails.price_options_type ==  'by_measuring' " class="text-lg text-orange-700">
+                    {{ priceSize != null ? priceSize : storeCart.productDetails.base_price }}
+                  </p>
+
+                  <p v-else class="text-lg text-orange-700">
+                    {{  storeCart.productDetails.base_price }}
+                  </p>
+
+
+
                   <div class="h-5 px-2 flex items-center justify-center bg-black">
                     <p   class="text-xs text-white">
                       {{ storeCart.productDetails.discount_price }}-
@@ -181,13 +237,14 @@
                             <div
                               v-for="(color, index) in storeCart.getproductColors"
                               :key="index"
+                              :class="{ 'border-primary-900': selectedColorIndex === index }"
+                              class="w-10 h-10 rounded-full border-2 cursor-pointer flex items-center justify-center"
                             >
                             <div
-                              :key="color.color_id"
-                              @click="changeColor(index),toggleColor(color.color_id)"
-                              class="w-10 h-10 rounded-full border-2 cursor-pointer"
+                              @click="changeColor(index),toggleColor(color)"
+                              class="rounded-full h-8 w-8 "
                               :style="{ backgroundColor: color.color_hex }"
-                              :class="{ 'border-blue-500': selectedColorIndex === index }"
+
                             ></div>
                             </div>
                           </div>
@@ -195,35 +252,60 @@
                       </ul>
                     </div>
 
-                  <div v-if="storeCart.productDetails.size_type_id" class="flex items-center gap-1 mb-5 mt-5">
+                  <div  class="flex items-center gap-1 mb-5 mt-5">
                     <h3 class="text-lg font-semibold">{{ $t('Size') }}</h3>
                     <div >
                       <button
-                        class="text-[#979797]  h-[25px] border border-gray-900 bg-gray-50 font-medium rounded-full text-[14px] px-3 text-center "
+                        class="text-[#979797]  h-[25px] border border-gray-900 bg-gray-50 font-medium rounded-full text-[14px] px-3 text-center  flex items-center gap-1"
                         type="button"
                       >
-                        <p class="text-black">{{ storeCart.productDetails.size_type_name }}</p>
+                         {{ $t('Size') }}
+
+                        <p v-if=" storeCart.productDetails.measuring_type == 'size'" class="text-black">
+                            size
+                        </p>
+                        <p v-if=" storeCart.productDetails.measuring_type == 'unit'" class="text-black">
+                          unit
+                        </p>
 
                       </button>
                     </div>
                   </div>
 
                   <!-- الاحجام -->
-                  <div class="">
+                  <div v-if="color_sizes != null && storeCart.productDetails.color_has_sizes " class="">
+                    <button
+                        v-for="(size, index) in color_sizes"
+                      :key="index"
+                      :class="{
+                        'py-1 cursor-pointer px-7 m-2  border rounded-full bg-gray-100':
+                          tempidSize === size.sizel_id,
+                        'py-1 cursor-pointer px-7  border m-2 rounded-full hover:bg-gray-100':
+                          tempidSize !== size.sizel_id,
+                      }"
+                      @click="onclickSize(size)"
+                    >
+                      {{ size.size_value }}
+                    </button>
+                  </div>
+
+                  <div v-else class="">
                     <button
                         v-for="(size, index) in storeCart.getproductSizes"
                       :key="index"
                       :class="{
                         'py-1 cursor-pointer px-7 m-2  border rounded-full bg-gray-100':
-                          tempidSize === size.size_type_id,
+                          tempidSize === size.sizel_id,
                         'py-1 cursor-pointer px-7  border m-2 rounded-full hover:bg-gray-100':
-                          tempidSize !== size.size_type_id,
+                          tempidSize !== size.sizel_id,
                       }"
-                      @click="onclickSize(size.size_type_id)"
+                      @click="onclickSize(size)"
                     >
-                      {{ size.size_type_name }}
+                      {{ size.size_value }}
                     </button>
                   </div>
+
+
 
                   <!-- مرجع المقاس -->
                   <div class="mt-5 h-10">
@@ -302,7 +384,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits,ref ,onMounted} from "vue";
+import { defineProps, defineEmits,ref ,onMounted,computed} from "vue";
 import DialogComp from "./DialogComp.vue";
 import LoaderDatacomp from "./LoaderDatacomp.vue";
 const storedLanguage = localStorage.getItem("language");
@@ -326,34 +408,59 @@ const props = defineProps({
 const filteredData = ref({
   product_id:  null,
   color_id: null,
-  size_id: null,
+  parent_measuring_id: null,
   quantity: 1,
+  price:null,
 })
 
+
+const color_id_measuring = ref(null);
+const size_value_measuring = ref(null);
+const color_sizes = ref(null);
+
 const tempidSize = ref(null)
-const onclickSize = id => {
-  if(id){
-    filteredData.value.size_id = id
-  if (tempidSize.value === id) {
+const priceSize = ref(null)
+const onclickSize = (size) => {
+  if(size){
+    priceSize.value =size.price
+    size_value_measuring.value = size.size_value;
+    filteredData.value.parent_measuring_id = size.sizel_type_id
+  if (tempidSize.value == size.sizel_id) {
     tempidSize.value = null
   } else {
-    tempidSize.value = id
+    tempidSize.value = size.sizel_id
   }
   }
 }
 
+const priceColor = ref(null);
 const tempidColor = ref(null)
-const toggleColor = id => {
-  if(id){
-    filteredData.value.color_id = id
-  if (tempidColor.value === id) {
+const toggleColor = (color) => {
+  if(color){
+    priceColor.value = color.price
+    color_id_measuring.value = color.color_id;
+    if(color.sizes){
+      color_sizes.value = color.sizes
+    }else {
+      color_sizes.value = null
+    }
+
+    filteredData.value.color_id = color.color_id;
+
+  if (tempidColor.value == color.color_id) {
     tempidColor.value = null
   } else {
-    tempidColor.value = id
+    tempidColor.value = color.color_id;
   }
   }
 
 }
+
+const searchedOption = computed(() => {
+  return storeCart.productDetails.optionPrices.find(option =>
+    option.color_id == color_id_measuring.value && option.measuring_value.toLowerCase() === size_value_measuring.value.toLowerCase()
+  );
+});
 
 
 const isDialogOpen = ref(false)
@@ -368,30 +475,39 @@ const closeDialog = () => {
 
 
 const addToCart = async() => {
-
-
   if(storeCart.productDetails && storeCart.productDetails.id != null){
     filteredData.value.product_id = storeCart.productDetails.id
   }
 
+  if(priceSize.value != null){
+    filteredData.value.price = priceSize.value
+  }else if(priceColor.value != null){
+    filteredData.value.price = priceColor.value
+  }else if(searchedOption.value && searchedOption.value != null && searchedOption.value != undefined){
+    filteredData.value.price = searchedOption.value.price
+  }else{
+    filteredData.value.price = storeCart.productDetails.base_price
+  }
+
+
   if(filteredData.value.color_id === null ){
     alert("ادخ اللون ")
-  }else if(filteredData.value.size_id === null){
+  }else if(filteredData.value.parent_measuring_id === null){
     alert("ادخل المقاس")
   }
   else{
     const addcart = await storeCart.creatCart(
     filteredData.value.product_id,
     filteredData.value.color_id,
-    filteredData.value.size_id,
+    filteredData.value.parent_measuring_id,
     filteredData.value.quantity,
+    filteredData.value.price,
   )
 
 
   if (addcart) {
-    if (storeCart.getcartProductMessage != null) {
-      alert(storeCart.getcartProductMessage)
-      window.location.reload();
+    if (storeCart.productMessage != null) {
+      alert(storeCart.productMessage)
       close()
     } else {
       alert('تمت إضافة المنتج إلى السلة!')

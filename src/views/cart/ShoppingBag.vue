@@ -79,17 +79,27 @@
             <div class="col-span-6 md:col-span-7">
               <div class="md:mx-4 mx-1 mt-5">
                 <RouterLink  :to="`/product/${item.product_id}`">
-              <h3 class="font-semibold text-sm md:text-[17px] ">{{ item.product_name }}</h3>
+              <h3 class="font-semibold text-sm md:text-[17px] mb-2 ">{{ item.product_name }}</h3>
             </RouterLink>
-              <button  @click="openDialog(item.product_id,item.id)"  class=" ">
-                <span class="text-xs md:text-sm text-gray-500 cursor-pointer ">
-                الحجم: {{ item.size_value }} , اللون: {{ item.color_name }}
+              <button  @click="openDialog(item)"  class="border-[1px] px-2 mb-2 rounded-full flex items-center justify-center">
+                <div class="flex">
+                <span  class="text-xs md:text-sm text-gray-500 cursor-pointer">
+                اللون:
+
               </span>
+              <div class="w-4 h-4 rounded-full flex items-center justify-center mt-[2px] mx-1" :style="{ backgroundColor: item.color_hex }" ></div>
+              </div>
+                <span class="text-xs md:text-sm text-gray-500 cursor-pointer ">
+                  , الحجم: {{ item.measuring_value }}
+                </span>
+
+
               </button>
 
-              <p class="text-red-500 text-xs md:text-sm font-semibold">-0%</p>
+              <p class="text-red-500 text-xs md:text-sm font-semibold mb-2">-0%</p>
               <p class="text-sm md:text-lg font-bold">
-                {{ item.product_currency }} {{ item.product_price }}
+                YER
+                {{ item.product_currency }} {{ item.product_price * item.quantity  }}
               </p>
             </div>
 
@@ -233,7 +243,7 @@
 
 
     </main>
-    <DialogUpdateCart v-if="filteredData.cartID != null && filteredData.productID != null" :IdProduct="filteredData.productID" :IdCart="filteredData.cartID"  :is-open="isDialogOpen"  @close="closeDialog"  />
+    <DialogUpdateCart v-if="filteredData.cartID != null && filteredData.productID != null" :IdProduct="filteredData.productID" :IdCart="filteredData.cartID"  :is-open="isDialogOpen"  @close="closeDialog" :formEdit="formEdit"  />
 
   </div>
 </template>
@@ -289,17 +299,21 @@ const updateSelectAll = () => {
 //   router.push('/login');
 // }
 
-const openDialog = (product_id,cart_id) => {
-  isDialogOpen.value = true
-  filteredData.value.productID = product_id;
-  filteredData.value.cartID = cart_id;
 
+const formEdit = ref(null)
+const openDialog = (item) => {
+  isDialogOpen.value = true
+  filteredData.value.productID = item.product_id;
+  filteredData.value.cartID = item.id;
+  formEdit.value = {...item}
+ 
 }
 
 const closeDialog = () => {
   isDialogOpen.value = false
   filteredData.value.cartID = null;
   filteredData.value.productID = null;
+
   // storeCart.fetchProductsInCartByID(filteredData)
 }
 
@@ -316,8 +330,9 @@ const incrementQuantity = async(index) => {
     storeCart.getallCarts[index].id,
     storeCart.getallCarts[index].product_id,
     storeCart.getallCarts[index].color_id,
-    storeCart.getallCarts[index].size_id,
+    storeCart.getallCarts[index].parent_measuring_id,
     storeCart.getallCarts[index].quantity,
+    storeCart.getallCarts[index].product_price,
   );
 };
 
@@ -328,10 +343,11 @@ const decrementQuantity = async(index) => {
 
     await storeCart.updateCart(
       storeCart.getallCarts[index].id,
-      storeCart.getallCarts[index].product_id,
-      storeCart.getallCarts[index].color_id,
-      storeCart.getallCarts[index].size_id,
-      storeCart.getallCarts[index].quantity,
+    storeCart.getallCarts[index].product_id,
+    storeCart.getallCarts[index].color_id,
+    storeCart.getallCarts[index].parent_measuring_id,
+    storeCart.getallCarts[index].quantity,
+    storeCart.getallCarts[index].product_price,
     );
   }
 };

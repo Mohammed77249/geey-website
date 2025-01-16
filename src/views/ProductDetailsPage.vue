@@ -113,6 +113,7 @@
 
         </div>
 
+        <!-- // comments -->
         <div class="mt-10 mb-10 hidden lg:block">
           <div class="mb-5">
             <div class="flex items-center justify-between mb-5">
@@ -239,6 +240,7 @@
                 stroke-linejoin="round"
               />
             </svg>
+
           </div>
           <div class="mb-3">
             <p class="text-[10px]  font-medium">
@@ -312,13 +314,14 @@
                     <div
                       v-for="(color, index) in storeProduct.getproductColors"
                       :key="index"
+                       :class="{ 'border-primary-900': selectedColorIndex === index }"
+                        class="w-10 h-10 rounded-full border-2 cursor-pointer flex items-center justify-center"
                     >
                     <div
                       :key="color.color_id"
                       @click="changeColor(index),toggleColor(color)"
-                      class="w-10 h-10 rounded-full border-2 cursor-pointer"
+                      class="rounded-full h-8 w-8 "
                       :style="{ backgroundColor: color.color_hex }"
-                      :class="{ 'border-blue-500': selectedColorIndex === index }"
                     ></div>
                     </div>
                   </div>
@@ -734,8 +737,9 @@ const filteredData2 = ref({
   productID: null,
   product_id: null,
   color_id: null,
-  size_id: null,
+  parent_measuring_id: null,
   quantity: 1,
+  price:null,
 })
 const id = route.params.id
 if (id != null) {
@@ -799,8 +803,8 @@ const onclickSize = (size) => {
   if(size){
     priceSize.value =size.price
     size_value_measuring.value = size.size_value;
-    filteredData2.value.size_id = size.sizel_id
-  if (tempidSize.value === id) {
+    filteredData2.value.parent_measuring_id = size.sizel_type_id
+  if (tempidSize.value == size.sizel_id) {
     tempidSize.value = null
   } else {
     tempidSize.value = size.sizel_id
@@ -822,7 +826,7 @@ const toggleColor = (color) => {
     }
 
     filteredData2.value.color_id = color.color_id
-    if (tempidColor.value === color.color_id) {
+    if (tempidColor.value == color.color_id) {
     tempidColor.value = null
   } else {
     tempidColor.value = color.color_id
@@ -835,42 +839,50 @@ const toggleColor = (color) => {
 const searchedOption = computed(() => {
   return storeProduct.getproductDetails.optionPrices.find(option =>
     option.color_id == color_id_measuring.value && option.measuring_value.toLowerCase() === size_value_measuring.value.toLowerCase()
-  );
+  ) || null
 });
 
 
 const addToCart = async () => {
-  if(filteredData2.value.color_id === null ){
-    alert("ادخ اللون ")
-  }else if(filteredData2.value.size_id === null){
-    alert("ادخل المقاس")
+
+
+  if(priceSize.value != null){
+    filteredData2.value.price = priceSize.value
+  }else if(priceColor.value != null){
+    filteredData2.value.price = priceColor.value
+  }else if(searchedOption.value && searchedOption.value != null && searchedOption.value != undefined){
+    filteredData2.value.price = searchedOption.value.price
+  }else{
+    filteredData2.value.price = storeProduct.getproductDetails.base_price
   }
-  else{
-  const addcart = await storeCart.creatCart(
-    filteredData2.value.product_id,
-    filteredData2.value.color_id,
-    filteredData2.value.size_id,
-    filteredData2.value.quantity,
-  )
 
-  if (addcart) {
-    if (storeCart.getcartProductMessage != null) {
-      alert(storeCart.getcartProductMessage)
+  if(filteredData2.value.color_id == null){
+    alert("plesase choose color")
+  } else if(filteredData2.value.parent_measuring_id == null){
+    alert("plesase choose size")
+  }else{
+    const addcart = await storeCart.creatCart(
+      filteredData2.value.product_id,
+      filteredData2.value.color_id,
+      filteredData2.value.parent_measuring_id,
+      filteredData2.value.quantity,
+      filteredData2.value.price,
+    )
 
-
+    if (addcart) {
+      if (storeCart.productMessage != null) {
+        alert(storeCart.productMessage)
+      } else {
+        alert('تمت إضافة المنتج إلى السلة!')
+      }
     } else {
-      alert('تمت إضافة المنتج إلى السلة!')
-
-
+      alert(storeCart.error)
     }
-  } else {
-    alert(storeCart.error)
-
-
   }
 
+
 }
-}
+
 
 
 // متغيرات الحالة

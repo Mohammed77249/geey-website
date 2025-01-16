@@ -108,7 +108,7 @@
   </div>
     </main>
 
-    <AddAddress :is-open="isDialogOpen" @close="closeDialog" :isEditing="isEditing" :formEdit="formEdit"/>
+    <AddAddress :is-open="isDialogOpen" @close="closeDialog"/>
     <EditAddress :is-open="isEditing" @close="closeEdit"  :formEdit="formEdit"/>
   </div>
 

@@ -116,8 +116,8 @@
                           </div>
 
                           <div class="mt-1 flex justify-between ">
-                            <span class=" text-xs text-black font-medium">{{ item.product_currency }} {{ item.product_price }}</span>
-                            <span class=" text-xs text-black font-medium">%0</span>
+                            <span class=" text-xs text-primary-900 font-medium">{{ item.product_currency }} {{ item.product_price }}</span>
+                            <span class=" text-xs text-primary-900 font-medium">%0</span>
                           </div>
                             <div class="mt-2 flex justify-center">
                               <h3 class="font-semibold text-xs ">{{ item.product_name }}</h3>
@@ -274,10 +274,12 @@ const updateLocalValue = () => {
 const products_for_order = ref([]);
 const handlOrder = async () => {
   products_for_order.value = storeCart.selectedItems.map((product) => ({
+    id:product.id,
     product_id: product.product_id,
-    size_type_id: product.size_id,
+    parent_measuring_id: product.parent_measuring_id,
     color_id: product.color_id,
     quantity: product.quantity,
+    price:product.product_price,
   }));
 
   filteredData.value.products = JSON.stringify(products_for_order.value);

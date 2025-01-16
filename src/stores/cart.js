@@ -52,9 +52,7 @@ export const useCartStore = defineStore('cart', {
       this.loading = true
       this.error = null
       try {
-        const response = await axiosIns.get(
-          `product_data/${data}?`,
-        )
+        const response = await axiosIns.get(`products/${data}?`)
         this.productDetails = response.data.product
         this.totalProductsDetails.productColors = response.data.product.product_colors
         this.totalProductsDetails.productSizes = response.data.product.size_type_details
@@ -98,14 +96,15 @@ export const useCartStore = defineStore('cart', {
       }
     },
 
-    async creatCart(product_id, color_id, size_id, quantity) {
+    async creatCart(product_id, color_id, parent_measuring_id, quantity,price) {
       this.loading = true
       this.error = null
       const formData = new FormData()
       formData.append('product_id', product_id)
       formData.append('color_id', color_id)
-      formData.append('size_id', size_id)
-      formData.append('quantity', quantity)
+      formData.append('parent_measuring_id', parent_measuring_id)
+      formData.append('quantity', quantity),
+      formData.append('price', price)
 
       try {
         const response = await axiosIns.post('carts/store', formData, {
@@ -129,14 +128,16 @@ export const useCartStore = defineStore('cart', {
       }
     },
 
-    async updateCart(cart_id, product_id, color_id, size_id, quantity) {
+    async updateCart(cart_id, product_id, color_id, parent_measuring_id, quantity,price) {
       this.loading = true
       this.error = null
+
       const formData = new FormData()
       formData.append('product_id', product_id)
       formData.append('color_id', color_id)
-      formData.append('size_id', size_id)
-      formData.append('quantity', quantity)
+      formData.append('parent_measuring_id', parent_measuring_id)
+      formData.append('quantity', quantity),
+      formData.append('price', price)
       try {
         const response = await axiosIns.post(`carts/update/${cart_id}`,formData, {
           headers: {
