@@ -713,8 +713,8 @@
 
 <script setup>
 import { ref, onMounted,  computed} from 'vue'
-import CommentComp from '../components/Comments/CommentComp.vue'
-import HeaderCommentsComp from '../components/Comments/HeaderComentsComp.vue'
+import CommentComp from '@/components/Comments/CommentComp.vue'
+import HeaderCommentsComp from '@/components/Comments/HeaderComentsComp.vue'
 import { useRoute } from 'vue-router'
 import LoaderComp from '@/components/LoaderDatacomp.vue'
 import DialogComp from '@/components/DialogComp.vue'

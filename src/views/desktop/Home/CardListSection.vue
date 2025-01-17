@@ -13,7 +13,7 @@
               class="bg-white flex flex-col items-center"
             >  <RouterLink :to="`/recommend/${category.category_level}/${category.id}/${category.name}`">
               <img
-                src="/public/jeeeylogo.jpg"
+                :src="category.image !=null ?category.image : '/public/jeeeylogo.jpg'"
                 :alt="category.name"
                   @click="toggleChildren(category.id)"
                 class="w-20 md:w-24 rounded-full h-20 md:h-24 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"

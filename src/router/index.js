@@ -151,23 +151,30 @@
 
 ///=========================================================================
 import { createRouter, createWebHistory } from 'vue-router';
+
+// desktop
 import LoginPage from '@/views/auth/LoginPage.vue';
-import NotFoundPage from '@/views/NotFoundPage.vue';
+import NotFoundPageDesktop from '@/views/desktop/NotFoundPage.vue';
 import { useAuthStore } from '@/stores/auth';
 import LoginEmailPage from '@/views/auth/LoginEmailPage.vue';
-import RecommendPage from '@/views/RecommendPage.vue';
-import HomePage from '../views/HomePage.vue';
-import ProductDetailsPage from '@/views/ProductDetailsPage.vue';
-import CommentsPage from '@/views/CommentsPage.vue';
+import RecommendPage from '@/views/desktop/RecommendPage.vue';
+import DesktopHome  from '@/views/desktop/HomePage.vue';
+import ProductDetailsPage from '@/views/desktop/ProductDetailsPage.vue';
+import CommentsPage from '@/views/desktop/CommentsPage.vue';
 import OtpPage from '@/views/auth/OtpPage.vue';
 import ForgetPasswordPage from '@/views/auth/ForgetPasswordPage.vue';
 import ResetPasswordPage from '@/views/auth/ResatPasswordPage.vue';
-import CartPage from '@/views/CartPage.vue';
-import User_Index from '@/views/user/User_Index.vue';
-import User_main from '@/views/user/User_main.vue';
-import MyRequest from '@/views/user/MyRequest.vue';
-import MyAddresses from '@/views/user/MyAddresses.vue';
-import MyProfile from '@/views/user/MyProfile.vue';
+import CartPage from '@/views/desktop/CartPage.vue';
+import User_Index from '@/views/desktop/user/User_Index.vue';
+import User_main from '@/views/desktop/user/User_main.vue';
+import MyRequest from '@/views/desktop/user/MyRequest.vue';
+import MyAddresses from '@/views/desktop/user/MyAddresses.vue';
+import MyProfile from '@/views/desktop/user/MyProfile.vue';
+
+
+// phone
+import PhoneHome  from '@/views/phone/HomePage.vue';
+import NotFoundPagePhone from '@/views/phone/NotFoundPage.vue';
 
 const requiresAuth = (to, from, next) => {
   const authStore = useAuthStore();
@@ -178,7 +185,11 @@ const requiresAuth = (to, from, next) => {
   }
 };
 
+
 const routes = [
+
+  // authincation routes
+
   {
     path: '/user/login',
     name: 'login',
@@ -214,10 +225,13 @@ const routes = [
     meta: { hideHeaderFooter: true },
     beforeEnter: requiresAuth,
   },
+
+
+  // desktop routes
   {
-    path: '/',
-    name: 'home',
-    component: HomePage,
+    path: '/desktop/home',
+    name: 'DesktopHome',
+    component: DesktopHome ,
   },
   {
     name: 'Recommend',
@@ -277,11 +291,26 @@ const routes = [
       },
     ]
   },
+
+   // Catch-All Route for 404 Not Found
+   {
+    path: '/desktop/:pathMatch(.*)*',
+    name: 'NotFoundDesktop',
+    component: NotFoundPageDesktop,
+  },
+
+
+  // phone routes
+  {
+    path: '/phone/home',
+    name: 'PhoneHome',
+    component: PhoneHome ,
+  },
   // Catch-All Route for 404 Not Found
   {
-    path: '/:pathMatch(.*)*',
-    name: 'NotFound',
-    component: NotFoundPage,
+    path: '/phone/:pathMatch(.*)*',
+    name: 'NotFoundPhone',
+    component: NotFoundPagePhone,
   },
 ];
 
@@ -290,23 +319,47 @@ const router = createRouter({
   routes,
 });
 
-// الحماية العامة للمسارات التي تحتاج إلى تسجيل الدخول
+
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
-
+  const isDesktop = window.innerWidth >= 768;
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    // إذا كانت المسار يحتاج إلى تسجيل الدخول والمستخدم غير مسجل
     next('/user/login');
+  } else if (isDesktop && to.path.startsWith('/phone')) {
+    next(to.path.replace('/phone', '/desktop'));
+  } else if (!isDesktop && to.path.startsWith('/desktop')) {
+    next(to.path.replace('/desktop', '/phone'));
   } else {
-    // السماح للمستخدم بالوصول
     next();
   }
 });
 
+// router.beforeEach((to, from, next) => {
+//   const authStore = useAuthStore();
+//   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+//     next('/user/login');
+//   } else {
+//     next();
+//   }
+// });
+
+
+
+// router.beforeEach((to, from, next) => {
+//   const isDesktop = window.innerWidth >= 768;
+//   if (isDesktop && to.path.startsWith('/phone')) {
+//     next(to.path.replace('/phone', '/desktop'));
+//   } else if (!isDesktop && to.path.startsWith('/desktop')) {
+//     next(to.path.replace('/desktop', '/phone'));
+//   } else {
+//     next();
+//   }
+// });
+
 export default router;
 
 
-
+//===========================================================
 
 // import { createRouter, createWebHistory } from 'vue-router';
 // import LoginPage from '@/views/auth/LoginPage.vue';

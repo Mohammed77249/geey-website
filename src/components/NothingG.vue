@@ -2153,7 +2153,7 @@ onMounted(() => {
 
 
 
-// update carte
+// update carte ====================================
 
 <template>
     <div
@@ -2740,10 +2740,95 @@ const close = () => {
 
 
 </style>
+//==================================================================================
 
 
 
 
+// naif list 1 and list 2 =============================================
+
+//list 1
+
+<script setup>
+import List2 from './List2.vue';
+
+defineProps({
+  items: {
+    type: Array,
+  },
+})
+</script>
+
+<template>
+  <div v-for="item in items">
+    {{ item.name }}
+
+    <div v-if="item.children?.length" class="ms-3" style="padding-left: 2px;" >
+      <List2 :items="item?.children" />
+    </div>
+  </div>
+</template>
 
 
+// list 2
 
+<script setup>
+import List from './List.vue';
+
+defineProps({
+  items: {
+    type: Array,
+  },
+})
+</script>
+
+<template>
+  <div v-for="item in items">
+    {{ item.name }}
+
+    <div v-if="item.children?.length">
+      <List :items="item?.children" />
+    </div>
+  </div>
+</template>
+
+
+// in app
+
+ <!-- <List
+  :items="[
+      {
+        name: 'test',
+        children: [
+          {
+            name: 'test',
+            children: [
+              {
+                name: 'test',
+                children: [
+                  {
+                    name: 'test',
+                    children: [
+                      {
+                        name: 'test',
+                        children: [
+                          {
+                            name: 'test 2',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ]"
+  /> -->
+
+<!-- <List :items="item"/> -->
+
+
+//=============================================================

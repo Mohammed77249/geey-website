@@ -92,7 +92,7 @@
 
 <script setup>
 import { ref,  } from 'vue';
-import DialogAddToCart from '../../components/DialogAddToCart.vue';
+import DialogAddToCart from '@/components/DialogAddToCart.vue';
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
 import { useRouter } from 'vue-router';

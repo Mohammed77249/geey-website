@@ -259,8 +259,8 @@
 </template>
 
 <script setup>
-import CommentComp from '../components/Comments/CommentComp.vue';
-import HeaderCommentsComp from '../components/Comments/HeaderComentsComp.vue';
+import CommentComp from '@/components/Comments/CommentComp.vue';
+import HeaderCommentsComp from '@/components/Comments/HeaderComentsComp.vue';
 import { ref ,onMounted ,onBeforeMount} from "vue";
 const listContentComment = ref([
   {

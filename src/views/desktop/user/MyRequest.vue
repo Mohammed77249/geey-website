@@ -209,7 +209,7 @@
 
 <script setup>
 import {  ref ,onMounted} from 'vue';
-import { useConfirmOrders } from '../../stores/confirmorder.js';
+import { useConfirmOrders } from '@/stores/confirmorder.js';
 
 const orderStore = useConfirmOrders();
 const filteredData = ref({
