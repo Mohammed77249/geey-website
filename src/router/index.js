@@ -188,6 +188,14 @@ const requiresAuth = (to, from, next) => {
 
 const routes = [
 
+  {
+    path: '/',
+    redirect: () => {
+      const isDesktop = window.innerWidth >= 768;
+      return isDesktop ? '/desktop/home' : '/phone/home';
+    },
+  },
+
   // authincation routes
 
   {
