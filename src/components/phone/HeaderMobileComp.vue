@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-[200px]  md:hidden bg-red-500">
+  <div class="w-full h-[200px]  md:hidden ">
     <SwiperPhoneComp/>
   </div>
 </template>
