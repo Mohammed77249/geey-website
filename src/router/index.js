@@ -168,7 +168,7 @@ import CartPage from '@/views/desktop/CartPage.vue';
 import User_Index from '@/views/desktop/user/User_Index.vue';
 import User_main from '@/views/desktop/user/User_main.vue';
 import MyRequest from '@/views/desktop/user/oreders/MyOreder.vue';
-import MyAddresses from '@/views/desktop/user/MyAddresses.vue';
+import MyAddresses from '@/views/desktop/user/addresses/MyAddresses.vue';
 import MyProfile from '@/views/desktop/user/MyProfile.vue';
 
 
