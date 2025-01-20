@@ -8,6 +8,7 @@ export const useConfirmOrders = defineStore('ConfirmOrders', {
     userAddresses: [],
     myOrder:null,
     allOrders:[],
+    detailsOreder:[],
     totalOrders: {
       currentPage: 1,
       totalItems: null,
@@ -22,6 +23,7 @@ export const useConfirmOrders = defineStore('ConfirmOrders', {
     getPaymentMethods: state => state.paymentMethods,
     getUserAddresses: state => state.userAddresses,
     getAllOrders: state => state.allOrders,
+    getDetailsOrder: state => state.detailsOreder,
     },
   actions: {
 
@@ -89,6 +91,24 @@ export const useConfirmOrders = defineStore('ConfirmOrders', {
         this.loading = false
       }
     },
+
+
+    async fetchDataOrderByOrderId(orderId) {
+      this.loading = true;
+      this.error = null;
+      try {
+        const response = await axiosIns.get(`orders/show/${orderId}`);
+        this.detailsOreder =  response.data;
+      } catch (error) {
+        this.error = error+ 'خطأ أثناء جلب الاقسام';
+        this.loading = false;
+      } finally {
+        this.loading = false;
+      }
+    },
+
+
+
 
   },
 });

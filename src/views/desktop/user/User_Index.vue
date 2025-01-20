@@ -151,7 +151,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <RouterLink to="/myrequests">
+                    <RouterLink to="/myoreder">
                       <span class="font-medium text-xs md:text-sm ">جميع الطلبات</span>
                     </RouterLink>
 

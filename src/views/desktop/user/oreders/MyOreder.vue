@@ -131,22 +131,44 @@
                 class="p-1 mt-4"
               >
               <div class="border  bg-white shadow p-3">
-                <div class="flex items-center gap-2">
-                  <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
-                  <p class="font-sembold "> {{ order.status.name }}</p>
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="rounded-full w-5 h-5 " :style="['background-color:' + order.status.color + '']"></div>
+                  <p class="font-semibold text-sm"> {{ order.status.name }}</p>
                 </div>
-                <h3 class="font-semibold  text text-sm mb-2"> رقم الطلب : {{ order.trx_id }} </h3>
+                <RouterLink :to="`/myoreder/${order.id}`">
+                <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
+                  <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
+                  <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
+                </div>
+              </RouterLink>
 
 
                 <div class=" flex items-center gap-5   overflow-x-auto ">
                   <div class=""  v-for="(product, index) in order.order_products" :key="index">
                     <div class="w-[150px] h-[150px] ">
-                      <img :src="product.image"  alt="no image" class="w-full h-full   object-cover " />
+                      <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
                     </div>
                   </div>
                 </div>
-                <h3 class="font-semibold  text text-sm mt-2">  عدد المنتجات : {{ order.total_products }} </h3>
-                <h3 class="font-semibold  text text-sm ">  السعر الاجمالي : {{ order.total }} </h3>
+                <div class="flex items-center  gap-2 mt-2">
+                  <h3 class="font-semibold  text text-sm ">  عدد المنتجات : {{ order.total_products }} </h3>
+                  <h3 class="font-semibold  text-primary-900 text-sm ">  السعر الاجمالي : {{ order.total }} ري </h3>
+                </div>
+
+                <div class="flex items-center gap-3 mt-2">
+                  <button type="button" class="border rounded-sm h-10 w-24 text-sm ">
+                    الغاء الطلبية
+                  </button>
+
+                  <button type="button" class="border rounded-sm h-10 w-24 text-sm">
+                    التتبع
+                  </button>
+
+                  <button type="button" class="bg-primary-900 rounded-sm h-10 w-24 text-white text-sm">
+                    تعديل العنوان
+                  </button>
+                </div>
+
 
 
                 <div>
@@ -287,8 +309,6 @@ const taggleActiveReturnedproducts = () => {
 
 onMounted(async() => {
  await orderStore.fetchAllOrders(filteredData)
-
-
 })
 
 // قائمة الطلبات مع الصور

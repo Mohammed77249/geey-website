@@ -167,7 +167,7 @@ import ResetPasswordPage from '@/views/auth/ResatPasswordPage.vue';
 import CartPage from '@/views/desktop/CartPage.vue';
 import User_Index from '@/views/desktop/user/User_Index.vue';
 import User_main from '@/views/desktop/user/User_main.vue';
-import MyRequest from '@/views/desktop/user/MyRequest.vue';
+import MyRequest from '@/views/desktop/user/oreders/MyOreder.vue';
 import MyAddresses from '@/views/desktop/user/MyAddresses.vue';
 import MyProfile from '@/views/desktop/user/MyProfile.vue';
 
@@ -175,6 +175,7 @@ import MyProfile from '@/views/desktop/user/MyProfile.vue';
 // phone
 import PhoneHome  from '@/views/phone/HomePage.vue';
 import NotFoundPagePhone from '@/views/phone/NotFoundPage.vue';
+import OrderDetails from '@/views/desktop/user/oreders/OrderDetails.vue';
 
 const requiresAuth = (to, from, next) => {
   const authStore = useAuthStore();
@@ -283,9 +284,14 @@ const routes = [
         component: User_main
       },
       {
-        name: 'myrequests',
-        path: '/myrequests',
+        name: 'myoreder',
+        path: '/myoreder',
         component: MyRequest
+      },
+      {
+        path: "/myoreder/:id",
+        name: "OrderDetails",
+        component: OrderDetails,
       },
       {
         name: 'myaddresses',

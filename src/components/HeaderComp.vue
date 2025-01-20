@@ -135,7 +135,7 @@
                       </RouterLink> -->
                     </li>
                     <li>
-                      <RouterLink to="/myrequests" class="block px-4 py-1 hover:bg-gray-100">
+                      <RouterLink to="/myoreder" class="block px-4 py-1 hover:bg-gray-100">
                         طلبي</RouterLink>
                     </li>
                     <li>
