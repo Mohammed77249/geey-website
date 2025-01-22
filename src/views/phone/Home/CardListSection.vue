@@ -2,7 +2,10 @@
   <div class="mt-4">
     <div>
       <ul class="space-y-5 ">
-        <li v-if="storeCategories.getCategories">
+        <div v-if=" storeCategories.loading">
+          <LoaderDatacomp :is-loader="storeCategories.loading"/>
+         </div>
+        <li v-else-if="storeCategories.getCategories">
           <div
             class="  grid grid-rows-3 overflow-x-auto w-full md:hidden   custom-scroll  gap-1"
           style="grid-template-columns: repeat(10, minmax(80px, 1fr));"
@@ -30,10 +33,6 @@
         <div class="w-full h-[245px]  text-center" v-else>
             no data
         </div>
-         <div v-if=" storeCategories.loading">
-          <LoaderDatacomp :is-loader="storeCategories.loading"/>
-         </div>
-
       </ul>
 
     </div>
@@ -60,10 +59,7 @@ const filteredData = ref({
 
     const toggleChildren = id => {
   if (id) {
-
-
     filteredData.value.categoryId = id
-    // storeCategories.fetchSubCategoryByCategoryID(filteredData)
   }
    else {
   alert("hghghg")

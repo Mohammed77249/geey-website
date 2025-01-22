@@ -5,6 +5,7 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
   state: () => ({
     allcategories: [],
     subcategories: [],
+    categories_for_search:[],
     products: [],
     totalProducts: {
       currentPage: null,
@@ -21,6 +22,7 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
     getSubCategories: state => state.subcategories,
     getTotalProducts: state => state.totalProducts,
     getProductDetails: state => state.productDetails,
+    getCategoriesForSearch: state => state.categories_for_search,
   },
   actions: {
     async fetchAllCategories(data) {
@@ -54,6 +56,24 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
         this.totalProducts.currentPage = response.data.products.current_page
         this.totalProducts.totalItems = response.data.products.total
         this.totalProducts.totalPages = response.data.products.last_page
+      } catch (error) {
+        this.error = 'خطأ أثناء جلب الفئات'
+        console.error(error)
+      } finally {
+        this.loading = false
+      }
+    },
+
+
+    async fetchCategoryBySearch(data) {
+      this.loading = true
+      this.error = null
+
+      try {
+        const response = await axiosIns.get(`/categories_by_name`, {
+          params: { search: data },
+        });
+        this.categories_for_search = response.data
       } catch (error) {
         this.error = 'خطأ أثناء جلب الفئات'
         console.error(error)

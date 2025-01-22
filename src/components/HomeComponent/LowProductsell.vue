@@ -119,7 +119,7 @@ const products = ref([
 
 
 <template>
-  <div class="mx-auto pl-2 pr-2  ">
+  <div class="mx-auto pl-2 pr-2 ">
 
   <div class="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-1 ">
     <div
@@ -129,7 +129,7 @@ const products = ref([
 
     >
 
-    <RouterLink :to="`/product/${product.id}`">
+    <RouterLink :to="`/desktop/product/${product.id}`">
       <div class="cursor-pointer w-[full] h-[200px] md:h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img v-if="product.main_imags != null && product.main_imags.length > 0 "
               :src="
@@ -147,7 +147,7 @@ const products = ref([
 
       </div>
 
-      <h3 class="font-semibold rtl text text-sm mt-1">{{ product.name }}</h3>
+      <h3 class="font-semibold  text text-sm mt-1">{{ product.name }}</h3>
     </RouterLink>
 
 

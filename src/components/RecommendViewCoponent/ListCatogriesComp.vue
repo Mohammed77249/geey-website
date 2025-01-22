@@ -103,14 +103,14 @@ let subcat = ref([{}])
 const filteredData = ref({
   categoryId: null,
   page: 1,
-  perPage: 10,
+  perPage: 30,
 })
 
 const selectedcategory = ref(null)
 const tempid = ref(null)
 const toggleGrandchildren = async (category) => {
 
-  if(category.has_children === true){
+  if(category.has_children == true){
     if (tempid.value == category.id) {
     tempid.value = null
     selectedcategory.value = null
@@ -143,6 +143,7 @@ watch(
   },
   { immediate: true } // تشغيل المراقبة فورًا عند التحميل
 );
+
 
 // watch(
 //   () => storeSecion.getSubCategories, // المراقبة على getter

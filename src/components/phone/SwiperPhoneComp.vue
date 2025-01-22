@@ -9,7 +9,7 @@
       :autoplay="autoplayOptions"
       :pagination="{ clickable : true}"
        :navigation="true"
-      :class="{'w-full h-[200px]  Swiper custom-swiper': storedLanguage == 'ar' , 'w-full h-80 Swiper custom-swiper2': storedLanguage =='en'}"
+      :class="{'w-full h-[250px]  Swiper custom-swiper': storedLanguage == 'ar' , 'w-full h-80 Swiper custom-swiper2': storedLanguage =='en'}"
       id="mySlider"
     >
       <SwiperSlide v-for="(image, index) in images" :key="index">

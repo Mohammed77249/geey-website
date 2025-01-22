@@ -277,10 +277,13 @@ const handlOrder = async () => {
     id:product.id,
     product_id: product.product_id,
     parent_measuring_id: product.parent_measuring_id,
-    color_id: product.color_id,
+    color_id: product.color_id != 0 ?  product.color_id : null ,
     quantity: product.quantity,
     price:product.product_price,
   }));
+
+
+
 
   filteredData.value.products = JSON.stringify(products_for_order.value);
   filteredData.value.address_id = localValueId;

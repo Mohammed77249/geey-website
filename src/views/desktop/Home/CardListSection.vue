@@ -2,16 +2,20 @@
   <div class="mt-5">
     <div>
       <ul class="space-y-5">
-        <li v-if="storeCategories.getCategories">
+        <div v-if=" storeCategories.loading">
+          <LoaderDatacomp :is-loader="storeCategories.loading"/>
+         </div>
+        <li v-else-if="storeCategories.getCategories">
           <div
-            class=" p-5 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8  custom-scroll  overflow-x-auto  gap-6"
+            class=" p-5  grid grid-rows-3 w-full custom-scroll  overflow-x-auto  gap-6"
+            style="grid-template-columns: repeat(10, minmax(80px, 1fr));"
           >
             <div
               v-for="(category, index) in storeCategories.getCategoriesMain"
               :key="index"
 
               class="bg-white flex flex-col items-center"
-            >  <RouterLink :to="`/recommend/${category.category_level}/${category.id}/${category.name}`">
+            >  <RouterLink :to="`/desktop/recommend/${category.category_level}/${category.id}/${category.name}`">
               <img
                 :src="category.image !=null ?category.image : '/public/jeeeylogo.jpg'"
                 :alt="category.name"
@@ -28,15 +32,7 @@
         <div v-else>
             no data
         </div>
-        <!-- <LoaderComp  :is-loader="storeAllSection.loading"/> -->
-         <div v-if=" storeCategories.loading">
-          <LoaderDatacomp :is-loader="storeCategories.loading"/>
-         </div>
-
-
-
       </ul>
-
     </div>
 
   </div>
@@ -80,16 +76,9 @@ const filteredData = ref({
       perPage: 10,
     });
 
-    // onMounted(() => {
-    //   storeAllSection.fetchAllSections(filteredData);
-    // });
-
     const toggleChildren = id => {
   if (id) {
-
-
     filteredData.value.categoryId = id
-    // storeCategories.fetchSubCategoryByCategoryID(filteredData)
   }
    else {
   alert("hghghg")

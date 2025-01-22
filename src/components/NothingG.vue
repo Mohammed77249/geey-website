@@ -2832,3 +2832,205 @@ defineProps({
 
 
 //=============================================================
+
+
+
+
+
+// ===================================== header phone
+
+<template>
+  <div class="relative">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+        <!-- Logo -->
+        <div class="flex items-center space-x-2">
+          <img src="/public/jeeeeylogo3.jpg" alt="Shein Logo" class="h-8" />
+          <span class="font-bold text-lg hidden md:block">SHEIN</span>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="flex-1 mx-4 hidden md:block">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Search for items..."
+              class="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring focus:ring-gray-300"
+            />
+            <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 21l-4.35-4.35M15.75 10.5a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Icons -->
+        <div class="flex items-center space-x-4">
+          <!-- Profile Icon -->
+          <button class="text-gray-600 hover:text-gray-800">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 9A3.75 3.75 0 1112 5.25 3.75 3.75 0 0115.75 9zm0 0c0 2.25-1.5 6.75-3.75 6.75S8.25 11.25 8.25 9m7.5 0a3.75 3.75 0 00-7.5 0"
+              />
+            </svg>
+          </button>
+
+          <!-- Cart Icon -->
+          <button class="relative text-gray-600 hover:text-gray-800">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.75 6.75h10.5m-10.5 0c0-1.5 1.5-3 3-3s3 1.5 3 3h10.5m-13.5 0a2.25 2.25 0 00-2.25 2.25v9.75c0 1.5 1.5 3 3 3h9c1.5 0 3-1.5 3-3v-9.75A2.25 2.25 0 0016.5 6.75m-1.5 9h.008v.008H15m-6 0h.008v.008H9"
+              />
+            </svg>
+            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1">
+              2
+            </span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Swiper Section -->
+    <section>
+      <SwiperPhoneComp/>
+    </section>
+  </div>
+</template>
+
+<script setup>
+import SwiperPhoneComp from './SwiperPhoneComp.vue';
+</script>
+
+
+
+// 2 phone header
+
+
+<template>
+  <div>
+    <!-- Header -->
+    <header
+      :class="[
+        'sticky top-0 z-50 transition-all duration-300',
+        isScrolled ? 'bg-red-500 shadow-md' : 'bg-cover bg-center',
+      ]"
+      :style="!isScrolled ? { backgroundImage: `url(${headerImage})` } : {}"
+    >
+      <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <!-- Logo -->
+        <div class="flex items-center space-x-2">
+          <img src="/public/jeeeeylogo3.jpg" alt="Shein Logo" class="h-8" />
+          <span class="font-bold text-lg hidden md:block text-white" :class="{ 'text-black': isScrolled }">SHEIN</span>
+        </div>
+
+        <!-- Icons -->
+        <div class="flex items-center space-x-4">
+          <!-- Profile Icon -->
+          <button class="text-white hover:text-gray-300" :class="{ 'text-gray-600 hover:text-gray-800': isScrolled }">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 9A3.75 3.75 0 1112 5.25 3.75 3.75 0 0115.75 9zm0 0c0 2.25-1.5 6.75-3.75 6.75S8.25 11.25 8.25 9m7.5 0a3.75 3.75 0 00-7.5 0"
+              />
+            </svg>
+          </button>
+
+          <!-- Cart Icon -->
+          <button class="relative text-white hover:text-gray-300" :class="{ 'text-gray-600 hover:text-gray-800': isScrolled }">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.75 6.75h10.5m-10.5 0c0-1.5 1.5-3 3-3s3 1.5 3 3h10.5m-13.5 0a2.25 2.25 0 00-2.25 2.25v9.75c0 1.5 1.5 3 3 3h9c1.5 0 3-1.5 3-3v-9.75A2.25 2.25 0 0016.5 6.75m-1.5 9h.008v.008H15m-6 0h.008v.008H9"
+              />
+            </svg>
+            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1">2</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="h-[500px] bg-gray-100">
+      <SwiperPhoneComp/>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+import SwiperPhoneComp from './SwiperPhoneComp.vue';
+// صورة الخلفية
+const headerImage = '/header-image.jpg';
+
+// حالة التمرير
+const isScrolled = ref(false);
+
+// تحديث حالة التمرير
+const handleScroll = () => {
+  const scrollPosition = window.scrollY;
+  isScrolled.value = scrollPosition > 200; // تغيير الحالة عند تجاوز 200px
+};
+
+// إضافة وإزالة مستمع التمرير
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
+</script>
+
+<style scoped>
+/* ارتفاع الصورة */
+header {
+  height: 300px;
+}
+</style>

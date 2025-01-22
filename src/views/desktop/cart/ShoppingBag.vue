@@ -67,7 +67,7 @@
                 class="w-4 h-3 text-primary-900"
                 @change="updateSelectAll"
               />
-              <RouterLink  :to="`/product/${item.product_id}`">
+              <RouterLink  :to="`/desktop/product/${item.product_id}`">
                 <img
                 :src="item.image"
                 alt="Product Image"
@@ -78,7 +78,7 @@
             </div>
             <div class="col-span-6 md:col-span-7">
               <div class="md:mx-4 mx-1 mt-5">
-                <RouterLink  :to="`/product/${item.product_id}`">
+                <RouterLink  :to="`/desktop/product/${item.product_id}`">
               <h3 class="font-semibold text-sm md:text-[17px] mb-2 ">{{ item.product_name }}</h3>
             </RouterLink>
               <button  @click="openDialog(item)"  class="border-[1px] px-2 mb-2 rounded-full flex items-center justify-center">

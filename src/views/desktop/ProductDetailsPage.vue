@@ -120,7 +120,7 @@
               <h1 class="font-semibold text-xl">
                 {{ $t('Customer Reviews') }}
               </h1>
-              <RouterLink :to="`/product/${filteredData2.productID}/comments`">
+              <RouterLink :to="`/desktop/product/${filteredData2.productID}/comments`">
                 <div class="flex items-center">
                   <h1 class="text-gray-500 font-medium">
                     {{ $t('Full opinions') }}
@@ -174,7 +174,7 @@
           <CommentComp :commentList="listContentComment" />
 
           <div>
-            <RouterLink :to="`/product/${productId}/comments`">
+            <RouterLink :to="`/desktop/product/${productId}/comments`">
               <div class="flex items-center justify-center gap-1">
                 <h1 class="font-semibold text-sm">
                   {{ $t('View all customer reviews') }}
@@ -857,8 +857,12 @@ const addToCart = async () => {
   }
 
   if(filteredData2.value.color_id == null){
-    alert("plesase choose color")
-  } else if(filteredData2.value.parent_measuring_id == null){
+    filteredData2.value.color_id = 0
+  }
+
+  alert(filteredData2.value.color_id);
+
+  if(filteredData2.value.parent_measuring_id == null){
     alert("plesase choose size")
   }else{
     const addcart = await storeCart.creatCart(
@@ -914,6 +918,7 @@ const changeColor = (index) => {
   const color = storeProduct.getproductColors[index];
   selectedColorImages.value = color.images || [];
   selectedImage.value = color.images[0]?.image || null;
+  filteredData2.value.color_id = color.color_id
 
 };
 

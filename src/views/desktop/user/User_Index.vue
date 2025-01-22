@@ -52,7 +52,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>📍</span>
-                    <RouterLink to="/myaddresses"><span class=" text-xs md:text-sm font-medium"> دفتر العناوين </span></RouterLink>
+                    <RouterLink to="/desktop/user/myaddresses"><span class=" text-xs md:text-sm font-medium"> دفتر العناوين </span></RouterLink>
 
                   </button>
                 </li>
@@ -151,7 +151,7 @@
                     class="flex items-center gap-2 space-x-2 hover:text-black cursor-pointer"
                   >
                     <span>🏅</span>
-                    <RouterLink to="/myoreder">
+                    <RouterLink to="/desktop/user/myorder">
                       <span class="font-medium text-xs md:text-sm ">جميع الطلبات</span>
                     </RouterLink>
 

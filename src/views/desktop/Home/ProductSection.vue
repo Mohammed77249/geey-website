@@ -2,7 +2,7 @@
   <div
     class="flex items-center justify-center rounded-[10px] h-[70px] bg-white"
   >
-    <div class="flex items-center">
+    <!-- <div class="flex items-center">
       <button
         @click="taggleActiveLowProduct"
         :class="[
@@ -19,7 +19,7 @@
           ]"
         ></div>
       </button>
-    </div>
+    </div> -->
 
     <div class="flex items-center px-10">
       <button
@@ -46,27 +46,27 @@
       <MoreProductsell />
     </div>
 
-    <div v-if="onclickLowProduct">
+    <!-- <div v-if="onclickLowProduct">
       <LowProductsell />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup>
-import LowProductsell from '@/components/HomeComponent/LowProductsell.vue'
+// import LowProductsell from '@/components/HomeComponent/LowProductsell.vue'
 import MoreProductsell from '@/components/HomeComponent/MoreProductsell.vue'
 import { ref } from 'vue'
 
-const onclickLowProduct = ref(false)
+// const onclickLowProduct = ref(false)
 const onclickMoreSellsProduct = ref(true)
 
-const taggleActiveLowProduct = () => {
-  onclickMoreSellsProduct.value = onclickMoreSellsProduct.value = false
-  onclickLowProduct.value = onclickLowProduct.value = true
-}
+// const taggleActiveLowProduct = () => {
+//   onclickMoreSellsProduct.value = onclickMoreSellsProduct.value = false
+//   onclickLowProduct.value = onclickLowProduct.value = true
+// }
 
 const taggleActiveMoreSellsProduct = () => {
-  onclickLowProduct.value = onclickLowProduct.value = false
+  // onclickLowProduct.value = onclickLowProduct.value = false
   onclickMoreSellsProduct.value = onclickMoreSellsProduct.value = true
 };
 

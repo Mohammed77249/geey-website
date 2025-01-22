@@ -168,7 +168,7 @@ export const useAuthStore = defineStore('auth', {
 
         localStorage.removeItem('authToken');
         localStorage.removeItem('emailuser');
-        router.push('/user/login');
+        router.push('/desktop/login');
         return true;
       } catch (error) {
         this.error = error.response.data.message || 'خطأ أثناء تسجيل الخروج:';

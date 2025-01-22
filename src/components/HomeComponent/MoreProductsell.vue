@@ -7,10 +7,9 @@
       v-for="product in productSection.getProducts_Main"
       :key="product.id"
       class="p-1 mt-4"
-
     >
 
-    <RouterLink :to="`/product/${product.id}`">
+    <RouterLink :to="`/desktop/product/${product.id}`">
       <div class="cursor-pointer w-[full] h-[200px] md:h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img v-if="product.main_imags != null && product.main_imags.length > 0 "
               :src="

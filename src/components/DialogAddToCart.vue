@@ -445,6 +445,7 @@ const toggleColor = (color) => {
       color_sizes.value = null
     }
 
+
     filteredData.value.color_id = color.color_id;
 
   if (tempidColor.value == color.color_id) {
@@ -490,9 +491,10 @@ const addToCart = async() => {
   }
 
 
-  if(filteredData.value.color_id === null ){
-    alert("ادخ اللون ")
-  }else if(filteredData.value.parent_measuring_id === null){
+  if(filteredData.value.color_id == null){
+    filteredData.value.color_id = 0
+  }
+  if(filteredData.value.parent_measuring_id === null){
     alert("ادخل المقاس")
   }
   else{
@@ -553,6 +555,8 @@ const changeColor = (index) => {
   const color = storeCart.getproductColors[index];
   selectedColorImages.value = color.images || [];
   selectedImage.value = color.images[0]?.image || null;
+  filteredData.value.color_id = color.color_id
+
 };
 
 onMounted(async() => {

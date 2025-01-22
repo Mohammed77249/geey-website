@@ -44,8 +44,9 @@ export const useSectionsStore = defineStore('sections', {
     async fetchSections(data) {
       this.loading = true;
       this.error = null;
+      const filter = 0
       try {
-        const response = await axiosIns.get(`sections?page=${data.value.page}&perPage=${data.value.perPage}`);
+        const response = await axiosIns.get(`sections?page=${data.value.page}&perPage=${data.value.perPage}&filter=${filter}`);
         this.sections =  response.data.sections
         this.categories_Main =  response.data.categories
         this.products_main = response.data.products.data
@@ -61,12 +62,12 @@ export const useSectionsStore = defineStore('sections', {
     },
 
     async fetchAllSections(data) {
-
+      const filter = 0
       if (this.allsections.length > 0) return;
       this.loading = true;
       this.error = null;
       try {
-        const response = await axiosIns.get(`categories/section?page=${data.value.page}&perPage=${data.value.perPage}`);
+        const response = await axiosIns.get(`categories/section?page=${data.value.page}&perPage=${data.value.perPage}&filter=${filter}`);
         this.allsections = response.data.sections
         this.categories = response.data.categories;
         this.productFormAllSection = response.data.products.data;
@@ -83,11 +84,11 @@ export const useSectionsStore = defineStore('sections', {
     },
 
     async fetchSubSectionBySectionID(data) {
-
+      const filter = 0
       this.loading = true;
       this.error = null;
       try {
-        const response = await axiosIns.get(`sections/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}`);
+        const response = await axiosIns.get(`sections/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}&filter=${filter}`);
         if(response.data.sections[0].has_sub == "false"){
           this.categories =  response.data.sections[0].categories;
           this.subsections =  response.data.sections;
@@ -147,12 +148,15 @@ export const useSectionsStore = defineStore('sections', {
 
 
     async fetchSubCategoryByCategoryID(data) {
+      const filter = 0
       this.loading = true
       this.error = null
 
       try {
-        const response = await axiosIns.get(`categories/${data.value.categoryId}?page=${data.value.page}&perPage=${data.value.perPage}` )
-        this.subcategories = response.data.categories
+        const response = await axiosIns.get(`categories/${data.value.categoryId}?page=${data.value.page}&perPage=${data.value.perPage}&filter=${filter}` )
+        if( response.data.categories != null){
+        this.subcategories = response.data.categories}
+
         this.products = response.data.products.data
         this.totalProducts.currentPage = response.data.products.current_page
         this.totalProducts.totalItems = response.data.products.total

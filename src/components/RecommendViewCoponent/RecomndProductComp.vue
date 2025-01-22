@@ -10,7 +10,7 @@
         class="p-1 mt-4 "
         :class="[hoverId === product.id && isHover ?'border shadow ' :'p-2']"
       >
-        <RouterLink :to="`/product/${product.id}`">
+        <RouterLink :to="`/desktop/product/${product.id}`">
           <div
             class="cursor-pointe w-[full] h-[200px] md:h-[350px] border"
             @mouseenter="onhover(product.id)"

@@ -5,7 +5,7 @@
       <div class="flex items-center justify-between ">
         <!-- logo-->
 
-          <RouterLink to="/">
+          <RouterLink to="/desktop/home">
             <div class="flex items-center cursor-pointer ">
               <!-- <span class="text-xl md:text-2xl 2xl:text-4xl font-bold text-primary-900">{{ $t('Jeey') }}</span> -->
               <img
@@ -60,7 +60,7 @@
           <div class="cursor-pointer text-gray-700 hover:text-gray-900">
             <div class="relative flex items-center">
               <div ref="dropDownStatus">
-                <RouterLink to="/user/user_index">
+                <RouterLink to="/desktop/user">
                 <button class="hidden lg:block"
                   type="button"
                   @click="isDropdowenStatusVisable = false"
@@ -135,7 +135,7 @@
                       </RouterLink> -->
                     </li>
                     <li>
-                      <RouterLink to="/myoreder" class="block px-4 py-1 hover:bg-gray-100">
+                      <RouterLink to="/desktop/user/myorder" class="block px-4 py-1 hover:bg-gray-100">
                         طلبي</RouterLink>
                     </li>
                     <li>
@@ -185,7 +185,7 @@
 
           <!-- icon سلة -->
            <div>
-            <RouterLink to="/cart">
+            <RouterLink to="/desktop/cart">
               <div
             class="relative cursor-pointer text-gray-700 hover:text-gray-900"
           >
@@ -425,7 +425,7 @@
               class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black hover:bg-gray-100 transition-all duration-200"
             >
 
-            <RouterLink :to="`/recommend/${section.id}/${section.name}`">
+            <RouterLink :to="`/desktop/recommend/${section.id}/${section.name}`">
                {{ section.name }}
             </RouterLink>
 
@@ -554,7 +554,11 @@ const showDropdown = ref()
 const store = useAuthStore()
 const storeSecion = useSectionsStore();
 
-
+const filteredData = ref({
+  page: 1,
+  perPage: 20,
+  filter:0,
+});
 
 
 const languageStore = useLanguageStore();
@@ -578,24 +582,14 @@ const updateHoveredIndex = () => {
 //user icon   Language
 const dropDownStatus = ref(null)
 const isDropdowenStatusVisable = ref(false)
-// const closeDropdowenStatus = (element) => {
-//   if (!dropDownStatus.value.contains(element.target)) {
-//     isDropdowenStatusVisable.value = false
-//   }
-// }
+
 
 //Language icon
 const dropDownLanguage = ref(null)
 const isDropdowenLanguageVisable = ref(false)
-// const closeDropdowenLanguage = (element) => {
-//   if (!dropDownLanguage.value.contains(element.target)) {
-//     isDropdowenLanguageVisable.value = false
-//   }
-// }
+
 
 onMounted(() => {
-  // window.addEventListener('click', closeDropdowenStatus)
-  // window.addEventListener('click', closeDropdowenLanguage)
   storeSecion.fetchSections(filteredData);
   if(store.isAuthenticated){
     storeCart.fetchAllProductsInCart();
@@ -609,15 +603,10 @@ onMounted(() => {
 
 
 onBeforeMount(() => {
-  // window.removeEventListener('click', closeDropdowenStatus)
-  // window.removeEventListener('click', closeDropdowenLanguage)
   clearInterval(intervalId);
 })
 
-const filteredData = ref({
-  page: 1,
-  perPage: 20,
-});
+
 
 const handleMouseEnter = index => {
   showDropdown.value = true

@@ -147,231 +147,7 @@
 
 // export default router
 
-
-
-///=========================================================================
-import { createRouter, createWebHistory } from 'vue-router';
-
-// desktop
-import LoginPage from '@/views/auth/LoginPage.vue';
-import NotFoundPageDesktop from '@/views/desktop/NotFoundPage.vue';
-import { useAuthStore } from '@/stores/auth';
-import LoginEmailPage from '@/views/auth/LoginEmailPage.vue';
-import RecommendPage from '@/views/desktop/RecommendPage.vue';
-import DesktopHome  from '@/views/desktop/HomePage.vue';
-import ProductDetailsPage from '@/views/desktop/ProductDetailsPage.vue';
-import CommentsPage from '@/views/desktop/CommentsPage.vue';
-import OtpPage from '@/views/auth/OtpPage.vue';
-import ForgetPasswordPage from '@/views/auth/ForgetPasswordPage.vue';
-import ResetPasswordPage from '@/views/auth/ResatPasswordPage.vue';
-import CartPage from '@/views/desktop/CartPage.vue';
-import User_Index from '@/views/desktop/user/User_Index.vue';
-import User_main from '@/views/desktop/user/User_main.vue';
-import MyRequest from '@/views/desktop/user/oreders/MyOreder.vue';
-import MyAddresses from '@/views/desktop/user/addresses/MyAddresses.vue';
-import MyProfile from '@/views/desktop/user/MyProfile.vue';
-
-
-// phone
-import PhoneHome  from '@/views/phone/HomePage.vue';
-import NotFoundPagePhone from '@/views/phone/NotFoundPage.vue';
-import OrderDetails from '@/views/desktop/user/oreders/OrderDetails.vue';
-
-const requiresAuth = (to, from, next) => {
-  const authStore = useAuthStore();
-  if (authStore.isAuthenticated) {
-    next('/');
-  } else {
-    next();
-  }
-};
-
-
-const routes = [
-
-  {
-    path: '/',
-    redirect: () => {
-      const isDesktop = window.innerWidth >= 768;
-      return isDesktop ? '/desktop/home' : '/phone/home';
-    },
-  },
-
-  // authincation routes
-
-  {
-    path: '/user/login',
-    name: 'login',
-    component: LoginPage,
-    meta: { hideHeaderFooter: true },
-    beforeEnter: requiresAuth,
-  },
-  {
-    path: '/user/loginemail',
-    name: 'loginemail',
-    component: LoginEmailPage,
-    meta: { hideHeaderFooter: true },
-    beforeEnter: requiresAuth,
-  },
-  {
-    path: '/user/otp',
-    name: 'loginotp',
-    component: OtpPage,
-    meta: { hideHeaderFooter: true },
-    beforeEnter: requiresAuth,
-  },
-  {
-    path: '/user/forgetpassword',
-    name: 'forgetpassword',
-    component: ForgetPasswordPage,
-    meta: { hideHeaderFooter: true },
-    beforeEnter: requiresAuth,
-  },
-  {
-    path: '/user/resetpassword',
-    name: 'resetpassword',
-    component: ResetPasswordPage,
-    meta: { hideHeaderFooter: true },
-    beforeEnter: requiresAuth,
-  },
-
-
-  // desktop routes
-  {
-    path: '/desktop/home',
-    name: 'DesktopHome',
-    component: DesktopHome ,
-  },
-  {
-    name: 'Recommend',
-    path: '/recommend/:id/:name',
-    component: RecommendPage,
-    // meta: { requiresAuth: true },
-  },
-  {
-    name: 'Recommendcat',
-    path: '/recommend/:category_level/:id/:name',
-    component: RecommendPage,
-    // meta: { requiresAuth: true },
-  },
-  {
-    path: '/product/:id',
-    name: 'ProductDetails',
-    component: ProductDetailsPage,
-    // meta: { requiresAuth: true },
-  },
-  {
-    path: '/product/:id/comments',
-    name: 'ProductComments',
-    component: CommentsPage,
-    // meta: { requiresAuth: true },
-  },
-  {
-    name: 'Cart',
-    path: '/cart',
-    component: CartPage,
-    meta: { requiresAuth: true, hideHeaderFooter: true },
-  },
-  {
-    path: '/user/user_index',
-    name: 'User_index',
-    component: User_Index,
-    meta: { requiresAuth: true },
-    children:[
-      {
-        name: 'main',
-        path: '/user/user_index',
-        component: User_main
-      },
-      {
-        name: 'myoreder',
-        path: '/myoreder',
-        component: MyRequest
-      },
-      {
-        path: "/myoreder/:id",
-        name: "OrderDetails",
-        component: OrderDetails,
-      },
-      {
-        name: 'myaddresses',
-        path: '/myaddresses',
-        component: MyAddresses
-      },
-      {
-        name: 'myProfile',
-        path: '/my_profile',
-        component: MyProfile
-      },
-    ]
-  },
-
-   // Catch-All Route for 404 Not Found
-   {
-    path: '/desktop/:pathMatch(.*)*',
-    name: 'NotFoundDesktop',
-    component: NotFoundPageDesktop,
-  },
-
-
-  // phone routes
-  {
-    path: '/phone/home',
-    name: 'PhoneHome',
-    component: PhoneHome ,
-  },
-  // Catch-All Route for 404 Not Found
-  {
-    path: '/phone/:pathMatch(.*)*',
-    name: 'NotFoundPhone',
-    component: NotFoundPagePhone,
-  },
-];
-
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes,
-});
-
-
-router.beforeEach((to, from, next) => {
-  const authStore = useAuthStore();
-  const isDesktop = window.innerWidth >= 768;
-  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    next('/user/login');
-  } else if (isDesktop && to.path.startsWith('/phone')) {
-    next(to.path.replace('/phone', '/desktop'));
-  } else if (!isDesktop && to.path.startsWith('/desktop')) {
-    next(to.path.replace('/desktop', '/phone'));
-  } else {
-    next();
-  }
-});
-
-// router.beforeEach((to, from, next) => {
-//   const authStore = useAuthStore();
-//   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-//     next('/user/login');
-//   } else {
-//     next();
-//   }
-// });
-
-
-
-// router.beforeEach((to, from, next) => {
-//   const isDesktop = window.innerWidth >= 768;
-//   if (isDesktop && to.path.startsWith('/phone')) {
-//     next(to.path.replace('/phone', '/desktop'));
-//   } else if (!isDesktop && to.path.startsWith('/desktop')) {
-//     next(to.path.replace('/desktop', '/phone'));
-//   } else {
-//     next();
-//   }
-// });
-
-export default router;
-
+// ========================================================
 
 //===========================================================
 
@@ -512,3 +288,383 @@ export default router;
 // });
 
 // export default router;
+//==============================================================================
+
+// ///=========================================================================
+// import { createRouter, createWebHistory } from 'vue-router';
+
+// // desktop
+// import LoginPage from '@/views/auth/LoginPage.vue';
+// import NotFoundPageDesktop from '@/views/desktop/NotFoundPage.vue';
+// import { useAuthStore } from '@/stores/auth';
+// import LoginEmailPage from '@/views/auth/LoginEmailPage.vue';
+// import RecommendPage from '@/views/desktop/RecommendPage.vue';
+// import DesktopHome  from '@/views/desktop/HomePage.vue';
+// import ProductDetailsPage from '@/views/desktop/ProductDetailsPage.vue';
+// import CommentsPage from '@/views/desktop/CommentsPage.vue';
+// import OtpPage from '@/views/auth/OtpPage.vue';
+// import ForgetPasswordPage from '@/views/auth/ForgetPasswordPage.vue';
+// import ResetPasswordPage from '@/views/auth/ResatPasswordPage.vue';
+// import CartPage from '@/views/desktop/CartPage.vue';
+// import User_Index from '@/views/desktop/user/User_Index.vue';
+// import User_main from '@/views/desktop/user/User_main.vue';
+// import MyRequest from '@/views/desktop/user/oreders/MyOreder.vue';
+// import MyProfile from '@/views/desktop/user/MyProfile.vue';
+// import MyAddresses from '@/views/desktop/user/addresses/MyAddresses.vue';
+
+
+// // phone
+// import PhoneHome  from '@/views/phone/HomePage.vue';
+// import NotFoundPagePhone from '@/views/phone/NotFoundPage.vue';
+// import OrderDetails from '@/views/desktop/user/oreders/OrderDetails.vue';
+
+
+// const requiresAuth = (to, from, next) => {
+//   const authStore = useAuthStore();
+//   if (authStore.isAuthenticated) {
+//     next('/');
+//   } else {
+//     next();
+//   }
+// };
+
+
+// const routes = [
+
+//   {
+//     path: '/',
+//     redirect: () => {
+//       const isDesktop = window.innerWidth >= 768;
+//       return isDesktop ? '/desktop/home' : '/phone/home';
+//     },
+//   },
+
+//   // authincation routes
+
+//   {
+//     path: '/user/login',
+//     name: 'login',
+//     component: LoginPage,
+//     meta: { hideHeaderFooter: true },
+//     beforeEnter: requiresAuth,
+//   },
+//   {
+//     path: '/user/loginemail',
+//     name: 'loginemail',
+//     component: LoginEmailPage,
+//     meta: { hideHeaderFooter: true },
+//     beforeEnter: requiresAuth,
+//   },
+//   {
+//     path: '/user/otp',
+//     name: 'loginotp',
+//     component: OtpPage,
+//     meta: { hideHeaderFooter: true },
+//     beforeEnter: requiresAuth,
+//   },
+//   {
+//     path: '/user/forgetpassword',
+//     name: 'forgetpassword',
+//     component: ForgetPasswordPage,
+//     meta: { hideHeaderFooter: true },
+//     beforeEnter: requiresAuth,
+//   },
+//   {
+//     path: '/user/resetpassword',
+//     name: 'resetpassword',
+//     component: ResetPasswordPage,
+//     meta: { hideHeaderFooter: true },
+//     beforeEnter: requiresAuth,
+//   },
+
+
+//   // desktop routes
+//   {
+//     path: '/desktop/home',
+//     name: 'DesktopHome',
+//     component: DesktopHome ,
+//   },
+//   {
+//     name: 'Recommend',
+//     path: '/recommend/:id/:name',
+//     component: RecommendPage,
+//     // meta: { requiresAuth: true },
+//   },
+//   {
+//     name: 'Recommendcat',
+//     path: '/recommend/:category_level/:id/:name',
+//     component: RecommendPage,
+//     // meta: { requiresAuth: true },
+//   },
+//   {
+//     path: '/product/:id',
+//     name: 'ProductDetails',
+//     component: ProductDetailsPage,
+//     // meta: { requiresAuth: true },
+//   },
+//   {
+//     path: '/product/:id/comments',
+//     name: 'ProductComments',
+//     component: CommentsPage,
+//     // meta: { requiresAuth: true },
+//   },
+//   {
+//     name: 'Cart',
+//     path: '/cart',
+//     component: CartPage,
+//     meta: { requiresAuth: true, hideHeaderFooter: true },
+//   },
+//   {
+//     path: '/user/user_index',
+//     name: 'User_index',
+//     component: User_Index,
+//     meta: { requiresAuth: true },
+//     children:[
+//       {
+//         name: 'main',
+//         path: '/user/user_index',
+//         component: User_main
+//       },
+//       {
+//         name: 'myoreder',
+//         path: '/myoreder',
+//         component: MyRequest
+//       },
+//       {
+//         path: "/myoreder/:id",
+//         name: "OrderDetails",
+//         component: OrderDetails,
+//       },
+//       {
+//         name: 'myaddresses',
+//         path: '/myaddresses',
+//         component: MyAddresses
+//       },
+//       {
+//         name: 'myProfile',
+//         path: '/my_profile',
+//         component: MyProfile
+//       },
+//     ]
+//   },
+
+//    // Catch-All Route for 404 Not Found
+//    {
+//     path: '/desktop/:pathMatch(.*)*',
+//     name: 'NotFoundDesktop',
+//     component: NotFoundPageDesktop,
+//   },
+
+
+//   // phone routes
+//   {
+//     path: '/phone/home',
+//     name: 'PhoneHome',
+//     component: PhoneHome ,
+//   },
+//   // Catch-All Route for 404 Not Found
+//   {
+//     path: '/phone/:pathMatch(.*)*',
+//     name: 'NotFoundPhone',
+//     component: NotFoundPagePhone,
+//   },
+// ];
+
+// const router = createRouter({
+//   history: createWebHistory(import.meta.env.BASE_URL),
+//   routes,
+// });
+
+
+// router.beforeEach((to, from, next) => {
+//   const authStore = useAuthStore();
+//   const isDesktop = window.innerWidth >= 768;
+//   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+//     next('/user/login');
+//   } else if (isDesktop && to.path.startsWith('/phone')) {
+//     next(to.path.replace('/phone', '/desktop'));
+//   } else if (!isDesktop && to.path.startsWith('/desktop')) {
+//     next(to.path.replace('/desktop', '/phone'));
+//   } else {
+//     next();
+//   }
+// });
+
+// // router.beforeEach((to, from, next) => {
+// //   const authStore = useAuthStore();
+// //   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+// //     next('/user/login');
+// //   } else {
+// //     next();
+// //   }
+// // });
+
+
+
+// // router.beforeEach((to, from, next) => {
+// //   const isDesktop = window.innerWidth >= 768;
+// //   if (isDesktop && to.path.startsWith('/phone')) {
+// //     next(to.path.replace('/phone', '/desktop'));
+// //   } else if (!isDesktop && to.path.startsWith('/desktop')) {
+// //     next(to.path.replace('/desktop', '/phone'));
+// //   } else {
+// //     next();
+// //   }
+// // });
+
+// export default router;
+
+
+// =====================================================================
+
+
+
+
+///=========================================================================
+import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+
+// desktop
+import DesktopLoginPage from '@/views/desktop/auth/LoginPage.vue';
+import DesktopOtpPage from '@/views/desktop/auth/OtpPage.vue';
+import DesktopForgetPasswordPage from '@/views/desktop/auth/ForgetPasswordPage.vue';
+import DesktopResetPasswordPage from '@/views/desktop/auth/ResatPasswordPage.vue';
+import DesktopLoginEmailPage from '@/views/desktop/auth/LoginEmailPage.vue';
+
+import DesktopNotFoundPage from '@/views/desktop/NotFoundPage.vue';
+import DesktopRecommendPage from '@/views/desktop/RecommendPage.vue';
+import DesktopHome  from '@/views/desktop/HomePage.vue';
+import DesktopProductDetailsPage from '@/views/desktop/ProductDetailsPage.vue';
+import DesktopCommentsPage from '@/views/desktop/CommentsPage.vue';
+import DesktopCartPage from '@/views/desktop/CartPage.vue';
+import DesktopUser_Index from '@/views/desktop/user/User_Index.vue';
+import DesktopUser_main from '@/views/desktop/user/User_main.vue';
+import DesktopMyOreder from '@/views/desktop/user/oreders/MyOreder.vue';
+import DesktopMyProfile from '@/views/desktop/user/MyProfile.vue';
+import DesktopMyAddresses from '@/views/desktop/user/addresses/MyAddresses.vue';
+import DesktopOrderDetails from '@/views/desktop/user/oreders/OrderDetails.vue';
+
+// phone
+import PhoneLoginPage from '@/views/phone/auth/LoginPage.vue';
+import PhoneOtpPage from '@/views/phone/auth/OtpPage.vue';
+import PhoneForgetPasswordPage from '@/views/phone/auth/ForgetPasswordPage.vue';
+import PhoneResetPasswordPage from '@/views/phone/auth/ResatPasswordPage.vue';
+import PhoneLoginEmailPage from '@/views/phone/auth/LoginEmailPage.vue';
+
+import PhoneHome  from '@/views/phone/HomePage.vue';
+import PhoneNotFoundPage from '@/views/phone/NotFoundPage.vue';
+import LayoutMain from '@/layouts/LayoutMain.vue';
+
+
+
+
+const isDesktop = () => window.matchMedia('(min-width: 768px)').matches;
+
+const routes = [
+
+  {
+    path: '/',
+    redirect: () => (isDesktop() ? '/desktop/home' : '/phone/home'),
+  },
+
+
+
+  // Desktop routes
+  {
+    path: '/desktop',
+    component: LayoutMain,
+    children: [
+      { path: 'home', name: 'DesktopHome', component: DesktopHome },
+
+      { path: 'login', name: 'DesktopLogin', component: DesktopLoginPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
+      { path: 'loginemail', name: 'DesktopLoginEmail', component: DesktopLoginEmailPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
+      { path: 'otp', name: 'DesktopLoginOtp', component: DesktopOtpPage, meta: { guestOnly: true , hideHeaderFooter: true  },},
+      { path: 'forgetpassword', name: 'DesktopForgetPassword', component: DesktopForgetPasswordPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
+      { path: 'resetpassword', name: 'DesktopResetPassword', component: DesktopResetPasswordPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
+
+
+      { path: 'recommend/:id/:name', name: 'desktopRecommend', component: DesktopRecommendPage },
+      { path: 'recommend/:category_level/:id/:name', name: 'desktopRecommendCat', component: DesktopRecommendPage },
+      { path: 'product/:id', name: 'desktopProductDetails', component: DesktopProductDetailsPage },
+      { path: 'product/:id/comments', name: 'desktopProductComments', component: DesktopCommentsPage },
+      { path: 'cart', name: 'desktopCart', component: DesktopCartPage, meta: { requiresAuth: true , hideHeaderFooter: true  } },
+      {
+        path: 'user',
+        component: DesktopUser_Index,
+        children: [
+          { path: '', name: 'desktopUserMain', component: DesktopUser_main },
+          { path: 'myorder', name: 'desktopMyOrder', component: DesktopMyOreder },
+          { path: 'myorder/:id', name: 'desktopOrderDetails', component: DesktopOrderDetails },
+          { path: 'myaddresses', name: 'desktopMyAddresses', component: DesktopMyAddresses },
+          { path: 'myprofile', name: 'desktopMyProfile', component: DesktopMyProfile },
+        ],
+      },
+    ],
+    beforeEnter: (to, from, next) => {
+      // منع الوصول إلى مسار الكمبيوتر من الهاتف
+      if (!isDesktop()) {
+        next('/phone/home');
+      } else {
+        next();
+      }
+    },
+  },
+  { path: '/desktop/:pathMatch(.*)*', name: 'NotFoundDesktop', component: DesktopNotFoundPage },
+
+  // Phone routes
+  {
+    path: '/phone',
+    component: LayoutMain,
+    children: [
+      { path: 'home', name: 'PhoneHome', component: PhoneHome },
+
+      { path: 'login', name: 'PhoneLogin', component: PhoneLoginPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
+      { path: 'loginemail', name: 'PhoneLoginEmail', component: PhoneLoginEmailPage, meta: { guestOnly: true , hideHeaderFooter: true  },},
+      { path: 'otp', name: 'PhoneLoginOtp', component: PhoneOtpPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
+      { path: 'forgetpassword', name: 'PhoneForgetPassword', component: PhoneForgetPasswordPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
+      { path: 'resetpassword', name: 'PhoneResetPassword', component: PhoneResetPasswordPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
+
+    ],
+    beforeEnter: (to, from, next) => {
+      // منع الوصول إلى مسار الهاتف من الكمبيوتر
+      if (isDesktop()) {
+        next('/desktop/home');
+      } else {
+        next();
+      }
+    },
+  },
+  { path: '/phone/:pathMatch(.*)*', name: 'PhoneNotFoundPhone', component: PhoneNotFoundPage },
+
+
+
+];
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes,
+});
+
+
+// Global navigation guard
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+
+  // Redirect if auth is required
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next(isDesktop() ? '/desktop/login' : '/phone/login');
+    return;
+  }
+
+  // Prevent authenticated users from accessing guest-only routes
+  if (to.meta.guestOnly && authStore.isAuthenticated) {
+    next(isDesktop() ? '/desktop/home' : '/phone/home');
+    return;
+  }
+
+  // Proceed to route
+  next();
+});
+
+export default router;
+

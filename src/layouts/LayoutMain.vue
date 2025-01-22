@@ -42,7 +42,7 @@ onMounted(() => {
 </script> -->
 
 
-<template>
+<!-- <template>
   <div class="flex flex-col h-screen md:min-h-screen">
     <header v-if="!hideHeaderFooter">
       <HeaderComp v-if="isDesktop" />
@@ -106,7 +106,70 @@ onMounted(() => {
   });
 });
 
-</script>
+</script> -->
 
+
+<template>
+  <div class="flex flex-col h-screen md:min-h-screen">
+    <!-- Header -->
+    <header v-if="!hideHeaderFooter">
+      <HeaderComp v-if="isDesktop" />
+      <HeaderMobileComp v-else />
+    </header>
+
+    <!-- Main Content -->
+    <main class="pb-16 md:flex-grow">
+      <!-- <slot /> -->
+      <RouterView/>
+    </main>
+
+    <!-- Footer -->
+    <footer v-if="!hideHeaderFooter">
+      <FooterComp v-if="isDesktop" />
+      <FooterMobileComp class="fixed bottom-0 w-full" v-else />
+    </footer>
+  </div>
+</template>
+
+<script setup>
+import FooterComp from '@/components/FooterComp.vue';
+import HeaderComp from '@/components/HeaderComp.vue';
+import FooterMobileComp from '@/components/phone/FooterMobileComp.vue';
+import HeaderMobileComp from '@/components/phone/HeaderMobileComp.vue';
+import { useRoute, useRouter } from 'vue-router';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+
+// Route metadata
+const route = useRoute();
+const router = useRouter();
+const hideHeaderFooter = computed(() => route.meta.hideHeaderFooter);
+
+// Determine device type
+const isDesktop = ref(window.innerWidth >= 768);
+
+const handleResize = () => {
+  const currentPath = route.path;
+
+  // Check device and redirect if necessary
+  const desktopPath = currentPath.replace('/phone', '/desktop');
+  const phonePath = currentPath.replace('/desktop', '/phone');
+
+  isDesktop.value = window.innerWidth >= 768;
+
+  if (isDesktop.value && currentPath.startsWith('/phone')) {
+    router.replace(desktopPath);
+  } else if (!isDesktop.value && currentPath.startsWith('/desktop')) {
+    router.replace(phonePath);
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize);
+});
+</script>
 
 
