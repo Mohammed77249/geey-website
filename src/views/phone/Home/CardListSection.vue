@@ -27,7 +27,7 @@
                 {{ subsection.name }}
                 <div
                   :class="{
-                    'bg-primary-900 h-1 w-15 mt-2': tempSubSection === index,
+                    'bg-primary-900 h-[2px] w-15 mt-1': tempSubSection === index,
                     hidden: tempSubSection !== index,
                   }"
                 ></div>
@@ -35,7 +35,7 @@
             </ul>
 
             <!-- Categories inside subsections -->
-            <div
+            <!-- <div
               class="grid grid-rows-3 overflow-x-auto w-full md:hidden custom-scroll gap-1 mt-4"
               style="grid-template-columns: repeat(10, minmax(80px, 1fr));"
               v-for="(category, index) in storeSection.getSubSections[listCategories]?.categories || []"
@@ -55,8 +55,33 @@
                   {{ category.name }}
                 </h3>
               </div>
+            </div> -->
+            <div
+            class="grid grid-rows-3 overflow-x-auto w-full md:hidden custom-scroll gap-1"
+            style="grid-template-columns: repeat(10, minmax(80px, 1fr));"
+          >
+            <div
+              v-for="(category, index) in storeSection.getSubSections[listCategories]?.categories || []"
+              :key="index"
+              class="bg-white flex flex-col items-center"
+            >
+              <img
+                :src="category.image ? category.image : '/jeeeylogo.jpg'"
+                :alt="category.name"
+                @click="toggleChildren(category.id)"
+                class="w-14 md:w-24 rounded-full h-14 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
+              />
+              <h3
+                @click="toggleChildren(category.id)"
+                class="text-center mt-2 text-[10px] font-sans text-gray-800"
+              >
+                {{ category.name }}
+              </h3>
             </div>
           </div>
+
+          </div>
+         
 
           <!-- Sections without subcategories -->
           <div
@@ -101,7 +126,7 @@ import { ref } from 'vue';
 
 const storeSection = useSectionsPhoneStore();
 const listCategories = ref(0);
-const tempSubSection = ref(null);
+const tempSubSection = ref(0);
 
 const onclickSubSection = (index) => {
   if (index !== undefined && index !== null) {
