@@ -9,7 +9,7 @@
             <div class="flex items-center cursor-pointer ">
               <!-- <span class="text-xl md:text-2xl 2xl:text-4xl font-bold text-primary-900">{{ $t('Jeey') }}</span> -->
               <img
-                src="/public/jeeeeylogo3.jpg"
+                src="/jeeeeylogo3.jpg"
                 alt="SHEIN"
                 class="h-8 w-8 2xl:h-10 2xl:w-20"
               />

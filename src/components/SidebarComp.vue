@@ -179,7 +179,7 @@
                   :key="index"
                   class="bg-white flex flex-col items-center "
                 >
-                  <img src="/public/logogeey.svg" :alt="subsection.name" class="w-20 text-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
+                  <img src="/logogeey.svg" :alt="subsection.name" class="w-20 text-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
                   <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ subsection.name }}</h3>
                 </div>
 
@@ -215,7 +215,7 @@
                   :key="index"
                   class="bg-white  flex flex-col items-center"
                 >
-                  <img src="/public/logogeey.svg" :alt="product.name" class="w-20 rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
+                  <img src="/logogeey.svg" :alt="product.name" class="w-20 rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
                   <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ product.name_ar }}</h3>
                 </div>
               </div>

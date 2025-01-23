@@ -23,7 +23,7 @@
               />
 
               <img v-else
-              src="/public/jeeeylogo.jpg"  alt="" class="w-full h-full object-cover transition duration-300 ease-in-out"
+              src="/jeeeylogo.jpg"  alt="" class="w-full h-full object-cover transition duration-300 ease-in-out"
               />
 
       </div>
