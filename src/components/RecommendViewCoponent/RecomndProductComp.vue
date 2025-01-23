@@ -126,7 +126,7 @@ const props = defineProps({
   },
 
   lev:{
-    type:Number
+    type:String
   }
 })
 import { useSectionsStore } from '@/stores/section'
@@ -225,6 +225,13 @@ watch(
 )
 
 
+const filteredData4 = ref({
+  sectionId: 1,
+  page: 1,
+  perPage: 30,
+  noProduct:"no"
+})
+
 
 onMounted(() => {
 
@@ -236,7 +243,10 @@ onMounted(() => {
     storeSecion.fetchSubSectionBySectionID(filteredData2)
 
   }else{
+    storeSecion.fetchSubSectionBySectionID(filteredData4);
+
     storeSecion.fetchSubCategoryByCategoryID(filteredData3)
+
   }
 
 });

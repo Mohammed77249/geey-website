@@ -19,6 +19,7 @@
           class="text-sm text-gray-700"
           aria-labelledby="dropdownTopButton"
         >
+
           <li
             v-for="subSection in props.subSectiones"
             :key="subSection.id"
@@ -92,8 +93,10 @@
               />
             </div>
           </li>
+
         </ul>
         <div v-else  class="px-5">
+
           <ListCatogriesComp :categories="storeSecion.getCategories"/>
         </div>
       </div>
@@ -125,11 +128,11 @@ const props = defineProps({
   },
 
   lev:{
-    type:Number
+    type:String
   }
 })
 
-// alert(subSectiones)
+
 const filteredData = ref({
   subSectionId: null,
   page: 1,

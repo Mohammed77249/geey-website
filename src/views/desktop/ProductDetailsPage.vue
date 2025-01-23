@@ -860,7 +860,7 @@ const addToCart = async () => {
     filteredData2.value.color_id = 0
   }
 
-  alert(filteredData2.value.color_id);
+
 
   if(filteredData2.value.parent_measuring_id == null){
     alert("plesase choose size")

@@ -83,12 +83,12 @@
         <div class="w-full item-center">
           <div class="overflow-x-auto">
               <ul
-                class="flex gap-2 scrollable-list overflow-x-auto text-[12px]  font-sans"
+                class="flex item-center justify-center gap-2 scrollable-list overflow-x-auto text-[12px]  font-sans"
               >
                 <li
                   v-for="(section, index) in storeSecion.getSections"
                   :key="index"
-
+                  @click="onClickSubsection(section.id)"
                  :class="isScrolled ? 'text-gray-700' : 'text-white'"
                   class=" p-2 text-center rounded-lg cursor-pointer   transition-all duration-200"
                 >
@@ -143,15 +143,13 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-import { useSectionsStore } from '@/stores/section'
+import { useSectionsPhoneStore } from '@/stores/sectionsphone'
 import SwiperPhoneComp from './SwiperPhoneComp.vue';
 import SearchComp from "../SearchComp.vue";
 
-
-
-
-const storeSecion = useSectionsStore();
+const storeSecion = useSectionsPhoneStore();
 const filteredData = ref({
+  sectionId:1,
   page: 1,
   perPage: 20,
   filter:0
@@ -168,9 +166,16 @@ const handleScroll = () => {
   isScrolled.value = window.scrollY > threshold;
 };
 
+const onClickSubsection = async(id) =>{
+  filteredData.value.sectionId = id
+   await storeSecion.fetchSubSectionBySectionID(filteredData)
+}
+
 // إضافة وإزالة مستمع التمرير
-onMounted(() => {
-  storeSecion.fetchSections(filteredData);
+onMounted(async() => {
+   await storeSecion.fetchSections(filteredData);
+   await storeSecion.fetchSubSectionBySectionID(filteredData)
+
 
   window.addEventListener("scroll", handleScroll);
 });

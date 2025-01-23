@@ -4,7 +4,7 @@
 
   <div class="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-1 ">
     <div
-      v-for="product in productSection.getProducts_Main"
+      v-for="product in SectionStore.getProducts_MainPageMoreSells"
       :key="product.id"
       class="p-1 mt-4"
     >
@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-import { ref,  } from 'vue';
+import { ref, onMounted } from 'vue';
 import DialogAddToCart from '../DialogAddToCart.vue';
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
@@ -87,7 +87,7 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useSectionsStore } from '@/stores/section';
 const authStore = useAuthStore();
-const productSection = useSectionsStore();
+const SectionStore = useSectionsStore();
 const router = useRouter();
 const openDialog = (id) => {
   if (!authStore.isAuthenticated) {
@@ -114,16 +114,17 @@ const onhover = (id)=>{
 
 
 
-// const filteredData2 = ref({
-//       page: 1,
-//       perPage: 3,
-// });
+const filteredData2 = ref({
+      sectionId:1,
+      page: 1,
+      perPage: 50,
+      filter:3
+});
 
 
-// onMounted(() => {
-
-//   productStore.fetchAllProducts(filteredData2);
-// });
+onMounted(() => {
+  SectionStore.fetchProductForMainPageFilter(filteredData2);
+});
 
 
 // const products = ref([

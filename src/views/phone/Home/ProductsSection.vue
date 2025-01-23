@@ -7,7 +7,7 @@
         @click="taggleActiveForYou"
         :class="[
           onclickForYou
-          ? ' text-white bg-gray-700 py-1.5 px-3 rounded-full'
+          ? ' text-white bg-[#8a1538] py-1.5 px-3 rounded-full'
           : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
         ]"
       >
@@ -20,7 +20,7 @@
         @click="taggleActiveNewEnters"
         :class="[
           onclickNewEnters
-            ? ' text-white bg-gray-700 py-1.5 px-3 rounded-full'
+            ? ' text-white bg-[#8a1538] py-1.5 px-3 rounded-full'
             : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
         ]"
       >
@@ -33,7 +33,7 @@
         @click="taggleActiveDiscounts"
         :class="[
           onclickDiscounts
-            ? ' text-white bg-gray-700 py-1.5 px-3 rounded-full'
+            ? ' text-white bg-[#8a1538] py-1.5 px-3 rounded-full'
             : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
         ]"
       >
@@ -46,7 +46,7 @@
         @click="taggleActiveMoreSells"
         :class="[
           onclickMoreSells
-            ? ' text-white bg-gray-700 py-1.5 px-3 rounded-full'
+            ? ' text-white bg-[#8a1538] py-1.5 px-3 rounded-full'
             : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
         ]"
       >

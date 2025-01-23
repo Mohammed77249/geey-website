@@ -67,7 +67,7 @@
                 :categories="storeSecion.getSubCategories"/>
               </div> -->
               <div>
-                <SubSectionComp v-if="storeSecion.subsections && storeSecion.subsections.length > 0 "
+                <SubSectionComp v-if="storeSecion.subsections && storeSecion.subsections.length > 0"
                 :subSectiones="storeSecion.getSubSections"
                 :isDropdowenVisable="isDropdowenCategoryVisable"
                 :lev="level_cat"
@@ -623,13 +623,13 @@ const route = useRoute()
 
 const sectionName = route.params.name
 const id = route.params.id
-const level_cat =  route.params.category_level || "no";
+const level_cat =  route.params.category_level?"yes" : "no";
 if(id != null){
   filteredData.value.sectionId = id
 }
 
 
-
+// alert( storeSecion.subsections.length)
 const isDropdowenCategoryVisable = ref(true)
 const isDropdowenSizeVisable = ref(false)
 
