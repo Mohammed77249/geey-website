@@ -3,8 +3,9 @@
     <!-- شريط البحث -->
     <div class="flex items-center overflow-hidden">
       <input
-        v-model="query"
+        v-model="searchQuery"
         @input="handleSearch"
+        @keydown.enter="onEnterPressed"
         type="text"
         class="w-full md:pr-10 md:pl-4 py-[2px] md:py-2 text-gray-700 border md:border-primary-900 bg-gray-50 md:bg-[#F6F6F6] focus:outline-none focus:border-gray-900"
         :placeholder="$t('Search for products...')"
@@ -13,6 +14,7 @@
         @click="handleSearch"
         class="px-2 md:px-2 w-10 text-gray-400 py-[4px] md:py-2 cursor-pointer bg-primary-900 transition"
       >
+
       <div class="hidden md:block">
         <svg
           width="25"
@@ -81,7 +83,7 @@
     </p>
 
     <ul
-      v-else-if="results.length && query"
+      v-else-if="results.length && searchQuery && results[0].base_price"
       class="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-2 max-h-60 overflow-y-auto"
     >
 
@@ -91,16 +93,39 @@
         class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
         @click="selectResult(result)"
       >
-      <RouterLink :to="`/desktop/recommend/${result.category_level}/${result.id}/${result.name}`">
-       <span class="text-sm font-medium"> {{ result.name }}</span>
-      </RouterLink>
-
+      <div>
+        <RouterLink :to="`/desktop/product/${result.id}`">
+        <span class="text-sm font-medium"> {{ result.name }}</span>
+        </RouterLink>
+      </div>
       </li>
+
     </ul>
+
+    <ul
+      v-else-if="results.length && searchQuery "
+      class="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-2 max-h-60 overflow-y-auto"
+    >
+
+      <li
+        v-for="(result, index) in results"
+        :key="index"
+        class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+        @click="selectResult(result)"
+      >
+      <div>
+        <RouterLink :to="`/desktop/recommend/${result.category_level}/${result.id}/${result.name}`">
+        <span class="text-sm font-medium"> {{ result.name }}</span>
+        </RouterLink>
+      </div>
+      </li>
+
+    </ul>
+
 
     <!-- رسالة عدم وجود نتائج -->
     <p
-      v-if="!results.length && query && !storeCategory.loading"
+      v-if="!results.length && searchQuery && !storeCategory.loading"
       class="absolute z-10 text-center w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 h-full text-gray-500 mt-2"
     >
       لا توجد نتائج مطابقة لبحثك.
@@ -111,28 +136,36 @@
 import { ref } from 'vue'
 import { useCategoriesStore } from '@/stores/category.js';
 import LoaderDatacomp from './LoaderDatacomp.vue';
-const query = ref('') // نص البحث الذي يدخله المستخدم
-const results = ref([]) // قائمة النتائج
-
+const searchQuery = ref('')
+const results = ref([]);
 
 const storeCategory = useCategoriesStore()
-// const category_level = ref(0)
 
 // دالة البحث
 const handleSearch = async() => {
-  if (query.value) {
-    await storeCategory.fetchCategoryBySearch(query.value);
+  if (searchQuery.value) {
+    await storeCategory.fetchCategoryByNameSearch(searchQuery.value);
     results.value = storeCategory.getCategoriesForSearch
   } else {
     results.value = []
   }
 }
 
+
+const onEnterPressed =  async() => {
+  if (searchQuery.value) {
+    await storeCategory.fetchCategoryBySearch(searchQuery.value);
+    results.value = storeCategory.getProducts
+  } else {
+    results.value = []
+  }
+
+};
+
 // عند اختيار نتيجة
 const selectResult = (result) => {
-  // alert(`تم اختيار: ${result.name}`)
   console.log(result)
-  query.value = '' // إعادة تعيين النص
+  searchQuery.value = '' // إعادة تعيين النص
   results.value = [] // إخفاء القائمة
 }
 </script>

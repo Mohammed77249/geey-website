@@ -10,6 +10,8 @@ export const useSectionsStore = defineStore('sections', {
     categories: [],
     categories_Main: [],
     subcategories: [],
+    subcategory_Colors:[],
+    subcategory_Sizes:[],
     products:[],
     products_main:[],
     product_Filter_SubSection:[],
@@ -39,6 +41,9 @@ export const useSectionsStore = defineStore('sections', {
     getCategoriesMain: state => state.categories_Main,
     getProducts_Main:state => state.products_main,
     getProducts_MainPageMoreSells:state => state.product_Filter_SubSection,
+
+    getSubCategoryColors:state => state.subcategory_Colors,
+    getSubCategorySizes:state => state.subcategory_Sizes,
     },
   actions: {
 
@@ -108,6 +113,7 @@ export const useSectionsStore = defineStore('sections', {
 
         }else{
           this.subsections =  response.data.sections;
+          this.categories = response.data.categories;
           this.products =  response.data.products.data;
           this.totalProducts.currentPage = response.data.products.current_page
           this.totalProducts.totalItems = response.data.products.total
@@ -142,31 +148,6 @@ export const useSectionsStore = defineStore('sections', {
     },
 
 
-        // sections && categoeies && product
-    // async fetchCategoriesAndProducetsForSubsetion(data) {
-    //   this.loading = true;
-    //   this.error = null;
-
-    //   try {
-    //     const response = await axiosIns.get(
-    //       `categories/get_subsection/${data.value.subSectionId}?page=${data.value.page}&perPage=${data.value.perPage}`
-    //     );
-    //     // this.categories = response.data.categories;
-    //     this.products =  response.data.products.data
-    //     this.totalProducts.currentPage = response.data.products.current_page;
-    //     this.totalProducts.totalItems = response.data.products.total;
-    //     this.totalProducts.totalPages = response.data.products.last_page;
-
-    //   } catch (error) {
-    //     this.error = "خطأ أثناء جلب الفئات";
-    //     console.error("خطأ أثناء جلب البيانات:", error);
-    //     alert(error.message);
-    //   } finally {
-    //     this.loading = false;
-    //   }
-    // },
-
-
     async fetchSubCategoryByCategoryID(data) {
       const filter = 0
       this.loading = true
@@ -178,8 +159,9 @@ export const useSectionsStore = defineStore('sections', {
         this.subcategories = response.data.categories
 
       }
+        this.subcategory_Sizes = response.data.sizes
+        this.subcategory_Colors =  response.data.colors
 
-        this.products = response.data.products.data
         this.products = response.data.products.data
         this.totalProducts.currentPage = response.data.products.current_page
         this.totalProducts.totalItems = response.data.products.total
@@ -191,6 +173,34 @@ export const useSectionsStore = defineStore('sections', {
         this.loading = false
       }
     },
+
+
+    async fetchProductsFilterBySubcategry(data) {
+      this.loading = true
+      this.error = null
+
+      try {
+        const response = await axiosIns.get(`products_filter/${data.value.categoryId}`,
+          {
+            params: { page: data.value.page ,perPage:data.value.perPage ,size:data.value.size ,price:data.value.price ,color:data.value.color,category:data.value.categoryChild },
+          }
+         );
+
+        this.products = response.data.products.data
+        this.totalProducts.currentPage = response.data.products.current_page
+        this.totalProducts.totalItems = response.data.products.total
+        this.totalProducts.totalPages = response.data.products.last_page
+
+      } catch (error) {
+        this.error = 'خطأ أثناء جلب الفئات'
+        console.error(error)
+      } finally {
+        this.loading = false
+      }
+    },
+
+
+
 
 
 

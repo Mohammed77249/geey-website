@@ -421,6 +421,7 @@
               :key="index"
               @mouseenter="handleMouseEnter(index)"
               @mouseleave="handleMouseLeave"
+               @mouseover="getID(section.id)"
               :class="{ 'bg-gray-100 text-black': hoveredIndex == index }"
               class="flex-shrink-0 p-2 text-center rounded-lg cursor-pointer hover:text-black hover:bg-gray-100 transition-all duration-200"
             >
@@ -571,6 +572,12 @@ function changeLanguage(lang) {
       }, 500);
 
 }
+
+const getID = (id) =>{
+    filteredData.value.sectionId = id
+    storeSecion.fetchSubSectionBySectionID(filteredData);
+
+  }
 
 const hoveredIndex = ref(null);
 let intervalId;

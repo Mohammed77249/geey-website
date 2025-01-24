@@ -65,7 +65,7 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
     },
 
 
-    async fetchCategoryBySearch(data) {
+    async fetchCategoryByNameSearch(data) {
       this.loading = true
       this.error = null
 
@@ -74,6 +74,23 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
           params: { search: data },
         });
         this.categories_for_search = response.data
+      } catch (error) {
+        this.error = 'خطأ أثناء جلب الفئات'
+        console.error(error)
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async fetchCategoryBySearch(data) {
+      this.loading = true
+      this.error = null
+      try {
+        const response = await axiosIns.get(`/categories_search`, {
+          params: { search: data },
+        });
+        this.products = response.data.products.data
+        // this.categories_for_search = []
       } catch (error) {
         this.error = 'خطأ أثناء جلب الفئات'
         console.error(error)

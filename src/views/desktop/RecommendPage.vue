@@ -60,12 +60,6 @@
                   </svg>
                 </button>
               </div>
-
-              <!-- <div v-if="storeSecion.getSubCategories">
-
-                <ListCatogriesComp
-                :categories="storeSecion.getSubCategories"/>
-              </div> -->
               <div>
                 <SubSectionComp v-if="storeSecion.subsections && storeSecion.subsections.length > 0"
                 :subSectiones="storeSecion.getSubSections"
@@ -73,11 +67,6 @@
                 :lev="level_cat"
               />
               </div>
-              <!-- <div v-else>
-
-                <ListCatogriesComp v-if="storeSecion.getSubCategories && storeSecion.getSubCategories.length > 0"
-                :categories="storeSecion.getSubCategories"/>
-              </div> -->
 
             </div>
             <!-- مقاس -->
@@ -131,7 +120,8 @@
               </div>
 
               <SiziesComp
-                :sizes="sizes"
+                v-if="storeSecion.getSubCategorySizes && storeSecion.getSubCategorySizes.length >0 "
+                :sizes="storeSecion.getSubCategorySizes"
                 :isDropdowenVisable="isDropdowenSizeVisable"
               />
             </div>
@@ -185,8 +175,9 @@
                 </button>
               </div>
               <ColorsComp
+              v-if="storeSecion.getSubCategoryColors && storeSecion.getSubCategoryColors.length>0"
                 :isDropdowenVisable="isDropdowenColorVisable"
-                :colors="colors"
+                :colors="storeSecion.getSubCategoryColors"
               />
             </div>
              <!-- الموارد -->
@@ -610,7 +601,7 @@ import ResourccesComp from '@/components/RecommendViewCoponent/ResourccesComp.vu
 import SiziesComp from '@/components/RecommendViewCoponent/SiziesComp.vue'
 import TallComp from '@/components/RecommendViewCoponent/TallComp.vue'
 import TypeComp from '@/components/RecommendViewCoponent/TypeComp.vue'
-import { ref ,} from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSectionsStore } from '@/stores/section'
 const filteredData = ref({
@@ -626,32 +617,22 @@ const id = route.params.id
 const level_cat =  route.params.category_level?"yes" : "no";
 if(id != null){
   filteredData.value.sectionId = id
+
 }
+
+
 
 
 // alert( storeSecion.subsections.length)
 const isDropdowenCategoryVisable = ref(true)
-const isDropdowenSizeVisable = ref(false)
+const isDropdowenSizeVisable = ref(true)
+const isDropdowenColorVisable = ref(true)
 
-const sizes = ['مقاس ةاحد', 'S', 'M', 'L', 'XL', 'XXL']
-const isDropdowenColorVisable = ref(false)
-const colors = ref([
-  'bg-red-300',
-  'bg-blue-300',
-  'bg-green-300',
-  'bg-yellow-300',
-  'bg-purple-300',
-  'bg-red-300',
-  'bg-blue-300',
-  'bg-green-300',
-  'bg-yellow-300',
-  'bg-purple-300',
-  'bg-red-300',
-  'bg-blue-300',
-  'bg-green-300',
-  'bg-yellow-300',
-  'bg-purple-300',
-])
+// if(level_cat == 'yes' ){
+//   isDropdowenColorVisable.value = true
+//   isDropdowenSizeVisable.value = true
+// }
+
 
 const isDropdowenResourccesVisable = ref(false)
 const resorcces = [
@@ -709,6 +690,8 @@ const toggleStatusSelect = status => {
   selectedStatus.value = status
   isDropdowenStatusVisable.value = false
 };
+
+
 
 </script>
 

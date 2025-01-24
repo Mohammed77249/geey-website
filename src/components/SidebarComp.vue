@@ -157,7 +157,7 @@
               <path opacity="0.4" d="M15 19.5H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             </div>
-            <span class="px-3 text-[12px] font-sans">{{ $t('Shop by categories') }} </span>
+            <span class="px-3 text-[12px] font-sans">{{ $t('Shop by section') }} </span>
 
           </div>
 
@@ -179,6 +179,7 @@
                   :key="index"
                   class="bg-white flex flex-col items-center "
                 >
+                
                   <img src="/logogeey.svg" :alt="subsection.name" class="w-20 text-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
                   <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ subsection.name }}</h3>
                 </div>
@@ -196,7 +197,7 @@
        <!-- list of card 2 -->
        <div class="col-span-5 md:col-span-6  overflow-y-auto  h-[440px] w-full p-4  custom-scroll">
           <div>
-            <span class="p-5 text-[12px] font-sans">{{ $t('Shop by size') }}</span>
+            <span class="p-5 text-[12px] font-sans">{{ $t('Shop by categories') }}</span>
           </div>
           <div class="overflow-y-auto">
           <div>
@@ -211,12 +212,12 @@
               </div>
 
                 <div
-                  v-for="(product, index) in storeSecion.getProducts"
+                  v-for="(product, index) in storeSecion.getCategories"
                   :key="index"
                   class="bg-white  flex flex-col items-center"
                 >
                   <img src="/logogeey.svg" :alt="product.name" class="w-20 rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
-                  <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ product.name_ar }}</h3>
+                  <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ product.name }}</h3>
                 </div>
               </div>
              </li>
@@ -257,7 +258,7 @@ const filteredData = ref({
 
   const getID = (id) =>{
     filteredData.value.sectionId = id
-    // storeSecion.fetchSubSectionBySectionID(filteredData);
+    storeSecion.fetchSubSectionBySectionID(filteredData);
 
   }
 
