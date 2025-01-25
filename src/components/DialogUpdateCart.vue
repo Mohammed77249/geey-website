@@ -244,7 +244,7 @@
                             <div
                               @click="changeColor(index),toggleColor(color)"
                               class="rounded-full h-8 w-8 "
-                              :style="{ backgroundColor: color.color_hex }"
+                              :style="{ backgroundColor: color.hex_code }"
 
                             >
                           </div>
@@ -281,13 +281,13 @@
                       :key="index"
                       :class="{
                         'py-1 cursor-pointer px-7 m-2  border rounded-full bg-gray-100':
-                          tempidSize === size.sizel_type_id,
+                          tempidSize === size.id,
                         'py-1 cursor-pointer px-7  border m-2 rounded-full hover:bg-gray-100':
-                          tempidSize != size.sizel_type_id,
+                          tempidSize != size.id,
                       }"
                       @click="onclickSize(size)"
                     >
-                      {{ size.size_value }}
+                      {{ size.measuring_value }}
                     </button>
                   </div>
 
@@ -297,13 +297,13 @@
                       :key="index"
                       :class="{
                         'py-1 cursor-pointer px-7 m-2  border rounded-full bg-gray-100':
-                          tempidSize === size.sizel_type_id,
+                          tempidSize === size.id,
                         'py-1 cursor-pointer px-7  border m-2 rounded-full hover:bg-gray-100':
-                          tempidSize != size.sizel_type_id,
+                          tempidSize != size.id,
                       }"
                       @click="onclickSize(size)"
                     >
-                      {{ size.size_value }}
+                      {{ size.measuring_value }}
                     </button>
                   </div>
 
@@ -434,12 +434,12 @@ const priceSize = ref(null)
 const onclickSize = (size) => {
   if(size){
     priceSize.value =size.price
-    size_value_measuring.value = size.size_value;
-    filteredData.value.parent_measuring_id = size.sizel_type_id
-  if (tempidSize.value == size.sizel_type_id) {
+    size_value_measuring.value = size.measuring_value;
+    filteredData.value.parent_measuring_id = size.id
+  if (tempidSize.value == size.id) {
     tempidSize.value = null
   } else {
-    tempidSize.value = size.sizel_type_id
+    tempidSize.value = size.id
   }
   }
 }
@@ -449,19 +449,19 @@ const tempidColor = ref(null)
 const toggleColor = (color) => {
   if(color){
     priceColor.value = color.price
-    color_id_measuring.value = color.color_id;
+    color_id_measuring.value = color.id;
     if(color.sizes){
       color_sizes.value = color.sizes
     }else {
       color_sizes.value = null
     }
 
-    filteredData.value.color_id = color.color_id;
+    filteredData.value.color_id = color.id;
 
-  if (tempidColor.value == color.color_id) {
+  if (tempidColor.value == color.id) {
     tempidColor.value = null
   } else {
-    tempidColor.value = color.color_id;
+    tempidColor.value = color.id;
   }
   }
 
@@ -569,17 +569,17 @@ onMounted(async() => {
 
     // تعيين الصور الفرعية للون الأول كافتراضي
       if (storeCart.getproductColors.length > 0) {
-        productIndex.value = storeCart.getproductColors.findIndex(color => color.color_id ==  props.formEdit.color_id)
+        productIndex.value = storeCart.getproductColors.findIndex(color => color.id ==  props.formEdit.color_id)
         changeColor(productIndex.value);
       }
 
       if(props.formEdit != null){
         if(color_sizes.value != null && storeCart.productDetails.color_has_sizes ){
-          const s = color_sizes.value.find((size) => size.sizel_type_id ===  props.formEdit.parent_measuring_id)
-          tempidSize.value = s.sizel_type_id;
+          const s = color_sizes.value.find((size) => size.id ===  props.formEdit.parent_measuring_id)
+          tempidSize.value = s.id;
         }else{
-          const s = storeCart.getproductSizes.find((size) => size.sizel_type_id ===  props.formEdit.parent_measuring_id)
-          tempidSize.value = s.sizel_type_id;
+          const s = storeCart.getproductSizes.find((size) => size.id ===  props.formEdit.parent_measuring_id)
+          tempidSize.value = s.id;
         }
     }
 

@@ -318,10 +318,10 @@
                         class="w-10 h-10 rounded-full border-2 cursor-pointer flex items-center justify-center"
                     >
                     <div
-                      :key="color.color_id"
+                      :key="color.id"
                       @click="changeColor(index),toggleColor(color)"
                       class="rounded-full h-8 w-8 "
-                      :style="{ backgroundColor: color.color_hex }"
+                      :style="{ backgroundColor: color.hex_code }"
                     ></div>
                     </div>
                   </div>
@@ -356,13 +356,13 @@
                 <button
                   :class="{
                     'py-1 cursor-pointer px-5   border rounded-full bg-gray-100':
-                      tempidSize === size.sizel_id,
+                      tempidSize === size.id,
                     'py-1 cursor-pointer px-5 border  rounded-full hover:bg-gray-100':
-                      tempidSize !== size.sizel_id,
+                      tempidSize !== size.id,
                   }"
                   @click="onclickSize(size)"
                 >
-                  {{ size.size_value }}
+                  {{ size.measuring_value }}
                 </button>
               </div>
 
@@ -376,9 +376,9 @@
                 <button
                   :class="{
                     'py-1 cursor-pointer px-5   border rounded-full bg-gray-100':
-                      tempidSize === size.sizel_id,
+                      tempidSize === size.id,
                     'py-1 cursor-pointer px-5 border  rounded-full hover:bg-gray-100':
-                      tempidSize !== size.sizel_id,
+                      tempidSize !== size.id,
                   }"
                   @click="onclickSize(size)"
                 >
@@ -803,12 +803,12 @@ const onclickSize = (size) => {
 
   if(size){
     priceSize.value =size.price
-    size_value_measuring.value = size.size_value;
-    filteredData2.value.parent_measuring_id = size.sizel_type_id
-  if (tempidSize.value == size.sizel_id) {
+    size_value_measuring.value = size.measuring_value;
+    filteredData2.value.parent_measuring_id = size.id
+  if (tempidSize.value == size.id) {
     tempidSize.value = null
   } else {
-    tempidSize.value = size.sizel_id
+    tempidSize.value = size.id
   }
   }
 
@@ -819,18 +819,18 @@ const tempidColor = ref(null)
 const toggleColor = (color) => {
   if(color){
     priceColor.value = color.price
-    color_id_measuring.value = color.color_id;
+    color_id_measuring.value = color.id;
     if(color.sizes){
       color_sizes.value = color.sizes
     }else {
       color_sizes.value = null
     }
 
-    filteredData2.value.color_id = color.color_id
-    if (tempidColor.value == color.color_id) {
+    filteredData2.value.color_id = color.id
+    if (tempidColor.value == color.id) {
     tempidColor.value = null
   } else {
-    tempidColor.value = color.color_id
+    tempidColor.value = color.id
   }
   }
 
@@ -924,7 +924,7 @@ const changeColor = (index) => {
   const color = storeProduct.getproductColors[index];
   selectedColorImages.value = color.images || [];
   selectedImage.value = color.images[0]?.image || null;
-  filteredData2.value.color_id = color.color_id
+  filteredData2.value.color_id = color.id
 
 };
 
