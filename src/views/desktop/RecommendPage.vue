@@ -65,10 +65,12 @@
                 :subSectiones="storeSecion.getSubSections"
                 :isDropdowenVisable="isDropdowenCategoryVisable"
                 :lev="level_cat"
+                @update-selected="updateCategory"
               />
               </div>
 
             </div>
+
             <!-- مقاس -->
             <div>
               <div class="flex items-center justify-between">
@@ -120,11 +122,13 @@
               </div>
 
               <SiziesComp
-                v-if="storeSecion.getSubCategorySizes && storeSecion.getSubCategorySizes.length >0 "
+                v-if="storeSecion.getSubCategorySizes && storeSecion.getSubCategorySizes.length> 0"
                 :sizes="storeSecion.getSubCategorySizes"
                 :isDropdowenVisable="isDropdowenSizeVisable"
+                @update-selected="updateSize"
               />
             </div>
+
              <!-- لون -->
             <div>
               <div class="flex items-center justify-between">
@@ -178,10 +182,12 @@
               v-if="storeSecion.getSubCategoryColors && storeSecion.getSubCategoryColors.length>0"
                 :isDropdowenVisable="isDropdowenColorVisable"
                 :colors="storeSecion.getSubCategoryColors"
+                @update-selected="updateColor"
               />
             </div>
+
              <!-- الموارد -->
-            <div>
+            <!-- <div>
               <div class="flex items-center justify-between">
                 <p class="font-bold text-[12px]">الموارد</p>
                 <button
@@ -236,9 +242,10 @@
                 :resorcces="resorcces"
               />
               <div></div>
-            </div>
+            </div> -->
+
              <!-- تصاميم -->
-            <div>
+            <!-- <div>
               <div class="flex items-center justify-between">
                 <p class="font-bold text-[12px]">تصاميم</p>
                 <button
@@ -292,9 +299,10 @@
                 :designes="designes"
                 :isDropdowenVisable="isDropdowenDesignesVisable"
               />
-            </div>
+            </div> -->
+
              <!-- نوع -->
-            <div>
+            <!-- <div>
               <div class="flex items-center justify-between">
                 <p class="font-bold text-[12px]">نوع</p>
                 <button
@@ -346,9 +354,10 @@
                 :types="types"
                 :isDropdowenVisable="isDropdowenTypesVisable"
               />
-            </div>
+            </div> -->
+
               <!-- الطول -->
-            <div>
+            <!-- <div>
               <div class="flex items-center justify-between">
                 <p class="font-bold text-[12px]">الطول</p>
                 <button
@@ -400,9 +409,10 @@
                 :talls="talls"
                 :isDropdowenVisable="isDropdowenTallVisable"
               />
-            </div>
+            </div> -->
+
             <!-- ميزة -->
-            <div>
+            <!-- <div>
               <div class="flex items-center justify-between">
                 <p class="font-bold text-[12px]">ميزة</p>
                 <button
@@ -456,10 +466,10 @@
                 :advantages="advantages"
                 :isDropdowenVisable="isDropdowenAdvantageVisable"
               />
-            </div>
+            </div> -->
 
             <div>
-              <PriceRangeComp />
+              <PriceRangeComp   @update-selected="updatePrice"/>
             </div>
           </div>
         </div>
@@ -591,17 +601,17 @@
 </template>
 
 <script setup>
-import AdvantageComp from '@/components/RecommendViewCoponent/AdvantageComp.vue'
+// import AdvantageComp from '@/components/RecommendViewCoponent/AdvantageComp.vue'
 import SubSectionComp from '@/components/RecommendViewCoponent/SubSectionComp.vue'
 import ColorsComp from '@/components/RecommendViewCoponent/ColorsComp.vue'
-import DesignComp from '@/components/RecommendViewCoponent/DesignComp.vue'
+// import DesignComp from '@/components/RecommendViewCoponent/DesignComp.vue'
 import PriceRangeComp from '@/components/RecommendViewCoponent/PriceRangeComp.vue'
 import RecomndProductComp from '@/components/RecommendViewCoponent/RecomndProductComp.vue'
-import ResourccesComp from '@/components/RecommendViewCoponent/ResourccesComp.vue'
+// import ResourccesComp from '@/components/RecommendViewCoponent/ResourccesComp.vue'
 import SiziesComp from '@/components/RecommendViewCoponent/SiziesComp.vue'
-import TallComp from '@/components/RecommendViewCoponent/TallComp.vue'
-import TypeComp from '@/components/RecommendViewCoponent/TypeComp.vue'
-import { ref } from 'vue'
+// import TallComp from '@/components/RecommendViewCoponent/TallComp.vue'
+// import TypeComp from '@/components/RecommendViewCoponent/TypeComp.vue'
+import { ref ,watch} from 'vue'
 import { useRoute } from 'vue-router'
 import { useSectionsStore } from '@/stores/section'
 const filteredData = ref({
@@ -621,59 +631,77 @@ if(id != null){
 }
 
 
+// alert(storeSecion.subcategory_Sizes.length)
+
+const selectedCategoryIds = ref(null);
+const selectedColorIds = ref([]);
+const selectedSizeIds = ref([]);
+const selectedPrice = ref(null);
+
+const updateCategory = (ids) => {
+  selectedCategoryIds.value = ids;
+};
+
+const updateColor = (ids) => {
+  selectedColorIds.value = ids;
+
+};
+
+const updateSize = (ids) => {
+  selectedSizeIds.value = ids;
+};
+
+const updatePrice = (ids) => {
+  selectedPrice.value = ids;
+
+};
 
 
-// alert( storeSecion.subsections.length)
 const isDropdowenCategoryVisable = ref(true)
 const isDropdowenSizeVisable = ref(true)
 const isDropdowenColorVisable = ref(true)
 
-// if(level_cat == 'yes' ){
-//   isDropdowenColorVisable.value = true
-//   isDropdowenSizeVisable.value = true
-// }
 
+// const isDropdowenResourccesVisable = ref(false)
+// const resorcces = [
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال  ',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال  ',
+// ]
 
-const isDropdowenResourccesVisable = ref(false)
-const resorcces = [
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال  ',
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال  ',
-]
+// const isDropdowenDesignesVisable = ref(false)
+// const designes = ['تصميم الكرتون', 'اسلوب الرعوي']
 
-const isDropdowenDesignesVisable = ref(false)
-const designes = ['تصميم الكرتون', 'اسلوب الرعوي']
+// const isDropdowenTypesVisable = ref(false)
+// const types = [
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال  ',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال',
+//   'الجمال  ',
+// ]
 
-const isDropdowenTypesVisable = ref(false)
-const types = [
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال  ',
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال',
-  'الجمال  ',
-]
+// const isDropdowenTallVisable = ref(false)
+// const talls = [' منتظم', 'الفستان القصير ']
 
-const isDropdowenTallVisable = ref(false)
-const talls = [' منتظم', 'الفستان القصير ']
-
-const isDropdowenAdvantageVisable = ref(false)
-const advantages = [' سريع الجفاف', 'ضد الماء ']
+// const isDropdowenAdvantageVisable = ref(false)
+// const advantages = [' سريع الجفاف', 'ضد الماء ']
 
 const statuses = [
   'التوصية',
@@ -690,6 +718,56 @@ const toggleStatusSelect = status => {
   selectedStatus.value = status
   isDropdowenStatusVisable.value = false
 };
+
+
+const filterData2 = ref({
+    page:1,
+    perPage:10,
+    categoryChild:null,
+    categoryId:null,
+    colors: null,
+    sizes: null,
+    price:null
+  });
+  if(level_cat == 'yes'){
+    filterData2.value.categoryId =  id;
+  }
+// دالة لجلب المنتجات من API
+const fetchProducts = async () => {
+
+
+  if(level_cat == 'yes'){
+    filterData2.value.categoryChild = selectedCategoryIds.value ;
+  }else{
+    filterData2.value.categoryId = selectedCategoryIds.value;
+  }
+
+  filterData2.value.colors = selectedColorIds.value.length >0 ? JSON.stringify(selectedColorIds.value) : null;
+  filterData2.value.sizes = selectedSizeIds.value.length > 0 ? JSON.stringify(selectedSizeIds.value) : null;
+
+  if(selectedPrice.value > 500){
+    filterData2.value.price = "max";
+  }else if(selectedPrice.value < 500){
+    filterData2.value.price = "min";
+  }else{
+    filterData2.value.price = "";
+  }
+
+  await storeSecion.fetchProductsFilterBySubcategry2(filterData2)
+
+
+};
+
+
+
+// مراقبة أي تغيير على الفئات أو الألوان أو المقاسات
+watch(
+  [selectedCategoryIds, selectedColorIds, selectedSizeIds,selectedPrice],
+  () => {
+    fetchProducts(); // جلب المنتجات تلقائيًا عند حدوث تغيير
+  },
+  { deep: true }
+);
 
 
 

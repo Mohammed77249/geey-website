@@ -15,6 +15,7 @@
         v-model="maxPrice"
         :min="min"
         :max="max"
+
         class="absolute w-full h-2 bg-gray-300 rounded-lg cursor-pointer appearance-none z-10"
       />
 
@@ -26,11 +27,11 @@
     </div>
 
     <div class="flex items-center justify-between mt-8">
-      <!-- <p class="text-[10px]">SR {{ minPrice }} </p>
-      <p class="text-[10px]"> SR {{ maxPrice }} </p> -->
+      <p class="text-[10px]">SR {{ minPrice }} </p>
+      <p class="text-[10px]"> SR {{ maxPrice }} </p>
 
-      <p class="text-[10px]">minPrice </p>
-      <p class="text-[10px]"> maxPrice </p>
+      <!-- <p class="text-[10px]">minPrice </p>
+      <p class="text-[10px]"> maxPrice </p> -->
     </div>
 
 
@@ -42,11 +43,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref,watch } from 'vue';
 
     const min = 0;
     const max = 1000;
     const minPrice = ref(100);
-    const maxPrice = ref(800);
+    const maxPrice = ref(500);
+  const  emit = defineEmits(['update-selected']);
+
+
+// إرسال البيانات إلى المكون الأب
+watch(maxPrice, () => {
+  emit('update-selected', maxPrice.value);
+});
 
 </script>

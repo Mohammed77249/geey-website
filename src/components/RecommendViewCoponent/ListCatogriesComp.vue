@@ -14,11 +14,11 @@
                   type="radio"
                   :value="category.id"
                   :checked="selectedcategory == category.id"
-                  @click="toggleGrandchildren(category)"
+                  @click="toggleGrandchildren(category),toggleCategory(category.id)"
                   class="ml-2 rounded border-gray-300 text-black focus:ring-black"
                 />
                 <label
-                  @click="toggleGrandchildren(category)"
+                  @click="toggleGrandchildren(category),toggleCategory(category.id)"
                   class="cursor-pointer text-[8px] md:text-[10px]"
                   >{{ category.name }}</label
                 >
@@ -73,7 +73,7 @@
             <div v-if="category.has_children" class="pr-3">
               <ListCatogriesComp
                 v-if="category.id == tempid"
-                :categories="subcat"
+                :categories="subcat"   @update-selected="toggleCategory"
               />
             </div>
           </li>
@@ -101,9 +101,13 @@ defineProps({
 let subcat = ref([{}])
 
 const filteredData = ref({
-  categoryId: null,
-  page: 1,
-  perPage: 30,
+    categoryId: null,
+    page:1,
+    perPage:10,
+    // categoryChild:null,
+    // colors: null,
+    // sizes: null,
+    // price:null
 })
 
 const selectedcategory = ref(null)
@@ -120,7 +124,9 @@ const toggleGrandchildren = async (category) => {
       selectedcategory.value = category.id
       filteredData.value.categoryId = category.id
       await storeSecion.fetchSubCategoryByCategoryID(filteredData)
+
       subcat.value =  storeSecion.subcategories;
+
     }
   }else{
 
@@ -158,6 +164,23 @@ watch(
 //   },
 //   { immediate: true } // تشغيل المراقبة فورًا عند التحميل
 // );
+
+const selectedIds = ref(null);
+const emit = defineEmits(['update-selected']);
+// تحديث الفئات المختارة
+const toggleCategory = (id) => {
+
+  if (selectedIds.value == id) {
+    selectedIds.value = null
+  } else {
+    selectedIds.value = id;
+  }
+
+  emit('update-selected', selectedIds.value);
+
+
+
+};
 
 
 

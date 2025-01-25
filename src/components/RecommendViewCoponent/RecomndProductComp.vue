@@ -1,9 +1,9 @@
 <template>
   <div class="mx-auto pl-2 pr-2">
-    <div v-if="storeSecion.loading">
+    <!-- <div v-if="storeSecion.loading">
       <LoaderDatacomp :is-loader="storeSecion.loading"/>
-    </div>
-    <div v-else  class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1">
+    </div> -->
+    <div   class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1">
       <div
         v-for="product in storeSecion.getProducts"
         :key="product.id"
@@ -99,12 +99,6 @@
         </div>
       </div>
 
-
-
-       <!-- Spinner عند التحميل -->
-    <div v-if="isLoading" class="flex justify-center mt-4">
-      <div class="custom-spinner w-8 h-8 border-4 border-gray-400 rounded-full"></div>
-    </div>
     </div>
 
     <DialogAddToCart
@@ -113,12 +107,25 @@
       :is-open="isDialogOpen"
       @close="closeDialog"
     />
+
+
+           <!-- رسالة تحميل المزيد -->
+    <div v-if="storeSecion.showLoadingMessage" class="mt-4">
+      <LoaderDatacomp :is-loader="storeSecion.showLoadingMessage"/>
+    </div>
+
+     <!-- رسالة انتهاء التحميل -->
+     <div v-if="!storeSecion.hasMore && !storeSecion.loading" class="text-center mt-4">
+      <p>لا توجد منتجات إضافية.</p>
+    </div>
+
+    <!-- عنصر مراقبة نهاية الصفحة -->
+    <div ref="loadMoreTrigger" class="h-1"></div>
   </div>
 </template>
 
 <script setup>
-import { ref ,onMounted,watch } from 'vue'
-import { useIntersectionObserver } from '@vueuse/core'
+import { ref ,onMounted, } from 'vue'
 import DialogAddToCart from '../DialogAddToCart.vue'
 const props = defineProps({
   IdSection: {
@@ -131,13 +138,9 @@ const props = defineProps({
 })
 import { useSectionsStore } from '@/stores/section'
 const storeSecion = useSectionsStore()
-
+import { useIntersectionObserver } from '@vueuse/core';
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
-
-const isLoading = ref(false)
-const productsRefs = ref([])
-
 
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
@@ -170,8 +173,9 @@ const onhover = id => {
 const filteredData2 = ref({
   sectionId: null,
   page: 1,
-  perPage: 30,
+  perPage: 50,
 })
+
 
 const filteredData3 = ref({
   categoryId:null,
@@ -179,50 +183,23 @@ const filteredData3 = ref({
       perPage: 30,
     });
 
+
+const filterData5 = ref({
+    page:1,
+    perPage:10,
+    categoryChild:null,
+    categoryId:null,
+    colors: null,
+    sizes: null,
+    price:null
+  });
+
 if (props.IdSection != null) {
   filteredData2.value.sectionId = props.IdSection
   filteredData3.value.categoryId = props.IdSection
-
+  filterData5.value.categoryId = props.IdSection;
 }
 
-
-// مراقبة العنصر الأخير
-const observeLastProduct = () => {
-  if (!productsRefs.value.length) return
-
-  const lastProductRef = productsRefs.value[productsRefs.value.length - 1]
-
-  useIntersectionObserver(
-    lastProductRef,
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        loadMoreProducts()
-      }
-    },
-    { threshold: 0.5 }
-  )
-}
-
-
-// تحميل المزيد من المنتجات
-const loadMoreProducts = async () => {
-  if (isLoading.value) return
-
-  isLoading.value = true
-  filteredData.value.page += 1
-
-  await storeSecion.fetchSubSectionBySectionID(filteredData2)
-  isLoading.value = false
-}
-
-
-// تحديث مراقبة العنصر الأخير عند تحديث المنتجات
-watch(
-  () => storeSecion.getProducts,
-  () => {
-    observeLastProduct()
-  }
-)
 
 
 const filteredData4 = ref({
@@ -233,54 +210,34 @@ const filteredData4 = ref({
 })
 
 
-onMounted(() => {
+const loadMoreTrigger = ref(null);
+// استخدام IntersectionObserver لمراقبة نهاية الصفحة
+useIntersectionObserver(
+  loadMoreTrigger,
+  ([{ isIntersecting }]) => {
+    if (isIntersecting) {
+      storeSecion.fetchProductsFilterBySubcategry(filterData5);
+    }
+  },
+  { threshold: 0.5 }
+);
 
+onMounted(async() => {
+  storeSecion.resetProducts2()
   filteredData2.value.sectionId = props.IdSection
-
-  // storeSecion.fetchSubSectionBySectionID(filteredData2)
-
   if(props.lev == "no"){
-    storeSecion.fetchSubSectionBySectionID(filteredData2)
+    await storeSecion.fetchSubSectionBySectionID(filteredData2)
 
   }else{
-    storeSecion.fetchSubSectionBySectionID(filteredData4);
+    await storeSecion.fetchSubSectionBySectionID(filteredData4);
+    await storeSecion.fetchSubCategoryByCategoryID(filteredData3)
 
-    storeSecion.fetchSubCategoryByCategoryID(filteredData3)
+    await storeSecion.fetchProductsFilterBySubcategry2(filterData5)
 
   }
 
 });
 
 </script>
-<!-- <style scoped>
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
-.custom-spinner {
-  animation: spin 1s linear infinite;
-}
-</style> -->
-
-<style scoped>
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.custom-spinner {
-  animation: spin 1s linear infinite;
-  border-top-color: transparent;
-  border-right-color: transparent;
-}
-</style>
 

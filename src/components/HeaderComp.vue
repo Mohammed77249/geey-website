@@ -575,7 +575,7 @@ function changeLanguage(lang) {
 
 const getID = (id) =>{
     filteredData.value.sectionId = id
-    storeSecion.fetchSubSectionBySectionID(filteredData);
+    // storeSecion.fetchSubSectionBySectionID(filteredData);
 
   }
 

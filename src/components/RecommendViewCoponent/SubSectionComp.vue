@@ -9,7 +9,7 @@
 
       <div v-if="props.lev != 'no' ">
         <ListCatogriesComp v-if="storeSecion.subcategories && storeSecion.subcategories.length > 0 "
-        :categories="storeSecion.getSubCategories"/>
+        :categories="storeSecion.getSubCategories" @update-selected="updateCategories"/>
       </div>
 
       <div v-else>
@@ -90,6 +90,7 @@
               <ListCatogriesComp
                 v-if="subSection.id === tempid"
                 :categories="subSection.categories"
+                 @update-selected="updateCategories"
               />
             </div>
           </li>
@@ -97,8 +98,9 @@
         </ul>
         <div v-else  class="px-5">
 
-          <ListCatogriesComp :categories="storeSecion.getCategories"/>
+          <ListCatogriesComp :categories="storeSecion.getCategories"  @update-selected="updateCategories"/>
         </div>
+
       </div>
 
 
@@ -154,4 +156,18 @@ const toggleChildren = id => {
     // storeSecion.fetchCategoriesAndProducetsForSubsetion(filteredData)
   }
 }
+
+const selectedIds = ref(null);
+const emit = defineEmits(['update-categories']);
+// استقبال التحديثات من مكون الفئات
+const updateCategories = (ids) => {
+  selectedIds.value = ids;
+
+  // alert( selectedIds.value)
+  // يمكن إرسال هذه البيانات مباشرة إلى صفحة الفلترة باستخدام emit
+  emit('update-selected', selectedIds.value);
+};
+
+// تعريف emit لإرسال البيانات إلى صفحة الفلترة
+
 </script>

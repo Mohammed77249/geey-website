@@ -15,6 +15,7 @@
                   <input
                 type="checkbox"
                 :value="size"
+                  @click="toggleSize(size.id)"
                 class=" ml-2 rounded border-gray-300 text-blue-600  focus:ring-blue-500"
               />
                 <label  class="cursor-pointer text-[10px]">{{ size.measuring_value }}</label>
@@ -28,6 +29,7 @@
   </template>
 
   <script setup>
+  import { ref, } from 'vue';
   defineProps({
     isDropdowenVisable: {
       type: Boolean,
@@ -40,5 +42,25 @@
       default: [],
     },
   });
+
+
+  const selectedIds = ref([]);
+  const  emit = defineEmits(['update-selected']);
+// تحديث الاختيار
+const toggleSize = (id) => {
+  if (selectedIds.value.includes(id)) {
+    selectedIds.value = selectedIds.value.filter((sizeId) => sizeId !== id);
+  } else {
+    selectedIds.value.push(id);
+  }
+
+  emit('update-selected', selectedIds.value);
+};
+
+// إرسال البيانات إلى المكون الأب
+// watch(selectedIds, () => {
+//   emit('update-selected', selectedIds.value);
+// });
+
 
   </script>

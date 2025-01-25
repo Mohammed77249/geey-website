@@ -2,8 +2,8 @@
   <div class="container mx-auto p-4">
    <AdvertisementSection/>
    <CardListSection />
-   <DesplayAllSection/>
-   <DayleDropSection/>
+   <!-- <DesplayAllSection/>
+   <DayleDropSection/> -->
    <ProductSection/>
 
   </div>
@@ -13,8 +13,8 @@
 
 import AdvertisementSection from './Home/AdvertisementSection.vue';
 import CardListSection from './Home/CardListSection.vue';
-import DayleDropSection from './Home/DayleDropSection.vue';
-import DesplayAllSection from './Home/DesplayAllSection.vue';
+// import DayleDropSection from './Home/DayleDropSection.vue';
+// import DesplayAllSection from './Home/DesplayAllSection.vue';
 import ProductSection from './Home/ProductSection.vue';
 
 

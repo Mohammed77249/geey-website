@@ -23,9 +23,10 @@ export const useSectionsStore = defineStore('sections', {
     productDetails: null,
     loading: false,
     error: null,
-    page:[],
+    page:1,
     perPage: 10,
     hasMore:true,
+    showLoadingMessage: false,
     currentSectionId: null,
     currentSubSectionId:null,
 
@@ -34,7 +35,11 @@ export const useSectionsStore = defineStore('sections', {
     getSections: state => state.sections,
     getSubSections: state => state.subsections,
     getSubCategories: state => state.subcategories || [],
-    getAllSections: state => state.allsections,
+
+    getSubCategoryColors:state => state.subcategory_Colors,
+    getSubCategorySizes:state => state.subcategory_Sizes,
+
+
     getProducts: state => state.products,
     getAllProductsFromAllSection: state => state.productFormAllSection,
     getCategories: state => state.categories,
@@ -42,8 +47,9 @@ export const useSectionsStore = defineStore('sections', {
     getProducts_Main:state => state.products_main,
     getProducts_MainPageMoreSells:state => state.product_Filter_SubSection,
 
-    getSubCategoryColors:state => state.subcategory_Colors,
-    getSubCategorySizes:state => state.subcategory_Sizes,
+
+
+    getAllSections: state => state.allsections,
     },
   actions: {
 
@@ -59,28 +65,6 @@ export const useSectionsStore = defineStore('sections', {
         this.products_main = response.data.products.data
 
 
-      } catch (error) {
-        this.error = 'خطأ أثناء جلب الاقسام';
-        alert(error(error));
-        this.loading = false;
-      } finally {
-        this.loading = false;
-      }
-    },
-
-    async fetchAllSections(data) {
-      const filter = 0
-      if (this.allsections.length > 0) return;
-      this.loading = true;
-      this.error = null;
-      try {
-        const response = await axiosIns.get(`categories/section?page=${data.value.page}&perPage=${data.value.perPage}&filter=${filter}`);
-        this.allsections = response.data.sections
-        this.categories = response.data.categories;
-        this.productFormAllSection = response.data.products.data;
-        this.totalProducts.currentPage = response.data.products.current_page;
-        this.totalProducts.totalItems = response.data.products.total;
-        this.totalProducts.totalPages = response.data.products.last_page;
       } catch (error) {
         this.error = 'خطأ أثناء جلب الاقسام';
         alert(error(error));
@@ -130,14 +114,33 @@ export const useSectionsStore = defineStore('sections', {
 
     // products for main page moreSells
     async fetchProductForMainPageFilter(data) {
+
+      if (this.loading || !this.hasMore) return;
       this.loading = true;
+      this.showLoadingMessage = true;
       this.error = null;
       try {
-        const response = await axiosIns.get(`/sections?page=${data.value.page}&perPage=${data.value.perPage}&filter=${data.value.filter}`);
-        this.product_Filter_SubSection = response.data.products.data;
-        this.totalProducts.currentPage = response.data.products.current_page;
-        this.totalProducts.totalItems = response.data.products.total;
-        this.totalProducts.totalPages = response.data.products.last_page;
+        const response = await axiosIns.get(`/sections?page=${this.page}&perPage=${this.perPage}&filter=${data.value.filter}`);
+        // تأخير عرض المنتجات لمدة ثانيتين
+        setTimeout(() => {
+          // إضافة المنتجات الجديدة إلى القائمة
+          this.product_Filter_SubSection.push(...response.data.products.data);
+
+          // تحقق مما إذا كان هناك المزيد من المنتجات
+          if (response.data.products.data.length < this.perPage) {
+            this.hasMore = false;
+          } else {
+            this.page++;
+          }
+
+          // إخفاء رسالة تحميل المزيد
+          this.showLoadingMessage = false;
+        }, 1000);
+
+        // this.product_Filter_SubSection = response.data.products.data;
+        // this.totalProducts.currentPage = response.data.products.current_page;
+        // this.totalProducts.totalItems = response.data.products.total;
+        // this.totalProducts.totalPages = response.data.products.last_page;
       } catch (error) {
         this.error = 'خطأ أثناء جلب الاقسام';
         alert(error(error));
@@ -145,6 +148,14 @@ export const useSectionsStore = defineStore('sections', {
       } finally {
         this.loading = false;
       }
+    },
+    resetProducts() {
+      this.product_Filter_SubSection = [];
+      this.page = 1;
+      this.hasMore = true;
+      this.loading = false;
+      this.showLoadingMessage = false;
+      this.error = null;
     },
 
 
@@ -162,10 +173,10 @@ export const useSectionsStore = defineStore('sections', {
         this.subcategory_Sizes = response.data.sizes
         this.subcategory_Colors =  response.data.colors
 
-        this.products = response.data.products.data
-        this.totalProducts.currentPage = response.data.products.current_page
-        this.totalProducts.totalItems = response.data.products.total
-        this.totalProducts.totalPages = response.data.products.last_page
+        // this.products = response.data.products.data
+        // this.totalProducts.currentPage = response.data.products.current_page
+        // this.totalProducts.totalItems = response.data.products.total
+        // this.totalProducts.totalPages = response.data.products.last_page
       } catch (error) {
         this.error = 'خطأ أثناء جلب الفئات'
         console.error(error)
@@ -175,16 +186,17 @@ export const useSectionsStore = defineStore('sections', {
     },
 
 
-    async fetchProductsFilterBySubcategry(data) {
+    async fetchProductsFilterBySubcategry2(data) {
+
       this.loading = true
       this.error = null
-
       try {
         const response = await axiosIns.get(`products_filter/${data.value.categoryId}`,
           {
-            params: { page: data.value.page ,perPage:data.value.perPage ,size:data.value.size ,price:data.value.price ,color:data.value.color,category:data.value.categoryChild },
+            params: { page: data.value.page ,perPage:data.value.perPage ,size:data.value.sizes ,price:data.value.price ,color:data.value.colors,category:data.value.categoryChild },
           }
          );
+
 
         this.products = response.data.products.data
         this.totalProducts.currentPage = response.data.products.current_page
@@ -194,16 +206,89 @@ export const useSectionsStore = defineStore('sections', {
       } catch (error) {
         this.error = 'خطأ أثناء جلب الفئات'
         console.error(error)
+
       } finally {
         this.loading = false
       }
+    },
+
+    async fetchProductsFilterBySubcategry(data) {
+      if (this.loading || !this.hasMore) return;
+      this.loading = true;
+      this.showLoadingMessage = true;
+      this.error = null;
+      // this.loading = true
+      // this.error = null
+      try {
+        const response = await axiosIns.get(`products_filter/${data.value.categoryId}`,
+          {
+            params: { page: this.page ,perPage:this.perPage ,size:data.value.sizes ,price:data.value.price ,color:data.value.colors,category:data.value.categoryChild },
+          }
+         );
+
+          // تأخير عرض المنتجات لمدة ثانيتين
+        setTimeout(() => {
+          // إضافة المنتجات الجديدة إلى القائمة
+           this.products.push(...response.data.products.data);
+
+          // تحقق مما إذا كان هناك المزيد من المنتجات
+          if (response.data.products.data.length < this.perPage) {
+            this.hasMore = false;
+          } else {
+            this.page++;
+          }
+
+          // إخفاء رسالة تحميل المزيد
+          this.showLoadingMessage = false;
+        }, 1000);
+
+        // this.products = response.data.products.data
+        // this.totalProducts.currentPage = response.data.products.current_page
+        // this.totalProducts.totalItems = response.data.products.total
+        // this.totalProducts.totalPages = response.data.products.last_page
+
+      } catch (error) {
+        this.error = 'خطأ أثناء جلب الفئات'
+        console.error(error)
+
+      } finally {
+        this.loading = false
+      }
+    },
+    resetProducts2() {
+      this.product = [];
+      this.page = 1;
+      this.hasMore = true;
+      this.loading = false;
+      this.showLoadingMessage = false;
+      this.error = null;
     },
 
 
 
 
 
-
+    async fetchAllSections(data) {
+      const filter = 0
+      if (this.allsections.length > 0) return;
+      this.loading = true;
+      this.error = null;
+      try {
+        const response = await axiosIns.get(`categories/section?page=${data.value.page}&perPage=${data.value.perPage}&filter=${filter}`);
+        this.allsections = response.data.sections
+        this.categories = response.data.categories;
+        this.productFormAllSection = response.data.products.data;
+        this.totalProducts.currentPage = response.data.products.current_page;
+        this.totalProducts.totalItems = response.data.products.total;
+        this.totalProducts.totalPages = response.data.products.last_page;
+      } catch (error) {
+        this.error = 'خطأ أثناء جلب الاقسام';
+        alert(error(error));
+        this.loading = false;
+      } finally {
+        this.loading = false;
+      }
+    },
 
 
 

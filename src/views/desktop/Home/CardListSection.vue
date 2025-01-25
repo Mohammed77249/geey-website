@@ -5,7 +5,7 @@
         <div v-if=" storeCategories.loading">
           <LoaderDatacomp :is-loader="storeCategories.loading"/>
          </div>
-        <li v-else-if="storeCategories.getCategories">
+        <li v-else-if="storeCategories.getCategoriesMain">
           <div
             class=" p-5  grid grid-rows-3 w-full custom-scroll  overflow-x-auto  gap-6"
             style="grid-template-columns: repeat(10, minmax(80px, 1fr));"
@@ -85,29 +85,7 @@ const filteredData = ref({
   }
 }
 
-// const categories = [
-//   { name: 'الأزياء النسائية', image: '/src/assets/images/Big Sale Banner.svg' },
-//   { name: 'الأزياء الرجالية', image: '/public/logogeey.svg' },
-//   { name: 'الأطفال', image: '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg' },
-//   { name: 'الإكسسوارات', image: '/src/assets/images/products/Image (1).svg' },
-//   { name: 'الأحذية', image: '/src/assets/images/products/Image (2).svg' },
-//   { name: 'الحقائب', image: '/src/assets/images/products/Image (3).svg' },
-//   { name: 'الأزياء النسائية', image: '/src/assets/images/products/Image (4).svg' },
-//   { name: 'الأزياء الرجالية', image: '/src/assets/images/products/Image.svg' },
-//   { name: 'الأطفال', image: '/src/assets/images/products/Mockup.svg' },
-//   { name: 'الإكسسوارات', image: '/src/assets/images/products/Placeholder_01 (2).svg' },
-//   { name: 'الأحذية', image: '/src/assets/images/products/Placeholder_01 (3).svg' },
-//   { name: 'الحقائب', image: '/src/assets/images/products/Placeholder_01 (4).svg' },
-//   { name: 'الأزياء النسائية', image: '/src/assets/images/products/Placeholder_01 (5).svg' },
-//   { name: 'الأزياء الرجالية', image: '/src/assets/images/products/Rectangle 1113 (1).svg' },
-//   { name: 'الأطفال', image: '/src/assets/images/products/Rectangle 1253.svg' },
-//   { name: 'الإكسسوارات', image: '/src/assets/images/products/Rectangle 56.svg' },
-//   { name: 'الأحذية', image: '/src/assets/images/products/Rectangle 72 (1).svg' },
-//   { name: 'الحقائب', image: '/src/assets/images/products/Rectangle 75.svg' },
-//   { name: 'الأزياء النسائية', image: '/src/assets/images/products/unsplash_DyhiB_wFifk.svg' },
-//   { name: 'الأزياء الرجالية', image: '/src/assets/images/products/unsplash_jsgby4-zj44.svg' },
-//   { name: 'الأطفال', image: '/src/assets/images/products/unsplash_VpqI6WX6sEs.svg' },
-// ];
+
 
 
 const products =ref([

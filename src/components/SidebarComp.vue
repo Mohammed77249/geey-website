@@ -179,7 +179,7 @@
                   :key="index"
                   class="bg-white flex flex-col items-center "
                 >
-                
+
                   <img src="/logogeey.svg" :alt="subsection.name" class="w-20 text-center rounded-full h-20 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
                   <h3 class="text-center mt-2 text-[12px]  font-sans text-gray-800">{{ subsection.name }}</h3>
                 </div>
@@ -258,7 +258,7 @@ const filteredData = ref({
 
   const getID = (id) =>{
     filteredData.value.sectionId = id
-    storeSecion.fetchSubSectionBySectionID(filteredData);
+    // storeSecion.fetchSubSectionBySectionID(filteredData);
 
   }
 

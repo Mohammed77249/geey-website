@@ -70,9 +70,25 @@
 
     </div>
 
+
+
   </div>
+
   <DialogAddToCart  v-if="filteredData != null"   :-id-product="filteredData"  :is-open="isDialogOpen"  @close="closeDialog"  />
     </div>
+
+       <!-- رسالة تحميل المزيد -->
+       <div v-if="SectionStore.showLoadingMessage" class="mt-4">
+      <LoaderDatacomp :is-loader="SectionStore.showLoadingMessage"/>
+    </div>
+
+     <!-- رسالة انتهاء التحميل -->
+     <div v-if="!SectionStore.hasMore && !SectionStore.loading" class="text-center mt-4">
+      <p>لا توجد منتجات إضافية.</p>
+    </div>
+
+    <!-- عنصر مراقبة نهاية الصفحة -->
+    <div ref="loadMoreTrigger" class="h-1"></div>
   </div>
 
 
@@ -83,9 +99,11 @@ import { ref, onMounted } from 'vue';
 import DialogAddToCart from '../DialogAddToCart.vue';
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
+import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useSectionsStore } from '@/stores/section';
+import { useIntersectionObserver } from '@vueuse/core';
 const authStore = useAuthStore();
 const SectionStore = useSectionsStore();
 const router = useRouter();
@@ -112,43 +130,29 @@ const onhover = (id)=>{
   hoverId.value= id;
 };
 
-
-
 const filteredData2 = ref({
       sectionId:1,
       page: 1,
-      perPage: 50,
+      perPage: 20,
       filter:3
 });
 
+const loadMoreTrigger = ref(null);
+// استخدام IntersectionObserver لمراقبة نهاية الصفحة
+useIntersectionObserver(
+  loadMoreTrigger,
+  ([{ isIntersecting }]) => {
+    if (isIntersecting) {
+      SectionStore.fetchProductForMainPageFilter(filteredData2);
+    }
+  },
+  { threshold: 0.5 }
+);
 
+// جلب أول مجموعة من المنتجات عند التركيب
 onMounted(() => {
+  SectionStore.resetProducts();
   SectionStore.fetchProductForMainPageFilter(filteredData2);
 });
-
-
-// const products = ref([
-//         { id: 1, name: 'منتج 1', price: 'ر.س 50', images:[ '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 2, name: 'منتج 2', price: 'ر.س 60',images:[ '/src/assets/images/products/Image (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 3, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image (2).svg', '/src/assets/images/Placeholder_01 (1).svg' ],},
-//         { id: 4, name: 'منتج 3', price: 'ر.س 70',images:[ '/src/assets/images/products/Image (3).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 5, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image (4).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 6, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 7, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Mockup.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 8, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (2).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 9, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (3).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 10, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (4).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 11, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (5).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 12, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 1113 (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 13, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 1253.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 14, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 56.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 15, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 72 (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 16, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/unsplash_VpqI6WX6sEs.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 17, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 75.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 18, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/unsplash_DyhiB_wFifk.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-
-//       ]);
-
-
 
 </script>
