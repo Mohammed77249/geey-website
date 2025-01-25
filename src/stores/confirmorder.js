@@ -66,12 +66,20 @@ export const useConfirmOrders = defineStore('ConfirmOrders', {
     async creatOrder(data) {
       this.loading = true
       this.error = null
+
+
+      // alert("add"+data.address_id)
+      // alert("pay"+ data.payment_id)
+      // alert("del"+ data.delivery_type_id)
+      // alert("price"+data.unit_price)
+      // alert("note"+data.note)
+      // alert("phone"+data.phone_number)
       const formData = new FormData()
       formData.append('products', data.products)
       formData.append('address_id', data.address_id)
       formData.append('payment_id', data.payment_id)
       formData.append('delivery_type_id', data.delivery_type_id)
-      formData.append('note', data.unit_price)
+      formData.append('note', data.note)
       formData.append('unit_price', data.unit_price)
       formData.append('phone_number', data.phone_number)
 

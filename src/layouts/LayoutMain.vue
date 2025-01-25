@@ -118,7 +118,7 @@ onMounted(() => {
     </header>
 
     <!-- Main Content -->
-    <main class="pb-16 md:flex-grow">
+    <main class=" md:flex-grow">
       <!-- <slot /> -->
       <RouterView/>
     </main>

@@ -150,7 +150,7 @@ const router = useRouter()
 const openDialog = id => {
   if (!authStore.isAuthenticated) {
     alert('يرجى تسجيل الدخول لإضافة منتجات إلى السلة.')
-    router.push('/user/login')
+    router.push('/desktop/login')
     return
   }
 

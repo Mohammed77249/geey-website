@@ -282,9 +282,16 @@ let intervalId = null; // تعريف متغير لتخزين المعرف الخ
 
 // وظيفة لتحديث القيمة عند حدوث تغييرات
 const checkLocalStorageChanges = () => {
+
   const currentValue = localStorage.getItem('city'); // قراءة القيمة الحالية من localStorage
+  const Getlong11 = localStorage.getItem("long");
+const Getlat11 = localStorage.getItem("lat");
   if (currentValue !== Getcity.value) {
     Getcity.value = currentValue; // تحديث القيمة تلقائيًا
+  }
+  if(Getlat11 != null && Getlong11 != null){
+    Getlat.value = Getlat11
+     Getlong.value = Getlong11
   }
 
   checkName()
@@ -369,6 +376,10 @@ const handleAddress = async () => {
     window.location.reload();
   } else {
     alert(storeAddress.error + 'error')
+    localStorage.removeItem('long')
+    localStorage.removeItem('lat')
+    localStorage.removeItem('city')
+    localStorage.removeItem('region')
   }
 
   close();

@@ -301,7 +301,7 @@
                       }"
                       @click="onclickSize(size)"
                     >
-                      {{ size.size_value }}
+                      {{ size.measuring_value }}
                     </button>
                   </div>
 

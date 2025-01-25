@@ -73,6 +73,7 @@
                         <input
                           id="default-radio-3"
                           type="radio"
+                           @click="chooseAdress(address)"
                           value="option3"
                           name="default-radio"
                           class="w-4 h-4 text-primary-900 bg-gray-100 focus:ring-primary-900"
@@ -364,8 +365,14 @@ let intervalId = null; // تعريف متغير لتخزين المعرف الخ
 // وظيفة لتحديث القيمة عند حدوث تغييرات
 const checkLocalStorageChanges = () => {
   const currentValue = localStorage.getItem('city'); // قراءة القيمة الحالية من localStorage
+  const Getlong11 = localStorage.getItem("long");
+const Getlat11 = localStorage.getItem("lat");
   if (currentValue !== Getcity.value) {
     Getcity.value = currentValue; // تحديث القيمة تلقائيًا
+  }
+  if(Getlat11 != null && Getlong11 != null){
+    Getlat.value = Getlat11
+     Getlong.value = Getlong11
   }
 
   checkName()
@@ -402,8 +409,8 @@ const filteredData = ref({
   nearest_landmark: '',
   district_id: null,
   address: '',
-  lat: '',
-  lng: '',
+  lat: null,
+  lng: null,
   is_default: 1,
 })
 
@@ -434,10 +441,9 @@ const toggleDistrictSelect = district => {
 const handleAddress = async () => {
   filteredData.value.address = Adress.value
   filteredData.value.nearest_landmark = NearestLand.value
-  filteredData.value.lat = Getlat.value
+
+  filteredData.value.lat =  Getlat.value;
   filteredData.value.lng = Getlong.value;
-
-
 
   const creataddress = await storeAddress.creatAddress(filteredData.value)
   if (creataddress) {
@@ -455,6 +461,10 @@ const handleAddress = async () => {
 
   } else {
     alert(storeAddress.error + 'error')
+    localStorage.removeItem('long')
+    localStorage.removeItem('lat')
+    localStorage.removeItem('city')
+    localStorage.removeItem('region')
   }
 
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-full flex flex-col items-center justify-center bg-gray-50">
+  <div class="h-screen w-full flex  items-center justify-center bg-gray-50">
     <!-- Login Form -->
     <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-10">
       <div class="mb-5">

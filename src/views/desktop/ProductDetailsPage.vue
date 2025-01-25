@@ -382,7 +382,7 @@
                   }"
                   @click="onclickSize(size)"
                 >
-                  {{ size.size_value }}
+                  {{ size.measuring_value }}
                 </button>
               </div>
             </div>
@@ -727,12 +727,13 @@ import { useCartStore } from '@/stores/cart'
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/swiper-bundle.css";
-
+import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
 const route = useRoute()
 const storeProduct = useProductStore()
 const storeCart = useCartStore()
-
-
+const authStore = useAuthStore();
+const router = useRouter();
 const filteredData2 = ref({
   productID: null,
   product_id: null,
@@ -845,6 +846,11 @@ const searchedOption = computed(() => {
 
 const addToCart = async () => {
 
+  if (!authStore.isAuthenticated) {
+    alert('يرجى تسجيل الدخول لإضافة منتجات إلى السلة.');
+    router.push('/desktop/login');
+    return;
+  }
 
   if(priceSize.value != null){
     filteredData2.value.price = priceSize.value

@@ -277,7 +277,7 @@ const handlOrder = async () => {
     id:product.id,
     product_id: product.product_id,
     parent_measuring_id: product.parent_measuring_id,
-    color_id: product.color_id != 0 ?  product.color_id : null ,
+    color_id: product.color_id != 0 ?  product.color_id : '' ,
     quantity: product.quantity,
     price:product.product_price,
   }));
@@ -285,8 +285,11 @@ const handlOrder = async () => {
 
 
 
+
+
   filteredData.value.products = JSON.stringify(products_for_order.value);
   filteredData.value.address_id = localValueId;
+  alert( filteredData.value.products)
   const createorder = await storeOrder.creatOrder(filteredData.value);
   if(createorder){
     alert("تم الاضافه بنجاح")
@@ -298,7 +301,11 @@ const handlOrder = async () => {
       }, 1500);
   }else{
     alert(storeOrder.error + "error");
+    localStorage.removeItem("adressInfoName");
+    localStorage.removeItem("adressInfoId");
   }
+  localStorage.removeItem("adressInfoName");
+  localStorage.removeItem("adressInfoId");
 };
 
 const closeDialog = () => {
