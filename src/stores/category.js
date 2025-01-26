@@ -6,6 +6,7 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
     allcategories: [],
     subcategories: [],
     categories_for_search:[],
+    product_for_search:[],
     products: [],
     totalProducts: {
       currentPage: null,
@@ -23,6 +24,7 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
     getTotalProducts: state => state.totalProducts,
     getProductDetails: state => state.productDetails,
     getCategoriesForSearch: state => state.categories_for_search,
+    getProductForSearch : state => state.product_for_search
   },
   actions: {
     async fetchAllCategories(data) {
@@ -65,22 +67,23 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
     },
 
 
-    async fetchCategoryByNameSearch(data) {
-      this.loading = true
-      this.error = null
+    // async fetchCategoryByNameSearch(data) {
+    //   this.loading = true
+    //   this.error = null
 
-      try {
-        const response = await axiosIns.get(`/categories_by_name`, {
-          params: { search: data },
-        });
-        this.categories_for_search = response.data
-      } catch (error) {
-        this.error = 'خطأ أثناء جلب الفئات'
-        console.error(error)
-      } finally {
-        this.loading = false
-      }
-    },
+    //   try {
+    //     const response = await axiosIns.get(`/categories_by_name`, {
+    //       params: { search: data },
+    //     });
+    //     this.categories_for_search = response.data
+
+    //   } catch (error) {
+    //     this.error = 'خطأ أثناء جلب الفئات'
+    //     console.error(error)
+    //   } finally {
+    //     this.loading = false
+    //   }
+    // },
 
     async fetchCategoryBySearch(data) {
       this.loading = true
@@ -89,8 +92,11 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
         const response = await axiosIns.get(`/categories_search`, {
           params: { search: data },
         });
-        this.products = response.data.products.data
-        // this.categories_for_search = []
+
+        if(response.data.testcat == "cat"){
+          this.categories_for_search = response.data.categories
+        }
+        this.product_for_search = response.data.products.data
       } catch (error) {
         this.error = 'خطأ أثناء جلب الفئات'
         console.error(error)

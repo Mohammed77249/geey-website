@@ -259,16 +259,16 @@
                 <i> <img class="w-3" src="/src/assets/images/star.svg" /></i>
                 <i> <img class="w-3" src="/src/assets/images/star.svg" /></i>
               </span>
-              <h1 class="font-medium text-[10px] text-yellow-600">
+              <!-- <h1 class="font-medium text-[10px] text-yellow-600">
                 {{ $t('Customer Reviews') }}
-              </h1>
+              </h1> -->
             </div>
           </div>
-          <div>
+          <!-- <div>
             <span class="text-sm bg-purple-400 w-20 text-white">{{
               $t('Fashion Trends')
             }}</span>
-          </div>
+          </div> -->
           <div class="flex items-center gap-2">
 
             <p v-if="storeProduct.getproductDetails.price_options_type ==  'by_color_and_measuring' " class="text-lg text-orange-700">
@@ -287,19 +287,22 @@
               {{  storeProduct.getproductDetails.base_price }}
             </p>
 
-            <div class="h-5 px-2 flex items-center justify-center bg-black">
+            <!-- discount -->
+            <!-- <div class="h-5 px-2 flex items-center justify-center bg-black">
               <p class="text-xs text-white">
                 {{ storeProduct.getproductDetails.discount_price }}-
               </p>
-            </div>
+            </div> -->
           </div>
 
-          <div class="flex items-center gap-1 bg-amber-100">
+
+          <!--               رقم 7 الافضل مبيعا -->
+          <!-- <div class="flex items-center gap-1 bg-amber-100">
             <p class="text-sm font-semibold text-amber-600">
               رقم 7 الافضل مبيعا
             </p>
             <p class="text-xs text-amber-600">في فساتين نوم بطباعه ازهلر</p>
-          </div>
+          </div> -->
         </div>
 
         <!-- المقاس وزر الاضافة -->
@@ -389,7 +392,7 @@
 
 
             <!-- مرجع المقاس -->
-            <div class="mt-5 h-10">
+            <!-- <div class="mt-5 h-10">
               <div
                 @click="openDialog"
                 class="flex items-center gap-1 hover:underline"
@@ -399,7 +402,6 @@
                   {{ $t('Size Reference') }}
                 </p>
               </div>
-              <!-- Dialog Component -->
               <DialogComp
                 :isOpen="isDialogOpen"
                 title="Confirmation"
@@ -408,7 +410,9 @@
               >
                 <p>Are you sure you want to proceed with this action?</p>
               </DialogComp>
-            </div>
+            </div> -->
+
+
           </div>
           <!-- addToCart -->
           <div class="flex items-center gap-1">
@@ -427,13 +431,13 @@
               <img class="w-10" src="/src/assets/images/heart.svg" />
             </div>
           </div>
-          <p class="text-sm">
+          <!-- <p class="text-sm">
             {{ $t('Earn up to 3 GN points calculated at checkout.') }}
-          </p>
+          </p> -->
         </div>
 
         <!-- شحن مجاني  -->
-        <div class="bg-gray-100 w-full h-80 2xl:h-72 mb-5 p-5">
+        <!-- <div class="bg-gray-100 w-full h-80 2xl:h-72 mb-5 p-5">
           <div class="mb-3">
             <div class="flex items-center gap-1">
               <img src="/src/assets/images/truck-fast.svg" />
@@ -522,7 +526,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- الوصف و .... -->
         <div class="w-full mb-5 mt-10">
@@ -585,7 +589,7 @@
           </div>
 
           <!-- المقاس -->
-          <div>
+          <!-- <div>
             <div class="flex items-center justify-between py-5">
               <p class="font-bold text-[15px]">{{ $t('Size & Fit') }}</p>
               <button
@@ -637,10 +641,10 @@
               :types="types"
               :isDropdowenVisable="isDropdowenSize2Visable"
             />
-          </div>
+          </div> -->
 
           <!-- حول المتجر -->
-          <div>
+          <!-- <div>
             <div class="flex items-center justify-between py-5">
               <p class="font-bold text-[15px]">{{ $t('About Store') }}</p>
               <button
@@ -694,7 +698,7 @@
               :types="types"
               :isDropdowenVisable="isDropdowenAboutStoreVisable"
             />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -717,10 +721,13 @@ import CommentComp from '@/components/Comments/CommentComp.vue'
 import HeaderCommentsComp from '@/components/Comments/HeaderComentsComp.vue'
 import { useRoute } from 'vue-router'
 import LoaderComp from '@/components/LoaderDatacomp.vue'
-import DialogComp from '@/components/DialogComp.vue'
+//   <!-- مرجع المقاس -->
+// import DialogComp from '@/components/DialogComp.vue'
 import DescriptionComp from '@/components/ProductDetailsComponent/DescriptionComp.vue'
-import SizeProDetailsComp from '@/components/ProductDetailsComponent/SizeProDetailsComp.vue'
-import AboutStoreComp from '@/components/ProductDetailsComponent/AboutStoreComp.vue'
+
+// import SizeProDetailsComp from '@/components/ProductDetailsComponent/SizeProDetailsComp.vue'
+// import AboutStoreComp from '@/components/ProductDetailsComponent/AboutStoreComp.vue'
+
 import MoreProductDetailsComp from '@/components/ProductDetailsComponent/MoreProductDetailsComp.vue'
 import { useProductStore } from '@/stores/product'
 import { useCartStore } from '@/stores/cart'
@@ -749,8 +756,8 @@ if (id != null) {
 }
 
 const isDropdowenDescriptionVisable = ref(false)
-const isDropdowenSize2Visable = ref(false)
-const isDropdowenAboutStoreVisable = ref(false)
+// const isDropdowenSize2Visable = ref(false)
+// const isDropdowenAboutStoreVisable = ref(false)
 const storedLanguage = localStorage.getItem('language')
 
 
@@ -944,21 +951,21 @@ onMounted(async() => {
 
 })
 
+//  <!-- مرجع المقاس -->
+// const isDialogOpen = ref(false)
 
-const isDialogOpen = ref(false)
+// const openDialog = () => {
+//   isDialogOpen.value = true
+// }
 
-const openDialog = () => {
-  isDialogOpen.value = true
-}
+// const closeDialog = () => {
+//   isDialogOpen.value = false
+// }
 
-const closeDialog = () => {
-  isDialogOpen.value = false
-}
-
-const handleConfirm = () => {
-  alert('Action confirmed!')
-  closeDialog()
-};
+// const handleConfirm = () => {
+//   alert('Action confirmed!')
+//   closeDialog()
+// };
 </script>
 
 <style scoped>

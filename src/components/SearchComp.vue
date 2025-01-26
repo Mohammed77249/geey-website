@@ -83,53 +83,71 @@
     </p>
 
     <ul
-      v-else-if="results.length && searchQuery && results[0].base_price"
+      v-if="searchQuery"
       class="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-2 max-h-60 overflow-y-auto"
     >
 
-      <li
-        v-for="(result, index) in results"
+      <!-- categories -->
+      <li  v-if="resultsCatedories.length >0 " >
+      <div v-for="(category, index) in resultsCatedories"
         :key="index"
-        class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-        @click="selectResult(result)"
-      >
-      <div>
-        <RouterLink :to="`/desktop/product/${result.id}`">
-        <span class="text-sm font-medium"> {{ result.name }}</span>
+
+        @click="selectResult(category)">
+        <RouterLink :to="`/desktop/recommend/${category.category_level}/${category.id}/${category.name}`">
+          <div   class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+            <span class="text-sm font-medium "> {{ category.name }}</span>
+
+          </div>
         </RouterLink>
       </div>
       </li>
 
+      <!-- product -->
+      <li v-if="resultsProducts.length  > 0 ">
+        <div  v-for="(product, index) in resultsProducts"
+          :key="index"
+          class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+          @click="selectResult(product)">
+          <RouterLink :to="`/desktop/product/${product.id}`">
+            <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <span class="text-sm font-medium"> {{ product.name }}</span>
+            </div>
+          </RouterLink>
+        </div>
+      </li>
+
+
+
     </ul>
 
-    <ul
-      v-else-if="results.length && searchQuery "
+    <!-- <ul
+      v-if="resultsProducts.length  > 0 && searchQuery"
       class="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-2 max-h-60 overflow-y-auto"
     >
 
       <li
-        v-for="(result, index) in results"
+        v-for="(product, index) in resultsProducts"
         :key="index"
         class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-        @click="selectResult(result)"
+        @click="selectResult(product)"
       >
       <div>
-        <RouterLink :to="`/desktop/recommend/${result.category_level}/${result.id}/${result.name}`">
-        <span class="text-sm font-medium"> {{ result.name }}</span>
+        <RouterLink :to="`/desktop/product/${product.id}`">
+        <span class="text-sm font-medium"> {{ product.name }}</span>
         </RouterLink>
       </div>
       </li>
 
-    </ul>
+    </ul> -->
 
 
     <!-- رسالة عدم وجود نتائج -->
-    <p
-      v-if="!results.length && searchQuery && !storeCategory.loading"
+    <!-- <p
+      v-if="!resultsCatedories.length && !resultsProducts.length && !searchQuery && !storeCategory.loading"
       class="absolute z-10 text-center w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 h-full text-gray-500 mt-2"
     >
       لا توجد نتائج مطابقة لبحثك.
-    </p>
+    </p> -->
   </div>
 </template>
 <script setup>
@@ -137,35 +155,51 @@ import { ref } from 'vue'
 import { useCategoriesStore } from '@/stores/category.js';
 import LoaderDatacomp from './LoaderDatacomp.vue';
 const searchQuery = ref('')
-const results = ref([]);
+const resultsCatedories = ref([]);
+const resultsProducts = ref([]);
 
 const storeCategory = useCategoriesStore()
 
 // دالة البحث
 const handleSearch = async() => {
   if (searchQuery.value) {
-    await storeCategory.fetchCategoryByNameSearch(searchQuery.value);
-    results.value = storeCategory.getCategoriesForSearch
+    await storeCategory.fetchCategoryBySearch(searchQuery.value);
+
+    if(storeCategory.getCategoriesForSearch.length > 0)
+    {
+      resultsCatedories.value = storeCategory.getCategoriesForSearch
+    }else{
+      resultsCatedories.value = []
+    }
+    if(storeCategory.getCategoriesForSearch.length > 0)
+    {
+      resultsProducts.value = storeCategory.getProductForSearch
+    }else{
+      resultsProducts.value = []
+    }
+
+
   } else {
-    results.value = []
+    resultsCatedories.value = []
+    resultsProducts.value = []
   }
 }
 
 
-const onEnterPressed =  async() => {
-  if (searchQuery.value) {
-    await storeCategory.fetchCategoryBySearch(searchQuery.value);
-    results.value = storeCategory.getProducts
-  } else {
-    results.value = []
-  }
+// const onEnterPressed =  async() => {
+//   if (searchQuery.value) {
+//     await storeCategory.fetchCategoryBySearch(searchQuery.value);
+//     results.value = storeCategory.getProducts
+//   } else {
+//     results.value = []
+//   }
 
-};
+// };
 
 // عند اختيار نتيجة
 const selectResult = (result) => {
   console.log(result)
   searchQuery.value = '' // إعادة تعيين النص
-  results.value = [] // إخفاء القائمة
+  resultsCatedories.value = [] // إخفاء القائمة
 }
 </script>

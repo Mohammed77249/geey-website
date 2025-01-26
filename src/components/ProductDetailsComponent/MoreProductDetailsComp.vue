@@ -10,7 +10,7 @@
 
     >
 
-    <RouterLink :to="`/product/${product.id}`">
+    <!-- <RouterLink :to="`/desktop/product/${product.id}`"> -->
       <div class="cursor-pointer w-[full] h-[200px] md:h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img v-if="product.main_imags != null && product.main_imags.length > 0 "
               :src="
@@ -29,15 +29,15 @@
       </div>
 
       <h3 class="font-semibold rtl text text-sm mt-1">{{ product.name }}</h3>
-    </RouterLink>
+    <!-- </RouterLink> -->
 
 
     <div class="flex items-center justify-between">
       <div class="flex gap-2 items-center ">
         <p class="font-sembold text-primary-900">{{ product.base_price }}</p>
-        <div class="border border-primary-900">
+        <!-- <div class="border border-primary-900">
          <p class=" text-[10px] text-primary-900 "> %50- </p>
-        </div>
+        </div> -->
 
       </div>
 

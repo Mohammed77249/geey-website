@@ -60,12 +60,12 @@
 
         <div class="flex items-center justify-between">
           <div class="flex gap-2 items-center">
-            <p class="font-sembold text-primary-400 text-[10px] md:text-[15px]">
+            <p class="font-sembold text-primary-900 text-[10px] md:text-[15px]">
               {{ product.base_price }}
             </p>
-            <div class="border border-primary-400">
+            <!-- <div class="border border-primary-400">
               <p class="text-[8px] md:text-[10px] text-primary-400">%50-</p>
-            </div>
+            </div> -->
           </div>
           <div
             @click="openDialog(product.id)"
