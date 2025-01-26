@@ -151,11 +151,13 @@
                         <ul
                           class="h-48 px-3 pb-3 overflow-y-auto custom-scroll text-[12px] text-gray-700"
                           aria-labelledby="dropdownSearchButton"
+
                         >
                           <li
                             v-for="(cite, index) in storeAddress.getCities"
                             :key="index"
                             @click="toggleCiteSelect(cite)"
+
                           >
                             <div
                               class="flex items-center ps-2 cursor-pointer rounded hover:bg-gray-100"
@@ -214,12 +216,12 @@
                       >
                         <ul
                           class="h-48 px-3 pb-3 overflow-y-auto custom-scroll text-[12px] text-gray-700"
-                          aria-labelledby="dropdownSearchButton"
+                          aria-labelledby="dropdownSearchButton" v-if="filteredAreas.length > 0"
                         >
                           <li
                             v-for="(
                               district, index
-                            ) in storeAddress.getDistricts"
+                            ) in filteredAreas"
                             :key="index"
                             @click="toggleDistrictSelect(district)"
                           >
@@ -341,6 +343,8 @@ const props = defineProps({
   },
 })
 
+
+
 const chooseAdress = address => {
   localStorage.setItem('adressInfoId', address.id)
   localStorage.setItem('adressInfoName', address.address)
@@ -378,6 +382,9 @@ const Getlat11 = localStorage.getItem("lat");
   checkName()
 };
 
+
+
+
 // بدء المراقبة عند تحميل المكون
 onMounted(() => {
   intervalId = setInterval(checkLocalStorageChanges, 500); // التحقق من التغييرات كل 500 ملي ثانية
@@ -402,6 +409,10 @@ const checkName = () => {
 };
 
 
+
+
+const filteredAreas = ref([]);
+
 const Adress = ref('')
 const NearestLand = ref('')
 const filteredData = ref({
@@ -422,6 +433,19 @@ const toggleCiteSelect = city => {
   filteredData.value.city_id = city.id
   selectedCite.value = city.name
   isDropdowenCiteVisable.value = false
+
+
+  if (city.id) {
+    filteredAreas.value = storeAddress.getDistricts.filter(
+      (area) => area.city_id === parseInt(city.id)
+    );
+    selectedDistrict.value = 'المنطقة'
+
+  } else {
+    filteredAreas.value = [];
+  }
+
+
 }
 
 
@@ -433,17 +457,33 @@ const toggleDistrictSelect = district => {
   filteredData.value.district_id = district.id
   selectedDistrict.value = district.name
   isDropdowenDistrictVisable.value = false
+
+
 }
 
 
-
-
 const handleAddress = async () => {
+
+  if(selectedCite.value == 'المدينه'){
+    alert('اختر مدينه')
+    return;
+  }
+  if(selectedDistrict.value == 'المنطقة'){
+    alert('اختر منطقه')
+    return;
+  }
+  if(!Getlat.value &&  !Getlong.value){
+    alert('اختر من الخريطه')
+    return;
+  }
+
   filteredData.value.address = Adress.value
   filteredData.value.nearest_landmark = NearestLand.value
 
   filteredData.value.lat =  Getlat.value;
   filteredData.value.lng = Getlong.value;
+
+
 
   const creataddress = await storeAddress.creatAddress(filteredData.value)
   if (creataddress) {

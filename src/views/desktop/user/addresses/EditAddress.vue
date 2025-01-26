@@ -157,7 +157,7 @@
                           <li
                             v-for="(
                               district, index
-                            ) in storeAddress.getDistricts"
+                            ) in filteredAreas"
                             :key="index"
                             @click="toggleDistrictSelect(district)"
                           >
@@ -276,7 +276,7 @@ const props = defineProps({
 })
 
 const isMap = ref(false)
-
+const filteredAreas = ref([]);
 const cklickOpenMap = () => {
   isMap.value = true
 }
@@ -323,6 +323,16 @@ const toggleCiteSelect = city => {
   filteredData.city_id = city.id
   filteredData.city_name = city.name
   isDropdowenCiteVisable.value = false
+  filteredData.district_name = ""
+  if (city.id) {
+    filteredAreas.value = storeAddress.getDistricts.filter(
+      (area) => area.city_id === parseInt(city.id)
+    );
+
+
+  } else {
+    filteredAreas.value = [];
+  }
 }
 
 // District
@@ -332,6 +342,7 @@ const toggleDistrictSelect = district => {
   filteredData.district_id = district.id
   filteredData.district_name = district.name
   isDropdowenDistrictVisable.value = false
+
 }
 
 // تحديث البيانات عند تغيير العنوان المحدد
@@ -339,6 +350,15 @@ watch(
   () => props.formEdit,
   newAddress => {
     Object.assign(filteredData, newAddress)
+    if (newAddress.city_id) {
+    filteredAreas.value = storeAddress.getDistricts.filter(
+      (area) => area.city_id === parseInt(newAddress.city_id)
+    );
+
+
+  } else {
+    filteredAreas.value = [];
+  }
   },
   { deep: true },
 )

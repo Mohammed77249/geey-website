@@ -156,7 +156,7 @@
                           <li
                             v-for="(
                               district, index
-                            ) in storeAddress.getDistricts"
+                            ) in filteredAreas"
                             :key="index"
                             @click="toggleDistrictSelect(district)"
                           >
@@ -318,8 +318,20 @@ const checkName = () => {
   } else {
     resultMessage.value = `${Getcity.value} غير موجود داخل المصفوفة`;
   }
+
+
+  if (exists.id) {
+    filteredAreas.value = storeAddress.getDistricts.filter(
+      (area) => area.city_id === parseInt(exists.id)
+    );
+    selectedDistrict.value = 'المنطقة'
+
+  } else {
+    filteredAreas.value = [];
+  }
 };
 
+const filteredAreas = ref([]);
 const Adress = ref('')
 const NearestLand = ref('')
 const filteredData = ref({
@@ -340,6 +352,17 @@ const toggleCiteSelect = city => {
   filteredData.value.city_id = city.id
   selectedCite.value = city.name
   isDropdowenCiteVisable.value = false
+
+
+  if (city.id) {
+    filteredAreas.value = storeAddress.getDistricts.filter(
+      (area) => area.city_id === parseInt(city.id)
+    );
+    selectedDistrict.value = 'المنطقة'
+
+  } else {
+    filteredAreas.value = [];
+  }
 }
 
 
@@ -355,6 +378,20 @@ const toggleDistrictSelect = district => {
 
 
 const handleAddress = async () => {
+
+  if(selectedCite.value == 'المدينه'){
+    alert('اختر مدينه')
+    return;
+  }
+  if(selectedDistrict.value == 'المنطقة'){
+    alert('اختر منطقه')
+    return;
+  }
+  if(!Getlat.value &&  !Getlong.value){
+    alert('اختر من الخريطه')
+    return;
+  }
+
   filteredData.value.address = Adress.value
   filteredData.value.nearest_landmark = NearestLand.value
   filteredData.value.lat = Getlat.value

@@ -283,13 +283,8 @@ const handlOrder = async () => {
   }));
 
 
-
-
-
-
   filteredData.value.products = JSON.stringify(products_for_order.value);
   filteredData.value.address_id = localValueId;
-  alert( filteredData.value.products)
   const createorder = await storeOrder.creatOrder(filteredData.value);
   if(createorder){
     alert("تم الاضافه بنجاح")
