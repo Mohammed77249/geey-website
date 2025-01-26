@@ -127,50 +127,50 @@
                     aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
                   >
                     <li>
-                      <a href="#" class="block px-4 py-1 hover:bg-gray-100"
+                      <!-- <a href="#" class="block px-4 py-1 hover:bg-gray-100"
                         >ملفي الشخصي</a
-                      >
-                      <!-- <RouterLink to="/user/account_setting"  class="block px-4 py-1 hover:bg-gray-100">
+                      > -->
+                      <RouterLink to="/desktop/user"  class="block px-4 py-1 hover:bg-gray-100">
                       ملفي الشخصي
-                      </RouterLink> -->
+                      </RouterLink>
                     </li>
                     <li>
                       <RouterLink to="/desktop/user/myorder" class="block px-4 py-1 hover:bg-gray-100">
                         طلبي</RouterLink>
                     </li>
-                    <li>
+                    <!-- <li>
                       <a href="#" class="block px-4 py-1 hover:bg-gray-100"
                         >رسالتي</a
                       >
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                       <a href="#" class="block px-4 py-1 hover:bg-gray-100"
                         >كوبوناتي</a
                       >
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                       <a href="#" class="block px-4 py-1 hover:bg-gray-100"
                         >نقاطي</a
                       >
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                       <a href="#" class="block px-4 py-1 hover:bg-gray-100"
                         >شوهد مؤخرا</a
                       >
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                       <a href="#" class="block px-4 py-1 hover:bg-gray-100"
                         >المزيد من الخدمات
                       </a>
-                    </li>
+                    </li> -->
                   </ul>
                   <div class="w-full h-[1px] px-4 bg-gray-300"></div>
                   <div class="py-1">
-                    <button
+                    <!-- <button
                       class="py-1 text-[13px] w-full font-medium text-gray-600 hover:bg-gray-100"
                     >
                       تبديل الحساب
-                    </button>
+                    </button> -->
                     <button
                       @click="store.logout"
                       class="w-full py-1 font-medium text-[13px] text-gray-600 hover:bg-gray-100"
@@ -598,13 +598,13 @@ const isDropdowenLanguageVisable = ref(false)
 
 onMounted(() => {
   storeSecion.fetchSections(filteredData);
+  
   if(store.isAuthenticated){
     storeCart.fetchAllProductsInCart();
   }
 
   updateHoveredIndex();
   intervalId = setInterval(updateHoveredIndex, 500);
-
 
 })
 

@@ -120,34 +120,13 @@
 
     </ul>
 
-    <!-- <ul
-      v-if="resultsProducts.length  > 0 && searchQuery"
-      class="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-2 max-h-60 overflow-y-auto"
-    >
-
-      <li
-        v-for="(product, index) in resultsProducts"
-        :key="index"
-        class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-        @click="selectResult(product)"
-      >
-      <div>
-        <RouterLink :to="`/desktop/product/${product.id}`">
-        <span class="text-sm font-medium"> {{ product.name }}</span>
-        </RouterLink>
-      </div>
-      </li>
-
-    </ul> -->
-
-
     <!-- رسالة عدم وجود نتائج -->
-    <!-- <p
-      v-if="!resultsCatedories.length && !resultsProducts.length && !searchQuery && !storeCategory.loading"
+    <p
+      v-if="!resultsCatedories.length && !resultsProducts.length && searchQuery && !storeCategory.loading"
       class="absolute z-10 text-center w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 h-full text-gray-500 mt-2"
     >
       لا توجد نتائج مطابقة لبحثك.
-    </p> -->
+    </p>
   </div>
 </template>
 <script setup>

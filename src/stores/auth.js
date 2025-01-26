@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import axiosIns from '@/plugins/axios';
 import router from '@/router'
+import CryptoJS from "crypto-js";
+const encryptionKey = "m-12345krglfksdjojsdkmfkdmsliwefnldvksmlejnsd";
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -11,6 +13,7 @@ export const useAuthStore = defineStore('auth', {
     error: null,
     loading: false,
     isAuthenticated:false,
+    encryptedToken: "",
   }),
 
   actions: {
@@ -77,8 +80,13 @@ export const useAuthStore = defineStore('auth', {
       this.error = null;
       try {
         const response = await axiosIns.post('auth/check_otp',{ login, otp });
-        this.token = response.data.token;
-        localStorage.setItem('authToken', response.data.token);
+        //  this.token = response.data.token;
+        this.encryptedToken = CryptoJS.AES.encrypt(
+          response.data.token,
+          encryptionKey
+        ).toString();
+
+        localStorage.setItem('authToken',this.encryptedToken );
         this.user = response.data.user;
         return true;
       } catch (error) {
@@ -91,11 +99,27 @@ export const useAuthStore = defineStore('auth', {
 
 
     restoreAuth() {
+
       const token = localStorage.getItem("authToken");
-      if (token) {
-        this.token = token;
+      if(token){
+      const bytes = CryptoJS.AES.decrypt(token, encryptionKey);
+      const detoken  = bytes.toString(CryptoJS.enc.Utf8);
+      if (detoken) {
+        this.token = detoken;
         this.isAuthenticated = true;
       }
+
+      }
+
+
+      // const bytes = CryptoJS.AES.decrypt(this.encryptedToken, encryptionKey);
+      // return bytes.toString(CryptoJS.enc.Utf8);
+
+
+      // if (token) {
+      //   this.token = token;
+      //   this.isAuthenticated = true;
+      // }
     },
 
 
@@ -178,6 +202,24 @@ export const useAuthStore = defineStore('auth', {
         this.loading = false;
       }
 
+    },
+
+
+    // update password profile
+    async updatePasswordprofile(old_password ,password , password_confirmation) {
+      this.loading = true;
+      this.error = null;
+      try {
+        const response = await axiosIns.post('profile/update_password',{old_password,password,password_confirmation});
+        this.user = response;
+        return true;
+
+      } catch (error) {
+        this.error = error.response;
+        return false;
+      } finally {
+        this.loading = false;
+      }
     },
   },
 

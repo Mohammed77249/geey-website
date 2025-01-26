@@ -176,17 +176,19 @@
         </div>
 
         <!-- نقاط المكافآت -->
-        <div class="mt-4 p-4 bg-white shadow  flex items-center text-sm text-yellow-700">
+        <!-- <div class="mt-4 p-4 bg-white shadow  flex items-center text-sm text-yellow-700">
           <p>🎉 لديك <span class="font-semibold">7 نقاط مكافأة</span></p>
-        </div>
+        </div> -->
         <!-- Shein Club -->
-        <div class="mt-4 bg-yellow-50 p-4 text-sm">
+        <!-- <div class="mt-4 bg-yellow-50 p-4 text-sm">
           <p class="font-bold text-green-700 mb-1">Jeey Club</p>
           <p>تكلفة الانضمام: <span class="text-red-500 font-bold">SR99.99</span></p>
           <p class="text-xs text-gray-500 mt-1">
             من خلال الانضمام، ستوافق على <span class="text-blue-500 underline">الشروط والأحكام</span>
           </p>
-        </div>
+        </div> -->
+
+
         <!--  <div class="mt-4 bg-white shadow p-4"> -->
            <!-- رمز القسيمة -->
             <!-- <div class="mt-4">

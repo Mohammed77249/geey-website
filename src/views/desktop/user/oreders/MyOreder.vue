@@ -35,7 +35,7 @@
                 : ' text-gray-600  ',
                 'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
               ]">
-              <span class="text-xs md:text-sm  lg:text-md    font-semibold ">غير مدفوع </span>
+              <span class="text-xs md:text-sm  lg:text-md    font-semibold ">موافق عليه  </span>
               <div class="flex items-center justify-center">
                 <div
                   :class="[
@@ -73,7 +73,7 @@
                 : ' text-gray-600  ',
                 'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
               ]">
-              <span class="text-xs md:text-sm  lg:text-md  font-semibold "> تم الشحن   </span>
+              <span class="text-xs md:text-sm  lg:text-md  font-semibold "> تم التوصيل   </span>
               <div class="flex items-center justify-center">
                 <div
                   :class="[
@@ -104,7 +104,7 @@
 
             </button>
 
-            <button @click="taggleActiveReturnedproducts"
+            <!-- <button @click="taggleActiveReturnedproducts"
               :class="[
               onclickReturnedproducts
                 ? ' text-primary-900'
@@ -121,18 +121,19 @@
                 ></div>
               </div>
 
-            </button>
+            </button> -->
 
           </div>
 
-          <div class="grid grid-cols-1 gap-1 w-full ">
+          <!-- all  request -->
+          <div v-if="onclickALlRequests" class="grid grid-cols-1 gap-1 w-full ">
             <div v-for="(order, index) in orderStore.getAllOrders"
               :key="index"
                 class="p-1 mt-4"
               >
               <div class="border  bg-white shadow p-3">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="rounded-full w-5 h-5 " :style="['background-color:' + order.status.color + '']"></div>
+                  <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
                   <p class="font-semibold text-sm"> {{ order.status.name }}</p>
                 </div>
                 <RouterLink :to="`/desktop/user/myorder/${order.id}`">
@@ -155,7 +156,7 @@
                   <h3 class="font-semibold  text-primary-900 text-sm ">  السعر الاجمالي : {{ order.total }} ري </h3>
                 </div>
 
-                <div class="flex items-center gap-3 mt-2">
+                <!-- <div class="flex items-center gap-3 mt-2">
                   <button type="button" class="border rounded-sm h-10 w-24 text-sm ">
                     الغاء الطلبية
                   </button>
@@ -167,9 +168,7 @@
                   <button type="button" class="bg-primary-900 rounded-sm h-10 w-24 text-white text-sm">
                     تعديل العنوان
                   </button>
-                </div>
-
-
+                </div> -->
 
                 <div>
 
@@ -177,6 +176,166 @@
               </div>
             </div>
           </div>
+
+          <!-- accepted -->
+          <div v-if="onclickNotPay" class="grid grid-cols-1 gap-1 w-full ">
+            <div v-for="(order, index) in approvedOrders"
+              :key="index"
+                class="p-1 mt-4"
+              >
+              <div class="border  bg-white shadow p-3">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
+                  <p class="font-semibold text-sm"> {{ order.status.name }}</p>
+                </div>
+                <RouterLink :to="`/desktop/user/myorder/${order.id}`">
+                <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
+                  <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
+                  <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
+                </div>
+              </RouterLink>
+
+
+                <div class=" flex items-center gap-5   overflow-x-auto ">
+                  <div class=""  v-for="(product, index) in order.order_products" :key="index">
+                    <div class="w-[150px] h-[150px] ">
+                      <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center  gap-2 mt-2">
+                  <h3 class="font-semibold  text text-sm ">  عدد المنتجات : {{ order.total_products }} </h3>
+                  <h3 class="font-semibold  text-primary-900 text-sm ">  السعر الاجمالي : {{ order.total }} ري </h3>
+                </div>
+
+                <!-- <div class="flex items-center gap-3 mt-2">
+                  <button type="button" class="border rounded-sm h-10 w-24 text-sm ">
+                    الغاء الطلبية
+                  </button>
+
+                  <button type="button" class="border rounded-sm h-10 w-24 text-sm">
+                    التتبع
+                  </button>
+
+                  <button type="button" class="bg-primary-900 rounded-sm h-10 w-24 text-white text-sm">
+                    تعديل العنوان
+                  </button>
+                </div> -->
+
+                <div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- قيد التجهيز -->
+          <div v-if="onclickEfficientprocessing" class="grid grid-cols-1 gap-1 w-full ">
+            <div v-for="(order, index) in EfficientprocessingOrders"
+              :key="index"
+                class="p-1 mt-4"
+              >
+              <div class="border  bg-white shadow p-3">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
+                  <p class="font-semibold text-sm"> {{ order.status.name }}</p>
+                </div>
+                <RouterLink :to="`/desktop/user/myorder/${order.id}`">
+                <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
+                  <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
+                  <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
+                </div>
+              </RouterLink>
+
+
+                <div class=" flex items-center gap-5   overflow-x-auto ">
+                  <div class=""  v-for="(product, index) in order.order_products" :key="index">
+                    <div class="w-[150px] h-[150px] ">
+                      <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center  gap-2 mt-2">
+                  <h3 class="font-semibold  text text-sm ">  عدد المنتجات : {{ order.total_products }} </h3>
+                  <h3 class="font-semibold  text-primary-900 text-sm ">  السعر الاجمالي : {{ order.total }} ري </h3>
+                </div>
+
+                <!-- <div class="flex items-center gap-3 mt-2">
+                  <button type="button" class="border rounded-sm h-10 w-24 text-sm ">
+                    الغاء الطلبية
+                  </button>
+
+                  <button type="button" class="border rounded-sm h-10 w-24 text-sm">
+                    التتبع
+                  </button>
+
+                  <button type="button" class="bg-primary-900 rounded-sm h-10 w-24 text-white text-sm">
+                    تعديل العنوان
+                  </button>
+                </div> -->
+
+                <div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!--  تم التوصيل -->
+          <div v-if="onclickShipped" class="grid grid-cols-1 gap-1 w-full ">
+            <div v-for="(order, index) in EfficientprocessingOrders"
+              :key="index"
+                class="p-1 mt-4"
+              >
+              <div class="border  bg-white shadow p-3">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
+                  <p class="font-semibold text-sm"> {{ order.status.name }}</p>
+                </div>
+                <RouterLink :to="`/desktop/user/myorder/${order.id}`">
+                <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
+                  <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
+                  <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
+                </div>
+              </RouterLink>
+
+
+                <div class=" flex items-center gap-5   overflow-x-auto ">
+                  <div class=""  v-for="(product, index) in order.order_products" :key="index">
+                    <div class="w-[150px] h-[150px] ">
+                      <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center  gap-2 mt-2">
+                  <h3 class="font-semibold  text text-sm ">  عدد المنتجات : {{ order.total_products }} </h3>
+                  <h3 class="font-semibold  text-primary-900 text-sm ">  السعر الاجمالي : {{ order.total }} ري </h3>
+                </div>
+
+                <!-- <div class="flex items-center gap-3 mt-2">
+                  <button type="button" class="border rounded-sm h-10 w-24 text-sm ">
+                    الغاء الطلبية
+                  </button>
+
+                  <button type="button" class="border rounded-sm h-10 w-24 text-sm">
+                    التتبع
+                  </button>
+
+                  <button type="button" class="bg-primary-900 rounded-sm h-10 w-24 text-white text-sm">
+                    تعديل العنوان
+                  </button>
+                </div> -->
+
+                <div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
 
           <!-- <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 ">
           <div v-for="order in orders" :key="order.id" class="mb-4">
@@ -239,6 +398,13 @@ const filteredData = ref({
   perPage: 10,
 })
 
+
+
+const approvedOrders = ref([]);
+const EfficientprocessingOrders = ref([]);
+const shopedOrders = ref([]);
+
+
 const onclickALlRequests = ref(true)
 const onclickNotPay = ref(false)
 const onclickEfficientprocessing = ref(false)
@@ -296,19 +462,23 @@ const taggleActiveComment = () => {
 
 }
 
-const taggleActiveReturnedproducts = () => {
-  onclickALlRequests.value =  false
-  onclickNotPay.value =  false
-  onclickEfficientprocessing.value =  false
-  onclickShipped.value = false
-  onclickComment.value =false
-  onclickReturnedproducts.value =true
+// const taggleActiveReturnedproducts = () => {
+//   onclickALlRequests.value =  false
+//   onclickNotPay.value =  false
+//   onclickEfficientprocessing.value =  false
+//   onclickShipped.value = false
+//   onclickComment.value =false
+//   onclickReturnedproducts.value =true
 
-}
+// }
 
 
 onMounted(async() => {
  await orderStore.fetchAllOrders(filteredData)
+
+ approvedOrders.value = orderStore.getAllOrders.filter(order => order.status.id == 2)
+ EfficientprocessingOrders.value = orderStore.getAllOrders.filter(order => order.status.id == 3);
+ shopedOrders.value = orderStore.getAllOrders.filter(order => order.status.id == 6);
 })
 
 // قائمة الطلبات مع الصور

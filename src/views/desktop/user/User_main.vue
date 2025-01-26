@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="grid grid-cols-12 gap-2">
-            <div class="col-span-12 lg:col-span-8">
+            <div class="col-span-12 lg:col-span-12">
               <section class="p-4 rounded bg-white mb-10">
                 <div class="flex items-center justify-between">
                   <div class="flex gap-3">
@@ -10,7 +10,7 @@
                   </div>
                   <div class="flex items-center gap-2">
                     <button class="text-[12px] text-gray-500 font-medium">
-                      <RouterLink to="/my_profile">  ملفي الشخصي</RouterLink>
+                      <RouterLink to="/desktop/user/myaccount">  ملفي الشخصي</RouterLink>
 
                     </button>
                     <svg
@@ -31,7 +31,8 @@
                     </svg>
                   </div>
                 </div>
-                <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+
+                <!-- <div class="mt-4 grid grid-cols-3 gap-4 text-center">
                   <div class="space-y-3">
                     <p class="text-xs font-bold">***</p>
                     <p class="text-gray-600">كوبونات</p>
@@ -44,7 +45,8 @@
                     <p class="text-xs font-bold">***</p>
                     <p class="text-gray-600">بطاقة هديه</p>
                   </div>
-                </div>
+                </div> -->
+
               </section>
               <!-- Orders -->
               <section class="bg-white p-4 rounded">
@@ -104,8 +106,8 @@
             </div>
 
             <!-- Left Sidebar -->
-            <div class="col-span-12 lg:col-span-4 space-y-4">
-              <!-- Customer Service -->
+            <!-- <div class="col-span-12 lg:col-span-4 space-y-4">
+
               <section class="bg-white p-4 rounded">
                 <h2 class="text-md font-bold mb-4">خدمة العملاء</h2>
                 <div class="grid grid-cols-2 gap-4">
@@ -122,7 +124,7 @@
                 </div>
               </section>
 
-              <!-- Wishlist -->
+
               <section class="bg-white p-4 rounded">
                 <div class="flex justify-between items-center">
                   <h2 class="text-md font-bold">قائمة الإرادة</h2>
@@ -137,7 +139,7 @@
                 </div>
               </section>
 
-              <!-- Recently Viewed -->
+
               <section class="bg-white p-4 rounded">
                 <div class="flex justify-between items-center">
                   <h2 class="text-md font-bold">شُوهِد مؤخراً</h2>
@@ -161,7 +163,8 @@
                   />
                 </div>
               </section>
-            </div>
+            </div> -->
+
           </div>
 
   </div>

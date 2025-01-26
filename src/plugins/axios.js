@@ -1,6 +1,8 @@
 import axios from 'axios';
 import i18n from './i18n'
 const language = i18n.global.locale
+import CryptoJS from "crypto-js";
+const encryptionKey = "m-12345krglfksdjojsdkmfkdmsliwefnldvksmlejnsd";
 
 const BaseUrl =  import.meta.env.VITE_API_URL
 const axiosIns = axios.create({
@@ -19,8 +21,11 @@ const axiosIns = axios.create({
 axiosIns.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const bytes = CryptoJS.AES.decrypt(token, encryptionKey);
+    const detoken  = bytes.toString(CryptoJS.enc.Utf8);
+
+    if (detoken) {
+      config.headers.Authorization = `Bearer ${detoken}`;
     }
     return config;
   },

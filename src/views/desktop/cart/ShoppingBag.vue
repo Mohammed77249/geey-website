@@ -4,9 +4,9 @@
       <!-- Cart Products -->
       <div class="col-span-2 px-5">
         <!-- Header -->
-        <div class=" w-full bg-orange-50 border border-orange-300 h-12 mb-3 flex items-center ">
+        <!-- <div class=" w-full bg-orange-50 border border-orange-300 h-12 mb-3 flex items-center ">
           <h2 class="text-sm   px-5">استخدم الكوبون الآن لتوفير SR15.31</h2>
-         </div>
+         </div> -->
 
          <div v-if="storeCart.getallCarts.length > 0" class="bg-white w-full h-14 mb-3 flex items-center justify-between px-5">
           <div class="flex items-center " >
@@ -16,6 +16,8 @@
               class="h-5 w-7 peer-checked:bg-black  peer-checked:border-black cursor-pointer transition-all duration-300 border border-black rounded-none"/>
             <h2 class="font-medium text-lg px-2">كل المنتجات ({{ selectedCount }})</h2>
           </div>
+
+
           <div class="flex items-center gap-1">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path opacity="0.4" d="M11 19.5H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -32,7 +34,7 @@
 
          </div>
 
-         <div class=" w-full px-5 bg-orange-50  h-16 mb-2 flex items-center justify-between ">
+         <!-- <div class=" w-full px-5 bg-orange-50  h-16 mb-2 flex items-center justify-between ">
             <div class="flex flex-col">
               <span>هدايا رائعة</span>
               <span class="text-sm ">اضف SR322.45 أكثر للحصول على هدية مجانية!</span>
@@ -40,9 +42,9 @@
             <div>
               <button class="text-white font-bold hover:bg-primary-800 bg-primary-900 w-24 h-8 text-[14px]">اضافة</button>
             </div>
-         </div>
+         </div> -->
 
-         <div class=" w-full px-5 bg-orange-50  h-16 mb-3 flex items-center justify-between ">
+         <!-- <div class=" w-full px-5 bg-orange-50  h-16 mb-3 flex items-center justify-between ">
             <div class="flex flex-col">
               <span>المنتجات المضافة</span>
               <span class="text-sm ">مؤهل لاختيار منتج إضافي.</span>
@@ -50,7 +52,7 @@
             <div>
               <button class="text-white font-bold hover:bg-primary-800 bg-primary-900 w-24 h-8 text-[14px]">اختيار</button>
             </div>
-         </div>
+         </div> -->
 
 
         <!-- Products List -->
@@ -189,8 +191,10 @@
           </button>
         </div>
 
-        <div class="bg-white mt-6 shadow p-4 mb-10">
-          <!-- Payment Methods -->
+
+        <!-- Payment Methods -->
+        <!-- <div class="bg-white mt-6 shadow p-4 mb-10">
+
           <div class="">
             <h3 class="text-md font-bold mb-2">نقبل:</h3>
             <div class="grid grid-cols-4 gap-2 ">
@@ -232,10 +236,9 @@
                 alt="Apple Pay"
                 class="w-20 h-12 object-cover"
               />
-              <!-- Add other icons -->
             </div>
           </div>
-        </div>
+        </div> -->
 
 
       </div>

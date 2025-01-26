@@ -30,6 +30,8 @@ export const useSectionsStore = defineStore('sections', {
     currentSectionId: null,
     currentSubSectionId:null,
 
+    bannerImage:[],
+
   }),
   getters: {
     getSections: state => state.sections,
@@ -46,7 +48,7 @@ export const useSectionsStore = defineStore('sections', {
     getCategoriesMain: state => state.categories_Main,
     getProducts_Main:state => state.products_main,
     getProducts_MainPageMoreSells:state => state.product_Filter_SubSection,
-
+    getBannerImage : state => state.bannerImage,
 
 
     getAllSections: state => state.allsections,
@@ -103,6 +105,23 @@ export const useSectionsStore = defineStore('sections', {
           this.totalProducts.totalItems = response.data.products.total
           this.totalProducts.totalPages = response.data.products.last_page
         }
+
+      } catch (error) {
+        this.error = error+ 'خطأ أثناء جلب الفئات';
+      } finally {
+        this.loading = false;
+      }
+    },
+
+
+    async fetchGetBanner(data) {
+      const filter = 2
+      this.loading = true;
+      this.error = null;
+      try {
+        const response = await axiosIns.get(`sections/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}&filter=${filter}`);
+
+        this.bannerImage = response.data.panner_images
 
       } catch (error) {
         this.error = error+ 'خطأ أثناء جلب الفئات';

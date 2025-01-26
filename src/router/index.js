@@ -543,6 +543,7 @@ import DesktopMyOreder from '@/views/desktop/user/oreders/MyOreder.vue';
 import DesktopMyProfile from '@/views/desktop/user/MyProfile.vue';
 import DesktopMyAddresses from '@/views/desktop/user/addresses/MyAddresses.vue';
 import DesktopOrderDetails from '@/views/desktop/user/oreders/OrderDetails.vue';
+import DesktopMangeMyAccount from '@/views/desktop/user/userAccount/MangeMyAccount.vue';
 
 // phone
 import PhoneLoginPage from '@/views/phone/auth/LoginPage.vue';
@@ -591,12 +592,14 @@ const routes = [
       {
         path: 'user',
         component: DesktopUser_Index,
+        meta: { requiresAuth: true , hideHeaderFooter: true  },
         children: [
           { path: '', name: 'desktopUserMain', component: DesktopUser_main },
           { path: 'myorder', name: 'desktopMyOrder', component: DesktopMyOreder },
           { path: 'myorder/:id', name: 'desktopOrderDetails', component: DesktopOrderDetails },
           { path: 'myaddresses', name: 'desktopMyAddresses', component: DesktopMyAddresses },
           { path: 'myprofile', name: 'desktopMyProfile', component: DesktopMyProfile },
+          { path: 'myaccount', name: 'desktopMyAccount', component: DesktopMangeMyAccount },
         ],
       },
     ],

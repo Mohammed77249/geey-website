@@ -276,6 +276,7 @@ const filteredData = ref({
       updateHoveredIndex();
       intervalId = setInterval(updateHoveredIndex, 500);
       storeSecion.fetchSections(filteredData);
+      storeSecion.fetchGetBanner(filteredData)
       // storeSecion.fetchSubSectionBySectionID(filteredData);
       // storeSecion.fetchSubSectionBySectionID(filteredData);
 

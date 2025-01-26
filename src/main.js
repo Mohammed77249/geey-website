@@ -7,12 +7,14 @@ import { useAuthStore } from './stores/auth'
 import i18n from "@/plugins/i18n";
 import { useLanguageStore } from '@/stores/language'
 // import { Vue3GoogleMap } from 'vue3-google-map';
+
 import '@fontsource/ibm-plex-sans-arabic';
 import * as Vue3GoogleMap from 'vue3-google-map';
 const app = createApp(App)
 app.use(router)
 app.use(createPinia())
 app.use(i18n)
+
 const authStore = useAuthStore()
 authStore.restoreAuth()
 const languageStore = useLanguageStore()

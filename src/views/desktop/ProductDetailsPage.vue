@@ -704,14 +704,14 @@
     </div>
 
     <!-- more product-->
-    <div class="bg-white py-8 mb-10">
+    <!-- <div class="bg-white py-8 mb-10">
       <div class="container mx-auto px-4">
         <h3 class="text-xl font-bold mb-4">{{ $t('What others look at') }}</h3>
         <div>
           <MoreProductDetailsComp />
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -728,7 +728,7 @@ import DescriptionComp from '@/components/ProductDetailsComponent/DescriptionCom
 // import SizeProDetailsComp from '@/components/ProductDetailsComponent/SizeProDetailsComp.vue'
 // import AboutStoreComp from '@/components/ProductDetailsComponent/AboutStoreComp.vue'
 
-import MoreProductDetailsComp from '@/components/ProductDetailsComponent/MoreProductDetailsComp.vue'
+// import MoreProductDetailsComp from '@/components/ProductDetailsComponent/MoreProductDetailsComp.vue'
 import { useProductStore } from '@/stores/product'
 import { useCartStore } from '@/stores/cart'
 import { Swiper, SwiperSlide } from "swiper/vue";
