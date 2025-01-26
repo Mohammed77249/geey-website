@@ -54,7 +54,7 @@
                   <h2 class="text-md font-bold mb-4">طلبي</h2>
                   <div class="flex items-center gap-2">
                     <button class="text-[12px] text-gray-500 font-medium">
-                      <RouterLink to="/myrequests">الاراء الكاملة</RouterLink>
+                      <RouterLink to="/desktop/user/myorder">الاراء الكاملة</RouterLink>
                     </button>
                     <svg
                       width="15"
@@ -77,31 +77,35 @@
 
                 <div class="grid grid-cols-5 gap-2 p-2 text-center">
                   <div>
-                    <p class="text-gray-500">غير مدفوع</p>
-                    <p class="text-lg font-bold">0</p>
+                    <p class="text-gray-500"> كل الطلبات</p>
+                    <p class="text-lg font-bold">{{ orderStore.allOrders.length}}</p>
                   </div>
                   <div>
                     <p class="text-gray-500">قيد التجهيز</p>
-                    <p class="text-lg font-bold">0</p>
+                    <p class="text-lg font-bold">{{ EfficientprocessingOrders.length }}</p>
                   </div>
                   <div>
-                    <p class="text-gray-500">تم الشحن</p>
-                    <p class="text-lg font-bold">0</p>
+                    <p class="text-gray-500">تم الموافقه</p>
+                    <p class="text-lg font-bold">{{ approvedOrders.length }}</p>
+                  </div>
+                  <div>
+                    <p class="text-gray-500">تم التوصيل</p>
+                    <p class="text-lg font-bold">{{ shopedOrders.length }}</p>
                   </div>
                   <div>
                     <p class="text-gray-500">تعليق</p>
                     <p class="text-lg font-bold">0</p>
                   </div>
-                  <div>
+                  <!-- <div>
                     <p class="text-gray-500">المنتجات المسترجعة</p>
                     <p class="text-lg font-bold">0</p>
-                  </div>
+                  </div> -->
                 </div>
-                <div class="w-full h-52 bg-gray-100 flex items-center justify-center">
+                <!-- <div class="w-full h-52 bg-gray-100 flex items-center justify-center">
 
                   <span>فارغ</span>
 
-                </div>
+                </div> -->
               </section>
             </div>
 
@@ -170,7 +174,26 @@
   </div>
 </template>
 <script setup>
+import { useConfirmOrders } from '@/stores/confirmorder.js';
+import {  ref ,onMounted} from 'vue';
+const orderStore = useConfirmOrders();
 
+const filteredData = ref({
+  page: 1,
+  perPage: 10,
+})
+
+const approvedOrders = ref([]);
+const EfficientprocessingOrders = ref([]);
+const shopedOrders = ref([]);
+
+onMounted(async() => {
+ await orderStore.fetchAllOrders(filteredData)
+
+ approvedOrders.value = orderStore.getAllOrders.filter(order => order.status.id == 2)
+ EfficientprocessingOrders.value = orderStore.getAllOrders.filter(order => order.status.id == 3);
+ shopedOrders.value = orderStore.getAllOrders.filter(order => order.status.id == 6);
+})
 </script>
 
 <style>

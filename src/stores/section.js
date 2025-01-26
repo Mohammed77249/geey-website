@@ -68,8 +68,8 @@ export const useSectionsStore = defineStore('sections', {
 
 
       } catch (error) {
-        this.error = 'خطأ أثناء جلب الاقسام';
-        alert(error(error));
+        this.error = error+'خطأ أثناء جلب الاقسام';
+
         this.loading = false;
       } finally {
         this.loading = false;
@@ -161,8 +161,7 @@ export const useSectionsStore = defineStore('sections', {
         // this.totalProducts.totalItems = response.data.products.total;
         // this.totalProducts.totalPages = response.data.products.last_page;
       } catch (error) {
-        this.error = 'خطأ أثناء جلب الاقسام';
-        alert(error(error));
+        this.error = error+ 'خطأ أثناء جلب الاقسام';
         this.loading = false;
       } finally {
         this.loading = false;
@@ -197,8 +196,8 @@ export const useSectionsStore = defineStore('sections', {
         // this.totalProducts.totalItems = response.data.products.total
         // this.totalProducts.totalPages = response.data.products.last_page
       } catch (error) {
-        this.error = 'خطأ أثناء جلب الفئات'
-        console.error(error)
+        this.error = error+'خطأ أثناء جلب الفئات'
+
       } finally {
         this.loading = false
       }
@@ -223,8 +222,7 @@ export const useSectionsStore = defineStore('sections', {
         this.totalProducts.totalPages = response.data.products.last_page
 
       } catch (error) {
-        this.error = 'خطأ أثناء جلب الفئات'
-        console.error(error)
+        this.error = error+'خطأ أثناء جلب الفئات'
 
       } finally {
         this.loading = false

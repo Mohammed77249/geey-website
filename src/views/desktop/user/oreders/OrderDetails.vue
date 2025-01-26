@@ -78,7 +78,7 @@
             <div class="border-t my-4"></div>
             <div class="flex justify-between font-semibold text-lg">
               <span>الإجمالي:</span>
-              <span class="text-primary-900"> YER {{ order.products_total  }}</span>
+              <span class="text-primary-900"> YER {{ order.total  }}</span>
             </div>
           </div>
         </div>

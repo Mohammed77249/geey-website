@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import axiosIns from '@/plugins/axios';
 import router from '@/router'
-import CryptoJS from "crypto-js";
-const encryptionKey = "m-12345krglfksdjojsdkmfkdmsliwefnldvksmlejnsd";
+// import CryptoJS from "crypto-js";
+// const encryptionKey = "m-12345krglfksdjojsdkmfkdmsliwefnldvksmlejnsd";
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -80,11 +80,11 @@ export const useAuthStore = defineStore('auth', {
       this.error = null;
       try {
         const response = await axiosIns.post('auth/check_otp',{ login, otp });
-        //  this.token = response.data.token;
-        this.encryptedToken = CryptoJS.AES.encrypt(
-          response.data.token,
-          encryptionKey
-        ).toString();
+         this.token = response.data.token;
+        // this.encryptedToken = CryptoJS.AES.encrypt(
+        //   response.data.token,
+        //   encryptionKey
+        // ).toString();
 
         localStorage.setItem('authToken',this.encryptedToken );
         this.user = response.data.user;
@@ -101,25 +101,25 @@ export const useAuthStore = defineStore('auth', {
     restoreAuth() {
 
       const token = localStorage.getItem("authToken");
-      if(token){
-      const bytes = CryptoJS.AES.decrypt(token, encryptionKey);
-      const detoken  = bytes.toString(CryptoJS.enc.Utf8);
-      if (detoken) {
-        this.token = detoken;
-        this.isAuthenticated = true;
-      }
+      // if(token){
+      // const bytes = CryptoJS.AES.decrypt(token, encryptionKey);
+      // const detoken  = bytes.toString(CryptoJS.enc.Utf8);
+      // if (detoken) {
+      //   this.encryptedToken = detoken;
+      //   this.isAuthenticated = true;
+      // }
 
-      }
+      // }
 
 
       // const bytes = CryptoJS.AES.decrypt(this.encryptedToken, encryptionKey);
       // return bytes.toString(CryptoJS.enc.Utf8);
 
 
-      // if (token) {
-      //   this.token = token;
-      //   this.isAuthenticated = true;
-      // }
+      if (token) {
+        this.token = token;
+        this.isAuthenticated = true;
+      }
     },
 
 
@@ -192,6 +192,7 @@ export const useAuthStore = defineStore('auth', {
 
         localStorage.removeItem('authToken');
         localStorage.removeItem('emailuser');
+        localStorage.removeItem('userNew');
         router.push('/desktop/login');
         return true;
       } catch (error) {
