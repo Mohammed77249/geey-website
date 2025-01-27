@@ -471,6 +471,9 @@ import { RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/auth';
 const storeAuth = useAuthStore();
 
+
+
+
 // حالة الأقسام المفتوحة/المغلقة
 const sections = reactive({
   account: true,
