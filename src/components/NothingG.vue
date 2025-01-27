@@ -3211,3 +3211,119 @@ const onclickSubSection = (index)=>{
 
 }
 </style>
+
+
+
+
+// sidebar
+
+  <!-- <div >
+    <div v-if="isOpen"  class="fixed  border h-[70%] inset-0  overflow-y-auto   bg-opacity-50 z-40 ">
+    <div class="w-full bg-white p-5 z-50">
+
+      <div class="grid grid-cols-12 ">
+
+      <div class="col-span-6  text-right ">
+        <div>
+          <span class="pr-5 text-[12px] font-sans">تسوق حسب الفئات</span>
+        </div>
+
+      </div>
+
+      <div class="col-span-4 text-right pl-10 pr-10  border-s-2 ">
+        <div class=" flex justify-end pb-3">
+          <span class="pr-5 text-[12px] font-sans">تسوق حسب الفئات</span>
+          <div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 8.27V4.23C22 2.64 21.36 2 19.77 2H15.73C14.14 2 13.5 2.64 13.5 4.23V8.27C13.5 9.86 14.14 10.5 15.73 10.5H19.77C21.36 10.5 22 9.86 22 8.27Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10.5 8.52V3.98C10.5 2.57 9.86 2 8.27 2H4.23C2.64 2 2 2.57 2 3.98V8.51C2 9.93 2.64 10.49 4.23 10.49H8.27C9.86 10.5 10.5 9.93 10.5 8.52Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10.5 19.77V15.73C10.5 14.14 9.86 13.5 8.27 13.5H4.23C2.64 13.5 2 14.14 2 15.73V19.77C2 21.36 2.64 22 4.23 22H8.27C9.86 22 10.5 21.36 10.5 19.77Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path opacity="0.4" d="M15 15.5H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"/>
+            <path opacity="0.4" d="M15 19.5H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class=" bg-yellow-200 overflow-y-auto">
+
+          <div class="flex gap-8 ">
+
+            <div class="w-[100px]  grid grid-rows-1 items-center justify-center h-[110px] bg-green-200 cursor-pointer">
+            <div class="">
+             <img src="/public/logogeey.svg" class="w-20 h-20 rounded-full bg-red-200 " alt="Avatar of Jonathan Reinink" />
+             <span class="bg-blue-200 mt-10">Users</span>
+            </div>
+          </div>
+
+          <div class="w-[100px]  grid grid-rows-1 items-center justify-center h-[110px] bg-green-200 cursor-pointer">
+            <div class="">
+             <img src="/public/logogeey.svg" class="w-20 h-20 rounded-full bg-red-200 " alt="Avatar of Jonathan Reinink" />
+             <span class="bg-blue-200 mt-10">Users</span>
+            </div>
+          </div>
+
+          <div class="w-[100px]  grid grid-rows-1 items-center justify-center h-[110px] bg-green-200 cursor-pointer">
+            <div class="">
+             <img src="/public/logogeey.svg" class="w-20 h-20 rounded-full bg-red-200 " alt="Avatar of Jonathan Reinink" />
+             <span class="bg-blue-200 mt-10">Users</span>
+            </div>
+          </div>
+
+
+          <div class="w-[100px]  grid grid-rows-1 items-center justify-center h-[110px] bg-green-200 cursor-pointer">
+            <div class="">
+             <img src="/public/logogeey.svg" class="w-20 h-20 rounded-full bg-red-200 " alt="Avatar of Jonathan Reinink" />
+             <span class="bg-blue-200 ">Users</span>
+            </div>
+          </div>
+
+          </div>
+
+          <div class="grid grid-cols-1  gap-5 p-2">
+              <div class="grid grid-rows-2 items-center justify-center  bg-white shadow-md  w-[80px] overflow-hidden">
+                <div>
+                  <img src="/public/logogeey.svg" alt="Card Image" class="w-20 rounded-full bg-red-500 h-20 object-cover" />
+                </div>
+              <div class="p-4 bg-blue-500">
+                <h3 class="text-[12px] font-semibold ">عنوان </h3>
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+      </div>
+
+
+      <div class="col-span-2   border-s-2">
+        <ul class=" text-gray-700 text-[12px]   font-sans">
+        <li
+          v-for="(item, index) in list"
+          :key="index"
+          class="cursor-pointer flex-shrink-0 flex items-center pl-10 p-2 justify-between hover:text-black  hover:bg-gray-100 h-10"
+        >
+        <div class="">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="font-bold">
+                <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="gray" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+          </div>
+          {{ item.name }}
+
+        </li>
+      </ul>
+      </div>
+
+
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div> -->

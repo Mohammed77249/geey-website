@@ -320,7 +320,7 @@ const checkName = () => {
   }
 
 
-  if (exists.id) {
+  if (exists && exists.id) {
     filteredAreas.value = storeAddress.getDistricts.filter(
       (area) => area.city_id === parseInt(exists.id)
     );

@@ -19,7 +19,7 @@
                   <div class="rounded-full w-5 h-5 " :style="['background-color:' + order.status.color + '']"></div>
                   <p class="font-semibold text-sm"> {{ order.status.name }}</p>
                 </div>
-                <RouterLink :to="`/myoreder/${order.id}`">
+                <RouterLink :to="`/desktop/user/myoreder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
                   <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
                   <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>

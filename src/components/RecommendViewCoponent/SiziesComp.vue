@@ -38,8 +38,8 @@
     },
 
     sizes: {
-      type: [],
-      default: [],
+     type: Array,
+
     },
   });
 

@@ -434,7 +434,7 @@
               </div>
 
               <div class="flex items-center mb-5">
-                <RouterLink :to="`/product/${storeCart.productDetails.id}`">
+                <RouterLink :to="`/desktop/product/${storeCart.productDetails.id}`">
                   <div class="flex items-center">
                     <h1 class="text-gray-500 font-medium">
                       {{ $t('View Full Details') }}

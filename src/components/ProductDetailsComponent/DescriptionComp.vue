@@ -76,8 +76,8 @@ defineProps({
   },
 
   types: {
-    type: [],
-    default: [],
+    type: Array,
+    default: ()=>[],
   },
 });
 </script>

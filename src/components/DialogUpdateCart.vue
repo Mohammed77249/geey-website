@@ -185,9 +185,9 @@
                       <i> <img class="w-4" src="/src/assets/images/star.svg" /></i>
                       <i> <img class="w-4" src="/src/assets/images/star.svg" /></i>
                     </span>
-                    <h1 class="font-medium text-xs text-yellow-600">
+                    <!-- <h1 class="font-medium text-xs text-yellow-600">
                       {{ $t('Customer Reviews') }}
-                    </h1>
+                    </h1> -->
                   </div>
                 </div>
 
@@ -211,19 +211,20 @@
 
 
 
-                  <div class="h-5 px-2 flex items-center justify-center bg-black">
+                  <!-- <div class="h-5 px-2 flex items-center justify-center bg-black">
                     <p   class="text-xs text-white">
                       {{ storeCart.productDetails.discount_price }}-
                     </p>
-                  </div>
+                  </div> -->
                 </div>
 
-                <div class="flex items-center gap-1 mt-3 bg-amber-100">
+                <!-- <div class="flex items-center gap-1 mt-3 bg-amber-100">
                   <p class="text-sm font-semibold text-amber-600">
                     رقم 7 الافضل مبيعا
                   </p>
                   <p class="text-sm text-amber-600">في فساتين نوم بطباعه ازهلر</p>
-                </div>
+                </div> -->
+
                </div>
 
                 <!-- المقاس وزر الاضافة -->
@@ -310,7 +311,7 @@
 
 
                   <!-- مرجع المقاس -->
-                  <div class="mt-5 h-10">
+                  <!-- <div class="mt-5 h-10">
                     <div
                       @click="openDialog"
                       class="flex items-center gap-1 hover:underline"
@@ -320,7 +321,7 @@
                         {{ $t('Size Reference') }}
                       </p>
                     </div>
-                    <!-- Dialog Component -->
+
                     <DialogComp
                       :isOpen="isDialogOpen"
                       title="Confirmation"
@@ -329,7 +330,8 @@
                     >
                       <p>Are you sure you want to proceed with this action?</p>
                     </DialogComp>
-                  </div>
+                  </div> -->
+
                 </div>
 
                 <!-- updateToCart -->
@@ -350,13 +352,13 @@
                     <img class="w-10" src="/src/assets/images/heart.svg" />
                   </div>
                 </div>
-                <p class="text-sm">
+                <!-- <p class="text-sm">
                   {{ $t('Earn up to 3 GN points calculated at checkout.') }}
-                </p>
+                </p> -->
               </div>
 
               <div class="flex items-center mb-5">
-                <RouterLink :to="`/product/${storeCart.productDetails.id}`">
+                <RouterLink :to="`/desktop/product/${storeCart.productDetails.id}`">
                     <div class="flex items-center">
                       <h1 class="text-gray-500 font-medium"> {{$t('View Full Details')}}</h1>
                       <svg  :class="storedLanguage == 'en' ? 'hidden' : ''"  width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -387,7 +389,7 @@
 
 <script setup>
 import { defineProps, defineEmits,ref ,onMounted,computed} from "vue";
-import DialogComp from "./DialogComp.vue";
+// import DialogComp from "./DialogComp.vue";
 import LoaderDatacomp from "./LoaderDatacomp.vue";
 const storedLanguage = localStorage.getItem("language");
 import { useCartStore } from '@/stores/cart'
@@ -474,15 +476,16 @@ const searchedOption = computed(() => {
 });
 
 
-const isDialogOpen = ref(false)
+// مرجع المقاس
+// const isDialogOpen = ref(false)
 
-const openDialog = () => {
-  isDialogOpen.value = true
-}
+// const openDialog = () => {
+//   isDialogOpen.value = true
+// }
 
-const closeDialog = () => {
-  isDialogOpen.value = false
-}
+// const closeDialog = () => {
+//   isDialogOpen.value = false
+// }
 
 
 

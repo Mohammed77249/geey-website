@@ -92,8 +92,8 @@ const storeSecion = useSectionsStore()
 
 defineProps({
   categories: {
-    type: [],
-    default: [],
+   type: Array,
+
   },
 })
 

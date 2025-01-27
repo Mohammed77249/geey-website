@@ -180,9 +180,9 @@
     </main>
 
 
-    <div v-if="onclicknoproduct" class="bg-white w-full ">
+    <!-- <div v-if="onclicknoproduct" class="bg-white w-full ">
       <ProductUnder/>
-    </div>
+    </div> -->
 
   </div>
 </template>
@@ -194,7 +194,7 @@ import PayMoney from './cart/PayMoney.vue';
 import RequestDone from './cart/RequestDone.vue';
 import { useCartStore } from '@/stores/cart.js';
 import { ref ,watch} from 'vue'
-import ProductUnder from './cart/ProductUnder.vue';
+// import ProductUnder from './cart/ProductUnder.vue';
 
 const cartStore = useCartStore();
 const onclicknoproduct = ref(true)
@@ -205,12 +205,23 @@ const onclickConfirmOrder = ref(false)
 const onclickPay = ref(false);
 const onclickRequestDone = ref(false)
 
-watch(()=>{
-  if(cartStore.isCheckoutEnabled){
-  onclickConfirmOrder.value = true;
-  onclickShoppingBag.value = false;
-}
-})
+// watch(()=>{
+//   if(cartStore.isCheckoutEnabled){
+//   onclickConfirmOrder.value = true;
+//   onclickShoppingBag.value = false;
+// }
+// })
+
+watch(
+  () => cartStore.isCheckoutEnabled,
+  (newValue) => {
+    if (newValue) {
+      onclickConfirmOrder.value = true;
+      onclickShoppingBag.value = false;
+    }
+  }
+);
+
 
 
 const taggleActiveShoppingBag = () => {

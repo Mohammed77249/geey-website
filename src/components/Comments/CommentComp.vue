@@ -72,7 +72,7 @@ import { defineProps} from 'vue'
 
 defineProps({
   commentList: {
-    type: [],
+    type: Array,
   },
 
 });

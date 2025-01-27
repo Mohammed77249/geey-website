@@ -184,6 +184,7 @@
             </div>
           </div>
           <button
+          type="button"
             class="mt-4 w-full hover:bg-primary-800 bg-primary-900 text-white py-4 "
             @click="checkout"
           >
@@ -294,14 +295,6 @@ const updateSelectAll = () => {
   selectAll.value = storeCart.allCarts.every((product) => product.selected);
 };
 
-// const authStore = useAuthStore();
-// const router = useRouter();
-
-// if (!authStore.isAuthenticated) {
-//   alert('يرجى تسجيل الدخول للوصول إلى السلة.');
-//   router.push('/login');
-// }
-
 
 const formEdit = ref(null)
 const openDialog = (item) => {
@@ -317,7 +310,6 @@ const closeDialog = () => {
   filteredData.value.cartID = null;
   filteredData.value.productID = null;
 
-  // storeCart.fetchProductsInCartByID(filteredData)
 }
 
 onMounted(() => {
@@ -369,14 +361,42 @@ const removeItem = async(cart_id) => {
 const checkout = () => {
   const selectedProducts = storeCart.allCarts.filter((product) => product.selected);
 
+  if (!storeCart.allCarts || storeCart.allCarts.length === 0) {
+    alert("عربة التسوق فارغة!");
+    return;
+  }
   if (selectedProducts.length === 0) {
     alert("لم تقم باختيار أي منتجات!");
     return;
-  }else{
-    alert("انتقال إلى صفحة تاكيد الطلب");
-    storeCart.saveSelectedItems();
-    storeCart.enableCheckout();
   }
+
+  try {
+    alert("انتقال إلى صفحة تاكيد الطلب");
+
+    // استدعاء الدوال مع التحقق
+    if (typeof storeCart.saveSelectedItems === "function") {
+      storeCart.saveSelectedItems();
+    } else {
+      console.error("saveSelectedItems غير موجودة أو ليست دالة");
+    }
+
+    if (typeof storeCart.enableCheckout === "function") {
+      storeCart.enableCheckout();
+    } else {
+      console.error("enableCheckout غير موجودة أو ليست دالة");
+    }
+  } catch (error) {
+    console.error("حدث خطأ أثناء تنفيذ checkout:", error);
+  }
+
+  // if (selectedProducts.length == 0) {
+  //   alert("لم تقم باختيار أي منتجات!");
+  //   return;
+  // }else{
+  //   alert("انتقال إلى صفحة تاكيد الطلب");
+  //   storeCart.saveSelectedItems();
+  //   storeCart.enableCheckout();
+  // }
 
 
 };

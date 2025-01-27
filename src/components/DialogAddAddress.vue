@@ -333,7 +333,8 @@ const props = defineProps({
     required: true,
   },
   titles: {
-    type: [],
+    type: Array,
+    default: () => []
   },
   loading: {
     type: Boolean,

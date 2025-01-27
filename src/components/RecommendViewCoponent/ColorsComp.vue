@@ -36,8 +36,8 @@
     },
 
     colors: {
-      type: [],
-      default: [],
+     type: Array,
+
     },
   });
 

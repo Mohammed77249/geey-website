@@ -110,7 +110,7 @@
     </main>
 
     <AddAddress :is-open="isDialogOpen" @close="closeDialog"/>
-    <EditAddress :is-open="isEditing" @close="closeEdit"  :formEdit="formEdit"/>
+    <EditAddress :is-open="isEditing" @close="closeEdit"  :formEdit="formEdit || {}"/>
   </div>
 
 </template>
@@ -119,7 +119,10 @@ import {  ref ,onMounted} from 'vue';
 import { useAddressStore } from '@/stores/address'
 import AddAddress from './AddAddress.vue';
 import EditAddress from './EditAddress.vue';
+import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
 const storeAddress = useAddressStore()
+
+
 
 const isDialogOpen = ref(false)
 const isEditing = ref(false);

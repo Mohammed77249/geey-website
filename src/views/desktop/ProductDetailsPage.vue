@@ -174,7 +174,7 @@
           <CommentComp :commentList="listContentComment" />
 
           <div>
-            <RouterLink :to="`/desktop/product/${productId}/comments`">
+            <RouterLink :to="`/desktop/product/${filteredData2.productID}/comments`">
               <div class="flex items-center justify-center gap-1">
                 <h1 class="font-semibold text-sm">
                   {{ $t('View all customer reviews') }}

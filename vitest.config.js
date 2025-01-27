@@ -14,7 +14,7 @@ export default mergeConfig(
       root: fileURLToPath(new URL('./', import.meta.url))
     },
     optimizeDeps: {
-    include: ['swiper','vue3-google-map'],
+    include: ['swiper','vue3-google-map',],
   },
 
   resolve: {

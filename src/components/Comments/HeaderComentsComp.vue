@@ -64,7 +64,7 @@
                     <i> <img  src="/src/assets/images/star.svg"/></i>
                   </span>
                 </div>
-                <RouterLink :to="`/product/${productId}/comments`">
+                <RouterLink :to="`/desktop/product/${productId}/comments`">
               <div class="flex items-center">
                 <h1 class="text-gray-500 font-medium">{{ $t('Full opinions') }}</h1>
                 <svg  :class="storedLanguage == 'en' ? 'hidden' : ''"  width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

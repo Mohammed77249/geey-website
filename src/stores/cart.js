@@ -37,9 +37,7 @@ export const useCartStore = defineStore('cart', {
       return state.totalPrice - state.totalDiscount;
     },
 
-    enableCheckout() {
-      this.isCheckoutEnabled = true;
-    },
+
 
 
 
@@ -175,6 +173,10 @@ export const useCartStore = defineStore('cart', {
      // حفظ العناصر المختارة
      saveSelectedItems(){
       this.selectedItems = this.allCarts.filter((product) => product.selected);
-    }
+    },
+
+    enableCheckout() {
+      this.isCheckoutEnabled = true;
+    },
   },
 })

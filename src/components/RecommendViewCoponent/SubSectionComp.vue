@@ -125,8 +125,8 @@ const props = defineProps({
   },
 
   subSectiones: {
-    type: [],
-    default: [],
+    type: Array,
+   
   },
 
   lev:{
