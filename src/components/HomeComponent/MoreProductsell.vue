@@ -29,14 +29,32 @@
 
       <h3 class="font-semibold rtl text text-sm mt-1">{{ product.name }}</h3>
     </RouterLink>
-
+    <div class="mt-1">
+          <div class="flex items-center">
+            <span class="flex text-yellow-500">
+              <i>
+                <img src="/src/assets/images/star.svg" class="w-3 md:w-4"
+              /></i>
+              <i>
+                <img src="/src/assets/images/star.svg" class="w-3 md:w-4"
+              /></i>
+              <i>
+                <img src="/src/assets/images/star.svg" class="w-3 md:w-4"
+              /></i>
+              <i>
+                <img src="/src/assets/images/star.svg" class="w-3 md:w-4"
+              /></i>
+            </span>
+            <!-- <p class="text-[8px] md:text-[10px] mr-2">(+1000)</p> -->
+          </div>
+        </div>
 
     <div class="flex items-center justify-between">
       <div class="flex gap-2 items-center ">
         <p class="font-sembold text-primary-900">{{ product.base_price }}</p>
-        <div class="border border-primary-900">
+        <!-- <div class="border border-primary-900">
          <p class=" text-[10px] text-primary-900 "> %50- </p>
-        </div>
+        </div> -->
 
       </div>
       <div @click="openDialog(product.id)" class="cursor-pointer w-10 flex items-center justify-center border border-primary-900 rounded-full">

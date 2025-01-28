@@ -73,7 +73,7 @@
             :space-between="10"
             navigation
             pagination
-            :class="{'rounded-lg custom-swiper border w-[250px] h-[250px] md:h-[600px] lg:w-[450px] lg:h-[700px] xl:w-[600px] xl:h-[800px] 2xl:w-[700px] 2xl:h-[900px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
+            :class="{'rounded-lg custom-swiper border w-[250px] h-[250px] md:h-[600px] lg:w-[450px] lg:h-[700px] xl:w-[600px] xl:h-[800px] 2xl:w-[700px] 2xl:h-[900px] mb-10':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px] mb-10':storedLanguage == 'en'}"
              @swiper="setSwiperInstance"
           >
 
@@ -114,7 +114,7 @@
         </div>
 
         <!-- // comments -->
-        <div class="mt-10 mb-10 hidden lg:block">
+        <!-- <div class="mt-10 mb-10 hidden lg:block">
           <div class="mb-5">
             <div class="flex items-center justify-between mb-5">
               <h1 class="font-semibold text-xl">
@@ -168,7 +168,6 @@
             <HeaderCommentsComp :isMain="true" />
           </div>
 
-          <!-- comments -->
           <CommentComp :commentList="listContentComment" />
           <CommentComp :commentList="listContentComment" />
           <CommentComp :commentList="listContentComment" />
@@ -192,7 +191,7 @@
               </div>
             </RouterLink>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- product details  -->
@@ -717,8 +716,8 @@
 
 <script setup>
 import { ref, onMounted,  computed} from 'vue'
-import CommentComp from '@/components/Comments/CommentComp.vue'
-import HeaderCommentsComp from '@/components/Comments/HeaderComentsComp.vue'
+// import CommentComp from '@/components/Comments/CommentComp.vue'
+// import HeaderCommentsComp from '@/components/Comments/HeaderComentsComp.vue'
 import { useRoute } from 'vue-router'
 import LoaderComp from '@/components/LoaderDatacomp.vue'
 //   <!-- مرجع المقاس -->
@@ -763,40 +762,40 @@ const storedLanguage = localStorage.getItem('language')
 
 
 
-const listContentComment = ref([
-  {
-    title: 'حجم التمثال',
-    subtitle: 'us 30/EUR 65',
-  },
-  {
-    title: 'خصر ',
-    subtitle: 'cm/23 in 59',
-  },
-  {
-    title: 'طول',
-    subtitle: 'cm/62 in 165',
-  },
-  {
-    title: 'الوزن',
-    subtitle: 'kg/130 lbs 70',
-  },
-  {
-    title: 'الوركين',
-    subtitle: 'cm/30 in 80',
-  },
-  {
-    title: 'المقاس العام',
-    subtitle: 'مناسب',
-  },
-  {
-    title: 'لون',
-    subtitle: 'زمغدجي',
-  },
-  {
-    title: 'مقاس',
-    subtitle: 'XL',
-  },
-])
+// const listContentComment = ref([
+//   {
+//     title: 'حجم التمثال',
+//     subtitle: 'us 30/EUR 65',
+//   },
+//   {
+//     title: 'خصر ',
+//     subtitle: 'cm/23 in 59',
+//   },
+//   {
+//     title: 'طول',
+//     subtitle: 'cm/62 in 165',
+//   },
+//   {
+//     title: 'الوزن',
+//     subtitle: 'kg/130 lbs 70',
+//   },
+//   {
+//     title: 'الوركين',
+//     subtitle: 'cm/30 in 80',
+//   },
+//   {
+//     title: 'المقاس العام',
+//     subtitle: 'مناسب',
+//   },
+//   {
+//     title: 'لون',
+//     subtitle: 'زمغدجي',
+//   },
+//   {
+//     title: 'مقاس',
+//     subtitle: 'XL',
+//   },
+// ])
 
 
 const color_id_measuring = ref(null);

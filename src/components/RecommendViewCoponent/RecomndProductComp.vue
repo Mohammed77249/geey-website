@@ -54,7 +54,7 @@
                 <img src="/src/assets/images/star.svg" class="w-3 md:w-4"
               /></i>
             </span>
-            <p class="text-[8px] md:text-[10px] mr-2">(+1000)</p>
+            <!-- <p class="text-[8px] md:text-[10px] mr-2">(+1000)</p> -->
           </div>
         </div>
 
