@@ -126,7 +126,7 @@ const props = defineProps({
 
   subSectiones: {
     type: Array,
-   
+
   },
 
   lev:{
@@ -153,7 +153,8 @@ const toggleChildren = id => {
     selectedCategories.value = id
     tempid.value = id
     filteredData.value.subSectionId = id
-    // storeSecion.fetchCategoriesAndProducetsForSubsetion(filteredData)
+
+    localStorage.removeItem("isCat");
   }
 }
 
@@ -162,12 +163,9 @@ const emit = defineEmits(['update-categories']);
 // استقبال التحديثات من مكون الفئات
 const updateCategories = (ids) => {
   selectedIds.value = ids;
-
-  // alert( selectedIds.value)
-  // يمكن إرسال هذه البيانات مباشرة إلى صفحة الفلترة باستخدام emit
   emit('update-selected', selectedIds.value);
 };
 
-// تعريف emit لإرسال البيانات إلى صفحة الفلترة
+
 
 </script>

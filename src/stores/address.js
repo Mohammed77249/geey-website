@@ -27,10 +27,7 @@ export const useAddressStore = defineStore('addresses', {
     getCities: state => state.cities,
     getDistricts: state => state.districts,
     getAllAddresses: state => state.alladdresses,
-    // getSubSectionsForFilter: state => state.subsectionsforfilter,
-    // getAllSections: state => state.allsections,
-    // getProducts: state => state.products,
-    // getCategories: state => state.categories,
+
     },
   actions: {
 

@@ -169,7 +169,7 @@ useIntersectionObserver(
 
 // جلب أول مجموعة من المنتجات عند التركيب
 onMounted(() => {
-  SectionStore.resetProducts();
+  SectionStore.resetProductsMain();
   SectionStore.fetchProductForMainPageFilter(filteredData2);
 });
 

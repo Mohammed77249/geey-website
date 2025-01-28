@@ -104,10 +104,10 @@ const filteredData = ref({
     categoryId: null,
     page:1,
     perPage:10,
-    // categoryChild:null,
-    // colors: null,
-    // sizes: null,
-    // price:null
+    categoryChild:null,
+    colors: null,
+    sizes: null,
+    price:null
 })
 
 const selectedcategory = ref(null)
@@ -123,17 +123,26 @@ const toggleGrandchildren = async (category) => {
       tempid.value = category.id
       selectedcategory.value = category.id
       filteredData.value.categoryId = category.id
+      storeSecion.resetProductsCatPage()
       await storeSecion.fetchSubCategoryByCategoryID(filteredData)
-
+      await storeSecion.fetchProductsFilterBySubcategry(filteredData);
       subcat.value =  storeSecion.subcategories;
+
+      localStorage.setItem("isCat" ,"yes");
+
 
     }
   }else{
 
     if(category.categories ==  null){
       filteredData.value.categoryId = category.id
+      storeSecion.resetProductsCatPage()
       await storeSecion.fetchSubCategoryByCategoryID(filteredData)
+      await storeSecion.fetchProductsFilterBySubcategry(filteredData);
       subcat.value = [{}];
+
+      localStorage.setItem("isCat" ,"yes");
+
     }
   }
 

@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,onMounted} from 'vue';
 import {Pagination , Navigation,Autoplay} from 'swiper/modules'
 import { Swiper, SwiperSlide, } from 'swiper/vue';
 import 'swiper/swiper-bundle.css';
@@ -56,6 +56,15 @@ const autoplayOptions = ref({
 const swiper = ref(null);
 
 
+const filteredData = ref({
+      sectionId: 1,
+      page: 1,
+      perPage: 10,
+    });
+
+onMounted(() => {
+      storeSecion.fetchGetBanner(filteredData);
+    });
 
 </script>
 

@@ -3,7 +3,7 @@
     <!-- <div v-if="storeSecion.loading">
       <LoaderDatacomp :is-loader="storeSecion.loading"/>
     </div> -->
-    <div   class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1">
+    <div v-if=" storeSecion.getProducts.length >0"   class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1">
       <div
         v-for="product in storeSecion.getProducts"
         :key="product.id"
@@ -125,7 +125,7 @@
 </template>
 
 <script setup>
-import { ref ,onMounted, } from 'vue'
+import { ref ,onMounted,onBeforeUnmount } from 'vue'
 import DialogAddToCart from '../DialogAddToCart.vue'
 const props = defineProps({
   IdSection: {
@@ -137,16 +137,18 @@ const props = defineProps({
   }
 })
 import { useSectionsStore } from '@/stores/section'
-const storeSecion = useSectionsStore()
 import { useIntersectionObserver } from '@vueuse/core';
-const isDialogOpen = ref(false)
-const filteredData = ref(null)
-
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import LoaderDatacomp from '../LoaderDatacomp.vue'
+const storeSecion = useSectionsStore()
 const authStore = useAuthStore()
 const router = useRouter()
+
+const isDialogOpen = ref(false)
+const filteredData = ref(null)
+
+
 const openDialog = id => {
   if (!authStore.isAuthenticated) {
     alert('يرجى تسجيل الدخول لإضافة منتجات إلى السلة.')
@@ -170,10 +172,14 @@ const onhover = id => {
   hoverId.value = id
 }
 
+
+
+
 const filteredData2 = ref({
   sectionId: null,
   page: 1,
-  perPage: 50,
+  perPage: 10,
+  filter:0,
 })
 
 
@@ -185,30 +191,22 @@ const filteredData3 = ref({
 
 
 const filterData5 = ref({
-    page:1,
-    perPage:10,
-    categoryChild:null,
     categoryId:null,
-    colors: null,
-    sizes: null,
-    price:null
   });
 
+
 if (props.IdSection != null) {
+
   filteredData2.value.sectionId = props.IdSection
   filteredData3.value.categoryId = props.IdSection
   filterData5.value.categoryId = props.IdSection;
 }
 
 
-
-const filteredData4 = ref({
-  sectionId: 1,
-  page: 1,
-  perPage: 30,
-  noProduct:"no"
-})
-
+const getiscat = ref(localStorage.getItem("isCat"));
+const updateLocalValue = () => {
+  getiscat.value = localStorage.getItem("isCat");
+};
 
 const loadMoreTrigger = ref(null);
 // استخدام IntersectionObserver لمراقبة نهاية الصفحة
@@ -216,26 +214,47 @@ useIntersectionObserver(
   loadMoreTrigger,
   ([{ isIntersecting }]) => {
     if (isIntersecting) {
-      storeSecion.fetchProductsFilterBySubcategry(filterData5);
+
+      if(props.lev == "no"){
+
+        if(getiscat.value === "yes" ){
+          storeSecion.fetchProductsFilterBySubcategry(filterData5);
+        }else{
+          storeSecion.fetchProductForSubSectionrecommedn(filteredData2);
+        }
+        
+      }else{
+        storeSecion.fetchProductsFilterBySubcategry(filterData5);
+      }
+
     }
   },
   { threshold: 0.5 }
 );
 
 onMounted(async() => {
-  storeSecion.resetProducts2()
-  filteredData2.value.sectionId = props.IdSection
+
+  storeSecion.resetProducts();
   if(props.lev == "no"){
+
     await storeSecion.fetchSubSectionBySectionID(filteredData2)
-
+    await storeSecion.fetchProductForSubSectionrecommedn(filteredData2)
   }else{
-    await storeSecion.fetchSubSectionBySectionID(filteredData4);
-    await storeSecion.fetchSubCategoryByCategoryID(filteredData3)
 
-    await storeSecion.fetchProductsFilterBySubcategry2(filterData5)
+    filteredData2.value.sectionId = 1
+    await storeSecion.fetchSubSectionBySectionID(filteredData2)
+    await storeSecion.fetchSubCategoryByCategoryID(filteredData3)
+    await storeSecion.fetchProductsFilterBySubcategry(filterData5)
 
   }
 
+
+  window.addEventListener("storage", updateLocalValue);
+
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("storage", updateLocalValue);
 });
 
 </script>

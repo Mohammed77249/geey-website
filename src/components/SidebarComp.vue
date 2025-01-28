@@ -14,7 +14,7 @@
           @mouseover="getID(section.id)"
           :class="{'bg-gray-100 text-black': hoveredIndex === index}"
           class="cursor-pointer flex-shrink-0 flex items-center pl-10 p-2 justify-between hover:text-black  hover:bg-gray-100 h-10 transition-all duration-200"
-        
+
           >
           <p > {{ section.name }} </p>
           <!-- <p v-if="storedLanguage == 'ar'"> {{ section.name_ar }} </p> -->
@@ -136,42 +136,30 @@ defineProps({
     required: false,
     default: false,
   },
-
-
-
-
 });
 
 const filteredData = ref({
       sectionId: 1,
       page: 1,
-      perPage: 70,
+      perPage: 10,
     });
 
   const getID = (id) =>{
     filteredData.value.sectionId = id
     // storeSecion.fetchSubSectionBySectionID(filteredData);
-
   }
-
 
     const hoveredIndex = ref(null);
     let intervalId;
     const updateHoveredIndex = () => {
       const newIndex = localStorage.getItem("hoveredIndex");
       hoveredIndex.value = newIndex !== null ? parseInt(newIndex) : null;
-
-
     };
+
 
     onMounted(() => {
       updateHoveredIndex();
       intervalId = setInterval(updateHoveredIndex, 500);
-      storeSecion.fetchSections(filteredData);
-      storeSecion.fetchGetBanner(filteredData)
-      // storeSecion.fetchSubSectionBySectionID(filteredData);
-      // storeSecion.fetchSubSectionBySectionID(filteredData);
-
     });
 
     onBeforeUnmount(() => {

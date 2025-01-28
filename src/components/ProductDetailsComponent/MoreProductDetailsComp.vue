@@ -116,39 +116,6 @@ const onhover = (id)=>{
 
 
 
-// const filteredData2 = ref({
-//       page: 1,
-//       perPage: 3,
-// });
-
-
-// onMounted(() => {
-
-//   productStore.fetchAllProducts(filteredData2);
-// });
-
-
-// const products = ref([
-//         { id: 1, name: 'منتج 1', price: 'ر.س 50', images:[ '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 2, name: 'منتج 2', price: 'ر.س 60',images:[ '/src/assets/images/products/Image (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 3, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image (2).svg', '/src/assets/images/Placeholder_01 (1).svg' ],},
-//         { id: 4, name: 'منتج 3', price: 'ر.س 70',images:[ '/src/assets/images/products/Image (3).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 5, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image (4).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 6, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Image.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 7, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Mockup.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 8, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (2).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 9, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (3).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 10, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (4).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 11, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Placeholder_01 (5).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 12, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 1113 (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 13, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 1253.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 14, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 56.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 15, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 72 (1).svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 16, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/unsplash_VpqI6WX6sEs.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 17, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/Rectangle 75.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-//         { id: 18, name: 'منتج 3', price: 'ر.س 70', images:[ '/src/assets/images/products/unsplash_DyhiB_wFifk.svg', '/src/assets/images/Placeholder_01 (1).svg'  ],},
-
-//       ]);
 
 
 

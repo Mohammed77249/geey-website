@@ -753,7 +753,8 @@ const fetchProducts = async () => {
     filterData2.value.price = "";
   }
 
-  await storeSecion.fetchProductsFilterBySubcategry2(filterData2)
+  storeSecion.resetProductsCatPage()
+  await storeSecion.fetchProductsFilterBySubcategry(filterData2)
 
 
 };
