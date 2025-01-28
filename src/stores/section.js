@@ -24,7 +24,7 @@ export const useSectionsStore = defineStore('sections', {
     loading: false,
     error: null,
     page:1,
-    perPage: 4,
+    perPage: 10,
     hasMore:true,
     showLoadingMessage: false,
     currentSectionId: null,

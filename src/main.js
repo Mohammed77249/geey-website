@@ -8,8 +8,8 @@ import i18n from "@/plugins/i18n";
 import { useLanguageStore } from '@/stores/language'
 import '@fontsource/ibm-plex-sans-arabic';
 
-//  import * as Vue3GoogleMap from 'vue3-google-map';
-import VueGoogleMaps from '@fawmi/vue-google-maps';
+ import * as Vue3GoogleMap from 'vue3-google-map';
+// import VueGoogleMaps from '@fawmi/vue-google-maps';
 
 
 
@@ -24,7 +24,7 @@ const languageStore = useLanguageStore()
 
 
 
-app.use(VueGoogleMaps, {
+app.use(Vue3GoogleMap, {
   load: {
     key: 'AIzaSyAdR4i_FaGlxZM0_rju7BNQEziPG1GZ0ME',
     libraries: 'places',
