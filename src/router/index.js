@@ -524,87 +524,67 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 
-// desktop
-
-import { defineAsyncComponent } from 'vue';
-
-// desktop
-const DesktopLoginPage = defineAsyncComponent(() => import('@/views/desktop/auth/LoginPage.vue'));
-const DesktopOtpPage = defineAsyncComponent(() => import('@/views/desktop/auth/OtpPage.vue'));
-const DesktopForgetPasswordPage = defineAsyncComponent(() => import('@/views/desktop/auth/ForgetPasswordPage.vue'));
-const DesktopResetPasswordPage = defineAsyncComponent(() => import('@/views/desktop/auth/ResatPasswordPage.vue'));
-const DesktopLoginEmailPage = defineAsyncComponent(() => import('@/views/desktop/auth/LoginEmailPage.vue'));
-
-const DesktopNotFoundPage = defineAsyncComponent(() => import('@/views/desktop/NotFoundPage.vue'));
-const DesktopRecommendPage = defineAsyncComponent(() => import('@/views/desktop/RecommendPage.vue'));
-const DesktopHome = defineAsyncComponent(() => import('@/views/desktop/HomePage.vue'));
-const DesktopProductDetailsPage = defineAsyncComponent(() => import('@/views/desktop/ProductDetailsPage.vue'));
-const DesktopCommentsPage = defineAsyncComponent(() => import('@/views/desktop/CommentsPage.vue'));
-const DesktopCartPage = defineAsyncComponent(() => import('@/views/desktop/CartPage.vue'));
-const DesktopUser_Index = defineAsyncComponent(() => import('@/views/desktop/user/User_Index.vue'));
-const DesktopUser_main = defineAsyncComponent(() => import('@/views/desktop/user/User_main.vue'));
-const DesktopMyOreder = defineAsyncComponent(() => import('@/views/desktop/user/oreders/MyOreder.vue'));
-const DesktopMyProfile = defineAsyncComponent(() => import('@/views/desktop/user/MyProfile.vue'));
-const DesktopMyAddresses = defineAsyncComponent(() => import('@/views/desktop/user/addresses/MyAddresses.vue'));
-const DesktopOrderDetails = defineAsyncComponent(() => import('@/views/desktop/user/oreders/OrderDetails.vue'));
-const DesktopMangeMyAccount = defineAsyncComponent(() => import('@/views/desktop/user/userAccount/MangeMyAccount.vue'));
-
-// phone
-const PhoneLoginPage = defineAsyncComponent(() => import('@/views/phone/auth/LoginPage.vue'));
-const PhoneOtpPage = defineAsyncComponent(() => import('@/views/phone/auth/OtpPage.vue'));
-const PhoneForgetPasswordPage = defineAsyncComponent(() => import('@/views/phone/auth/ForgetPasswordPage.vue'));
-const PhoneResetPasswordPage = defineAsyncComponent(() => import('@/views/phone/auth/ResatPasswordPage.vue'));
-const PhoneLoginEmailPage = defineAsyncComponent(() => import('@/views/phone/auth/LoginEmailPage.vue'));
-
-const PhoneHome = defineAsyncComponent(() => import('@/views/phone/HomePage.vue'));
-const PhoneNotFoundPage = defineAsyncComponent(() => import('@/views/phone/NotFoundPage.vue'));
-const LayoutMain = defineAsyncComponent(() => import('@/layouts/LayoutMain.vue'));
-
-
-
-
-
 const isDesktop = () => window.matchMedia('(min-width: 768px)').matches;
-
 const routes = [
-
   {
     path: '/',
     redirect: () => (isDesktop() ? '/desktop/home' : '/phone/home'),
   },
 
-
-
   // Desktop routes
   {
     path: '/desktop',
-    component: LayoutMain,
+    component: () => import('@/layouts/LayoutMain.vue'),
     children: [
-      { path: 'home', name: 'DesktopHome', component: DesktopHome },
+      { path: 'home', name: 'DesktopHome', component: () => import('@/views/desktop/HomePage.vue') },
 
-      { path: 'login', name: 'DesktopLogin', component: DesktopLoginPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
-      { path: 'loginemail', name: 'DesktopLoginEmail', component: DesktopLoginEmailPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
-      { path: 'otp', name: 'DesktopLoginOtp', component: DesktopOtpPage, meta: { guestOnly: true , hideHeaderFooter: true  },},
-      { path: 'forgetpassword', name: 'DesktopForgetPassword', component: DesktopForgetPasswordPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
-      { path: 'resetpassword', name: 'DesktopResetPassword', component: DesktopResetPasswordPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
+      {
+        path: 'login',
+        name: 'DesktopLogin',
+        component: () => import('@/views/desktop/auth/LoginPage.vue'),
+        meta: { guestOnly: true, hideHeaderFooter: true }
+      },
+      {
+        path: 'loginemail',
+        name: 'DesktopLoginEmail',
+        component: () => import('@/views/desktop/auth/LoginEmailPage.vue'),
+        meta: { guestOnly: true, hideHeaderFooter: true }
+      },
+      {
+        path: 'otp',
+        name: 'DesktopLoginOtp',
+        component: () => import('@/views/desktop/auth/OtpPage.vue'),
+        meta: { guestOnly: true, hideHeaderFooter: true }
+      },
+      {
+        path: 'forgetpassword',
+        name: 'DesktopForgetPassword',
+        component: () => import('@/views/desktop/auth/ForgetPasswordPage.vue'),
+        meta: { guestOnly: true, hideHeaderFooter: true }
+      },
+      {
+        path: 'resetpassword',
+        name: 'DesktopResetPassword',
+        component: () => import('@/views/desktop/auth/ResatPasswordPage.vue'),
+        meta: { guestOnly: true, hideHeaderFooter: true }
+      },
 
-
-      { path: 'recommend/:id/:name', name: 'desktopRecommend', component: DesktopRecommendPage },
-      { path: 'recommend/:category_level/:id/:name', name: 'desktopRecommendCat', component: DesktopRecommendPage },
-      { path: 'product/:id', name: 'desktopProductDetails', component: DesktopProductDetailsPage },
-      { path: 'product/:id/comments', name: 'desktopProductComments', component: DesktopCommentsPage },
-      { path: 'cart', name: 'desktopCart', component: DesktopCartPage, meta: { requiresAuth: true , hideHeaderFooter: true  } },
+      { path: 'recommend/:id/:name', name: 'desktopRecommend', component: () => import('@/views/desktop/RecommendPage.vue') },
+      { path: 'recommend/:category_level/:id/:name', name: 'desktopRecommendCat', component: () => import('@/views/desktop/RecommendPage.vue') },
+      { path: 'product/:id', name: 'desktopProductDetails', component: () => import('@/views/desktop/ProductDetailsPage.vue') },
+      { path: 'product/:id/comments', name: 'desktopProductComments', component: () => import('@/views/desktop/CommentsPage.vue') },
+      { path: 'cart', name: 'desktopCart', component: () => import('@/views/desktop/CartPage.vue'), meta: { requiresAuth: true, hideHeaderFooter: true } },
       {
         path: 'user',
-        component: DesktopUser_Index,
-        meta: { requiresAuth: true , hideHeaderFooter: true  },
+        component: () => import('@/views/desktop/user/User_Index.vue'),
+        meta: { requiresAuth: true, hideHeaderFooter: true },
         children: [
-          { path: '', name: 'desktopUserMain', component: DesktopUser_main },
-          { path: 'myorder', name: 'desktopMyOrder', component: DesktopMyOreder },
-          { path: 'myorder/:id', name: 'desktopOrderDetails', component: DesktopOrderDetails },
-          { path: 'myaddresses', name: 'desktopMyAddresses', component: DesktopMyAddresses },
-          { path: 'myprofile', name: 'desktopMyProfile', component: DesktopMyProfile },
-          { path: 'myaccount', name: 'desktopMyAccount', component: DesktopMangeMyAccount },
+          { path: '', name: 'desktopUserMain', component: () => import('@/views/desktop/user/User_main.vue') },
+          { path: 'myorder', name: 'desktopMyOrder', component: () => import('@/views/desktop/user/oreders/MyOreder.vue') },
+          { path: 'myorder/:id', name: 'desktopOrderDetails', component: () => import('@/views/desktop/user/oreders/OrderDetails.vue') },
+          { path: 'myaddresses', name: 'desktopMyAddresses', component: () => import('@/views/desktop/user/addresses/MyAddresses.vue') },
+          { path: 'myprofile', name: 'desktopMyProfile', component: () => import('@/views/desktop/user/MyProfile.vue') },
+          { path: 'myaccount', name: 'desktopMyAccount', component: () => import('@/views/desktop/user/userAccount/MangeMyAccount.vue') },
         ],
       },
     ],
@@ -617,21 +597,45 @@ const routes = [
       }
     },
   },
-  { path: '/desktop/:pathMatch(.*)*', name: 'NotFoundDesktop', component: DesktopNotFoundPage },
+  { path: '/desktop/:pathMatch(.*)*', name: 'NotFoundDesktop', component: () => import('@/views/desktop/NotFoundPage.vue') },
 
   // Phone routes
   {
     path: '/phone',
-    component: LayoutMain,
+    component: () => import('@/layouts/LayoutMain.vue'),
     children: [
-      { path: 'home', name: 'PhoneHome', component: PhoneHome },
+      { path: 'home', name: 'PhoneHome', component: () => import('@/views/phone/HomePage.vue') },
 
-      { path: 'login', name: 'PhoneLogin', component: PhoneLoginPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
-      { path: 'loginemail', name: 'PhoneLoginEmail', component: PhoneLoginEmailPage, meta: { guestOnly: true , hideHeaderFooter: true  },},
-      { path: 'otp', name: 'PhoneLoginOtp', component: PhoneOtpPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
-      { path: 'forgetpassword', name: 'PhoneForgetPassword', component: PhoneForgetPasswordPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
-      { path: 'resetpassword', name: 'PhoneResetPassword', component: PhoneResetPasswordPage, meta: { guestOnly: true , hideHeaderFooter: true  }, },
-
+      {
+        path: 'login',
+        name: 'PhoneLogin',
+        component: () => import('@/views/phone/auth/LoginPage.vue'),
+        meta: { guestOnly: true, hideHeaderFooter: true }
+      },
+      {
+        path: 'loginemail',
+        name: 'PhoneLoginEmail',
+        component: () => import('@/views/phone/auth/LoginEmailPage.vue'),
+        meta: { guestOnly: true, hideHeaderFooter: true }
+      },
+      {
+        path: 'otp',
+        name: 'PhoneLoginOtp',
+        component: () => import('@/views/phone/auth/OtpPage.vue'),
+        meta: { guestOnly: true, hideHeaderFooter: true }
+      },
+      {
+        path: 'forgetpassword',
+        name: 'PhoneForgetPassword',
+        component: () => import('@/views/phone/auth/ForgetPasswordPage.vue'),
+        meta: { guestOnly: true, hideHeaderFooter: true }
+      },
+      {
+        path: 'resetpassword',
+        name: 'PhoneResetPassword',
+        component: () => import('@/views/phone/auth/ResatPasswordPage.vue'),
+        meta: { guestOnly: true, hideHeaderFooter: true }
+      },
     ],
     beforeEnter: (to, from, next) => {
       // منع الوصول إلى مسار الهاتف من الكمبيوتر
@@ -642,10 +646,7 @@ const routes = [
       }
     },
   },
-  { path: '/phone/:pathMatch(.*)*', name: 'PhoneNotFoundPhone', component: PhoneNotFoundPage },
-
-
-
+  { path: '/phone/:pathMatch(.*)*', name: 'PhoneNotFoundPhone', component: () => import('@/views/phone/NotFoundPage.vue') },
 ];
 
 const router = createRouter({

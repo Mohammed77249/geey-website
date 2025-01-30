@@ -5,7 +5,7 @@
               <section class="p-4 rounded bg-white mb-10">
                 <div class="flex items-center justify-between">
                   <div class="flex gap-3">
-                    <h2 class="text-md font-bold">مرحباً، {{ maskedEmail }}</h2>
+                    <h2 class="text-md font-bold">مرحباً، {{ emailUser }}</h2>
                     <p class="text-xs text-gray-500">S0 🌟</p>
                   </div>
                   <div class="flex items-center gap-2">
@@ -175,7 +175,7 @@
 </template>
 <script setup>
 import { useConfirmOrders } from '@/stores/confirmorder.js';
-import {  ref ,onMounted,computed} from 'vue';
+import {  ref ,onMounted} from 'vue';
 const orderStore = useConfirmOrders();
 
 const filteredData = ref({
@@ -189,12 +189,6 @@ const shopedOrders = ref([]);
 
 
 const emailUser = localStorage.getItem('emailuser');
-const maskedEmail = computed(() => {
-      const [localPart, domain] = emailUser.split("@");
-      const visiblePart = localPart.slice(0, 3); // أول 3 أحرف
-      const hiddenPart = "*".repeat(localPart.length - 3); // بقية الأحرف مشفرة
-      return `${visiblePart}${hiddenPart}@${domain}`;
-    });
 
 onMounted(async() => {
  await orderStore.fetchAllOrders(filteredData)
