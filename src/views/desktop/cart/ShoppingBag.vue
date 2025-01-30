@@ -14,7 +14,7 @@
               v-model="selectAll"
               @change="toggleSelectAll"
               class="h-5 w-7 peer-checked:bg-black  peer-checked:border-black cursor-pointer transition-all duration-300 border border-black rounded-none"/>
-            <h2 class="font-medium text-lg px-2">كل المنتجات ({{ selectedCount }})</h2>
+            <h2 class="font-medium text-lg px-2"> {{ $t("All products") }}  ({{ selectedCount }})</h2>
           </div>
 
 
@@ -27,7 +27,7 @@
               <path d="M3 12.5L4 13.5L7 10.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M3 19.5L4 20.5L7 17.5" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            <span class="text-black">اختيار</span>
+            <span class="text-black">{{ $t("choose") }}</span>
           </div>
 
 
@@ -86,13 +86,13 @@
               <button  @click="openDialog(item)"  class="border-[1px] px-2 mb-2 rounded-full flex items-center justify-center">
                 <div class="flex">
                 <span  class="text-xs md:text-sm text-gray-500 cursor-pointer">
-                اللون:
+                {{ $t("Color") }}:
 
               </span>
               <div class="w-4 h-4 rounded-full flex items-center justify-center mt-[2px] mx-1" :style="{ backgroundColor: item.color_hex }" ></div>
               </div>
                 <span class="text-xs md:text-sm text-gray-500 cursor-pointer ">
-                  , الحجم: {{ item.measuring_value }}
+                  , {{ $t("Size") }}: {{ item.measuring_value }}
                 </span>
 
 
@@ -163,10 +163,10 @@
       <!-- Order Summary (Left Sidebar) -->
       <div class="col-span-1 "  >
         <div class="bg-white  shadow p-4">
-          <h2 class="font-semibold text-lg mb-4">ملخص الطلب</h2>
+          <h2 class="font-semibold text-lg mb-4">{{ $t("Order summary") }} </h2>
           <div class="text-sm">
             <div class="flex justify-between py-2">
-              <span> إجمالي المنتجات:</span>
+              <span>  {{ $t("Total products") }}:</span>
               <span> {{ selectedCount }} </span>
             </div>
             <!-- <div class="flex justify-between py-2">
@@ -174,12 +174,12 @@
               <span> YER {{ storeCart.totalPrice }}</span>
             </div> -->
             <div class="flex justify-between py-2">
-              <span>الخصم:</span>
+              <span>{{ $t("Discount") }}:</span>
               <span>- YER {{ storeCart.totalDiscount }}</span>
             </div>
             <div class="border-t my-4"></div>
             <div class="flex justify-between font-semibold text-lg">
-              <span>الإجمالي:</span>
+              <span>{{ $t("Total") }}:</span>
               <span class="text-primary-900"> YER {{ selectedTotalPrice }}</span>
             </div>
           </div>
@@ -188,7 +188,7 @@
             class="mt-4 w-full hover:bg-primary-800 bg-primary-900 text-white py-4 "
             @click="checkout"
           >
-            اشتري الآن
+           {{ $t("Buy now") }}
           </button>
         </div>
 
@@ -256,7 +256,8 @@ import { ref,onMounted,computed,defineAsyncComponent } from "vue";
 import { useCartStore } from '@/stores/cart'
 const DialogUpdateCart = defineAsyncComponent(() => import('@/components/DialogUpdateCart.vue'));
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 const storeCart = useCartStore()
@@ -363,16 +364,16 @@ const checkout = () => {
   const selectedProducts = storeCart.allCarts.filter((product) => product.selected);
 
   if (!storeCart.allCarts || storeCart.allCarts.length === 0) {
-    alert("عربة التسوق فارغة!");
+    alert(t("Your shopping cart is empty!"));
     return;
   }
   if (selectedProducts.length === 0) {
-    alert("لم تقم باختيار أي منتجات!");
+    alert(t("You have not selected any products!"));
     return;
   }
 
   try {
-    alert("انتقال إلى صفحة تاكيد الطلب");
+    alert(t("Go to the order confirmation page"));
 
     // استدعاء الدوال مع التحقق
     if (typeof storeCart.saveSelectedItems === "function") {

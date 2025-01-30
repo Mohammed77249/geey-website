@@ -5,15 +5,15 @@
               <section class="p-4 rounded bg-white mb-10">
                 <div class="flex items-center justify-between">
                   <div class="flex gap-3">
-                    <h2 class="text-md font-bold">مرحباً، {{ emailUser }}</h2>
+                    <h2 class="text-md font-bold">{{ $t("Welcome,") }} {{ emailUser }}</h2>
                     <p class="text-xs text-gray-500">S0 🌟</p>
                   </div>
                   <div class="flex items-center gap-2">
                     <button class="text-[12px] text-gray-500 font-medium">
-                      <RouterLink to="/desktop/user/myaccount">  ملفي الشخصي</RouterLink>
+                      <RouterLink to="/desktop/user/myaccount">  {{ $t("My profile") }}</RouterLink>
 
                     </button>
-                    <svg
+                    <svg v-if="storedLanguage == 'ar'"
                       width="15"
                       height="10"
                       viewBox="0 0 24 24"
@@ -28,6 +28,10 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       />
+                    </svg>
+
+                    <svg v-if="storedLanguage == 'en'" width="15" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </div>
                 </div>
@@ -51,12 +55,12 @@
               <!-- Orders -->
               <section class="bg-white p-4 rounded">
                 <div class="flex items-center justify-between mb-5">
-                  <h2 class="text-md font-bold mb-4">طلبي</h2>
+                  <h2 class="text-md font-bold mb-4">{{ $t("My Oreders") }}</h2>
                   <div class="flex items-center gap-2">
                     <button class="text-[12px] text-gray-500 font-medium">
-                      <RouterLink to="/desktop/user/myorder">الاراء الكاملة</RouterLink>
+                      <RouterLink to="/desktop/user/myorder"> {{ $t("Full opinions") }}  </RouterLink>
                     </button>
-                    <svg
+                    <svg v-if="storedLanguage == 'ar'"
                       width="15"
                       height="10"
                       viewBox="0 0 24 24"
@@ -72,28 +76,34 @@
                         stroke-linejoin="round"
                       />
                     </svg>
+
+                    <svg v-if="storedLanguage == 'en'" width="15" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+
                   </div>
                 </div>
 
                 <div class="grid grid-cols-5 gap-2 p-2 text-center">
                   <div>
-                    <p class="text-gray-500"> كل الطلبات</p>
+                    <p class="text-gray-500"> {{ $t("All orders") }}</p>
                     <p class="text-lg font-bold">{{ orderStore.allOrders.length}}</p>
                   </div>
                   <div>
-                    <p class="text-gray-500">قيد التجهيز</p>
+                    <p class="text-gray-500">{{ $t("In preparation") }}</p>
                     <p class="text-lg font-bold">{{ EfficientprocessingOrders.length }}</p>
                   </div>
                   <div>
-                    <p class="text-gray-500">تم الموافقه</p>
+                    <p class="text-gray-500"> تم الموافقه </p>
                     <p class="text-lg font-bold">{{ approvedOrders.length }}</p>
                   </div>
                   <div>
-                    <p class="text-gray-500">تم التوصيل</p>
+                    <p class="text-gray-500"> {{ $t("Delivered") }}</p>
                     <p class="text-lg font-bold">{{ shopedOrders.length }}</p>
                   </div>
                   <div>
-                    <p class="text-gray-500">تعليق</p>
+                    <p class="text-gray-500">{{ $t("comment") }}</p>
                     <p class="text-lg font-bold">0</p>
                   </div>
                   <!-- <div>
@@ -177,7 +187,7 @@
 import { useConfirmOrders } from '@/stores/confirmorder.js';
 import {  ref ,onMounted} from 'vue';
 const orderStore = useConfirmOrders();
-
+const storedLanguage = localStorage.getItem("language");
 const filteredData = ref({
   page: 1,
   perPage: 10,

@@ -8,10 +8,10 @@
         <div class="flex items-center justify-between">
           <div>
             <RouterLink to="/" class="font-bold text-black">
-              {{ $t('Jeey') }}
+              {{ $t('Jeeey') }}
             </RouterLink>
             <span class="mx-1">/</span>
-            <a href="/cart" class="text-[15px] text-black">التسوق في اليمن</a>
+            <a href="/cart" class="text-[15px] text-black"> {{ $t("Shopping in Yemen") }}</a>
           </div>
 
           <div class="flex items-center gap-5">
@@ -23,15 +23,22 @@
               <path opacity="0.4" d="M11.9955 16H12.0045" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path opacity="0.4" d="M7.99451 16H8.00349" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              <span class="text-[14px] text-green-700  font-medium">خاصية الدفع الآمن</span>
+              <span class="text-[14px] text-green-700  font-medium"> {{ $t("Secure payment feature") }}</span>
             </div>
-
+            <RouterLink to="/desktop/home">
             <div class="flex items-center gap-1">
-              <span class="hover:underline text-[15px] font-normal opacity-45">مواصلة التسوق</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <span class="hover:underline text-[15px] font-normal opacity-45"> {{ $t("Continue shopping") }}</span>
+
+              <svg  v-if="storedLanguage == 'ar'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="gray" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
+
+              <svg v-if="storedLanguage == 'en'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+
             </div>
+          </RouterLink>
           </div>
 
         </div>
@@ -64,8 +71,13 @@
         ></div>
 
         <div :class="[ onclickShoppingBag ? '' : 'hidden',]" >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+          <svg v-if="storedLanguage == 'ar'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <svg v-if="storedLanguage == 'en'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
 
@@ -93,8 +105,12 @@
           ]"
         ></div>
         <div :class="[ onclickConfirmOrder ? '' : 'hidden',]" >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg  v-if="storedLanguage == 'ar'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <svg v-if="storedLanguage == 'en'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
 
@@ -122,8 +138,12 @@
           ]"
         ></div>
         <div :class="[ onclickPay ? '' : 'hidden',]" >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg  v-if="storedLanguage == 'ar'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <svg v-if="storedLanguage == 'en'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
 
@@ -151,8 +171,12 @@
           ]"
         ></div>
         <div :class="[ onclickRequestDone ? '' : 'hidden',]" >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg  v-if="storedLanguage == 'ar'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <svg v-if="storedLanguage == 'en'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
 
@@ -212,6 +236,8 @@ const onclickRequestDone = ref(false)
 //   onclickShoppingBag.value = false;
 // }
 // })
+
+const storedLanguage = localStorage.getItem("language");
 
 watch(
   () => cartStore.isCheckoutEnabled,

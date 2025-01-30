@@ -2,13 +2,13 @@
   <div class="min-h-screen bg-gray-50">
     <div class="py-5 px-5 lg:px-20">
       <h1 class="mb-10 text-sm text-gray-500 font-medium">
-        الصفحه الرئيسيه/ المركز الشخصي
+        {{ $t("Home") }} / {{ $t("Personal center") }}
       </h1>
       <div class="grid grid-cols-12 gap-2">
         <!-- Right Sidebar -->
         <aside class="col-span-4 md:col-span-3 bg-white p-4">
 
-          <span class="text-xs md:text-lg font-bold mb-4">المركز الشخصي</span>
+          <span class="text-xs md:text-lg font-bold mb-4"> {{ $t("Personal center") }}</span>
           <ul class="space-y-5">
             <!-- حسابي -->
             <li>
@@ -16,7 +16,7 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('account')"
               >
-                <span class="font-bold text-black text-xs md:text-[16px] ">حسابي</span>
+                <span class="font-bold text-black text-xs md:text-[16px] ">{{ $t("My account") }}</span>
                 <span class="font-bold text-lg">{{
                   sections.account ? '-' : '+'
                 }}</span>
@@ -62,7 +62,7 @@
                       <path d="M3.62001 8.49C5.59001 -0.169998 18.42 -0.159997 20.38 8.5C21.53 13.58 18.37 17.88 15.6 20.54C13.59 22.48 10.41 22.48 8.39001 20.54C5.63001 17.88 2.47001 13.57 3.62001 8.49Z" stroke="#8a1538" stroke-width="1.5"/>
                       </svg>
                     </span>
-                    <RouterLink to="/desktop/user/myaddresses"><span class=" text-xs md:text-sm font-medium"> دفتر العناوين </span></RouterLink>
+                    <RouterLink to="/desktop/user/myaddresses"><span class=" text-xs md:text-sm font-medium"> {{ $t("Address book") }}</span></RouterLink>
 
                   </button>
                 </li>
@@ -97,7 +97,7 @@
                       </svg>
 
                     </span>
-                    <span class="font-medium text-xs md:text-sm"> إدارة حسابي</span>
+                    <span class="font-medium text-xs md:text-sm"> {{ $t("Manage my account") }}</span>
                   </button>
                 </RouterLink>
                 </li>
@@ -157,7 +157,7 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('orders')"
               >
-                <h3 class="font-bold text-xs md:text-[16px]  text-black">طلبي</h3>
+                <h3 class="font-bold text-xs md:text-[16px]  text-black">{{ $t("My Oreders") }}</h3>
                 <span class="font-bold text-lg">{{
                   sections.orders ? '-' : '+'
                 }}</span>
@@ -180,7 +180,7 @@
                       </svg>
                     </span>
                     <RouterLink to="/desktop/user/myorder">
-                      <span class="font-medium text-xs md:text-sm ">جميع الطلبات</span>
+                      <span class="font-medium text-xs md:text-sm "> {{ $t("All orders") }}</span>
                     </RouterLink>
 
                   </button>
@@ -199,7 +199,7 @@
                       <path d="M6.03998 17.96L3.92999 20.0699" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </span>
-                    <span class="font-medium text-xs md:text-sm ">طلبات موافق عليه</span>
+                    <span class="font-medium text-xs md:text-sm "> {{ $t("Approved") }}</span>
                   </button>
                 </li>
                 <li>
@@ -215,7 +215,7 @@
                       <path d="M2 15.2V9C2 5.5 4 4 7 4H17C20 4 22 5.5 22 9V15C22 18.5 20 20 17 20H8.5" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </span>
-                    <span class="font-medium text-xs md:text-sm "> طلبات قيد التجهيز</span>
+                    <span class="font-medium text-xs md:text-sm "> {{ $t("In preparation") }}</span>
                   </button>
                 </li>
                 <li>
@@ -234,7 +234,7 @@
                       <path d="M2 14H4" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </span>
-                    <span class="font-medium text-xs md:text-sm "> طلبات موصله</span>
+                    <span class="font-medium text-xs md:text-sm "> {{ $t("Delivered") }}</span>
                   </button>
                 </li>
                 <li>
@@ -250,7 +250,7 @@
                       </svg>
 
                     </span>
-                    <span class="font-medium text-xs md:text-sm "> طلبات التقييم</span>
+                    <span class="font-medium text-xs md:text-sm "> {{ $t("Evaluation requests") }}</span>
                   </button>
                 </li>
 
@@ -280,7 +280,7 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('favorites')"
               >
-                <h3 class="font-bold text-xs md:text-[16px]  text-black">اهتمامي</h3>
+                <h3 class="font-bold text-xs md:text-[16px]  text-black">{{ $t("My interest") }}</h3>
                 <span class="font-bold text-lg">{{
                   sections.favorites ? '-' : '+'
                 }}</span>
@@ -297,7 +297,7 @@
                       <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </span>
-                    <span class="text-xs md:text-sm  font-medium"> قائمه المفضله</span>
+                    <span class="text-xs md:text-sm  font-medium"> قائمه المفضله </span>
                   </button>
                 </li>
 
@@ -450,7 +450,7 @@
                 class="flex justify-between items-center cursor-pointer"
                 @click="toggleSection('logout')"
               >
-                <h3 class="font-bold text-md text-black">تسجيل الخروج</h3>
+                <h3 class="font-bold text-md text-black">{{ $t("Log out") }}</h3>
               </div>
             </li>
           </ul>

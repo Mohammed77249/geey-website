@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <p class="font-bold text-[12px] mb-5">نطاق السعر (SAR)</p>
+    <p class="font-bold text-[12px] mb-5"> {{ $t("Price range") }} (SAR)</p>
     <div class="relative w-full">
       <!-- <input
         type="range"

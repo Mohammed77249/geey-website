@@ -131,12 +131,12 @@
                         >ملفي الشخصي</a
                       > -->
                       <RouterLink to="/desktop/user"  class="block px-4 py-1 hover:bg-gray-100">
-                      ملفي الشخصي
+                      {{ $t("My profile") }}
                       </RouterLink>
                     </li>
                     <li>
                       <RouterLink to="/desktop/user/myorder" class="block px-4 py-1 hover:bg-gray-100">
-                        طلبي</RouterLink>
+                        {{ $t("My Oreders") }}</RouterLink>
                     </li>
                     <!-- <li>
                       <a href="#" class="block px-4 py-1 hover:bg-gray-100"
@@ -175,7 +175,7 @@
                       @click="store.logout"
                       class="w-full py-1 font-medium text-[13px] text-gray-600 hover:bg-gray-100"
                     >
-                      تسجيل الخروج
+                      {{ $t("Log out") }}
                     </button>
                   </div>
                 </div>
@@ -328,7 +328,7 @@
                         class="px-4 py-2 w-full hover:bg-gray-100"
                         @click="changeLanguage('en')"
                       >
-                        English
+                        {{ $t("English") }}
                       </button>
                     </li>
                     <li>
@@ -336,7 +336,7 @@
                         class="px-4 py-2 w-full hover:bg-gray-100"
                         @click="changeLanguage('ar')"
                       >
-                        عربي
+                        {{ $t("Arbic") }}
                       </button>
                     </li>
                   </ul>
@@ -598,7 +598,7 @@ const isDropdowenLanguageVisable = ref(false)
 
 onMounted(() => {
   storeSecion.fetchSections(filteredData);
-  
+
   if(store.isAuthenticated){
     storeCart.fetchAllProductsInCart();
   }

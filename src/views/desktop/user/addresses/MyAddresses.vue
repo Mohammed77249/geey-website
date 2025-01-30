@@ -1,7 +1,7 @@
 <template>
  <div class="min-h-screen bg-gray-100">
     <header class="bg-white shadow p-4">
-      <h1 class="text-xl font-bold text-center text-gray-800">دفتر العناوين</h1>
+      <h1 class="text-xl font-bold text-center text-gray-800">{{ $t("Address book") }}</h1>
     </header>
 
     <main class="">
@@ -18,13 +18,13 @@
       <div class=" p-4">
         <button type="button"   @click="openDialog()" class="bg-primary-900 w-48 h-10 flex items-center justify-center gap-2">
           <span class="text-white">+</span>
-          <span class="text-white text-md font-semibold">اضافه عنوان جديد</span>
+          <span class="text-white text-md font-semibold">{{ $t("Add a new address") }}</span>
         </button>
       </div>
 
       <!-- قائمة العناوين -->
       <div class="bg-white p-4" >
-        <h2 class="text-lg font-semibold text-primary-900">قائمة العناوين</h2>
+        <h2 class="text-lg font-semibold text-primary-900"> {{ $t("Address list") }}</h2>
 
         <div>
           <div class="">

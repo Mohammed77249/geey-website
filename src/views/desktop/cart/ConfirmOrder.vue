@@ -4,7 +4,7 @@
       <!-- القسم الأيمن: عنوان الشحن -->
        <div class="col-span-3 md:col-span-2">
         <div class="p-3">
-          <h2 class="text-lg font-bold text-gray-800 mb-4">عنوان الشحن </h2>
+          <h2 class="text-lg font-bold text-gray-800 mb-4"> {{ $t("Shipping address") }} </h2>
           <form class="space-y-4" @submit.prevent="handlOrder">
             <!-- الصف الأول:  اضافه  الموقع  -->
              <div class="bg-white border shadow ">
@@ -15,7 +15,7 @@
                   class="w-full flex items-center justify-center  text-primary-900 py-6 font-semibold  text-md"
                 >
                    <p v-if="localValueName">{{ localValueName  }}</p>
-                   <p v-else>العنوان</p>
+                   <p v-else>{{ $t("the address") }}</p>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g opacity="0.4">
                 <path d="M9.25 11H14.75" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round"/>
@@ -32,7 +32,7 @@
 
             <!-- الصف الثاني: أرقام الهواتف -->
               <div class="bg-white border shadow p-2">
-                <label class="block text-sm font-semibold text-gray-600 mb-2">رقم هاتف المستلم</label>
+                <label class="block text-sm font-semibold text-gray-600 mb-2"> {{ $t("Recipient's phone number") }}</label>
                 <input
                   type="text"
                    placeholder="YE +967"
@@ -43,7 +43,7 @@
 
              <!-- وسيله الشحن -->
               <div class="bg-white p-2 border shadow">
-                <label class="block text-sm font-semibold text-gray-600 mb-2"> وسيله الشحن </label>
+                <label class="block text-sm font-semibold text-gray-600 mb-2"> {{ $t("Shipping method") }}</label>
 
                 <div class="mb-2 p-2 border"  v-for="delevery in storeOrder.getDeliveryTypes" :key="delevery.id" >
                   <div class="flex items-center">
@@ -65,7 +65,7 @@
 
               <!--  طريقه الدفع -->
               <div class="bg-white p-2 border shadow">
-                <label class="block text-sm font-semibold text-gray-600 mb-2">  طريقه الدفع  </label>
+                <label class="block text-sm font-semibold text-gray-600 mb-2">  {{ $t("payment method") }} </label>
 
                 <div class="mb-2 p-2 border flex items-center justify-between" v-for="pay in storeOrder.getPaymentMethods" :key="pay.id" >
                   <div class="flex items-center gap-5 ">
@@ -90,14 +90,19 @@
               <div class="">
                 <div class="w-full h-full  mt-10 bg-white p-3">
                   <div class="flex items-center justify-between ">
-                    <span class="text-[16px] font-semibold">تفاصيل الطلب</span>
+                    <span class="text-[16px] font-semibold">  |{{ $t("Order details") }}</span>
 
                     <div class="flex items-center gap-2">
                       <button class="text-[16px]  font-semibold">
-                      عرض منتج واحد
+                      {{ $t("View one product") }}
                     </button>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <svg v-if="storedLanguage == 'ar'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+                    <svg v-if="storedLanguage == 'en'" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     </div>
                   </div>
@@ -151,7 +156,7 @@
               type="submit"
               class="w-full bg-primary-900 text-white py-5 font-semibold  text-sm"
             >
-              تاكيد الطلب
+             {{ $t("Confirm the order") }}
             </button>
           </form>
         </div>
@@ -161,15 +166,15 @@
       <div class="col-span-1 h-screen mt-14 hidden md:block">
         <div class="bg-white shadow  p-4">
               <!-- عنوان القسم -->
-            <h2 class="text-lg font-bold text-gray-800 mb-4">ملخص الطلب</h2>
+            <h2 class="text-lg font-bold text-gray-800 mb-4"> {{ $t("Order summary") }}</h2>
             <!-- تفاصيل الأسعار -->
             <div class="space-y-2">
               <div class="flex justify-between text-sm text-gray-500">
-                <span>سعر الوحدة:</span>
+                <span> {{ $t("Unit price") }}:</span>
                 <span class="line-through text-gray-400">SR32.00</span>
               </div>
               <div class="flex justify-between text-sm text-gray-500">
-                <span>إجمالي المنتج:</span>
+                <span> {{ $t("Total products") }}:</span>
                 <span class="text-red-500 font-semibold">SR27.20</span>
               </div>
             </div>
@@ -248,6 +253,7 @@ const storeCart = useCartStore();
 const storeOrder = useConfirmOrders();
 import { useRouter } from 'vue-router';
 const router = useRouter();
+const storedLanguage = localStorage.getItem("language");
 const isDialogOpen = ref(false)
 
 const openDialog = () => {

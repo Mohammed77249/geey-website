@@ -25,7 +25,7 @@
             <div class="col-span-12 bg-gray-100">
               <div class="py-4 p-5 shadow bg-white m-2">
                 <h1 class="text-primary-900 font-bold text-xl">
-                  {{  'إضافة عنوان جديد' }}
+                  {{ $t("Add a new address") }}
                 </h1>
               </div>
 
@@ -33,22 +33,20 @@
                 <form @submit.prevent="handleAddress">
                   <!-- المكتب الخاص أو المنزل -->
                   <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"
-                      >المكتب الخاص أو المنزل</label
+                    <label class="block text-xs font-semibold text-black mb-2"> {{ $t("Private office or home") }} </label
                     >
                     <input
                       type="text"
                       v-model="Adress"
                       required
-                      placeholder="المكتب الخاص أو المنزل "
+                      :placeholder="$t('Private office or home')"
                       class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
 
                   <!-- المحافظة -->
                   <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"
-                      >المحافظة</label
+                    <label class="block text-xs font-semibold text-black mb-2">{{ $t("City") }}</label
                     >
                     <div ref="dropDownCite">
                       <button
@@ -111,8 +109,7 @@
 
                   <!-- المنطقة -->
                   <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"
-                      >المنطقة</label
+                    <label class="block text-xs font-semibold text-black mb-2">{{ $t("Area") }}</label
                     >
                     <div ref="dropDownDistrict">
                       <button
@@ -177,14 +174,13 @@
 
                   <!-- معلم قريب -->
                   <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"
-                      >معلم قريب </label
+                    <label class="block text-xs font-semibold text-black mb-2"> {{ $t("nearest landmark") }} </label
                     >
                     <input
                       type="text"
                       v-model="NearestLand"
                       required
-                      placeholder="معلم قريب "
+                     :laceholder="$t('nearest landmark')"
                       class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
@@ -223,7 +219,7 @@
                           stroke-width="1.5"
                         />
                       </svg>
-                      <p>أضغط العنوان باستخدام خريطة جوجل اسهل؟</p>
+                      <p>  {{ $t("Is it easier to click on the address using Google Map?") }}   </p>
                     </button>
                   </div>
 
@@ -232,7 +228,7 @@
                       type="submit"
                       class="w-full bg-primary-900 text-white py-3 font-semibold text-sm"
                     >
-                    {{'إضافة العنوان' }}</button>
+                    {{ $t("Add a new address") }}</button>
                   </div>
                 </form>
               </div>
@@ -263,7 +259,8 @@ const props = defineProps({
   },
 })
 
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const isMap = ref(false)
 
@@ -347,7 +344,7 @@ const filteredData = ref({
 
 // cities
 const dropDownCite = ref(null)
-const selectedCite = ref('المدينه')
+const selectedCite = ref(t('City'))
 const isDropdowenCiteVisable = ref(false)
 const toggleCiteSelect = city => {
   filteredData.value.city_id = city.id
@@ -359,7 +356,7 @@ const toggleCiteSelect = city => {
     filteredAreas.value = storeAddress.getDistricts.filter(
       (area) => area.city_id === parseInt(city.id)
     );
-    selectedDistrict.value = 'المنطقة'
+    selectedDistrict.value = t('Area')
 
   } else {
     filteredAreas.value = [];
@@ -369,7 +366,7 @@ const toggleCiteSelect = city => {
 
 // District
 const dropDownDistrict = ref(null)
-const selectedDistrict = ref('المنطقة')
+const selectedDistrict = ref(t('Area'))
 const isDropdowenDistrictVisable = ref(false)
 const toggleDistrictSelect = district => {
   filteredData.value.district_id = district.id
@@ -380,16 +377,16 @@ const toggleDistrictSelect = district => {
 
 const handleAddress = async () => {
 
-  if(selectedCite.value == 'المدينه'){
-    alert('اختر مدينه')
+  if(selectedCite.value == t("City")){
+    alert(t("Choose a city"))
     return;
   }
-  if(selectedDistrict.value == 'المنطقة'){
-    alert('اختر منطقه')
+  if(selectedDistrict.value == t("Area")){
+    alert(t("Choose a region"))
     return;
   }
   if(!Getlat.value &&  !Getlong.value){
-    alert('اختر من الخريطه')
+    alert(t("Choose from the map"))
     return;
   }
 
@@ -400,12 +397,12 @@ const handleAddress = async () => {
 
   const creataddress = await storeAddress.creatAddress(filteredData.value)
   if (creataddress) {
-    alert('تم الاضافه بنجاح')
+    alert(t("Added successfully"))
     storeAddress.fetchAllAddresses()
     Adress.value = "";
     NearestLand.value= "";
-    selectedDistrict.value = "المنطقة";
-    selectedCite.value ="المدينه"
+    selectedDistrict.value = t("Area");
+    selectedCite.value =t("City")
 
     localStorage.removeItem('long')
     localStorage.removeItem('lat')

@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-white">
     <header class="bg-white shadow p-4">
-      <h1 class="text-md md:text-xl font-bold text-gray-800 text-center">طلباتي</h1>
+      <h1 class="text-md md:text-xl font-bold text-gray-800 text-center">{{ $t("My Oreders") }}</h1>
     </header>
     <main class="p-4">
       <div class="grid grid-cols-1  gap-4">
@@ -16,7 +16,7 @@
                 : ' text-gray-600 ',
                 'w-20 md:w-28 h-8 md:h-10 cursor-pointer'
               ]">
-              <span class="text-xs md:text-sm  lg:text-md   font-semibold ">جميع الطلبات</span>
+              <span class="text-xs md:text-sm  lg:text-md   font-semibold "> {{ $t("All orders") }}</span>
               <div class="flex items-center justify-center">
                 <div
                   :class="[
@@ -35,7 +35,7 @@
                 : ' text-gray-600  ',
                 'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
               ]">
-              <span class="text-xs md:text-sm  lg:text-md    font-semibold ">موافق عليه  </span>
+              <span class="text-xs md:text-sm  lg:text-md    font-semibold ">{{ $t("Approved") }}  </span>
               <div class="flex items-center justify-center">
                 <div
                   :class="[
@@ -54,7 +54,7 @@
                 : ' text-gray-600  ',
                 'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
               ]">
-              <span class="text-xs md:text-sm  lg:text-md  font-semibold ">قيد التجهيز  </span>
+              <span class="text-xs md:text-sm  lg:text-md  font-semibold "> {{ $t("In preparation") }}  </span>
               <div class="flex items-center justify-center">
                 <div
                   :class="[
@@ -73,7 +73,7 @@
                 : ' text-gray-600  ',
                 'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
               ]">
-              <span class="text-xs md:text-sm  lg:text-md  font-semibold "> تم التوصيل   </span>
+              <span class="text-xs md:text-sm  lg:text-md  font-semibold ">  {{ $t("Delivered") }}   </span>
               <div class="flex items-center justify-center">
                 <div
                   :class="[
@@ -92,7 +92,7 @@
                 : ' text-gray-600  ',
                 'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
               ]">
-              <span class="text-xs md:text-sm  lg:text-md    font-semibold "> تعليق  </span>
+              <span class="text-xs md:text-sm  lg:text-md    font-semibold "> {{ $t("comment") }}  </span>
               <div class="flex items-center justify-center">
                 <div
                   :class="[
@@ -138,7 +138,7 @@
                 </div>
                 <RouterLink :to="`/desktop/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
-                  <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
+                  <h3 class="font-semibold   text-sm "> {{ $t("order number") }}: </h3>
                   <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
                 </div>
               </RouterLink>
@@ -152,8 +152,8 @@
                   </div>
                 </div>
                 <div class="flex items-center  gap-2 mt-2">
-                  <h3 class="font-semibold  text text-sm ">  عدد المنتجات : {{ order.total_products }} </h3>
-                  <h3 class="font-semibold  text-primary-900 text-sm ">  السعر الاجمالي : {{ order.total }} ري </h3>
+                  <h3 class="font-semibold  text text-sm "> {{ $t("Number of products") }}: {{ order.total_products }} </h3>
+                  <h3 class="font-semibold  text-primary-900 text-sm ">  {{ $t("Total price") }}: {{ order.total }} ري </h3>
                 </div>
 
                 <!-- <div class="flex items-center gap-3 mt-2">

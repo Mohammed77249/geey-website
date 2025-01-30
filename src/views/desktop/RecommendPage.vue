@@ -1,17 +1,17 @@
 <template>
   <div class="mt-6 md:mt-10 px-4 md:px-10">
-    <p class="text-gray-500 ">الصفحة الرئيسية / {{ sectionName }} /</p>
+    <p class="text-gray-500 "> {{$t("Home")}}/ {{ sectionName }} /</p>
     <div class="grid grid-cols-12 md:gap-5 ">
       <div class="col-span-5 md:col-span-2 mb-5">
         <div class="overflow-y-auto h-screen custom-scroll pl-5">
-          <p class="font-bold text-[13px] mt-8 mb-5">تصنيف</p>
+          <p class="font-bold text-[13px] mt-8 mb-5">{{ $t('classification') }}</p>
           <div class="w-full h-[1px] mb-5 bg-gray-200"></div>
           <div class="space-y-10">
 
             <!-- الفئات -->
             <div>
               <div class="flex items-center justify-between">
-                <p class="font-bold text-[12px]">الفئات</p>
+                <p class="font-bold text-[12px]">{{ $t("Categories") }}</p>
                 <button
                   type="button"
                   @click="
@@ -74,7 +74,7 @@
             <!-- مقاس -->
             <div>
               <div class="flex items-center justify-between">
-                <p class="font-bold text-[12px]">مقاس</p>
+                <p class="font-bold text-[12px]">{{ $t("measuring") }}</p>
                 <button
                   type="button"
                   @click="isDropdowenSizeVisable = !isDropdowenSizeVisable"
@@ -132,7 +132,7 @@
              <!-- لون -->
             <div>
               <div class="flex items-center justify-between">
-                <p class="font-bold text-[12px]">لون</p>
+                <p class="font-bold text-[12px]">{{ $t("Color") }}</p>
                 <button
                   type="button"
                   @click="isDropdowenColorVisable = !isDropdowenColorVisable"

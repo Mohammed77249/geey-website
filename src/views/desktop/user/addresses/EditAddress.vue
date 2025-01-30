@@ -24,7 +24,7 @@
             <div class="col-span-12 bg-gray-100">
               <div class="py-4 p-5 shadow bg-white m-2">
                 <h1 class="text-primary-900 font-bold text-xl">
-                  {{ 'تعديل العنوان ' }}
+                  {{ $t("Edit Address") }}
                 </h1>
               </div>
 
@@ -32,23 +32,19 @@
                 <form @submit.prevent="handleEditAddress">
                   <!-- المكتب الخاص أو المنزل -->
                   <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"
-                      >المكتب الخاص أو المنزل</label
-                    >
+                    <label class="block text-xs font-semibold text-black mb-2"> {{ $t("Private office or home") }} </label>
                     <input
                       type="text"
                       v-model="filteredData.address"
                       required
-                      placeholder="المكتب الخاص أو المنزل "
+                      :placeholder="$t('Private office or home')"
                       class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
 
                   <!-- المحافظة -->
                   <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"
-                      >المحافظة</label
-                    >
+                    <label class="block text-xs font-semibold text-black mb-2">{{ $t("City") }}</label>
                     <div ref="dropDownCite">
                       <button
                         class="text-[#979797] w-full py-2 border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
@@ -110,9 +106,7 @@
 
                   <!-- المنطقة -->
                   <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"
-                      >المنطقة</label
-                    >
+                    <label class="block text-xs font-semibold text-black mb-2">{{ $t("Area") }}</label>
                     <div ref="dropDownDistrict">
                       <button
                         class="text-[#979797] w-full py-2 border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
@@ -178,14 +172,14 @@
 
                   <!-- معلم قريب -->
                   <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"
-                      >معلم قريب
+                    <label class="block text-xs font-semibold text-black mb-2">
+                      {{ $t("nearest landmark") }}
                     </label>
                     <input
                       type="text"
                       v-model="filteredData.nearest_landmark"
                       required
-                      placeholder="معلم قريب "
+                     :laceholder="$t('nearest landmark')"
                       class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
@@ -224,7 +218,7 @@
                           stroke-width="1.5"
                         />
                       </svg>
-                      <p>أضغط العنوان باستخدام خريطة جوجل اسهل؟</p>
+                      <p>  {{ $t("Is it easier to click on the address using Google Map?") }}   </p>
                     </button>
                   </div>
 
@@ -233,7 +227,7 @@
                       type="submit"
                       class="w-full bg-primary-900 text-white py-3 font-semibold text-sm"
                     >
-                      {{ ' حفظ التعديلات' }}
+                      {{ $t("Save edits")}}
                     </button>
                   </div>
                 </form>
@@ -274,6 +268,9 @@ const props = defineProps({
     required: true,
   },
 })
+
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const isMap = ref(false)
 const filteredAreas = ref([]);
@@ -387,14 +384,14 @@ const handleEditAddress = async () => {
     const result = await storeAddress.updateAddress(filteredData2.value)
 
     if (result) {
-      alert('تم التعديل بنجاح')
+      alert(t("Modified successfully"))
       storeAddress.fetchAllAddresses()
       localStorage.removeItem('lat')
       localStorage.removeItem('long')
       closeDialog()
       close()
     } else {
-      alert('حدث خطأ أثناء تعديل العنوان')
+      alert(t("An error occurred while modifying the address"))
     }
   } catch (error) {
     console.error('Error updating address:', error)

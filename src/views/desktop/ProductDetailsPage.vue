@@ -749,6 +749,10 @@ const filteredData2 = ref({
   quantity: 1,
   price:null,
 })
+
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
 const id = route.params.id
 if (id != null) {
   filteredData2.value.productID = id
@@ -854,7 +858,7 @@ const searchedOption = computed(() => {
 const addToCart = async () => {
 
   if (!authStore.isAuthenticated) {
-    alert('يرجى تسجيل الدخول لإضافة منتجات إلى السلة.');
+    alert(t("Please log in to add products to the cart."));
     router.push('/desktop/login');
     return;
   }
@@ -890,7 +894,7 @@ const addToCart = async () => {
       if (storeCart.productMessage != null) {
         alert(storeCart.productMessage)
       } else {
-        alert('تمت إضافة المنتج إلى السلة!')
+        alert(t("Product added to cart!"))
       }
     } else {
       alert(storeCart.error)

@@ -81,7 +81,7 @@
                     :space-between="10"
                     navigation
                     pagination
-                    :class="{'rounded-lg custom-swiper border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
+                    :class="{'rounded-lg custom-swiper border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':storedLanguage == 'en'}"
                     @swiper="setSwiperInstance"
                   >
 
@@ -103,7 +103,7 @@
                     :space-between="10"
                     navigation
                     pagination
-                    :class="{'rounded-lg custom-swiper border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
+                    :class="{'rounded-lg custom-swiper border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':storedLanguage == 'en'}"
                     @swiper="setSwiperInstance"
                   >
                     <swiper-slide v-for="(image, index) in selectedColorImages" :key="index">
@@ -416,6 +416,9 @@ const props = defineProps({
 });
 
 
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
 const filteredData = ref({
   cart_id:null,
   product_id:  null,
@@ -517,7 +520,7 @@ const updateToCart = async() => {
   );
 
   if (updatecart12) {
-      alert('تمت تحديث المنتج !')
+      alert(t("Product has been updated!"))
       window.location.reload();
       close()
   } else {

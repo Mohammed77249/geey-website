@@ -91,7 +91,7 @@
                     :class="{
                       'rounded-lg custom-swiper border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':
                         storedLanguage == 'ar',
-                      'rounded-lg custom-swiper2 border w-[700px] h-[900px]':
+                      'rounded-lg custom-swiper2 border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':
                         storedLanguage == 'en',
                     }"
                     @swiper="setSwiperInstance"
@@ -120,7 +120,7 @@
                     :class="{
                       'rounded-lg custom-swiper border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':
                         storedLanguage == 'ar',
-                      'rounded-lg custom-swiper2 border w-[700px] h-[900px]':
+                      'rounded-lg custom-swiper2 border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':
                         storedLanguage == 'en',
                     }"
                     @swiper="setSwiperInstance"
@@ -511,6 +511,9 @@ const props = defineProps({
   },
 })
 
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
 const filteredData = ref({
   product_id: null,
   color_id: null,
@@ -601,7 +604,7 @@ const addToCart = async () => {
     filteredData.value.color_id = 0
   }
   if (filteredData.value.parent_measuring_id === null) {
-    alert('ادخل المقاس')
+    alert(t("Enter the size"))
   } else {
     const addcart = await storeCart.creatCart(
       filteredData.value.product_id,
@@ -616,7 +619,7 @@ const addToCart = async () => {
         alert(storeCart.productMessage)
         close()
       } else {
-        alert('تمت إضافة المنتج إلى السلة!')
+        alert(t("Product added to cart!"))
         window.location.reload()
         close()
       }

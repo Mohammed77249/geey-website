@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto  bg-white shadow-md   p-6">
     <header class="bg-white shadow p-4">
-      <h1 class="text-2xl font-bold mb-4 text-center">إدارة حسابي</h1>
+      <h1 class="text-2xl font-bold mb-4 text-center"> {{ $t("Manage my account") }}</h1>
     </header>
 
     <main class="p-4 bg-white shadow border mt-5">
@@ -9,13 +9,13 @@
     <form @submit.prevent="changePassword">
       <!-- كلمة المرور الحالية -->
       <div  class="mb-4">
-        <label class="block text-sm font-medium mb-2">كلمة المرور الحالية</label>
+        <label class="block text-sm font-medium mb-2"> {{ $t("Current Password") }}</label>
                 <div class="relative ">
                 <input
                   v-model="currentPassword"
                   required
                   :type="isPasswordCurrentVisible ? 'text' : 'password'"
-                    placeholder="أدخل كلمة المرور الحالية"
+                    :placeholder="$t('Enter your current password')"
                    class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
                 />
                 <button
@@ -62,7 +62,7 @@
 
       <!-- كلمة المرور الجديدة -->
       <div  class="mb-4">
-        <label class="block text-sm font-medium mb-2">كلمة المرور الجديدة</label>
+        <label class="block text-sm font-medium mb-2"> {{ $t("New Password") }}</label>
         <div class="relative ">
                 <input
                   v-model="newPassword"
@@ -115,13 +115,13 @@
 
       <!-- تأكيد كلمة المرور الجديدة -->
       <div  class="mb-4">
-        <label class="block text-sm font-medium mb-2">تأكيد كلمة المرور الجديدة</label>
+        <label class="block text-sm font-medium mb-2"> {{ $t("Confirm the new password") }}</label>
                 <div class="relative ">
                 <input
                   v-model="confirmPassword"
                   required
                   :type="isPasswordConfirmVisible ? 'text' : 'password'"
-                   :placeholder="$t('تأكيد كلمة المرور ')"
+                   :placeholder="$t('Confirm the new password')"
                    class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
                 />
                 <button
@@ -200,6 +200,8 @@ const isPasswordNewVisible = ref(false)
 const isPasswordConfirmVisible = ref(false)
 const isPasswordCurrentVisible = ref(false)
 
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 // الرسائل (للأخطاء أو النجاح)
 const errorMessage = ref("");
@@ -209,19 +211,19 @@ const successMessage = ref("");
 const changePassword = async() => {
   // التحقق من صحة الإدخالات
   if (!currentPassword.value || !newPassword.value || !confirmPassword.value) {
-    errorMessage.value = "جميع الحقول مطلوبة.";
+    errorMessage.value = t("All fields are required.");
     successMessage.value = "";
     return;
   }
 
   if (newPassword.value !== confirmPassword.value) {
-    errorMessage.value = "كلمة المرور الجديدة وتأكيدها غير متطابقين.";
+    errorMessage.value = t("The new password and its confirmation do not match.");
     successMessage.value = "";
     return;
   }
 
   if (newPassword.value.length < 6) {
-    errorMessage.value = "يجب أن تكون كلمة المرور الجديدة مكونة من 6 أحرف على الأقل.";
+    errorMessage.value = t("The new password must be at least 6 characters long.");
     successMessage.value = "";
     return;
   }
@@ -233,7 +235,7 @@ const changePassword = async() => {
       setTimeout(() => {
         // إذا نجح تغيير كلمة المرور
         errorMessage.value = "";
-        successMessage.value = "تم تغيير كلمة المرور بنجاح.";
+        successMessage.value = t("The password has been changed successfully.");
 
         // إعادة تعيين الحقول
         currentPassword.value = "";
@@ -241,7 +243,7 @@ const changePassword = async() => {
         confirmPassword.value = "";
       }, 1000);
   }else{
-    errorMessage.value = "كلمه المرور ليست موجوده";
+    errorMessage.value = t("The password does not exist");
     successMessage.value = ""
   }
 
