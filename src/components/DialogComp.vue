@@ -43,9 +43,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
-
-// Props
 defineProps({
   isOpen: {
     type: Boolean,

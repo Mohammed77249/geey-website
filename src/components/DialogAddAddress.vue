@@ -318,7 +318,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, onMounted, onBeforeMount,onUnmounted } from 'vue'
+import {   ref, onMounted, onBeforeMount,onUnmounted } from 'vue'
 import LoaderDatacomp from './LoaderDatacomp.vue'
 import GoogleMap from './GoogleMap.vue'
 // const storedLanguage = localStorage.getItem("language");

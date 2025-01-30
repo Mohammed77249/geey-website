@@ -260,7 +260,7 @@ defineExpose({
 
 
 <script setup>
-import { ref, reactive, defineEmits } from 'vue'
+import { ref, reactive} from 'vue'
 import { GoogleMap, Marker, InfoWindow } from 'vue3-google-map'
 
 const props = defineProps({
@@ -554,7 +554,7 @@ const mapOptions = reactive({
 
 <!--
 <script setup>
-import { ref, defineEmits, reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import { GoogleMap, Marker, InfoWindow } from 'vue3-google-map'
 
 const props = defineProps({

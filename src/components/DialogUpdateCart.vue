@@ -388,7 +388,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits,ref ,onMounted,computed} from "vue";
+import {  ref ,onMounted,computed} from "vue";
 // import DialogComp from "./DialogComp.vue";
 import LoaderDatacomp from "./LoaderDatacomp.vue";
 const storedLanguage = localStorage.getItem("language");

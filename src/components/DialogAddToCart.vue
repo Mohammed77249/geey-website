@@ -489,7 +489,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, onMounted, computed } from 'vue'
+import {  ref, onMounted, computed } from 'vue'
 // for مرجع المقاس
 // import DialogComp from './DialogComp.vue'
 import LoaderDatacomp from './LoaderDatacomp.vue'

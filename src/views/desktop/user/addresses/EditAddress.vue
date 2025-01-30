@@ -252,8 +252,6 @@
 
 <script setup>
 import {
-  defineProps,
-  defineEmits,
   ref,
   onMounted,
   watch,

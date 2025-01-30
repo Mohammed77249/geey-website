@@ -124,7 +124,7 @@
 </template>
 
 <script setup>
-import { defineProps,ref,onMounted ,onBeforeUnmount} from 'vue'
+import { ref,onMounted ,onBeforeUnmount} from 'vue'
 import { useSectionsStore } from '@/stores/section'
 import LoaderDatacomp from './LoaderDatacomp.vue';
 const storedLanguage = localStorage.getItem("language");
