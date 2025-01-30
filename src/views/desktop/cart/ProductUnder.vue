@@ -91,8 +91,9 @@
 </template>
 
 <script setup>
-import { ref,  } from 'vue';
-import DialogAddToCart from '@/components/DialogAddToCart.vue';
+import { ref, defineAsyncComponent } from 'vue';
+const DialogAddToCart = defineAsyncComponent(() => import('@/components/DialogAddToCart.vue'));
+
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
 import { useRouter } from 'vue-router';

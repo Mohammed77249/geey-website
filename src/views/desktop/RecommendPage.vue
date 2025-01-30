@@ -601,17 +601,21 @@
 </template>
 
 <script setup>
+import { ref ,watch,defineAsyncComponent} from 'vue'
 // import AdvantageComp from '@/components/RecommendViewCoponent/AdvantageComp.vue'
-import SubSectionComp from '@/components/RecommendViewCoponent/SubSectionComp.vue'
-import ColorsComp from '@/components/RecommendViewCoponent/ColorsComp.vue'
+const SubSectionComp = defineAsyncComponent(() => import('@/components/RecommendViewCoponent/SubSectionComp.vue'));
+const ColorsComp = defineAsyncComponent(() => import('@/components/RecommendViewCoponent/ColorsComp.vue'));
+
 // import DesignComp from '@/components/RecommendViewCoponent/DesignComp.vue'
-import PriceRangeComp from '@/components/RecommendViewCoponent/PriceRangeComp.vue'
-import RecomndProductComp from '@/components/RecommendViewCoponent/RecomndProductComp.vue'
+const PriceRangeComp = defineAsyncComponent(() => import('@/components/RecommendViewCoponent/PriceRangeComp.vue'));
+const RecomndProductComp = defineAsyncComponent(() => import('@/components/RecommendViewCoponent/RecomndProductComp.vue'));
+
 // import ResourccesComp from '@/components/RecommendViewCoponent/ResourccesComp.vue'
-import SiziesComp from '@/components/RecommendViewCoponent/SiziesComp.vue'
+const SiziesComp = defineAsyncComponent(() => import('@/components/RecommendViewCoponent/SiziesComp.vue'));
+
 // import TallComp from '@/components/RecommendViewCoponent/TallComp.vue'
 // import TypeComp from '@/components/RecommendViewCoponent/TypeComp.vue'
-import { ref ,watch} from 'vue'
+
 import { useRoute } from 'vue-router'
 import { useSectionsStore } from '@/stores/section'
 const filteredData = ref({

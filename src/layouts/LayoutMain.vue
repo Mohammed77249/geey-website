@@ -132,10 +132,12 @@ onMounted(() => {
 </template>
 
 <script setup>
-import FooterComp from '@/components/FooterComp.vue';
-import HeaderComp from '@/components/HeaderComp.vue';
-import FooterMobileComp from '@/components/phone/FooterMobileComp.vue';
-import HeaderMobileComp from '@/components/phone/HeaderMobileComp.vue';
+import { defineAsyncComponent } from 'vue';
+const HeaderComp = defineAsyncComponent(() => import('@/components/HeaderComp.vue'));
+const FooterComp = defineAsyncComponent(() => import('@/components/FooterComp.vue'));
+const HeaderMobileComp = defineAsyncComponent(() => import('@/components/phone/HeaderMobileComp.vue'));
+const FooterMobileComp = defineAsyncComponent(() => import('@/components/phone/FooterMobileComp.vue'));
+
 import { useRoute, useRouter } from 'vue-router';
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 

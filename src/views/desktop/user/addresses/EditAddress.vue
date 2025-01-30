@@ -257,8 +257,10 @@ import {
   watch,
   reactive,
   onUnmounted,
+  defineAsyncComponent
 } from 'vue'
-import GoogleMap from '@/components/GoogleMap.vue'
+const GoogleMap = defineAsyncComponent(() => import('@/components/GoogleMap.vue'));
+
 import { useAddressStore } from '@/stores/address'
 const storeAddress = useAddressStore()
 // Props

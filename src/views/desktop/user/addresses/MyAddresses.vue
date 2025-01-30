@@ -115,11 +115,12 @@
 
 </template>
 <script setup>
-import {  ref ,onMounted} from 'vue';
+import {  ref ,onMounted,defineAsyncComponent} from 'vue';
 import { useAddressStore } from '@/stores/address'
 import AddAddress from './AddAddress.vue';
 import EditAddress from './EditAddress.vue';
-import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
+
 const storeAddress = useAddressStore()
 
 

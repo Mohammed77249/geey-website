@@ -54,8 +54,9 @@
 
 <script setup>
 // import LowProductsell from '@/components/HomeComponent/LowProductsell.vue'
-import MoreProductsell from '@/components/HomeComponent/MoreProductsell.vue'
-import { ref } from 'vue'
+import { ref,defineAsyncComponent } from 'vue'
+const MoreProductsell = defineAsyncComponent(() => import('@/components/HomeComponent/MoreProductsell.vue'));
+
 
 // const onclickLowProduct = ref(false)
 const onclickMoreSellsProduct = ref(true)

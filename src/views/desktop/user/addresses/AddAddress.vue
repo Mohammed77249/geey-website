@@ -249,8 +249,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted,onUnmounted } from 'vue'
-import GoogleMap from '@/components/GoogleMap.vue'
+import { ref, onMounted,onUnmounted,defineAsyncComponent } from 'vue'
+const GoogleMap = defineAsyncComponent(() => import('@/components/GoogleMap.vue'));
+
 import { useAddressStore } from '@/stores/address'
 
 const storeAddress = useAddressStore()

@@ -137,10 +137,10 @@
 </template>
 
 <script setup>
-import {  ref,onMounted } from 'vue';
+import {  ref,onMounted,defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
-import LoaderComp from '@/components/LoaderComp.vue';
+const LoaderComp = defineAsyncComponent(() => import('@/components/LoaderComp.vue'));
 const authStore = useAuthStore();
 const password = ref('');
 const message = ref();

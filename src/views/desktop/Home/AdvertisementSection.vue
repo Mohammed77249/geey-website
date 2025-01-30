@@ -36,7 +36,11 @@
   </template>
 
   <script setup>
-import SwiperComp from '@/components/HomeComponent/SwiperComp.vue';
+import { defineAsyncComponent } from "vue";
+const SwiperComp = defineAsyncComponent(() => import('@/components/HomeComponent/SwiperComp.vue'));
+
+
+
 // import ProductCard from '@/components/ProductCard.vue';
 // import {ref } from 'vue'
 // const products =ref([

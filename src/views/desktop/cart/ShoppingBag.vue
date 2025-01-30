@@ -252,10 +252,11 @@
   </div>
 </template>
 <script setup>
-import { ref,onMounted,computed } from "vue";
+import { ref,onMounted,computed,defineAsyncComponent } from "vue";
 import { useCartStore } from '@/stores/cart'
-import DialogUpdateCart from "@/components/DialogUpdateCart.vue";
-import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
+const DialogUpdateCart = defineAsyncComponent(() => import('@/components/DialogUpdateCart.vue'));
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
+
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 const storeCart = useCartStore()

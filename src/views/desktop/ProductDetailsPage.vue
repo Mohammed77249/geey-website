@@ -715,14 +715,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted,  computed} from 'vue'
+import { ref, onMounted,  computed,defineAsyncComponent} from 'vue'
 // import CommentComp from '@/components/Comments/CommentComp.vue'
 // import HeaderCommentsComp from '@/components/Comments/HeaderComentsComp.vue'
 import { useRoute } from 'vue-router'
-import LoaderComp from '@/components/LoaderDatacomp.vue'
+const LoaderComp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
+
 //   <!-- مرجع المقاس -->
 // import DialogComp from '@/components/DialogComp.vue'
-import DescriptionComp from '@/components/ProductDetailsComponent/DescriptionComp.vue'
+const DescriptionComp = defineAsyncComponent(() => import('@/components/ProductDetailsComponent/DescriptionComp.vue'));
 
 // import SizeProDetailsComp from '@/components/ProductDetailsComponent/SizeProDetailsComp.vue'
 // import AboutStoreComp from '@/components/ProductDetailsComponent/AboutStoreComp.vue'

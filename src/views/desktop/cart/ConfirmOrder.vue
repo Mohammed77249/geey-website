@@ -239,10 +239,11 @@
 </template>
 
 <script setup>
-import DialogAddAddress from '@/components/DialogAddAddress.vue';
 import { useCartStore } from '@/stores/cart'
 import { useConfirmOrders } from '@/stores/confirmorder'
-import { ref,onMounted ,onBeforeUnmount} from "vue";
+import { ref,onMounted ,onBeforeUnmount,defineAsyncComponent} from "vue";
+const DialogAddAddress = defineAsyncComponent(() => import('@/components/DialogAddAddress.vue'));
+
 const storeCart = useCartStore();
 const storeOrder = useConfirmOrders();
 import { useRouter } from 'vue-router';

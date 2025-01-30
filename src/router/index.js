@@ -525,36 +525,41 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 
 // desktop
-import DesktopLoginPage from '@/views/desktop/auth/LoginPage.vue';
-import DesktopOtpPage from '@/views/desktop/auth/OtpPage.vue';
-import DesktopForgetPasswordPage from '@/views/desktop/auth/ForgetPasswordPage.vue';
-import DesktopResetPasswordPage from '@/views/desktop/auth/ResatPasswordPage.vue';
-import DesktopLoginEmailPage from '@/views/desktop/auth/LoginEmailPage.vue';
 
-import DesktopNotFoundPage from '@/views/desktop/NotFoundPage.vue';
-import DesktopRecommendPage from '@/views/desktop/RecommendPage.vue';
-import DesktopHome  from '@/views/desktop/HomePage.vue';
-import DesktopProductDetailsPage from '@/views/desktop/ProductDetailsPage.vue';
-import DesktopCommentsPage from '@/views/desktop/CommentsPage.vue';
-import DesktopCartPage from '@/views/desktop/CartPage.vue';
-import DesktopUser_Index from '@/views/desktop/user/User_Index.vue';
-import DesktopUser_main from '@/views/desktop/user/User_main.vue';
-import DesktopMyOreder from '@/views/desktop/user/oreders/MyOreder.vue';
-import DesktopMyProfile from '@/views/desktop/user/MyProfile.vue';
-import DesktopMyAddresses from '@/views/desktop/user/addresses/MyAddresses.vue';
-import DesktopOrderDetails from '@/views/desktop/user/oreders/OrderDetails.vue';
-import DesktopMangeMyAccount from '@/views/desktop/user/userAccount/MangeMyAccount.vue';
+import { defineAsyncComponent } from 'vue';
+
+// desktop
+const DesktopLoginPage = defineAsyncComponent(() => import('@/views/desktop/auth/LoginPage.vue'));
+const DesktopOtpPage = defineAsyncComponent(() => import('@/views/desktop/auth/OtpPage.vue'));
+const DesktopForgetPasswordPage = defineAsyncComponent(() => import('@/views/desktop/auth/ForgetPasswordPage.vue'));
+const DesktopResetPasswordPage = defineAsyncComponent(() => import('@/views/desktop/auth/ResatPasswordPage.vue'));
+const DesktopLoginEmailPage = defineAsyncComponent(() => import('@/views/desktop/auth/LoginEmailPage.vue'));
+
+const DesktopNotFoundPage = defineAsyncComponent(() => import('@/views/desktop/NotFoundPage.vue'));
+const DesktopRecommendPage = defineAsyncComponent(() => import('@/views/desktop/RecommendPage.vue'));
+const DesktopHome = defineAsyncComponent(() => import('@/views/desktop/HomePage.vue'));
+const DesktopProductDetailsPage = defineAsyncComponent(() => import('@/views/desktop/ProductDetailsPage.vue'));
+const DesktopCommentsPage = defineAsyncComponent(() => import('@/views/desktop/CommentsPage.vue'));
+const DesktopCartPage = defineAsyncComponent(() => import('@/views/desktop/CartPage.vue'));
+const DesktopUser_Index = defineAsyncComponent(() => import('@/views/desktop/user/User_Index.vue'));
+const DesktopUser_main = defineAsyncComponent(() => import('@/views/desktop/user/User_main.vue'));
+const DesktopMyOreder = defineAsyncComponent(() => import('@/views/desktop/user/oreders/MyOreder.vue'));
+const DesktopMyProfile = defineAsyncComponent(() => import('@/views/desktop/user/MyProfile.vue'));
+const DesktopMyAddresses = defineAsyncComponent(() => import('@/views/desktop/user/addresses/MyAddresses.vue'));
+const DesktopOrderDetails = defineAsyncComponent(() => import('@/views/desktop/user/oreders/OrderDetails.vue'));
+const DesktopMangeMyAccount = defineAsyncComponent(() => import('@/views/desktop/user/userAccount/MangeMyAccount.vue'));
 
 // phone
-import PhoneLoginPage from '@/views/phone/auth/LoginPage.vue';
-import PhoneOtpPage from '@/views/phone/auth/OtpPage.vue';
-import PhoneForgetPasswordPage from '@/views/phone/auth/ForgetPasswordPage.vue';
-import PhoneResetPasswordPage from '@/views/phone/auth/ResatPasswordPage.vue';
-import PhoneLoginEmailPage from '@/views/phone/auth/LoginEmailPage.vue';
+const PhoneLoginPage = defineAsyncComponent(() => import('@/views/phone/auth/LoginPage.vue'));
+const PhoneOtpPage = defineAsyncComponent(() => import('@/views/phone/auth/OtpPage.vue'));
+const PhoneForgetPasswordPage = defineAsyncComponent(() => import('@/views/phone/auth/ForgetPasswordPage.vue'));
+const PhoneResetPasswordPage = defineAsyncComponent(() => import('@/views/phone/auth/ResatPasswordPage.vue'));
+const PhoneLoginEmailPage = defineAsyncComponent(() => import('@/views/phone/auth/LoginEmailPage.vue'));
 
-import PhoneHome  from '@/views/phone/HomePage.vue';
-import PhoneNotFoundPage from '@/views/phone/NotFoundPage.vue';
-import LayoutMain from '@/layouts/LayoutMain.vue';
+const PhoneHome = defineAsyncComponent(() => import('@/views/phone/HomePage.vue'));
+const PhoneNotFoundPage = defineAsyncComponent(() => import('@/views/phone/NotFoundPage.vue'));
+const LayoutMain = defineAsyncComponent(() => import('@/layouts/LayoutMain.vue'));
+
 
 
 
@@ -650,7 +655,7 @@ const router = createRouter({
     if (savedPosition) {
       return savedPosition;
     } else {
-      return { top: 0 }; 
+      return { top: 0 };
     }
   },
 });

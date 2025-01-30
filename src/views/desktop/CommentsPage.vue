@@ -259,9 +259,12 @@
 </template>
 
 <script setup>
-import CommentComp from '@/components/Comments/CommentComp.vue';
-import HeaderCommentsComp from '@/components/Comments/HeaderComentsComp.vue';
-import { ref ,onMounted ,onBeforeMount} from "vue";
+import { ref ,onMounted ,onBeforeMount,defineAsyncComponent} from "vue";
+const CommentComp = defineAsyncComponent(() => import('@/components/Comments/CommentComp.vue'));
+const HeaderCommentsComp = defineAsyncComponent(() => import('@/components/Comments/HeaderComentsComp.vue'));
+
+
+
 const listContentComment = ref([
   {
     title:"حجم التمثال",

@@ -38,9 +38,10 @@
 </template>
 
 <script setup>
-import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
 import { useSectionsStore } from '@/stores/section'
-import {ref,onMounted } from 'vue'
+import {ref,onMounted,defineAsyncComponent } from 'vue'
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
+
 const storeSection = useSectionsStore();
 const filteredData = ref({
       sectionId: 1,

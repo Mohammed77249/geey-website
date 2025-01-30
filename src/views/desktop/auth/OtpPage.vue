@@ -60,11 +60,12 @@
 </template>
 
 <script setup>
-import { ref ,onMounted,computed} from 'vue';
+import { ref ,onMounted,computed,defineAsyncComponent} from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 import { useAuthStore } from '@/stores/auth'
-import LoaderComp from '@/components/LoaderComp.vue';
+const LoaderComp = defineAsyncComponent(() => import('@/components/LoaderComp.vue'));
+
 const authStore = useAuthStore();
 
 const otpInputs= Array.from({ length: 6 });

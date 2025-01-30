@@ -188,12 +188,13 @@
 </template>
 
 <script setup>
+import { ref ,watch} from 'vue'
 import ShoppingBag from './cart/ShoppingBag.vue';
 import ConfirmOrder from './cart/ConfirmOrder.vue';
 import PayMoney from './cart/PayMoney.vue';
 import RequestDone from './cart/RequestDone.vue';
 import { useCartStore } from '@/stores/cart.js';
-import { ref ,watch} from 'vue'
+
 // import ProductUnder from './cart/ProductUnder.vue';
 
 const cartStore = useCartStore();

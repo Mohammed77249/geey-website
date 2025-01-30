@@ -16,5 +16,20 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('views/desktop')) {
+            return 'desktop-pages';
+          }
+          if (id.includes('views/phone')) {
+            return 'phone-pages'; 
+          }
+        },
+      },
+    },
+  },
 })

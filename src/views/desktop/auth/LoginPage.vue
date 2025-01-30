@@ -82,10 +82,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref,defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
-import LoaderComp from '@/components/LoaderComp.vue';
+const LoaderComp = defineAsyncComponent(() => import('@/components/LoaderComp.vue'));
+
 const authStore = useAuthStore();
 const email = ref('');
 const router = useRouter();
