@@ -16,7 +16,7 @@
             :space-between="10"
             navigation
             pagination
-            :class="{'custom-swiper border w-screen h-[600px] md:hidden mb-5':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-screen h-[600px] md:hidden mb-5':storedLanguage == 'en'}"
+            :class="{'custom-swiper border w-screen h-[400px] md:hidden mb-5':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-screen h-[400px] md:hidden mb-5':storedLanguage == 'en'}"
              @swiper="setSwiperInstance"
           >
 
@@ -38,7 +38,7 @@
             :space-between="10"
             navigation
             pagination
-            :class="{'custom-swiper border w-screen h-[600px]  mb-5 md:hidden':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border w-[700px] h-[900px]':storedLanguage == 'en'}"
+            :class="{'custom-swiper border w-screen h-[400px]  mb-5 md:hidden':storedLanguage == 'ar' , 'rounded-lg custom-swiper2 border  w-screen h-[400px]  mb-5 md:hidden':storedLanguage == 'en'}"
              @swiper="setSwiperInstance"
           >
 

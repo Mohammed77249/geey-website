@@ -1,6 +1,9 @@
 <template>
+<div class="max-w-md  flex items-center overflow-x-auto custom-scroll">
+
+
   <div
-    class="flex items-center justify-center rounded-[10px] h-[70px] bg-white overflow-x-auto gap-2 shadow"
+    class="flex items-center justify-center rounded-[10px] h-[70px]  bg-white  gap-2 shadow"
   >
     <div class="">
       <button
@@ -11,7 +14,10 @@
           : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
         ]"
       >
-      من اجلك
+      <p>
+        من_اجلك
+      </p>
+
       </button>
     </div>
 
@@ -24,7 +30,10 @@
             : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
         ]"
       >
-         مدخلات جديدة
+      <p>
+        مدخلات_جديدة
+      </p>
+
       </button>
     </div>
 
@@ -37,7 +46,10 @@
             : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
         ]"
       >
+      <p>
         خصومات
+      </p>
+
       </button>
     </div>
 
@@ -50,13 +62,13 @@
             : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
         ]"
       >
-        الاكثر مبيعا
+        الاكثر_مبيعا
       </button>
     </div>
 
 
   </div>
-
+</div>
   <div class="mb-5">
     <div v-if="onclickNewEnters">
       <ProductComp />
@@ -107,3 +119,26 @@ const taggleActiveMoreSells = () => {
 };
 
 </script>
+
+
+<style scoped>
+
+
+.custom-scroll::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+.custom-scroll:hover::-webkit-scrollbar,
+.custom-scroll:active::-webkit-scrollbar {
+  opacity: 0;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+</style>
