@@ -80,7 +80,6 @@
       <div class="flex items-center justify-between gap-2 ">
 
           <!-- list section -->
-
           <div class="max-w-md  flex items-center overflow-x-auto custom-scroll">
               <ul
                 class="flex item-center justify-center gap-2   text-[12px]  font-sans"

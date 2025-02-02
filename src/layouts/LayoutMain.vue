@@ -145,7 +145,6 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 const route = useRoute();
 const router = useRouter();
 const hideHeaderFooter = computed(() => route.meta.hideHeaderFooter);
-
 // Determine device type
 const isDesktop = ref(window.innerWidth >= 768);
 

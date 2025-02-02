@@ -636,6 +636,8 @@ const routes = [
         component: () => import('@/views/phone/auth/ResatPasswordPage.vue'),
         meta: { guestOnly: true, hideHeaderFooter: true }
       },
+      { path: 'product/:id', name: 'phoneProductDetails', component: () => import('@/views/phone/ProductDetailsPage.vue'), meta: {  hideHeaderFooter: true } },
+
     ],
     beforeEnter: (to, from, next) => {
       // منع الوصول إلى مسار الهاتف من الكمبيوتر

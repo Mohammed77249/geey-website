@@ -59,18 +59,18 @@
 
   <div class="mb-5">
     <div v-if="onclickNewEnters">
-      <MoreProductsell />
+      <ProductComp />
     </div>
 
     <div v-if="onclickForYou">
-      <MoreProductsell />
+      <ProductComp />
     </div>
   </div>
 </template>
 
 <script setup>
 // import LowProductsell from '@/components/HomeComponent/LowProductsell.vue'
-import MoreProductsell from '@/components/HomeComponent/MoreProductsell.vue'
+import ProductComp from '@/components/phone/ProductComp.vue'
 import { ref } from 'vue'
 
 const onclickForYou = ref(true)
