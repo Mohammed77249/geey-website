@@ -34,7 +34,7 @@
 
         <button
           type="submit" @click="verifyOtp"
-          class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
+          class="w-full bg-primary-900 text-white py-3 mt-10 font-bold  transition duration-300"
           :disabled="authStore.loading"
         >
               {{ $t('verification') }}
@@ -85,13 +85,13 @@ const verifyOtp = async() => {
   const VerOtp = await authStore.verifyOtp(otp.value.join(""),emailUser);
   if(VerOtp && isnew == 'old' ){
     authStore.isAuthenticated = false
-    router.push('/user/resetpassword');
+    router.push('/phone/resetpassword');
   }
   if(VerOtp && isnew == 'regester' )
   {
     authStore.isAuthenticated = true
     alert(`تم تسجيل الدخول بنجاح `);
-    router.push('/');
+    router.push('/phone/home');
   }
 
 

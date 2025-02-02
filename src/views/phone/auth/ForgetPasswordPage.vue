@@ -48,7 +48,7 @@
 
             </form>
             <div class="flex items-center justify-center">
-                <RouterLink to="/user/login" class="text-[20px]  mb-16 font-bold text-primary-900 hover:underline flex">
+                <RouterLink to="/phone/login" class="text-[20px]  mb-16 font-bold text-primary-900 hover:underline flex">
                   {{ $t('Return to the login page') }}
                   <img class="w-[24px] h-[24px] mt-1 mr-1 " :src="lang == 'ar' ? '/src/assets/images/arrow-left.svg' :'/src/assets/images/arrow-right.svg'" alt="logo" />
               </RouterLink>
@@ -80,7 +80,7 @@
     const forpass = await authStore.forgetpassword(emailUser);
     if(forpass){
       localStorage.setItem('UserOld','old');
-      router.push('/user/otp');
+      router.push('/phone/otp');
       alert("success");
     }
   };

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-full flex flex-col items-center justify-center bg-gray-50">
+  <div class="h-screen w-full flex flex-col items-center justify-center bg-gray-50 mt-10">
     <!-- Login Form -->
     <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-10">
 
@@ -107,7 +107,7 @@
           <p>
 
           </p>
-        <RouterLink  to="/user/forgetpassword" class="hover:underline">{{ $t('Forgot Password') }}</RouterLink>
+        <RouterLink  to="/phone/forgetpassword" class="hover:underline">{{ $t('Forgot Password') }}</RouterLink>
         </div>
 
 
@@ -125,7 +125,7 @@
         <!-- Login Button -->
         <button
           type="submit"
-          class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
+          class="w-full bg-primary-900 text-white py-3 mt-10 font-bold  transition duration-300"
         >
         <p v-if="isUsernew"> تسجيل الاشتراك</p>
         <p v-if="!isUsernew"> {{ $t('login') }}</p>
@@ -184,7 +184,7 @@ const handleLogin = async () => {
     const userLogin = await authStore.loginUserNew(emailUser,password.value,name.value);
     if(userLogin)
     {
-      router.push('/user/otp');
+      router.push('/phone/otp');
       localStorage.setItem('UserOld','regester');
     }else{
       alert("errordddd")
@@ -194,7 +194,7 @@ const handleLogin = async () => {
     const userLogin = await authStore.loginUser(emailUser,password.value);
     if(userLogin)
     {
-      router.push('/user/otp');
+      router.push('/phone/otp');
       localStorage.setItem('UserOld','regester');
     }else{
       alert("errordddd")

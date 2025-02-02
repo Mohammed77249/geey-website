@@ -1,10 +1,9 @@
 <template>
-  <div class="h-screen w-full flex flex-col items-center justify-center bg-gray-50">
+  <div class="h-screen w-full flex flex-col items-center justify-center mt-10 bg-gray-50">
     <!-- Login Form -->
-    <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-10">
+    <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-4 py-10">
       <div class="mb-5">
         <div class="flex items-center justify-center gap-2">
-          <h1 class="text-3xl font-bold text-gray-800  text-center"> {{ $t('Jeey') }} </h1>
           <img src="/jeeeeylogo3.jpg" class="w-20 h-16" />
         </div>
 
@@ -40,7 +39,7 @@
         <!-- Login Button -->
         <button
           type="submit"  :disabled="authStore.loading"
-          class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
+          class="w-full bg-primary-900 text-white py-3 mt-10 font-bold  transition duration-300"
         >
 
           <span v-if="authStore.loading" class="loader mr-2"></span>
@@ -58,16 +57,16 @@
       </div>
 
       <!-- Social Login Buttons -->
-      <div class="flex gap-4">
+      <div class="py-3">
         <button
-          class="w-full flex items-center justify-center px-4 py-2  gap-2 border border-gray-500 transition"
+          class="w-full flex items-center justify-center px-4 py-3  gap-2 border border-gray-500 transition"
         >
         {{ $t('Continue with Google') }}
           <img src="/src/assets/images/google-icon.svg" alt="Google" class="w-5 h-5 mr-2" />
 
         </button>
         <button
-          class="w-full flex items-center justify-center px-4 py-2 gap-2 border border-gray-500  transition"
+          class="w-full flex items-center justify-center px-4 mt-10 py-3 gap-2 border border-gray-500  transition"
         >
         {{ $t('Continue with Facebook') }}
           <img src="/src/assets/images/facebook-icon.svg" alt="Facebook" class="w-5 h-5 mr-2" />
@@ -98,7 +97,7 @@ const handleLogin = async () => {
     if (exists.status =='exists') {
       successMessage.value = 'البريد الإلكتروني متاح. يمكنك المتابعة.';
       setTimeout(() => {
-        router.push('/user/loginemail');
+        router.push('/phone/loginemail');
       }, 500);
       localStorage.setItem('userNew','exists');
 
@@ -106,7 +105,7 @@ const handleLogin = async () => {
     else {
       successMessage.value = 'البريد الإلكتروني جديد.';
       setTimeout(() => {
-        router.push('/user/loginemail');
+        router.push('/phone/loginemail');
       }, 1500);
 
       localStorage.setItem('userNew','no exists');

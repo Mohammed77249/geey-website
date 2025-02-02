@@ -174,7 +174,7 @@ const submitNewPassword = async() => {
   const respass = await authStore.resetpassword(emailUser,newPassword.value,confirmPassword.value);
   if(respass){
     authStore.isAuthenticated = false
-    router.push('/user/loginemail')
+    router.push('/phone/loginemail')
   }
   alert("تمت إعادة تعيين كلمة المرور بنجاح!");
   errorMessage.value = "";

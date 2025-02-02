@@ -1,9 +1,9 @@
 <template>
   <div class="">
-    <div v-if="storeProduct.loading"><LoaderComp :isLoader="storeProduct.loading"/></div>
+    <div v-if="storeProduct.loading" class="mt-20"><LoaderComp :isLoader="storeProduct.loading"/></div>
     <div v-else-if="storeProduct.error">{{ storeProduct.error }}</div>
     <div
-      v-if="storeProduct.getproductDetails"
+      v-else-if="storeProduct.getproductDetails"
       class="container mx-auto grid grid-cols-1"
     >
       <!-- product image  -->

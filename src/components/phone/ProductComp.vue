@@ -114,7 +114,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import DialogAddToCart from '../DialogAddToCart.vue';
+import DialogAddToCart from './DialogAddToCartComp.vue';
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
 import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
@@ -127,8 +127,7 @@ const SectionStore = useSectionsStore();
 const router = useRouter();
 const openDialog = (id) => {
   if (!authStore.isAuthenticated) {
-    alert('يرجى تسجيل الدخول لإضافة منتجات إلى السلة.');
-    router.push('/desktop/login');
+    router.push('/phone/login');
     return;
   }
   isDialogOpen.value = true

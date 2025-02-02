@@ -492,7 +492,7 @@
 import {  ref, onMounted, computed } from 'vue'
 // for مرجع المقاس
 // import DialogComp from './DialogComp.vue'
-import LoaderDatacomp from './LoaderDatacomp.vue'
+import LoaderDatacomp from '@/components/LoaderDatacomp.vue'
 const storedLanguage = localStorage.getItem('language')
 import { useCartStore } from '@/stores/cart'
 import { Swiper, SwiperSlide } from 'swiper/vue'
