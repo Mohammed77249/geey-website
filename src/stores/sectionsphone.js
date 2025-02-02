@@ -7,6 +7,7 @@ export const useSectionsPhoneStore = defineStore('sectionsphone', {
     subsections:[],
     categories: [],
     subcategories: [],
+    bannerImage:[],
     products:[],
     totalProducts: {
       currentPage: 1,
@@ -25,6 +26,7 @@ export const useSectionsPhoneStore = defineStore('sectionsphone', {
     getSubCategories: state => state.subcategories || [],
     getProducts: state => state.products,
     getCategories: state => state.categories,
+    getBannerImage : state => state.bannerImage,
     },
   actions: {
 
@@ -44,6 +46,24 @@ export const useSectionsPhoneStore = defineStore('sectionsphone', {
         this.loading = false;
       }
     },
+
+     // banners
+     async fetchGetBanner(data) {
+      const filter = 2
+      this.loading = true;
+      this.error = null;
+
+
+      try {
+        const response = await axiosIns.get(`sections/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}&filter=${filter}`);
+        this.bannerImage = response.data.panner_images
+      } catch (error) {
+        this.error = error+ 'خطأ أثناء جلب الفئات';
+      } finally {
+        this.loading = false;
+      }
+    },
+    //========
 
 
     async fetchSubSectionBySectionID(data) {

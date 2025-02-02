@@ -99,11 +99,11 @@ export const useSectionsStore = defineStore('sections', {
       const filter = 2
       this.loading = true;
       this.error = null;
+
+
       try {
         const response = await axiosIns.get(`sections/${data.value.sectionId}?page=${data.value.page}&perPage=${data.value.perPage}&filter=${filter}`);
-
         this.bannerImage = response.data.panner_images
-
       } catch (error) {
         this.error = error+ 'خطأ أثناء جلب الفئات';
       } finally {

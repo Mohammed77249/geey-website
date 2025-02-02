@@ -12,8 +12,8 @@
       :class="{'w-full h-[250px]  Swiper custom-swiper': storedLanguage == 'ar' , 'w-full h-80 Swiper custom-swiper2': storedLanguage =='en'}"
       id="mySlider"
     >
-      <SwiperSlide v-for="(image, index) in images" :key="index">
-        <img :src="image" alt="صورة المنتج" class="w-full h-full object-cover" />
+      <SwiperSlide v-for="(image, index) in storeSecion.getBannerImage" :key="index">
+        <img :src="image.image" alt="صورة المنتج" class="w-full h-full object-cover" />
       </SwiperSlide>
 
     </Swiper>
@@ -31,18 +31,21 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
+import { useSectionsPhoneStore } from '@/stores/sectionsphone'
 
-import image1 from '@/assets/images/Big Sale Banner.svg';
-import image2 from '@/assets/images/products/Mockup.svg';
-import image3 from '@/assets/images/products/Image (3).svg';
-import image4 from '@/assets/images/products/unsplash_jsgby4-zj44.svg';
-import image5 from '@/assets/images/products/unsplash_VpqI6WX6sEs.svg';
+// import image1 from '@/assets/images/Big Sale Banner.svg';
+// import image2 from '@/assets/images/products/Mockup.svg';
+// import image3 from '@/assets/images/products/Image (3).svg';
+// import image4 from '@/assets/images/products/unsplash_jsgby4-zj44.svg';
+// import image5 from '@/assets/images/products/unsplash_VpqI6WX6sEs.svg';
 
 const storedLanguage = localStorage.getItem("language");
 
-const images = ref([image1, image2,image3,image4,image5]);
+// const images = ref([image1, image2,image3,image4,image5]);
+
 const modules = [Pagination,Navigation,Autoplay]
 
+const storeSecion = useSectionsPhoneStore();
 
 
 const autoplayOptions = ref({

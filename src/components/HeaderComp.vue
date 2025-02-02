@@ -533,6 +533,7 @@
             </div>
           </div>
         </div>
+
       </div>
       <!-- <LoaderComp :is-loader="store.loading"/> -->
     </div>
@@ -626,9 +627,6 @@ const handleMouseLeave = () => {
   showDropdown.value = false
   localStorage.removeItem('hoveredIndex')
 };
-
-
-
 
 
 </script>

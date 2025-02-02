@@ -6,8 +6,8 @@
       :class="isScrolled ? 'bg-white shadow-lg' : 'bg-transparent'"
     >
 
-    <div class="grid grid-cols-1 container mx-auto p-2">
-      <div class="flex items-center gap-2 ">
+    <div class="grid grid-cols-1 container mx-auto  p-2">
+      <div class="flex items-center gap-2  ">
 
         <!-- sms icon -->
         <div class="w-7 h-7">
@@ -57,7 +57,7 @@
 
         <!-- search -->
         <div  class="w-full h-7 ">
-          <SearchComp/>
+          <SearchComp :isScrolled="isScrolled" />
         </div>
 
         <!-- favorate icon -->
@@ -77,13 +77,13 @@
       </div>
 
       <!-- list section  and menu icon-->
-      <div class="flex items-center gap-2 ">
+      <div class="flex items-center justify-between gap-2 ">
 
           <!-- list section -->
-        <div class="w-full item-center">
-          <div class="overflow-x-auto">
+
+          <div class="max-w-md  flex items-center overflow-x-auto custom-scroll">
               <ul
-                class="flex item-center justify-center gap-2 scrollable-list overflow-x-auto text-[12px]  font-sans"
+                class="flex item-center justify-center gap-2   text-[12px]  font-sans"
               >
                 <li
                   v-for="(section, index) in storeSecion.getSections"
@@ -92,13 +92,11 @@
                  :class="isScrolled ? 'text-gray-700' : 'text-white'"
                   class=" p-2 text-center rounded-lg cursor-pointer   transition-all duration-200"
                 >
-                <!-- <RouterLink :to="`/desktop/recommend/${section.id}/${section.name}`"> -->
                   {{ section.name }}
-                <!-- </RouterLink> -->
                 </li>
               </ul>
           </div>
-        </div>
+
 
         <!-- menu icon -->
         <div class="">
@@ -149,7 +147,7 @@ import SearchComp from "../SearchComp.vue";
 
 const storeSecion = useSectionsPhoneStore();
 const filteredData = ref({
-  sectionId:1,
+  sectionId:5,
   page: 1,
   perPage: 20,
   filter:0
@@ -169,12 +167,14 @@ const handleScroll = () => {
 const onClickSubsection = async(id) =>{
   filteredData.value.sectionId = id
    await storeSecion.fetchSubSectionBySectionID(filteredData)
+   await storeSecion.fetchGetBanner(filteredData)
 }
 
 // إضافة وإزالة مستمع التمرير
 onMounted(async() => {
    await storeSecion.fetchSections(filteredData);
    await storeSecion.fetchSubSectionBySectionID(filteredData)
+   await storeSecion.fetchGetBanner(filteredData)
 
 
   window.addEventListener("scroll", handleScroll);
@@ -186,11 +186,31 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* ارتفاع الهيدر لضمان ظهوره فوق المحتوى */
+
 header {
   height: 70px;
 }
+
+
+.custom-scroll::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+.custom-scroll:hover::-webkit-scrollbar,
+.custom-scroll:active::-webkit-scrollbar {
+  opacity: 0;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
 </style>
+
 
 
 
