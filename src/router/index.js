@@ -611,6 +611,8 @@ const routes = [
         component: () => import('@/views/phone/user/UserMainPage.vue'),
         meta: { requiresAuth: true,  showFooter:true ,showHeader:false },
       },
+      { path: 'cart', name: 'phoneCart', component: () => import('@/views/phone/CartPage.vue'), meta: { requiresAuth: true, showFooter:true ,showHeader:false  } },
+
       {
         path: 'login',
         name: 'PhoneLogin',

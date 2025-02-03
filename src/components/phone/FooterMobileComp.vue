@@ -126,6 +126,8 @@ const onclickUser = ref(false);
 
 
 
+
+
 const taggleActiveHome = () => {
   onclickHome.value  = true
   onclickCategory.value  = false
@@ -158,6 +160,7 @@ const taggleActiveCart = () => {
   onclickNew.value  = false
   onclickCart.value  = true
   onclickUser.value =false
+  router.push('/phone/cart');
 };
 
 const taggleActiveUser = () => {
