@@ -179,7 +179,7 @@ export const useAuthStore = defineStore('auth', {
 
 
     // logout api
-    async logout () {
+    async logout (data) {
       this.loading = true;
       this.error = null;
       try {
@@ -194,7 +194,7 @@ export const useAuthStore = defineStore('auth', {
         localStorage.removeItem('authToken');
         localStorage.removeItem('emailuser');
         localStorage.removeItem('userNew');
-        router.push('/desktop/login');
+        router.push(`/${data}/login`);
 
         return true;
       } catch (error) {

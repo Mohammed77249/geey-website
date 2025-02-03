@@ -185,7 +185,7 @@ const router = useRouter();
 
 if (!authStore.isAuthenticated) {
   alert('يرجى تسجيل الدخول للوصول إلى السلة.');
-  router.push('/login');
+  router.push('/phone/login');
 }
 
 const selectAll = ref(false);

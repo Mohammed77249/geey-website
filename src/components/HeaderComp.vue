@@ -172,7 +172,7 @@
                       تبديل الحساب
                     </button> -->
                     <button
-                      @click="store.logout"
+                      @click="store.logout(logout)"
                       class="w-full py-1 font-medium text-[13px] text-gray-600 hover:bg-gray-100"
                     >
                       {{ $t("Log out") }}
@@ -556,6 +556,7 @@ const showDropdown = ref()
 const store = useAuthStore()
 const storeSecion = useSectionsStore();
 
+const logout = "desktop";
 const filteredData = ref({
   page: 1,
   perPage: 20,

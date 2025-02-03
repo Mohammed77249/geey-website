@@ -128,6 +128,6 @@ const storeAuth = useAuthStore();
 const emailUser = localStorage.getItem('emailuser');
 
 const toggleLougOut = ()=>{
-  storeAuth.logout()
+  storeAuth.logout("phone")
 };
 </script>

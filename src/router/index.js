@@ -602,14 +602,14 @@ const routes = [
   // Phone routes
   {
     path: '/phone',
-    component: () => import('@/layouts/LayoutMain.vue'),  meta: { requiresAuth: true,  showFooter:true ,showHeader:true },
+    component: () => import('@/layouts/LayoutMain.vue'),  meta: {  showFooter:true ,showHeader:true },
     children: [
       { path: 'home', name: 'PhoneHome', component: () => import('@/views/phone/HomePage.vue') },
 
       {
         path: 'user',
         component: () => import('@/views/phone/user/UserMainPage.vue'),
-        meta: { requiresAuth: true,  showFooter:true ,showHeader:false },
+        meta: {  showFooter:true ,showHeader:false },
       },
       { path: 'cart', name: 'phoneCart', component: () => import('@/views/phone/CartPage.vue'), meta: { requiresAuth: true, showFooter:true ,showHeader:false  } },
 
@@ -617,31 +617,31 @@ const routes = [
         path: 'login',
         name: 'PhoneLogin',
         component: () => import('@/views/phone/auth/LoginPage.vue'),
-        meta: { guestOnly: true, hideHeaderFooter: true }
+        meta: { guestOnly: true, hideHeaderFooter: true ,showFooter:false ,showHeader:false}
       },
       {
         path: 'loginemail',
         name: 'PhoneLoginEmail',
         component: () => import('@/views/phone/auth/LoginEmailPage.vue'),
-        meta: { guestOnly: true, hideHeaderFooter: true }
+        meta: { guestOnly: true, hideHeaderFooter: true ,showFooter:false ,showHeader:false}
       },
       {
         path: 'otp',
         name: 'PhoneLoginOtp',
         component: () => import('@/views/phone/auth/OtpPage.vue'),
-        meta: { guestOnly: true, hideHeaderFooter: true }
+        meta: { guestOnly: true, hideHeaderFooter: true,showFooter:false ,showHeader:false }
       },
       {
         path: 'forgetpassword',
         name: 'PhoneForgetPassword',
         component: () => import('@/views/phone/auth/ForgetPasswordPage.vue'),
-        meta: { guestOnly: true, hideHeaderFooter: true }
+        meta: { guestOnly: true, hideHeaderFooter: true,showFooter:false ,showHeader:false }
       },
       {
         path: 'resetpassword',
         name: 'PhoneResetPassword',
         component: () => import('@/views/phone/auth/ResatPasswordPage.vue'),
-        meta: { guestOnly: true, hideHeaderFooter: true }
+        meta: { guestOnly: true, hideHeaderFooter: true ,showFooter:false ,showHeader:false}
       },
       { path: 'product/:id', name: 'phoneProductDetails', component: () => import('@/views/phone/ProductDetailsPage.vue'), meta: {   showFooter:false ,showHeader:false} },
 
@@ -671,20 +671,31 @@ const router = createRouter({
 });
 
 
-// Global navigation guard
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
 
-  // Redirect if auth is required
+  // Prevent authenticated users from accessing login or signup routes
+  if ((to.path === '/desktop/login' || to.path === '/phone/login') && authStore.isAuthenticated) {
+    if (to.path !== from.path) {
+      next(isDesktop() ? '/desktop/home' : '/phone/home'); // Only redirect if not already at the same location
+      return;
+    }
+  }
+
+  // Redirect if auth is required and the user is not authenticated
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    next(isDesktop() ? '/desktop/login' : '/phone/login');
-    return;
+    if (to.path !== '/phone/login' && to.path !== '/desktop/login') {
+      next(isDesktop() ? '/desktop/login' : '/phone/login'); // Redirect to login if authentication is required
+      return;
+    }
   }
 
   // Prevent authenticated users from accessing guest-only routes
   if (to.meta.guestOnly && authStore.isAuthenticated) {
-    next(isDesktop() ? '/desktop/home' : '/phone/home');
-    return;
+    if (to.path !== '/phone/home' && to.path !== '/desktop/home') {
+      next(isDesktop() ? '/desktop/home' : '/phone/home'); // Redirect to home if the user is authenticated and tries to access a guest-only route
+      return;
+    }
   }
 
   // Proceed to route

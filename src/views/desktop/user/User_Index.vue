@@ -493,7 +493,7 @@ const toggleSection = section => {
 };
 
 const toggleLougOut = ()=>{
-  storeAuth.logout()
+  storeAuth.logout("desktop")
 };
 </script>
 
