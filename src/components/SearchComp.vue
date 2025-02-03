@@ -12,7 +12,7 @@
       />
       <button
         @click="handleSearch"
-        class="px-2 md:px-2 w-10 text-gray-400 py-[4px] md:py-2 cursor-pointer  transition"
+        class="px-2 md:px-2 w-10 text-gray-400  py-[5px] md:py-2 cursor-pointer  transition"
          :class="isScrolled ? 'bg-primary-900' : 'bg-gray-100 md:bg-primary-900'"
       >
 
