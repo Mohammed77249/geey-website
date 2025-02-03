@@ -513,7 +513,7 @@
 
 
      <!-- addToCart -->
-    <div class="fixed bottom-0 w-full ">
+    <div class="fixed bottom-0 w-full bg-white">
       <div class="flex items-center gap-1 p-3">
         <div
               class="w-[70px] py-2 rounded-full border flex items-center justify-center"

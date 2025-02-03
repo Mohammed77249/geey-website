@@ -5,7 +5,7 @@
   >
     <!-- Dialog Container -->
     <div
-      class="bg-white w-full  gap-5 overflow-y-auto custom-scroll max-h-[800px] h-full  "
+      class="bg-white w-full  gap-5 overflow-y-auto custom-scroll max-h-[600px] h-full  "
     >
       <!-- Dialog Header -->
       <div class="flex justify-end items-center">
@@ -38,9 +38,9 @@
                     navigation
                     pagination
                     :class="{
-                      'rounded-lg custom-swiper border h-[500px] w-screen mb-5':
+                      'rounded-lg custom-swiper border h-[400px] w-screen mb-5':
                         storedLanguage == 'ar',
-                      'rounded-lg custom-swiper2 border h-[300px] w-screen mb-5':
+                      'rounded-lg custom-swiper2 border h-[400px] w-screen mb-5':
                         storedLanguage == 'en',
                     }"
                     @swiper="setSwiperInstance"
@@ -366,7 +366,7 @@
             </div>
 
             <!-- addToCart -->
-          <div class="fixed bottom-0 w-full ">
+          <div class="fixed bottom-0 w-full bg-white ">
             <div class="flex items-center gap-1 p-3">
               <div
                     class="w-[70px] py-2 rounded-full border flex items-center justify-center"
@@ -375,7 +375,7 @@
                     <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </div>
-                  
+
                   <button
                     @click="addToCart"
                     class=" w-full bg-primary-900 text-white py-3 rounded-md text-lg font-bold hover:bg-primary-800 transition"
