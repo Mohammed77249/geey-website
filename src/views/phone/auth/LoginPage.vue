@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-full flex flex-col items-center justify-center mt-10 bg-gray-50">
+  <div class="h-screen w-full flex flex-col items-center justify-center  bg-gray-50">
     <!-- Login Form -->
     <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-4 py-10">
       <div class="mb-5">
@@ -24,7 +24,7 @@
       <form @submit.prevent="handleLogin">
         <!-- Email Input -->
         <div class="mb-4">
-          <label for="email" class="block text-gray-600 mb-2">{{ $t('Email or phone number') }}</label>
+          <label for="email" class="block text-gray-600 mb-2 text-xs">{{ $t('Email or phone number') }}</label>
           <input
             type="email"
             id="email"
@@ -39,7 +39,7 @@
         <!-- Login Button -->
         <button
           type="submit"  :disabled="authStore.loading"
-          class="w-full bg-primary-900 text-white py-3 mt-10 font-bold  transition duration-300"
+          class="w-full bg-primary-900 text-white py-3 mt-10 font-bold  text-sm transition duration-300"
         >
 
           <span v-if="authStore.loading" class="loader mr-2"></span>

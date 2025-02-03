@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-full flex flex-col items-center justify-center bg-gray-50 mt-10">
+  <div class="h-screen w-full flex flex-col items-center justify-center bg-gray-50 ">
     <!-- Login Form -->
     <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-10">
 
@@ -15,7 +15,7 @@
       <form @submit.prevent="handleLogin">
         <!-- name  -->
         <div v-if="isUsernew" class="mb-4 ">
-          <label for="name" class="block text-gray-600 mb-2">{{ $t('Name') }}</label>
+          <label for="name" class="block text-gray-600 mb-2 text-xs">{{ $t('Name') }}</label>
           <input
             type="text"
             id="name"
@@ -28,7 +28,7 @@
 
         <!-- Email Input -->
         <div class="mb-4 ">
-          <label for="email" class="block text-gray-600 mb-2">{{ $t('Email or phone number') }}</label>
+          <label for="email" class="block text-gray-600 mb-2 text-xs">{{ $t('Email or phone number') }}</label>
           <input
             type="email"
             id="email"
@@ -43,7 +43,7 @@
         <!-- Password Input -->
 
         <div class=" mb-5 ">
-          <label for="password" class="block text-gray-600 mb-2">{{ $t('password') }}</label>
+          <label for="password" class="block text-gray-600 mb-2 text-xs">{{ $t('password') }}</label>
               <!-- Form Group -->
               <div class="relative ">
                 <input
@@ -119,13 +119,13 @@
             required
             class=" px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
           />
-          <label class=" text-gray-600 mb-2">{{ $t('Receive exclusive newsletters and tips on style from Jeey via SMS') }}</label>
+          <label class=" text-gray-600 mb-2 text-sm">{{ $t('Receive exclusive newsletters and tips on style from Jeey via SMS') }}</label>
         </div>
 
         <!-- Login Button -->
         <button
           type="submit"
-          class="w-full bg-primary-900 text-white py-3 mt-10 font-bold  transition duration-300"
+          class="w-full bg-primary-900 text-white py-3 mt-10 font-bold text-sm transition duration-300"
         >
         <p v-if="isUsernew"> تسجيل الاشتراك</p>
         <p v-if="!isUsernew"> {{ $t('login') }}</p>

@@ -3,29 +3,29 @@
 
   <div class="h-screen w-full flex flex-col items-center justify-center bg-gray-50">
 
-      <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-10">
+      <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl  py-10">
   <div class="z-[100]  w-full  rounded-lg md:mt-0 sm:max-w-[630px] sm:max-h-[750px] xl:p-0">
 
           <div class="flex items-center justify-center ">
-            <img class="w-[150px] h-[150px]" src="/jeeeeylogo3.jpg" alt="logo" />
+            <img class="w-[100px] h-[100px]" src="/jeeeeylogo3.jpg" alt="logo" />
           </div>
 
           <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div class="mb-2 flex ">
               <h1
-                class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl  mr-5"
+                class="text-lg font-bold leading-tight tracking-tight text-gray-900 md:text-2xl  mr-5"
               >
               {{ $t('Did you forget your password') }}
               </h1>
             </div>
             <div class="">
-              <span class="text-[#A3A3A3]">{{ $t('Enter your email and we will send you instructions to reset your password') }}</span>
+              <span class="text-[#A3A3A3] text-sm">{{ $t('Enter your email and we will send you instructions to reset your password') }}</span>
             </div>
 
 
             <form  @submit.prevent="handleForgetpassword" class="space-y-4 md:space-y-6" >
               <div class="mb-4">
-                <label for="email" class="block text-gray-600 mb-2"> {{ $t('Email or phone number') }} </label>
+                <label for="email" class="block text-gray-600 mb-2 text-xs"> {{ $t('Email or phone number') }} </label>
                 <input
                   type="email"
                   id="email"
@@ -41,16 +41,16 @@
 
               <button
                 type="submit"
-                class="w-full text-white bg-primary-900 py-5 font-bold  text-[15px]   text-center"
+                class="w-full text-white bg-primary-900 py-3 font-bold  text-sm   text-center"
               >
             {{ $t('Send reset') }}
               </button>
 
             </form>
             <div class="flex items-center justify-center">
-                <RouterLink to="/phone/login" class="text-[20px]  mb-16 font-bold text-primary-900 hover:underline flex">
+                <RouterLink to="/phone/loginemail" class="text-md  mb-16 font-bold text-primary-900 hover:underline flex">
                   {{ $t('Return to the login page') }}
-                  <img class="w-[24px] h-[24px] mt-1 mr-1 " :src="lang == 'ar' ? '/src/assets/images/arrow-left.svg' :'/src/assets/images/arrow-right.svg'" alt="logo" />
+                  <img class="w-[20px] h-[20px] mt-1 mr-1 " :src="lang == 'ar' ? '/src/assets/images/arrow-left.svg' :'/src/assets/images/arrow-right.svg'" alt="logo" />
               </RouterLink>
               </div>
           </div>

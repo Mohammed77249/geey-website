@@ -1,11 +1,11 @@
 <template>
   <div
     v-if="props.isOpen"
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    class="fixed  bottom-0 w-full  z-50 "
   >
     <!-- Dialog Container -->
     <div
-      class="bg-white w-full max-w-5xl gap-5 overflow-y-auto custom-scroll max-h-[600px] h-full shadow-lg p-2"
+      class="bg-white w-full  gap-5 overflow-y-auto custom-scroll max-h-[800px] h-full  "
     >
       <!-- Dialog Header -->
       <div class="flex justify-end items-center">
@@ -24,62 +24,11 @@
         </div>
         <div v-else-if="storeCart.error">{{ storeCart.error }}</div>
         <div v-else-if="storeCart.productDetails">
-          <div class="mx-auto grid grid-cols-1 lg:grid-cols-12 px-5">
+          <div class="mx-auto grid grid-cols-1 ">
             <!-- product image  -->
             <div class="col-span-6">
               <!-- product image  -->
-              <div class="flex gap-2">
-                <div class="block gap-5">
-                  <div class="overflow-x-auto">
-                    <!-- الصور الرئيسية -->
 
-                    <div
-                      v-if="storeCart.productDetails.color_has_imgs == false"
-                    >
-                      <div
-                        v-for="(image, index) in storeCart.productDetails
-                          .all_images"
-                        :key="index"
-                      >
-                        <img
-                          :src="image.image"
-                          @mouseover="showImageInSwiper(index)"
-                          alt="Main Product Image"
-                          class="w-12 h-12 md:w-16 md:h-20 rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-500"
-                        />
-                      </div>
-                    </div>
-
-                    <div v-if="isMainSelected">
-                      <div
-                        v-for="(image, index) in mainColor.images"
-                        :key="index"
-                      >
-                        <img
-                          :src="image.image"
-                          @mouseover="showImageInSwiper(index)"
-                          alt="Main Product Image"
-                          class="w-12 h-12 md:w-16 md:h-20 rounded-lg cursor-pointer border-2 border-transparent hover:border-gray-500"
-                        />
-                      </div>
-                    </div>
-
-                    <!-- الصور الفرعية -->
-                    <div v-else>
-                      <div
-                        v-for="(image, index) in selectedColorImages"
-                        :key="index"
-                      >
-                        <img
-                          :src="image.image"
-                          @mouseover="showImageInSwiper(index)"
-                          alt="Sub Product Image"
-                          class="w-12 h-12 md:w-16 md:h-20 rounded-lg shadow cursor-pointer border-2 border-transparent hover:border-gray-500"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
                 <div v-if="storeCart.productDetails.color_has_imgs == false">
                   <swiper
@@ -89,9 +38,9 @@
                     navigation
                     pagination
                     :class="{
-                      'rounded-lg custom-swiper border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':
+                      'rounded-lg custom-swiper border h-[500px] w-screen mb-5':
                         storedLanguage == 'ar',
-                      'rounded-lg custom-swiper2 border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':
+                      'rounded-lg custom-swiper2 border h-[300px] w-screen mb-5':
                         storedLanguage == 'en',
                     }"
                     @swiper="setSwiperInstance"
@@ -118,9 +67,9 @@
                     navigation
                     pagination
                     :class="{
-                      'rounded-lg custom-swiper border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':
+                      'rounded-lg custom-swiper border h-[300px] w-screen mb-5':
                         storedLanguage == 'ar',
-                      'rounded-lg custom-swiper2 border h-[250px] w-[300px] md:w-[400px] md:h-[550px]':
+                      'rounded-lg custom-swiper2 border h-[300px] w-screen mb-5':
                         storedLanguage == 'en',
                     }"
                     @swiper="setSwiperInstance"
@@ -137,18 +86,18 @@
                     </swiper-slide>
                   </swiper>
                 </div>
-              </div>
+
             </div>
 
-            <div class="col-span-6">
+            <div class="col-span-6 px-2 overflow-x-auto custom-scroll mb-32">
               <!-- الاسم والسعر -->
-              <div class="w-full h-44">
+              <div class="w-full mb-10">
                 <div class="flex items-center justify-between">
                   <p class="text-md font-medium">
                     {{ storeCart.productDetails.name }}
                   </p>
 
-                  <svg
+                  <!-- <svg
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -183,7 +132,7 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
-                  </svg>
+                  </svg> -->
                 </div>
                 <div class="mb-3">
                   <p class="text-[10px] font-medium">
@@ -191,11 +140,12 @@
                   </p>
                 </div>
 
-                <div class="mt-3">
+                <!-- <div class="mt-3">
                   <p class="text-sm text-gray-400">12684532486586453218451</p>
-                </div>
+                </div> -->
+
                 <!-- rating -->
-                <div class="mt-3">
+                <!-- <div class="mt-3">
                   <div class="flex items-center gap-1">
                     <span class="flex text-yellow-500">
                       <i>
@@ -214,11 +164,11 @@
                         <img class="w-4" src="/src/assets/images/star.svg"
                       /></i>
                     </span>
-                    <!-- <h1 class="font-medium text-xs text-yellow-600">
+                    <h1 class="font-medium text-xs text-yellow-600">
                       {{ $t('Customer Reviews') }}
-                    </h1> -->
+                    </h1>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="flex items-center gap-2 mt-3">
                   <p
@@ -226,7 +176,7 @@
                       storeCart.productDetails.price_options_type ==
                       'by_color_and_measuring'
                     "
-                    class="text-xl text-orange-700 font-semibold"
+                    class="text-xl text-primary-900 font-semibold"
                   >
                     {{
                       searchedOption
@@ -239,7 +189,7 @@
                     v-else-if="
                       storeCart.productDetails.price_options_type == 'by_color'
                     "
-                    class="text-lg text-orange-700"
+                    class="text-lg text-primary-900"
                   >
                     {{
                       priceColor != null
@@ -253,7 +203,7 @@
                       storeCart.productDetails.price_options_type ==
                       'by_measuring'
                     "
-                    class="text-lg text-orange-700"
+                    class="text-lg text-primary-900"
                   >
                     {{
                       priceSize != null
@@ -262,7 +212,7 @@
                     }}
                   </p>
 
-                  <p v-else class="text-lg text-orange-700">
+                  <p v-else class="text-lg text-primary-900">
                     {{ storeCart.productDetails.base_price }}
                   </p>
 
@@ -288,12 +238,12 @@
               </div>
 
               <!-- المقاس وزر الاضافة -->
-              <div class="border-t-2 mb-5">
+              <div class=" mb-5">
                 <div class="mb-1 mt-5">
                   <!-- colors -->
                   <div class="pb-5">
-                    <h3 class="text-md font-medium">
-                      {{ $t('Color: Multicolor') }}
+                    <h3 class="text-lg font-semibold">
+                      {{ $t('الالوان:') }}
                     </h3>
                     <ul class="space-y-5 mt-5">
                       <li>
@@ -411,74 +361,40 @@
                   </div> -->
                 </div>
 
-                <!-- addToCart -->
-                <div class="flex items-center gap-1">
+
+              </div>
+            </div>
+
+            <!-- addToCart -->
+          <div class="fixed bottom-0 w-full ">
+            <div class="flex items-center gap-1 p-3">
+              <div
+                    class="w-[70px] py-2 rounded-full border flex items-center justify-center"
+                  >
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  
                   <button
                     @click="addToCart"
-                    class="max-w-[350px] w-full bg-primary-900 text-white py-3 text-lg font-bold hover:bg-primary-800 transition"
+                    class=" w-full bg-primary-900 text-white py-3 rounded-md text-lg font-bold hover:bg-primary-800 transition"
                   >
                     <span v-if="storeCart.loading" class="loader mr-2"></span>
                     <span>{{
                       storeCart.loading ? 'جارٍ التحقق...' : $t('add to cart')
                     }}</span>
                   </button>
-                  <div
-                    class="w-[80px] py-4 rounded-full border flex items-center justify-center"
-                  >
-                    <img class="w-10" src="/src/assets/images/heart.svg" />
-                  </div>
+
                 </div>
+
                 <!-- <p class="text-sm">
                   {{ $t('Earn up to 3 GN points calculated at checkout.') }}
                 </p> -->
-              </div>
-
-              <div class="flex items-center mb-5">
-                <RouterLink :to="`/desktop/product/${storeCart.productDetails.id}`">
-                  <div class="flex items-center">
-                    <h1 class="text-gray-500 font-medium">
-                      {{ $t('View Full Details') }}
-                    </h1>
-                    <svg
-                      :class="storedLanguage == 'en' ? 'hidden' : ''"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996"
-                        stroke="gray"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-
-                    <svg
-                      :class="storedLanguage == 'ar' ? 'hidden' : ''"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996"
-                        stroke="gray"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </div>
-                </RouterLink>
-              </div>
-            </div>
           </div>
+          </div>
+
+
         </div>
         <div v-else>
           <span>no data</span>
@@ -644,13 +560,6 @@ const setSwiperInstance = swiper => {
   swiperInstance.value = swiper
 }
 
-// عرض الصورة في السلايدر عند تمرير الماوس على صورة مصغرة
-const showImageInSwiper = index => {
-  if (swiperInstance.value) {
-    swiperInstance.value.slideTo(index) // التنقل إلى الصورة المحددة
-  }
-}
-
 // تغيير اللون وتحديث الصور
 const changeColor = index => {
   isMainSelected.value = false
@@ -677,18 +586,6 @@ onMounted(async () => {
   }
 })
 
-// const product = ref({
-//   image: '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg',
-//   thumbnails: [
-//     '/src/assets/images/products/Image (1).svg',
-//     '/src/assets/images/products/Image (2).svg',
-//     '/src/assets/images/products/Image (4).svg',
-//     '/src/assets/images/products/Placeholder_01 (2).svg',
-//     '/src/assets/images/products/Image.svg',
-//     '/src/assets/images/products/92265483-9E7E-4FC3-A355-16CCA677C11C.svg',
-//   ],
-
-// })
 
 // Emits
 const emit = defineEmits(['close'])
@@ -728,7 +625,7 @@ const close = () => {
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
@@ -782,7 +679,7 @@ const close = () => {
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
@@ -827,3 +724,37 @@ const close = () => {
   height: 12px;
 }
 </style>
+
+
+
+<style scoped>
+
+header {
+  height: 100px;
+}
+
+
+.custom-scroll::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+.custom-scroll:hover::-webkit-scrollbar,
+.custom-scroll:active::-webkit-scrollbar {
+  opacity: 0;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+</style>
+
+
+
+
+
+

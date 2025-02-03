@@ -1,6 +1,6 @@
 
 <template>
-  <div class="mx-auto pl-2 pr-2  ">
+  <div class="mx-auto px-2  ">
 
   <div class="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-1 ">
     <div
@@ -92,7 +92,6 @@
 
   </div>
 
-  <DialogAddToCart  v-if="filteredData != null"   :-id-product="filteredData"  :is-open="isDialogOpen"  @close="closeDialog"  />
     </div>
 
        <!-- رسالة تحميل المزيد -->
@@ -108,6 +107,7 @@
     <!-- عنصر مراقبة نهاية الصفحة -->
     <div ref="loadMoreTrigger" class="h-1"></div>
   </div>
+  <DialogAddToCart  v-if="filteredData != null"   :-id-product="filteredData"  :is-open="isDialogOpen"  @close="closeDialog"  />
 
 
 </template>

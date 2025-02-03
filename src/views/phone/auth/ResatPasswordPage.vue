@@ -5,7 +5,7 @@
 
       <div class="mb-5">
         <div class="flex items-center justify-center">
-          <h1 class="text-2xl font-bold text-center mb-4">{{ $t('Reset password') }}</h1>
+          <h1 class="text-xl font-bold text-center mb-4">{{ $t('Reset password') }}</h1>
         </div>
         <p class="text-sm text-gray-600 text-center mb-6">
        {{ $t('Enter your new password to reset your account') }}
@@ -16,7 +16,7 @@
       <form @submit.prevent="submitNewPassword">
         <!-- New Password Input -->
         <div class=" mb-5 ">
-          <label for="password" class="block text-gray-600 mb-2">{{ $t('New Password') }}</label>
+          <label for="password" class="block text-gray-600 text-xs mb-2">{{ $t('New Password') }}</label>
               <!-- Form Group -->
               <div class="relative ">
                 <input
@@ -71,7 +71,7 @@
         <!-- confirmPassword Input -->
 
         <div class=" mb-5 ">
-          <label  class="block text-gray-600 mb-2">{{ $t('Confirm password') }} </label>
+          <label  class="block text-gray-600 mb-2 text-xs">{{ $t('Confirm password') }} </label>
               <!-- Form Group -->
               <div class="relative ">
                 <input
@@ -126,7 +126,7 @@
         <!-- Login Button -->
         <button
           type="submit"
-          class="w-full bg-primary-900 text-white py-5 mt-10 font-bold  transition duration-300"
+          class="w-full bg-primary-900 text-white py-3 mt-10 font-bold text-sm transition duration-300"
         >
         {{ $t('Reset password') }}
         </button>

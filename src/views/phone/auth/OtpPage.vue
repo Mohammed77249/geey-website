@@ -4,13 +4,9 @@
     <div class="bg-white shadow-lg h-full rounded-lg w-full max-w-xl px-8 py-24">
 
       <div class="mb-10">
-        <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">{{ $t('Verification with OTP code') }}</h2>
+        <h2 class="text-xl font-bold text-gray-800 text-center mb-4">{{ $t('Verification with OTP code') }}</h2>
 
-      <!-- <p class="text-gray-600 text-center mb-6">
-        أدخل الرمز المرسل إلى رقم هاتفك <br /> (1234 **** 5678)
-      </p> -->
-
-      <p class="text-gray-600 text-center mb-6">
+      <p class="text-gray-600 text-center text-sm mb-6">
         {{ $t('Enter the code sent to your email') }} <br />  {{ maskedEmail }}
       </p>
       </div>
