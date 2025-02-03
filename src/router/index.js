@@ -602,10 +602,15 @@ const routes = [
   // Phone routes
   {
     path: '/phone',
-    component: () => import('@/layouts/LayoutMain.vue'),
+    component: () => import('@/layouts/LayoutMain.vue'),  meta: { requiresAuth: true,  showFooter:true ,showHeader:true },
     children: [
       { path: 'home', name: 'PhoneHome', component: () => import('@/views/phone/HomePage.vue') },
 
+      {
+        path: 'user',
+        component: () => import('@/views/phone/user/UserMainPage.vue'),
+        meta: { requiresAuth: true,  showFooter:true ,showHeader:false },
+      },
       {
         path: 'login',
         name: 'PhoneLogin',
@@ -636,7 +641,7 @@ const routes = [
         component: () => import('@/views/phone/auth/ResatPasswordPage.vue'),
         meta: { guestOnly: true, hideHeaderFooter: true }
       },
-      { path: 'product/:id', name: 'phoneProductDetails', component: () => import('@/views/phone/ProductDetailsPage.vue'), meta: {  hideHeaderFooter: true } },
+      { path: 'product/:id', name: 'phoneProductDetails', component: () => import('@/views/phone/ProductDetailsPage.vue'), meta: {   showFooter:false ,showHeader:false} },
 
     ],
     beforeEnter: (to, from, next) => {

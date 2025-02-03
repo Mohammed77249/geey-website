@@ -1,6 +1,8 @@
 <template>
   <div class=" h-[60px]  shadow border-t-2 bg-white border-[#F6F6F6]">
     <div class="flex items-center justify-around mt-2">
+
+      <!-- home -->
       <div class="" @click="taggleActiveHome">
         <div v-if="onclickHome">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,6 +22,7 @@
 
       </div>
 
+      <!-- categories -->
       <div class="" @click="taggleActiveCategory">
         <div v-if="onclickCategory">
           <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,6 +46,7 @@
 
       </div>
 
+      <!-- new -->
       <div class="" @click="taggleActiveNew">
         <div v-if="onclickNew">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,6 +66,7 @@
         </div>
       </div>
 
+      <!-- cart -->
       <div class="" @click="taggleActiveCart">
         <div v-if="onclickCart">
           <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,24 +86,28 @@
 
       </div>
 
+
       <div class="" @click="taggleActiveUser">
         <div  v-if="onclickUser">
+
           <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 12.5C13.3261 12.5 14.5979 11.9732 15.5355 11.0355C16.4732 10.0979 17 8.82608 17 7.5C17 6.17392 16.4732 4.90215 15.5355 3.96447C14.5979 3.02678 13.3261 2.5 12 2.5C10.6739 2.5 9.40215 3.02678 8.46447 3.96447C7.52678 4.90215 7 6.17392 7 7.5C7 8.82608 7.52678 10.0979 8.46447 11.0355C9.40215 11.9732 10.6739 12.5 12 12.5Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           <path opacity="0.4" d="M20.59 22.5C20.59 18.63 16.74 15.5 12 15.5C7.25997 15.5 3.40997 18.63 3.40997 22.5" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span class="text-[10px] text-primary-900">  الحساب </span>
+
         </div>
         <div v-else>
+
           <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 12.5C13.3261 12.5 14.5979 11.9732 15.5355 11.0355C16.4732 10.0979 17 8.82608 17 7.5C17 6.17392 16.4732 4.90215 15.5355 3.96447C14.5979 3.02678 13.3261 2.5 12 2.5C10.6739 2.5 9.40215 3.02678 8.46447 3.96447C7.52678 4.90215 7 6.17392 7 7.5C7 8.82608 7.52678 10.0979 8.46447 11.0355C9.40215 11.9732 10.6739 12.5 12 12.5Z" stroke="#BCBCBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           <path opacity="0.4" d="M20.59 22.5C20.59 18.63 16.74 15.5 12 15.5C7.25997 15.5 3.40997 18.63 3.40997 22.5" stroke="#BCBCBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span class="text-[10px] text-[#BCBCBC] ">  الحساب </span>
+
         </div>
 
       </div>
-
 
     </div>
   </div>
@@ -106,11 +115,14 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const onclickHome = ref(true)
 const onclickCategory = ref(false)
 const onclickNew = ref(false)
 const onclickCart = ref(false);
 const onclickUser = ref(false);
+
 
 
 
@@ -120,6 +132,7 @@ const taggleActiveHome = () => {
   onclickNew.value  = false
   onclickCart.value  = false
   onclickUser.value =false
+  router.push('/phone/home');
 
 }
 
@@ -153,6 +166,9 @@ const taggleActiveUser = () => {
   onclickNew.value  = false
   onclickCart.value  = false
   onclickUser.value = true
+
+  router.push('/phone/user');
+
 };
 
 

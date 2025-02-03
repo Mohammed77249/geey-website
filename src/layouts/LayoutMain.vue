@@ -114,7 +114,10 @@ onMounted(() => {
     <!-- Header -->
     <header v-if="!hideHeaderFooter">
       <HeaderComp v-if="isDesktop" />
-      <HeaderMobileComp v-else />
+      <!-- <HeaderMobileComp v-else /> -->
+    </header>
+    <header  v-if="showHeader">
+      <HeaderMobileComp v-if="!isDesktop"  />
     </header>
 
     <!-- Main Content -->
@@ -126,7 +129,11 @@ onMounted(() => {
     <!-- Footer -->
     <footer v-if="!hideHeaderFooter">
       <FooterComp v-if="isDesktop" />
-      <FooterMobileComp class="fixed bottom-0 w-full" v-else />
+      <!-- <FooterMobileComp class="fixed bottom-0 w-full" v-else /> -->
+    </footer>
+
+    <footer v-if="showFooter">
+      <FooterMobileComp v-if="!isDesktop"  class="fixed bottom-0 w-full"/>
     </footer>
   </div>
 </template>
@@ -145,6 +152,8 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 const route = useRoute();
 const router = useRouter();
 const hideHeaderFooter = computed(() => route.meta.hideHeaderFooter);
+const showFooter = computed(() => route.meta.showFooter);
+const showHeader = computed(() => route.meta.showHeader);
 // Determine device type
 const isDesktop = ref(window.innerWidth >= 768);
 

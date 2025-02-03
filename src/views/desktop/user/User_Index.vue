@@ -448,7 +448,7 @@
             <li>
               <div
                 class="flex justify-between items-center cursor-pointer"
-                @click="toggleSection('logout')"
+                @click="toggleSection('logout'),toggleLougOut()"
               >
                 <h3 class="font-bold text-md text-black">{{ $t("Log out") }}</h3>
               </div>
@@ -489,8 +489,11 @@ const sections = reactive({
 // دالة تبديل حالة القسم
 const toggleSection = section => {
   sections[section] = !sections[section];
-  storeAuth.logout()
 
+};
+
+const toggleLougOut = ()=>{
+  storeAuth.logout()
 };
 </script>
 
