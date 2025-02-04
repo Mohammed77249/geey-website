@@ -113,26 +113,26 @@
 
     </div>
 
-    <div class="mt-5 bg-white h-12 w-full p-2">
+    <!-- <div class="mt-5 bg-white h-12 w-full p-2">
       <div
       class="flex justify-between items-center cursor-pointer"
       @click="toggleLougOut()"
       >
       <h3 class="font-bold text-md text-black">{{ $t("Log out") }}</h3>
     </div>
-    </div>
+    </div> -->
 
     <RouterView/>
   </div>
 </template>
 <script setup>
 
-import { useAuthStore } from '@/stores/auth';
-const storeAuth = useAuthStore();
+// import { useAuthStore } from '@/stores/auth';
+// const storeAuth = useAuthStore();
 
 const emailUser = localStorage.getItem('emailuser');
 
-const toggleLougOut = ()=>{
-  storeAuth.logout("phone")
-};
+// const toggleLougOut = ()=>{
+//   storeAuth.logout("phone")
+// };
 </script>
