@@ -31,11 +31,17 @@
                 @change="updateSelectAll"
               />
               <RouterLink  :to="`/phone/product/${item.product_id}`">
-                <img
+                <img v-if="item.image != 'https:\/\/jeeey-dashboard.najaz.in\/storage'"
                 :src="item.image"
-                alt="Product Image"
+                alet="jj"
                 class="w-full h-24 object-cover"
               />
+
+              <img v-else
+                src="/public/jeeeylogo.jpg"
+                class="w-full h-24 object-cover"
+              />
+
               </RouterLink>
 
             </div>

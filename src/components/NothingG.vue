@@ -3327,3 +3327,111 @@ const onclickSubSection = (index)=>{
     </div>
   </div>
 </div> -->
+
+
+// ========================================================
+
+
+// ==================== google map ============
+
+<template>
+  <div class="bg-white p-4">
+    <!-- زر فتح الخريطة -->
+    <div class="bg-white border shadow p-2">
+      <button
+        type="button"
+        @click="clickOpenMap"
+        class="w-full flex items-center border border-gray-300 text-black gap-2 py-2 font-semibold text-xs"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g opacity="0.4">
+            <path
+              d="M9.25 11H14.75"
+              stroke="#8a1538"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+            <path
+              d="M12 13.75V8.25"
+              stroke="#8a1538"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </g>
+          <path
+            d="M3.62001 8.49C5.59001 -0.169998 18.42 -0.159997 20.38 8.5C21.53 13.58 18.37 17.88 15.6 20.54C13.59 22.48 10.41 22.48 8.39001 20.54C5.63001 17.88 2.47001 13.57 3.62001 8.49Z"
+            stroke="#8a1538"
+            stroke-width="1.5"
+          />
+        </svg>
+        <p>{{ $t("Is it easier to click on the address using Google Map?") }}</p>
+      </button>
+    </div>
+
+    <!-- صورة الخريطة -->
+    <div v-if="showMapImage" class="my-4">
+      <img
+        :src="getMapImageUrl()"
+        alt="Map"
+        class="w-full h-auto rounded-lg cursor-pointer"
+        @click="openMap"
+      />
+    </div>
+
+    <!-- نافذة الخريطة -->
+    <div v-if="isMapOpen" class="w-full h-96">
+      <GoogleMap
+        :center="mapCenter"
+        :zoom="zoom"
+        class="w-full h-full"
+        @click="onMapClick"
+      >
+        <Marker :position="mapCenter" />
+      </GoogleMap>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { GoogleMap, Marker } from '@fawmi/vue-google-maps';
+
+const mapCenter = ref({ lat: 15.369445, lng: 44.191006 });
+const zoom = ref(12);
+const isMapOpen = ref(false);
+const showMapImage = ref(true);
+
+// رابط الخريطة الثابتة
+const getMapImageUrl = () => {
+  const apiKey = 'YOUR_API_KEY'; // استبدل بـ مفتاح API الخاص بك
+  return `https://maps.googleapis.com/maps/api/staticmap?center=${mapCenter.value.lat},${mapCenter.value.lng}&zoom=${zoom.value}&size=600x300&markers=color:red%7Clabel:S%7C${mapCenter.value.lat},${mapCenter.value.lng}&key=${apiKey}`;
+};
+
+// فتح الخريطة
+const clickOpenMap = () => {
+  showMapImage.value = false; // إخفاء صورة الخريطة
+  isMapOpen.value = true; // عرض الخريطة
+};
+
+// إظهار نافذة الخريطة عند الضغط على الصورة
+const openMap = () => {
+  showMapImage.value = false;
+  isMapOpen.value = true;
+};
+
+// تحديد الموقع عند الضغط على الخريطة
+const onMapClick = (event) => {
+  const latLng = event.latLng;
+  mapCenter.value = { lat: latLng.lat(), lng: latLng.lng() };
+};
+</script>
+
+<style scoped>
+/* إضافة بعض التنسيق إذا لزم الأمر */
+</style>

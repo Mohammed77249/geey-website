@@ -5,7 +5,7 @@
       class="bg-white w-full overflow-y-auto custom-scroll max-h-[500px] h-full"
     >
       <!-- Dialog Header -->
-      <div class="flex justify-end items-center">
+      <div class="flex justify-end items-center px-5">
         <button
           @click="close"
           class="text-primary-900 text-[20px] hover:text-primary-950"

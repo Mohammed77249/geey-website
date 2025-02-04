@@ -16,7 +16,9 @@
           تاكيد الطلب
           </div>
       </div>
-      </div>
+
+
+    </div>
 
 
       <!-- main content -->
@@ -192,7 +194,7 @@
       </div>
       </div>
 
-    <DialogAddAddress :is-open="isDialogOpen" @close="closeDialog" :titles="storeOrder.getUserAddresses" :loading="storeOrder.loading" :error="storeOrder.error" />
+    <DialogShowAddresses :is-open="isDialogOpen" @close="closeDialog" :titles="storeOrder.getUserAddresses" :loading="storeOrder.loading" :error="storeOrder.error" />
 
   </div>
 </template>
@@ -201,7 +203,7 @@
 import { useCartStore } from '@/stores/cart'
 import { useConfirmOrders } from '@/stores/confirmorder'
 import { ref,onMounted ,onBeforeUnmount,defineAsyncComponent,computed} from "vue";
-const DialogAddAddress = defineAsyncComponent(() => import('@/components/DialogAddAddress.vue'));
+const DialogShowAddresses = defineAsyncComponent(() => import('@/components/phone/DialogShowAddresses.vue'));
 
 const storeCart = useCartStore();
 const storeOrder = useConfirmOrders();
