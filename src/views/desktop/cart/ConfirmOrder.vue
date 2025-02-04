@@ -285,6 +285,7 @@ const handlOrder = async () => {
   products_for_order.value = storeCart.selectedItems.map((product) => ({
     id:product.id,
     product_id: product.product_id,
+    product_name:product.product_name,
     parent_measuring_id: product.parent_measuring_id,
     color_id: product.color_id != 0 ?  product.color_id : null ,
     quantity: product.quantity,
