@@ -124,9 +124,9 @@
 </template>
 
 <script setup>
-import { ref,onMounted ,onBeforeUnmount} from 'vue'
+import { ref,onMounted ,onBeforeUnmount,defineAsyncComponent} from 'vue'
 import { useSectionsStore } from '@/stores/section'
-import LoaderDatacomp from './LoaderDatacomp.vue';
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 const storedLanguage = localStorage.getItem("language");
 const storeSecion = useSectionsStore();
 

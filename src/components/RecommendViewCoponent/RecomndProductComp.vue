@@ -125,7 +125,7 @@
 </template>
 
 <script setup>
-import { ref ,onMounted,onBeforeUnmount } from 'vue'
+import { ref ,onMounted,onBeforeUnmount ,defineAsyncComponent} from 'vue'
 import DialogAddToCart from '../DialogAddToCart.vue'
 const props = defineProps({
   IdSection: {
@@ -140,7 +140,7 @@ import { useSectionsStore } from '@/stores/section'
 import { useIntersectionObserver } from '@vueuse/core';
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import LoaderDatacomp from '../LoaderDatacomp.vue'
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 const storeSecion = useSectionsStore()
 const authStore = useAuthStore()
 const router = useRouter()
@@ -222,7 +222,7 @@ useIntersectionObserver(
         }else{
           storeSecion.fetchProductForSubSectionrecommedn(filteredData2);
         }
-        
+
       }else{
         storeSecion.fetchProductsFilterBySubcategry(filterData5);
       }

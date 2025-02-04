@@ -113,11 +113,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,defineAsyncComponent } from 'vue';
 import DialogAddToCart from '../DialogAddToCart.vue';
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
-import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useSectionsStore } from '@/stores/section';

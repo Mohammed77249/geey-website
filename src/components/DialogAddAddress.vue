@@ -314,8 +314,8 @@
 </template>
 
 <script setup>
-import {   ref, onMounted, onBeforeMount,onUnmounted } from 'vue'
-import LoaderDatacomp from './LoaderDatacomp.vue'
+import {   ref, onMounted, onBeforeMount,onUnmounted,defineAsyncComponent } from 'vue'
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 import GoogleMap from './GoogleMap.vue'
 // const storedLanguage = localStorage.getItem("language");
 import { useAddressStore } from '@/stores/address'

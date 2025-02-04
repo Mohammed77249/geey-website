@@ -388,9 +388,9 @@
 </template>
 
 <script setup>
-import {  ref ,onMounted,computed} from "vue";
+import {  ref ,onMounted,computed,defineAsyncComponent} from "vue";
 // import DialogComp from "./DialogComp.vue";
-import LoaderDatacomp from "./LoaderDatacomp.vue";
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 const storedLanguage = localStorage.getItem("language");
 import { useCartStore } from '@/stores/cart'
 import { Swiper, SwiperSlide } from "swiper/vue";

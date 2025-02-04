@@ -120,9 +120,9 @@
 </template>
 
 <script setup>
-import LoaderDatacomp from '@/components/LoaderDatacomp.vue';
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 import { useSectionsPhoneStore } from '@/stores/sectionsphone';
-import { ref } from 'vue';
+import { ref,defineAsyncComponent } from 'vue';
 
 const storeSection = useSectionsPhoneStore();
 const listCategories = ref(0);

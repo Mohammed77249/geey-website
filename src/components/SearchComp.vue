@@ -156,9 +156,9 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref,defineAsyncComponent } from 'vue'
 import { useCategoriesStore } from '@/stores/category.js';
-import LoaderDatacomp from './LoaderDatacomp.vue';
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 const searchQuery = ref('')
 const resultsCatedories = ref([]);
 const resultsProducts = ref([]);
