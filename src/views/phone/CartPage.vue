@@ -16,7 +16,7 @@
     </div>
 
     <!-- list cats -->
-    <div class="mt-16 pb-32 ">
+    <div class="mt-12 pt-5 pb-32  ">
       <div class="space-y-4 ">
           <div v-if="storeCart.loading" class="mt-10">
             <LoaderDatacomp :is-loader="storeCart.loading"/>
@@ -90,7 +90,7 @@
 
                     <button
                     :class=" item.quantity >1 ? 'block' :'hidden'"
-                      class="bg-primary-900 hover:bg-primary-800 px-1 h-[15px] text-xs flex items-center text-white rounded"
+                      class="bg-primary-900 hover:bg-primary-800 px-1 h-[15px] text-md flex items-center text-white rounded"
                       @click="decrementQuantity(index)"
                     >
                       -
@@ -121,7 +121,7 @@
     <!-- pay -->
     <div class="bg-white py-3  mb-14   px-2 flex items-center gap-2 justify-between fixed bottom-0 w-full">
       <div>
-        <button  @click="checkout" class="bg-[#8a1538] px-10  py-3 text-white text-sm font-semibold">
+        <button  @click="checkout" class="bg-[#8a1538] px-10 rounded py-3 text-white text-sm font-semibold">
           الدفع
         </button>
         <span class="text-primary-900 text-sm"> YER {{ selectedTotalPrice }}</span>

@@ -23,18 +23,18 @@
       <div>
         <div class="mt-16 pt-3">
         <div class="">
-          <form class="space-y-4" @submit.prevent="handlOrder">
+          <form class="space-y-3" @submit.prevent="handlOrder">
             <!-- الصف الأول:  اضافه  الموقع  -->
              <div class="bg-white border shadow ">
               <div class="flex items-center ">
                 <button
                   type="button"
                   @click="openDialog()"
-                  class="w-full flex items-center justify-center  text-primary-900 py-6 font-semibold  text-md"
+                  class="w-full flex items-center justify-center  text-primary-900 py-4 font-semibold  text-sm"
                 >
                    <p v-if="localValueName">{{ localValueName  }}</p>
                    <p v-else>{{ $t("the address") }}</p>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g opacity="0.4">
                 <path d="M9.25 11H14.75" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round"/>
                 <path d="M12 13.75V8.25" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round"/>
@@ -50,40 +50,40 @@
 
             <!-- الصف الثاني: أرقام الهواتف -->
               <div class="bg-white border shadow p-2">
-                <label class="block text-sm font-semibold text-gray-600 mb-2"> {{ $t("Recipient's phone number") }}</label>
+                <label class="block text-xs font-semibold text-gray-600 mb-2"> {{ $t("Recipient's phone number") }}</label>
                 <input
                   type="text"
                    placeholder="YE +967"
                    v-model="filteredData.phone_number"
-                  class="w-full border  border-gray-300 py-4  p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                  class="w-full border  border-gray-300 py-3  p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                 />
               </div>
 
              <!-- وسيله الشحن -->
               <div class="bg-white p-2 border shadow">
-                <label class="block text-sm font-semibold text-gray-600 mb-2"> {{ $t("Shipping method") }}</label>
+                <label class="block text-xs font-semibold text-gray-600 mb-2"> {{ $t("Shipping method") }}</label>
 
-                <div class="mb-2 p-2 border"  v-for="delevery in storeOrder.getDeliveryTypes" :key="delevery.id" >
+                <div class="mb-2 p-1 border"  v-for="delevery in storeOrder.getDeliveryTypes" :key="delevery.id" >
                   <div class="flex items-center">
                     <input
                       id="default-radio-1"
                       type="radio"
                       :value="delevery.id"
                       name="colored-radio"
-                      class="w-4 h-4 text-primary-900 bg-gray-100 border-gray-300    focus:ring-primary-900"
+                      class="w-3 h-3 text-primary-900 bg-gray-100 border-gray-300    focus:ring-primary-900"
                       v-model="filteredData.delivery_type_id"
                     />
-                    <label for="default-radio-1" class="mr-2 text-sm font-medium text-gray-900">{{ delevery.name }}</label>
+                    <label for="default-radio-1" class="mr-2 text-xs font-medium text-gray-900">{{ delevery.name }}</label>
                   </div>
                   <div>
-                  <span class="mr-6  text-sm font-normal text-primary-700">{{ delevery.cost_of_kilo }}</span>
+                  <span class="mr-6  text-xs font-normal text-primary-900">{{ delevery.cost_of_kilo }}</span>
                   </div>
                 </div>
               </div>
 
               <!--  طريقه الدفع -->
               <div class="bg-white p-2 border shadow">
-                <label class="block text-sm font-semibold text-gray-600 mb-2">  {{ $t("payment method") }} </label>
+                <label class="block text-xs font-semibold text-gray-600 mb-2">  {{ $t("payment method") }} </label>
 
                 <div class="mb-2 p-2 border flex items-center justify-between" v-for="pay in storeOrder.getPaymentMethods" :key="pay.id" >
                   <div class="flex items-center gap-5 ">
@@ -97,7 +97,7 @@
                       type="radio"
                       :value="pay.id"
                       name="default-radio"
-                      class="w-4 h-4 text-primary-900  bg-gray-100 end border-gray-300 focus:ring-primary-900"
+                      class="w-4 h-4 text-primary-900  bg-gray-100  border-gray-300 focus:ring-primary-900"
                       v-model="filteredData.payment_id"
                     />
                   </div>
@@ -106,7 +106,7 @@
 
               <!--   تفاصيل الطلب -->
               <div class="">
-                <div class="w-full h-full  mt-10 bg-white p-3">
+                <div class="w-full h-full   bg-white p-3">
                   <div class="flex items-center justify-between ">
                     <span class="text-[16px] font-semibold">  {{ $t("Order details") }}</span>
                   </div>
