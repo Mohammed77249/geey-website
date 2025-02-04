@@ -90,7 +90,7 @@
 
                     <button
                     :class=" item.quantity >1 ? 'block' :'hidden'"
-                      class="bg-primary-900 hover:bg-primary-800 px-2 h-[20px] flex items-center text-white rounded"
+                      class="bg-primary-900 hover:bg-primary-800 px-1 h-[15px] text-xs flex items-center text-white rounded"
                       @click="decrementQuantity(index)"
                     >
                       -
@@ -121,18 +121,18 @@
     <!-- pay -->
     <div class="bg-white py-3  mb-14   px-2 flex items-center gap-2 justify-between fixed bottom-0 w-full">
       <div>
-        <button  @click="checkout" class="bg-[#8a1538] px-10  py-3 text-white text-sm font-medium">
+        <button  @click="checkout" class="bg-[#8a1538] px-10  py-3 text-white text-sm font-semibold">
           الدفع
         </button>
-        <span class="text-primary-900"> YER {{ selectedTotalPrice }}</span>
+        <span class="text-primary-900 text-sm"> YER {{ selectedTotalPrice }}</span>
       </div>
       <div>
         <div class="flex items-center " >
-          <h2 class="font-medium text-lg px-2">الكل</h2>
+          <h2 class="font-medium text-sm px-2">الكل</h2>
               <input type="checkbox"
                 v-model="selectAll"
                 @change="toggleSelectAll"
-                class="h-5 w-7 peer-checked:bg-black rounded-full peer-checked:border-black cursor-pointer transition-all duration-300 border border-black "/>
+                class="h-4 w-4 peer-checked:bg-black rounded-full peer-checked:border-black cursor-pointer transition-all duration-300 border border-black "/>
 
             </div>
       </div>
