@@ -611,7 +611,13 @@ const routes = [
         component: () => import('@/views/phone/user/UserMainPage.vue'),
         meta: {  showFooter:true ,showHeader:false },
       },
+      { path: 'user/setting', name: 'phoneSetting', component: () => import('@/views/phone/user/settings/SettingPage.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
+      { path: 'user/myorders', name: 'phoneMyOrders', component: () => import('@/views/phone/user/orders/MyOrders.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
+      { path: 'user/myorder/:id', name: 'phoneOrderDetails', component: () => import('@/views/phone/user/orders/OrderDetails.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
+
+      { path: 'product/:id', name: 'phoneProductDetails', component: () => import('@/views/phone/ProductDetailsPage.vue'), meta: {   showFooter:false ,showHeader:false} },
       { path: 'cart', name: 'phoneCart', component: () => import('@/views/phone/CartPage.vue'), meta: { requiresAuth: true, showFooter:true ,showHeader:false  } },
+      { path: 'confirmOrder', name: 'phoneConfirmOrder', component: () => import('@/views/phone/ConfirmOrderPage.vue'), meta: { requiresAuth: true, showFooter:true ,showHeader:false  } },
 
       {
         path: 'login',
@@ -643,7 +649,6 @@ const routes = [
         component: () => import('@/views/phone/auth/ResatPasswordPage.vue'),
         meta: { guestOnly: true, hideHeaderFooter: true ,showFooter:false ,showHeader:false}
       },
-      { path: 'product/:id', name: 'phoneProductDetails', component: () => import('@/views/phone/ProductDetailsPage.vue'), meta: {   showFooter:false ,showHeader:false} },
 
     ],
     beforeEnter: (to, from, next) => {

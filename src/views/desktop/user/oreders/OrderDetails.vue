@@ -115,14 +115,4 @@ onMounted(async() => {
 
 </script>
 
-<style scoped>
 
-.order-info {
-  line-height: 1.8;
-}
-.product-list {
-  margin-top: 10px;
-  padding-left: 20px;
-  list-style-type: disc;
-}
-</style>

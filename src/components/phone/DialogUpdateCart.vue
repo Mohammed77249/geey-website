@@ -1,11 +1,8 @@
 <template>
-  <div
-    v-if="props.isOpen"
-    class="fixed  bottom-0 w-full  z-50 "
-  >
+  <div v-if="props.isOpen" class="fixed bottom-0 mb-16 w-full z-50">
     <!-- Dialog Container -->
     <div
-      class="bg-white w-full   overflow-y-auto custom-scroll max-h-[600px] h-full  "
+      class="bg-white w-full overflow-y-auto custom-scroll max-h-[600px] h-full"
     >
       <!-- Dialog Header -->
       <div class="flex justify-end items-center">
@@ -24,72 +21,69 @@
         </div>
         <div v-else-if="storeCart.error">{{ storeCart.error }}</div>
         <div v-else-if="storeCart.productDetails">
-          <div class="mx-auto grid grid-cols-1 ">
+          <div class="mx-auto grid grid-cols-1">
             <!-- product image  -->
             <div class="col-span-6">
               <!-- product image  -->
-
-
-                <div v-if="storeCart.productDetails.color_has_imgs == false">
-                  <swiper
-                    :modules="[Navigation, Pagination]"
-                    :slides-per-view="1"
-                    :space-between="10"
-                    navigation
-                    pagination
-                    :class="{
-                      'rounded-lg custom-swiper border h-[400px] w-screen mb-5':
-                        storedLanguage == 'ar',
-                      'rounded-lg custom-swiper2 border h-[400px] w-screen mb-5':
-                        storedLanguage == 'en',
-                    }"
-                    @swiper="setSwiperInstance"
+              <div v-if="storeCart.productDetails.color_has_imgs == false">
+                <swiper
+                  :modules="[Navigation, Pagination]"
+                  :slides-per-view="1"
+                  :space-between="10"
+                  navigation
+                  pagination
+                  :class="{
+                    'rounded-lg custom-swiper border h-[400px] w-screen mb-5':
+                      storedLanguage == 'ar',
+                    'rounded-lg custom-swiper2 border h-[400px] w-screen mb-5':
+                      storedLanguage == 'en',
+                  }"
+                  @swiper="setSwiperInstance"
+                >
+                  <swiper-slide
+                    v-for="(image, index) in storeCart.productDetails
+                      .all_images"
+                    :key="index"
                   >
-                    <swiper-slide
-                      v-for="(image, index) in storeCart.productDetails
-                        .all_images"
-                      :key="index"
-                    >
-                      <img
-                        :src="image.image"
-                        alt="Product Image"
-                        class="w-full h-full rounded-lg"
-                      />
-                    </swiper-slide>
-                  </swiper>
-                </div>
+                    <img
+                      :src="image.image"
+                      alt="Product Image"
+                      class="w-full h-full rounded-lg"
+                    />
+                  </swiper-slide>
+                </swiper>
+              </div>
 
-                <div v-else>
-                  <swiper
-                    :modules="[Navigation, Pagination]"
-                    :slides-per-view="1"
-                    :space-between="10"
-                    navigation
-                    pagination
-                    :class="{
-                      'rounded-lg custom-swiper border h-[400px] w-screen mb-5':
-                        storedLanguage == 'ar',
-                      'rounded-lg custom-swiper2 border h-[400px] w-screen mb-5':
-                        storedLanguage == 'en',
-                    }"
-                    @swiper="setSwiperInstance"
+              <div v-else>
+                <swiper
+                  :modules="[Navigation, Pagination]"
+                  :slides-per-view="1"
+                  :space-between="10"
+                  navigation
+                  pagination
+                  :class="{
+                    'rounded-lg custom-swiper border h-[400px] w-screen mb-5':
+                      storedLanguage == 'ar',
+                    'rounded-lg custom-swiper2  h-[400px] w-screen mb-5':
+                      storedLanguage == 'en',
+                  }"
+                  @swiper="setSwiperInstance"
+                >
+                  <swiper-slide
+                    v-for="(image, index) in selectedColorImages"
+                    :key="index"
                   >
-                    <swiper-slide
-                      v-for="(image, index) in selectedColorImages"
-                      :key="index"
-                    >
-                      <img
-                        :src="image.image"
-                        alt="Product Image"
-                        class="w-full h-full rounded-lg"
-                      />
-                    </swiper-slide>
-                  </swiper>
-                </div>
-
+                    <img
+                      :src="image.image"
+                      alt="Product Image"
+                      class="w-full h-full rounded-lg"
+                    />
+                  </swiper-slide>
+                </swiper>
+              </div>
             </div>
 
-            <div class="col-span-6 px-2  mb-32">
+            <div class="col-span-6 px-2 mb-32">
               <!-- الاسم والسعر -->
               <div class="w-full mb-10">
                 <div class="flex items-center justify-between">
@@ -134,35 +128,24 @@
                     />
                   </svg> -->
                 </div>
-                <div class="mb-3">
+                <div class="">
                   <p class="text-[10px] font-medium">
                     {{ storeCart.productDetails.description }}
                   </p>
                 </div>
 
-                <!-- <div class="mt-3">
-                  <p class="text-sm text-gray-400">12684532486586453218451</p>
+                <!-- <div class="  mt-3">
+                  <p class="text-sm text-gray-400">12684532486586453218451 </p>
                 </div> -->
 
-                <!-- rating -->
                 <!-- <div class="mt-3">
                   <div class="flex items-center gap-1">
                     <span class="flex text-yellow-500">
-                      <i>
-                        <img class="w-4" src="/src/assets/images/star.svg"
-                      /></i>
-                      <i>
-                        <img class="w-4" src="/src/assets/images/star.svg"
-                      /></i>
-                      <i>
-                        <img class="w-4" src="/src/assets/images/star.svg"
-                      /></i>
-                      <i>
-                        <img class="w-4" src="/src/assets/images/star.svg"
-                      /></i>
-                      <i>
-                        <img class="w-4" src="/src/assets/images/star.svg"
-                      /></i>
+                      <i> <img class="w-4" src="/src/assets/images/star.svg" /></i>
+                      <i> <img class="w-4" src="/src/assets/images/star.svg" /></i>
+                      <i> <img class="w-4" src="/src/assets/images/star.svg" /></i>
+                      <i> <img class="w-4" src="/src/assets/images/star.svg" /></i>
+                      <i> <img class="w-4" src="/src/assets/images/star.svg" /></i>
                     </span>
                     <h1 class="font-medium text-xs text-yellow-600">
                       {{ $t('Customer Reviews') }}
@@ -181,7 +164,9 @@
                     {{
                       searchedOption
                         ? searchedOption.price
-                        : storeCart.productDetails.base_price
+                        : props.formEdit != null
+                          ? props.formEdit.product_price
+                          : storeCart.productDetails.base_price
                     }}
                   </p>
 
@@ -194,7 +179,9 @@
                     {{
                       priceColor != null
                         ? priceColor
-                        : storeCart.productDetails.base_price
+                        : props.formEdit != null
+                          ? props.formEdit.product_price
+                          : storeCart.productDetails.base_price
                     }}
                   </p>
 
@@ -208,7 +195,9 @@
                     {{
                       priceSize != null
                         ? priceSize
-                        : storeCart.productDetails.base_price
+                        : props.formEdit != null
+                          ? props.formEdit.product_price
+                          : storeCart.productDetails.base_price
                     }}
                   </p>
 
@@ -216,46 +205,38 @@
                     {{ storeCart.productDetails.base_price }}
                   </p>
 
-                  <!-- deiscount -->
-                  <!-- <div
-                    class="h-5 px-2 flex items-center justify-center bg-black"
-                  >
-                    <p class="text-xs text-white">
+                  <!-- <div class="h-5 px-2 flex items-center justify-center bg-black">
+                    <p   class="text-xs text-white">
                       {{ storeCart.productDetails.discount_price }}-
                     </p>
                   </div> -->
                 </div>
 
-                <!-- الافضل مبيعا -->
                 <!-- <div class="flex items-center gap-1 mt-3 bg-amber-100">
                   <p class="text-sm font-semibold text-amber-600">
                     رقم 7 الافضل مبيعا
                   </p>
-                  <p class="text-sm text-amber-600">
-                    في فساتين نوم بطباعه ازهلر
-                  </p>
+                  <p class="text-sm text-amber-600">في فساتين نوم بطباعه ازهلر</p>
                 </div> -->
               </div>
 
-              <!-- المقاس وزر الاضافة -->
-              <div class=" mb-5">
+              <!-- المقاس   -->
+              <div class="mb-5">
                 <div class="mb-1 mt-5">
                   <!-- colors -->
                   <div class="pb-5">
-                    <h3 class="text-lg font-semibold">
-                      {{ $t('الالوان:') }}
-                    </h3>
+                    <h3 class="text-md font-medium">الالوان:</h3>
                     <ul class="space-y-5 mt-5">
                       <li>
                         <div class="grid grid-cols-7 gap-3">
                           <div
                             v-for="(color, index) in storeCart.getproductColors"
                             :key="index"
+                            class="w-10 h-10 rounded-full border-2 cursor-pointer flex items-center justify-center"
                             :class="{
-                              'border-primary-900':
+                              'border-primary-900 ':
                                 selectedColorIndex === index,
                             }"
-                            class="w-10 h-10 rounded-full border-2 cursor-pointer flex items-center justify-center"
                           >
                             <div
                               @click="(changeColor(index), toggleColor(color))"
@@ -312,7 +293,7 @@
                         'py-1 cursor-pointer px-7 m-2  border rounded-full bg-gray-100':
                           tempidSize === size.id,
                         'py-1 cursor-pointer px-7  border m-2 rounded-full hover:bg-gray-100':
-                          tempidSize !== size.id,
+                          tempidSize != size.id,
                       }"
                       @click="onclickSize(size)"
                     >
@@ -328,7 +309,7 @@
                         'py-1 cursor-pointer px-7 m-2  border rounded-full bg-gray-100':
                           tempidSize === size.id,
                         'py-1 cursor-pointer px-7  border m-2 rounded-full hover:bg-gray-100':
-                          tempidSize !== size.id,
+                          tempidSize != size.id,
                       }"
                       @click="onclickSize(size)"
                     >
@@ -342,14 +323,12 @@
                       @click="openDialog"
                       class="flex items-center gap-1 hover:underline"
                     >
-                      <img
-                        class="cursor-pointer"
-                        src="/src/assets/images/cart.svg"
-                      />
+                      <img class="cursor-pointer" src="/src/assets/images/cart.svg" />
                       <p class="text-blue-800 cursor-pointer">
                         {{ $t('Size Reference') }}
                       </p>
                     </div>
+
                     <DialogComp
                       :isOpen="isDialogOpen"
                       title="Confirmation"
@@ -360,39 +339,47 @@
                     </DialogComp>
                   </div> -->
                 </div>
-
-
               </div>
             </div>
 
-            <!-- addToCart -->
-          <div class="fixed bottom-0 w-full bg-white ">
-            <div class="flex items-center gap-1 p-3">
-              <div
-                    class="w-[70px] py-2 rounded-full border flex items-center justify-center"
+            <!-- updateCart -->
+            <div class="fixed bottom-0 w-full mb-16 bg-white">
+              <div class="flex items-center gap-1 p-3">
+                <div
+                  class="w-[70px] py-2 rounded-full border flex items-center justify-center"
+                >
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
-
-                  <button
-                    @click="addToCart"
-                    class=" w-full bg-primary-900 text-white py-3 rounded-md text-lg font-bold hover:bg-primary-800 transition"
-                  >
-                    <span v-if="storeCart.loading" class="loader mr-2"></span>
-                    <span>{{
-                      storeCart.loading ? 'جارٍ التحقق...' : $t('add to cart')
-                    }}</span>
-                  </button>
-
+                    <path
+                      d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z"
+                      stroke="#8a1538"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
                 </div>
 
-                <!-- <p class="text-sm">
+                <button
+                  @click="updateToCart"
+                  class="w-full bg-primary-900 text-white py-3 rounded-md text-lg font-bold hover:bg-primary-800 transition"
+                >
+                  <span v-if="storeCart.loading" class="loader mr-2"></span>
+                  <span>{{
+                    storeCart.loading ? 'جارٍ التحقق...' : $t('updat cart')
+                  }}</span>
+                </button>
+              </div>
+
+              <!-- <p class="text-sm">
                   {{ $t('Earn up to 3 GN points calculated at checkout.') }}
                 </p> -->
-          </div>
-
+            </div>
           </div>
         </div>
         <div v-else>
@@ -404,9 +391,8 @@
 </template>
 
 <script setup>
-import {  ref, onMounted, computed } from 'vue'
-// for مرجع المقاس
-// import DialogComp from './DialogComp.vue'
+import { ref, onMounted, computed } from 'vue'
+// import DialogComp from "./DialogComp.vue";
 import LoaderDatacomp from '@/components/LoaderDatacomp.vue'
 const storedLanguage = localStorage.getItem('language')
 import { useCartStore } from '@/stores/cart'
@@ -420,20 +406,27 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
-
   IdProduct: {
     type: Number,
   },
+  IdCart: {
+    type: Number,
+  },
+  formEdit: {
+    type: Object,
+    required: true,
+  },
 })
 
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const filteredData = ref({
+  cart_id: null,
   product_id: null,
-  color_id: null,
-  parent_measuring_id: null,
-  quantity: 1,
+  color_id: props.formEdit.color_id,
+  parent_measuring_id: props.formEdit.parent_measuring_id,
+  quantity: props.formEdit.quantity,
   price: null,
 })
 
@@ -487,20 +480,24 @@ const searchedOption = computed(() => {
   )
 })
 
-// for مرجع المقاس
+// مرجع المقاس
 // const isDialogOpen = ref(false)
+
 // const openDialog = () => {
 //   isDialogOpen.value = true
 // }
+
 // const closeDialog = () => {
 //   isDialogOpen.value = false
 // }
 
-const addToCart = async () => {
+const updateToCart = async () => {
   if (storeCart.productDetails && storeCart.productDetails.id != null) {
     filteredData.value.product_id = storeCart.productDetails.id
   }
-
+  if (props.IdCart != null) {
+    filteredData.value.cart_id = props.IdCart
+  }
   if (priceSize.value != null) {
     filteredData.value.price = priceSize.value
   } else if (priceColor.value != null) {
@@ -512,37 +509,26 @@ const addToCart = async () => {
   ) {
     filteredData.value.price = searchedOption.value.price
   } else {
-    filteredData.value.price = storeCart.productDetails.base_price
+    filteredData.value.price = props.formEdit.product_price
   }
 
-  if (filteredData.value.color_id == null) {
-    filteredData.value.color_id = 0
-  }
-  if (filteredData.value.parent_measuring_id === null) {
-    alert(t("Enter the size"))
+  const updatecart12 = await storeCart.updateCart(
+    filteredData.value.cart_id,
+    filteredData.value.product_id,
+    filteredData.value.color_id,
+    filteredData.value.parent_measuring_id,
+    filteredData.value.quantity,
+    filteredData.value.price,
+  )
+
+  if (updatecart12) {
+    alert(t('Product has been updated!'))
+    window.location.reload()
+    close()
   } else {
-    const addcart = await storeCart.creatCart(
-      filteredData.value.product_id,
-      filteredData.value.color_id,
-      filteredData.value.parent_measuring_id,
-      filteredData.value.quantity,
-      filteredData.value.price,
-    )
-
-    if (addcart) {
-      if (storeCart.productMessage != null) {
-        alert(storeCart.productMessage)
-        close()
-      } else {
-        alert(t("Product added to cart!"))
-        window.location.reload()
-        close()
-      }
-    } else {
-      alert(storeCart.error)
-      window.location.reload()
-      close()
-    }
+    alert(storeCart.error)
+    window.location.reload()
+    close()
   }
 }
 
@@ -563,12 +549,13 @@ const setSwiperInstance = swiper => {
 const changeColor = index => {
   isMainSelected.value = false
   selectedColorIndex.value = index
-
+  // selectedColorIndex.value = props.formEdit.color_id
   const color = storeCart.getproductColors[index]
   selectedColorImages.value = color.images || []
   selectedImage.value = color.images[0]?.image || null
-  filteredData.value.color_id = color.id
 }
+
+const productIndex = ref(null)
 
 onMounted(async () => {
   if (props.isOpen === true) {
@@ -580,11 +567,30 @@ onMounted(async () => {
 
     // تعيين الصور الفرعية للون الأول كافتراضي
     if (storeCart.getproductColors.length > 0) {
-      changeColor(0)
+      productIndex.value = storeCart.getproductColors.findIndex(
+        color => color.id == props.formEdit.color_id,
+      )
+      changeColor(productIndex.value)
+    }
+
+    if (props.formEdit != null) {
+      if (
+        color_sizes.value != null &&
+        storeCart.productDetails.color_has_sizes
+      ) {
+        const s = color_sizes.value.find(
+          size => size.id === props.formEdit.parent_measuring_id,
+        )
+        tempidSize.value = s.id
+      } else {
+        const s = storeCart.getproductSizes.find(
+          size => size.id === props.formEdit.parent_measuring_id,
+        )
+        tempidSize.value = s.id
+      }
     }
   }
 })
-
 
 // Emits
 const emit = defineEmits(['close'])
@@ -595,9 +601,9 @@ const close = () => {
 };
 </script>
 
-<style>
+<style >
 .custom-scroll::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
   opacity: 0;
 }
 .custom-scroll:hover::-webkit-scrollbar,
@@ -678,7 +684,7 @@ const close = () => {
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
@@ -723,37 +729,3 @@ const close = () => {
   height: 12px;
 }
 </style>
-
-
-
-<style scoped>
-
-header {
-  height: 100px;
-}
-
-
-.custom-scroll::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-  opacity: 0;
-}
-.custom-scroll:hover::-webkit-scrollbar,
-.custom-scroll:active::-webkit-scrollbar {
-  opacity: 0;
-}
-
-.custom-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scroll::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 4px;
-}
-</style>
-
-
-
-
-
-

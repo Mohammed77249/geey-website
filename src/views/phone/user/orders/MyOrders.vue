@@ -1,129 +1,151 @@
 <template>
-  <div class="min-h-screen bg-white">
-    <header class="bg-white shadow p-4">
-      <h1 class="text-md md:text-xl font-bold text-gray-800 text-center">{{ $t("My Oreders") }}</h1>
-    </header>
-    <main class="p-4">
-      <div class="grid grid-cols-1  gap-4">
-        <!-- قائمة الطلبات -->
-        <div>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 items-center lg:gap-3 mb-4">
+  <div class="bg-gray-100 h-screen">
+    <!-- header -->
+    <div class="fixed inset-0  bg-white p-2 shadow h-24">
 
-            <button @click="taggleActiveAllRequest"
-              :class="[
-              onclickALlRequests
-                ? ' text-primary-900'
-                : ' text-gray-600 ',
-                'w-20 md:w-28 h-8 md:h-10 cursor-pointer'
-              ]">
-              <span class="text-xs md:text-sm  lg:text-md   font-semibold "> {{ $t("All orders") }}</span>
-              <div class="flex items-center justify-center">
-                <div
-                  :class="[
-                    onclickALlRequests ? 'bg-primary-900' : 'bg-black hidden',
-                    ' h-[3px] w-16 md:w-24 ',
-                  ]"
-                ></div>
-              </div>
+      <div class="grid grid-cols-12 items-center justify-between">
+        <!-- back button -->
+          <div class="col-span-3">
+            <RouterLink to="/phone/user">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </RouterLink>
+          </div>
+          <div class=" col-span-6 text-lg font-bold text-center">
+          الطلبات
+          </div>
+      </div>
 
-            </button>
+      <!-- list  -->
+      <div class="max-w-md  flex items-center overflow-y-auto custom-scroll">
+        <div class="flex  items-center justify-center  h-14  " >
+          <button @click="taggleActiveAllRequest"
+            :class="[
+            onclickALlRequests
+              ? ' text-primary-900'
+              : ' text-gray-600 ',
+              'w-20 md:w-28 h-8 md:h-10 cursor-pointer'
+            ]">
+            <span class="text-xs md:text-sm  lg:text-md   font-semibold "> {{ $t("All orders") }}</span>
+            <div class="flex items-center justify-center">
+              <div
+                :class="[
+                  onclickALlRequests ? 'bg-primary-900' : 'bg-black hidden',
+                  ' h-[3px] w-16 md:w-24 ',
+                ]"
+              ></div>
+            </div>
 
-            <button @click="taggleActiveNotPay"
-              :class="[
-              onclickNotPay
-                ? ' text-primary-900'
-                : ' text-gray-600  ',
-                'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
-              ]">
-              <span class="text-xs md:text-sm  lg:text-md    font-semibold ">{{ $t("Approved") }}  </span>
-              <div class="flex items-center justify-center">
-                <div
-                  :class="[
-                    onclickNotPay ? 'bg-primary-900' : 'bg-black hidden',
-                    ' h-[3px] w-16 md:w-20  ',
-                  ]"
-                ></div>
-              </div>
+          </button>
 
-            </button>
+          <button @click="taggleActiveNotPay"
+            :class="[
+            onclickNotPay
+              ? ' text-primary-900'
+              : ' text-gray-600  ',
+              'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
+            ]">
+            <span class="text-xs md:text-sm  lg:text-md    font-semibold ">{{ $t("Approved") }}  </span>
+            <div class="flex items-center justify-center">
+              <div
+                :class="[
+                  onclickNotPay ? 'bg-primary-900' : 'bg-black hidden',
+                  ' h-[3px] w-16 md:w-20  ',
+                ]"
+              ></div>
+            </div>
 
-            <button @click="taggleActiveEfficientprocessing"
-              :class="[
-              onclickEfficientprocessing
-                ? ' text-primary-900'
-                : ' text-gray-600  ',
-                'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
-              ]">
-              <span class="text-xs md:text-sm  lg:text-md  font-semibold "> {{ $t("In preparation") }}  </span>
-              <div class="flex items-center justify-center">
-                <div
-                  :class="[
-                    onclickEfficientprocessing ? 'bg-primary-900' : 'bg-black hidden',
-                    ' h-[3px]  w-16 md:w-20   ',
-                  ]"
-                ></div>
-              </div>
+          </button>
 
-            </button>
+          <button @click="taggleActiveEfficientprocessing"
+            :class="[
+            onclickEfficientprocessing
+              ? ' text-primary-900'
+              : ' text-gray-600  ',
+              'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
+            ]">
+            <span class="text-xs md:text-sm  lg:text-md  font-semibold "> {{ $t("In preparation") }}  </span>
+            <div class="flex items-center justify-center">
+              <div
+                :class="[
+                  onclickEfficientprocessing ? 'bg-primary-900' : 'bg-black hidden',
+                  ' h-[3px]  w-16 md:w-20   ',
+                ]"
+              ></div>
+            </div>
 
-            <button @click="taggleActiveShipped"
-              :class="[
-              onclickShipped
-                ? ' text-primary-900'
-                : ' text-gray-600  ',
-                'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
-              ]">
-              <span class="text-xs md:text-sm  lg:text-md  font-semibold ">  {{ $t("Delivered") }}   </span>
-              <div class="flex items-center justify-center">
-                <div
-                  :class="[
-                    onclickShipped ? 'bg-primary-900' : 'bg-black hidden',
-                    ' h-[3px] w-16 md:w-20 ',
-                  ]"
-                ></div>
-              </div>
+          </button>
 
-            </button>
+          <button @click="taggleActiveShipped"
+            :class="[
+            onclickShipped
+              ? ' text-primary-900'
+              : ' text-gray-600  ',
+              'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
+            ]">
+            <span class="text-xs md:text-sm  lg:text-md  font-semibold ">  {{ $t("Delivered") }}   </span>
+            <div class="flex items-center justify-center">
+              <div
+                :class="[
+                  onclickShipped ? 'bg-primary-900' : 'bg-black hidden',
+                  ' h-[3px] w-16 md:w-20 ',
+                ]"
+              ></div>
+            </div>
 
-            <button @click="taggleActiveComment"
-              :class="[
-              onclickComment
-                ? ' text-primary-900'
-                : ' text-gray-600  ',
-                'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
-              ]">
-              <span class="text-xs md:text-sm  lg:text-md    font-semibold "> {{ $t("comment") }}  </span>
-              <div class="flex items-center justify-center">
-                <div
-                  :class="[
-                    onclickComment ? 'bg-primary-900' : 'bg-black hidden',
-                    ' h-[3px] w-16 md:w-20  ',
-                  ]"
-                ></div>
-              </div>
+          </button>
 
-            </button>
+          <button @click="taggleActiveComment"
+            :class="[
+            onclickComment
+              ? ' text-primary-900'
+              : ' text-gray-600  ',
+              'w-20 md:w-28 h-8 md:h-10  cursor-pointer'
+            ]">
+            <span class="text-xs md:text-sm  lg:text-md    font-semibold "> {{ $t("comment") }}  </span>
+            <div class="flex items-center justify-center">
+              <div
+                :class="[
+                  onclickComment ? 'bg-primary-900' : 'bg-black hidden',
+                  ' h-[3px] w-16 md:w-20  ',
+                ]"
+              ></div>
+            </div>
 
-            <!-- <button @click="taggleActiveReturnedproducts"
-              :class="[
-              onclickReturnedproducts
-                ? ' text-primary-900'
-                : ' text-gray-600  ',
-                'w-28 md:w-40 h-8 md:h-10  cursor-pointer'
-              ]">
-               <span class="text-xs md:text-sm  lg:text-md   font-semibold "> المنتجات المسترجعه  </span>
-              <div class="flex items-center justify-center">
-                <div
-                  :class="[
-                    onclickReturnedproducts ? 'bg-primary-900' : 'bg-black hidden',
-                    ' h-[3px]  w-28 md:w-36   ',
-                  ]"
-                ></div>
-              </div>
+          </button>
 
-            </button> -->
+          <button @click="taggleActiveReturnedproducts"
+            :class="[
+            onclickReturnedproducts
+              ? ' text-primary-900'
+              : ' text-gray-600  ',
+              'w-28 md:w-40 h-8 md:h-10  cursor-pointer'
+            ]">
+            <span class="text-xs md:text-sm  lg:text-md   font-semibold "> المنتجات المسترجعه  </span>
+            <div class="flex items-center justify-center">
+              <div
+                :class="[
+                  onclickReturnedproducts ? 'bg-primary-900' : 'bg-black hidden',
+                  ' h-[3px]  w-28 md:w-36   ',
+                ]"
+              ></div>
+            </div>
+
+          </button>
 
           </div>
+      </div>
+
+    </div>
+
+    <!-- Main content -->
+    <div class="mt-20">
+      <main class="p-4">
+      <div class="grid grid-cols-1 ">
+        <!-- قائمة الطلبات -->
+        <div>
+
 
           <!-- all  request -->
           <div v-if="onclickALlRequests" class="grid grid-cols-1 gap-1 w-full ">
@@ -136,7 +158,7 @@
                   <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
                   <p class="font-semibold text-sm"> {{ order.status.name }}</p>
                 </div>
-                <RouterLink :to="`/desktop/user/myorder/${order.id}`">
+                <RouterLink :to="`/phone/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
                   <h3 class="font-semibold   text-sm "> {{ $t("order number") }}: </h3>
                   <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
@@ -188,7 +210,7 @@
                   <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
                   <p class="font-semibold text-sm"> {{ order.status.name }}</p>
                 </div>
-                <RouterLink :to="`/desktop/user/myorder/${order.id}`">
+                <RouterLink :to="`/phone/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
                   <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
                   <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
@@ -240,7 +262,7 @@
                   <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
                   <p class="font-semibold text-sm"> {{ order.status.name }}</p>
                 </div>
-                <RouterLink :to="`/desktop/user/myorder/${order.id}`">
+                <RouterLink :to="`/phone/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
                   <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
                   <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
@@ -293,7 +315,7 @@
                   <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
                   <p class="font-semibold text-sm"> {{ order.status.name }}</p>
                 </div>
-                <RouterLink :to="`/desktop/user/myorder/${order.id}`">
+                <RouterLink :to="`/phone/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
                   <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
                   <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
@@ -385,6 +407,7 @@
         </div> -->
       </div>
     </main>
+    </div>
   </div>
 </template>
 
@@ -462,15 +485,15 @@ const taggleActiveComment = () => {
 
 }
 
-// const taggleActiveReturnedproducts = () => {
-//   onclickALlRequests.value =  false
-//   onclickNotPay.value =  false
-//   onclickEfficientprocessing.value =  false
-//   onclickShipped.value = false
-//   onclickComment.value =false
-//   onclickReturnedproducts.value =true
+const taggleActiveReturnedproducts = () => {
+  onclickALlRequests.value =  false
+  onclickNotPay.value =  false
+  onclickEfficientprocessing.value =  false
+  onclickShipped.value = false
+  onclickComment.value =false
+  onclickReturnedproducts.value =true
 
-// }
+}
 
 
 onMounted(async() => {
@@ -483,3 +506,26 @@ onMounted(async() => {
 
 
 </script>
+
+
+<style scoped>
+
+
+.custom-scroll::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+.custom-scroll:hover::-webkit-scrollbar,
+.custom-scroll:active::-webkit-scrollbar {
+  opacity: 0;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+</style>
