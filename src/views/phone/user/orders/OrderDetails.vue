@@ -30,19 +30,26 @@
           <div  class="">
             <div class="p-1 mt-4 shadow bg-white py-2">
                   <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
-                    <h3 class="font-semibold   text-sm ">  {{ $t("order number") }} : </h3>
-                    <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
+                    <h3 class="font-semibold   text-xs ">  {{ $t("order number") }} : </h3>
+                    <span class="text-gray-500 font-semibold   text-xs ">{{ order.trx_id }} # </span>
+                  </div>
+            </div>
+
+            <div class="p-1 mt-4 shadow bg-white py-2">
+                  <div  class="flex items-center justify-between  gap-2 mb-2 cursor-pointer">
+                    <h3 class="font-semibold   text-xs ">  وقت الشحن : </h3>
+                    <span class="text-gray-500 font-semibold   text-xs ">{{ order.date }} # </span>
                   </div>
             </div>
 
                 <div class="p-1 mt-4 shadow bg-white">
-                  <div class="flex items-center gap-2 mb-2">
-                  <span  class="font-semibold   text-sm ">   {{ $t("Request status") }}: </span>
-                    <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
-                    <p class="font-semibold text-sm"> {{ order.status.name }}</p>
+                  <div class="flex items-center gap-2 mb-1">
+                  <span  class="font-semibold   text-xs ">   {{ $t("Request status") }}: </span>
+                    <div class="rounded-full w-4 h-4 " :style="['background-color:#' + order.status.color + '']"></div>
+                    <p class="font-semibold text-xs"> {{ order.status.name }}</p>
                   </div>
 
-                <span class="font-semibold   text-sm mb-5 ">{{ $t("Products") }}:</span>
+                <span class="font-semibold   text-xs mb-5 ">{{ $t("Products") }}:</span>
 
                   <div class="mt-2">
                     <div class=""  v-for="(product, index) in order.order_products" :key="index">
@@ -55,8 +62,8 @@
 
                         <div class="col-span-8">
                           <div class="flex items-center  gap-5 mt-5">
-                            <span class="text-sm" >   {{ $t("Quantity") }} :  {{ product.quantity }} </span>
-                            <span class="text-sm "> {{ $t("measuring") }} : {{ product.measuring_value }}</span>
+                            <span class="text-xs" >   {{ $t("Quantity") }} :  {{ product.quantity }} </span>
+                            <span class="text-xs "> {{ $t("measuring") }} : {{ product.measuring_value }}</span>
                           </div>
                         </div>
 
@@ -77,24 +84,24 @@
         <div v-if="order" class="">
 
             <div class="bg-white  shadow p-4">
-            <h2 class="font-semibold text-lg mb-4"> {{ $t("Payment details") }}: </h2>
-            <div class="text-sm">
+            <h2 class="font-semibold text-sm mb-4"> {{ $t("Payment details") }}: </h2>
+            <div class="text-xs">
               <div class="flex justify-between py-2">
                 <span>  {{ $t("Total products") }}:</span>
                 <span> {{ order.products_total }} </span>
               </div>
               <div class="flex justify-between py-2">
                 <span> {{ $t("Delivery cost") }}: </span>
-                <span> YER {{ order.delivery_total }}</span>
+                <span class="text-xs"> YER {{ order.delivery_total }}</span>
               </div>
               <div class="flex justify-between py-2">
-                <span>{{ $t("Discount") }}:</span>
-                <span>- YER {{ order.discount }} </span>
+                <span class="text-xs">{{ $t("Discount") }}:</span>
+                <span class="text-xs">- YER {{ order.discount }} </span>
               </div>
               <div class="border-t my-4"></div>
               <div class="flex justify-between font-semibold text-lg">
-                <span>{{ $t("Total") }}:</span>
-                <span class="text-primary-900"> YER {{ order.total  }}</span>
+                <span class="text-sm">{{ $t("Total") }}:</span>
+                <span class="text-primary-900 text-sm"> YER {{ order.total  }}</span>
               </div>
             </div>
           </div>

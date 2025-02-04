@@ -2,7 +2,7 @@
   <div v-if="props.isOpen" class="fixed bottom-0 mb-16 w-full z-50">
     <!-- Dialog Container -->
     <div
-      class="bg-white w-full overflow-y-auto custom-scroll max-h-[600px] h-full"
+      class="bg-white w-full overflow-y-auto custom-scroll max-h-[500px] h-full"
     >
       <!-- Dialog Header -->
       <div class="flex justify-end items-center">
@@ -33,9 +33,9 @@
                   navigation
                   pagination
                   :class="{
-                    'rounded-lg custom-swiper border h-[400px] w-screen mb-5':
+                    'rounded-lg custom-swiper border h-[250px] w-screen mb-5':
                       storedLanguage == 'ar',
-                    'rounded-lg custom-swiper2 border h-[400px] w-screen mb-5':
+                    'rounded-lg custom-swiper2 border h-[250px] w-screen mb-5':
                       storedLanguage == 'en',
                   }"
                   @swiper="setSwiperInstance"
@@ -62,9 +62,9 @@
                   navigation
                   pagination
                   :class="{
-                    'rounded-lg custom-swiper border h-[400px] w-screen mb-5':
+                    'rounded-lg custom-swiper border h-[250px] w-screen mb-5':
                       storedLanguage == 'ar',
-                    'rounded-lg custom-swiper2  h-[400px] w-screen mb-5':
+                    'rounded-lg custom-swiper2  h-[250px] w-screen mb-5':
                       storedLanguage == 'en',
                   }"
                   @swiper="setSwiperInstance"
@@ -343,7 +343,7 @@
             </div>
 
             <!-- updateCart -->
-            <div class="fixed bottom-0 w-full mb-16 bg-white">
+            <div class="fixed bottom-0 w-full  bg-white">
               <div class="flex items-center gap-1 p-3">
                 <div
                   class="w-[70px] py-2 rounded-full border flex items-center justify-center"

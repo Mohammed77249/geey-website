@@ -16,12 +16,12 @@
     </div>
 
     <!-- list cats -->
-    <div class="mt-16">
-      <div class="space-y-4 mb-10">
+    <div class="mt-16 pb-32 ">
+      <div class="space-y-4 ">
           <div v-if="storeCart.loading" class="mt-10">
             <LoaderDatacomp :is-loader="storeCart.loading"/>
           </div>
-          <div v-else class="grid grid-cols-12  w-full gap-2 p-5 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
+          <div v-else class="grid grid-cols-12   w-full gap-2 p-5 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
 
             <div class="col-span-3 flex gap-2 md:col-span-2">
               <input
@@ -34,15 +34,15 @@
                 <img
                 :src="item.image"
                 alt="Product Image"
-                class="w-full h-28 object-cover"
+                class="w-full h-24 object-cover"
               />
               </RouterLink>
 
             </div>
             <div class="col-span-6 md:col-span-7">
-              <div class="md:mx-4 mx-1 mt-5">
+              <div class="md:mx-4 mx-1 mt-1">
                 <RouterLink  :to="`/phone/product/${item.product_id}`">
-              <h3 class="font-semibold text-sm md:text-[17px] mb-2 ">{{ item.product_name }}</h3>
+              <h3 class="font-semibold text-xs mb-2 ">{{ item.product_name }}</h3>
             </RouterLink>
               <button  @click="openDialog(item)"  class="border-[1px] px-2 mb-2 rounded-full flex items-center justify-center">
                 <div class="flex">
@@ -50,7 +50,7 @@
                 {{ $t("Color") }}:
 
               </span>
-              <div class="w-4 h-4 rounded-full flex items-center justify-center mt-[2px] mx-1" :style="{ backgroundColor: item.color_hex }" ></div>
+              <div class="w-3 h-3 rounded-full flex items-center justify-center mt-[2px] mx-1" :style="{ backgroundColor: item.color_hex }" ></div>
               </div>
                 <span class="text-xs md:text-sm text-gray-500 cursor-pointer ">
                   , {{ $t("Size") }}: {{ item.measuring_value }}
@@ -59,8 +59,8 @@
 
               </button>
 
-              <p class="text-red-500 text-xs md:text-sm font-semibold mb-2">-0%</p>
-              <p class="text-sm md:text-lg font-bold">
+              <p class="text-primary-900 text-xs  font-semibold mb-2">-0%</p>
+              <p class="text-xs  font-bold">
                 YER
                 {{ item.product_currency }} {{ item.product_price * item.quantity  }}
               </p>
@@ -76,10 +76,10 @@
 
                     <button
                     :class=" item.quantity == 1 ? 'block' :'hidden'"
-                      class="px-1 h-[20px] flex items-center rounded border border-[#8a1538]"
+                      class="px-[1px] h-[15px] flex items-center rounded border border-[#8a1538]"
                       @click="removeItem(item.id)"
                     >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path opacity="0.34" d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14001" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -98,9 +98,9 @@
 
 
 
-                    <span class="font-semibold ">{{ item.quantity }}</span>
+                    <span class="font-semibold text-xs">{{ item.quantity }}</span>
                     <button
-                      class="bg-primary-900 hover:bg-primary-800 px-2 h-[20px] rounded flex items-center text-white"
+                      class="bg-primary-900 hover:bg-primary-800 px-1 h-[15px] rounded text-xs flex items-center text-white"
                       @click="incrementQuantity(index)"
                     >
                       +
@@ -119,7 +119,7 @@
     </div>
 
     <!-- pay -->
-    <div class="bg-white py-3  mb-16 mt-5 px-2 flex items-center gap-2 justify-between fixed bottom-0 w-full">
+    <div class="bg-white py-3  mb-14   px-2 flex items-center gap-2 justify-between fixed bottom-0 w-full">
       <div>
         <button  @click="checkout" class="bg-[#8a1538] px-10  py-3 text-white text-sm font-medium">
           الدفع

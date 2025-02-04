@@ -141,41 +141,41 @@
 
     <!-- Main content -->
     <div class="mt-20">
-      <main class="p-4">
+      <main class="">
       <div class="grid grid-cols-1 ">
         <!-- قائمة الطلبات -->
         <div>
 
 
           <!-- all  request -->
-          <div v-if="onclickALlRequests" class="grid grid-cols-1 gap-1 w-full ">
+          <div v-if="onclickALlRequests" class="grid grid-cols-1 gap-1 w-full mt-5 ">
             <div v-for="(order, index) in orderStore.getAllOrders"
               :key="index"
-                class="p-1 mt-4"
+                class=" mt-4"
               >
               <div class="border  bg-white shadow p-3">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
-                  <p class="font-semibold text-sm"> {{ order.status.name }}</p>
+                  <div class="rounded-full w-4 h-4 " :style="['background-color:#' + order.status.color + '']"></div>
+                  <p class="font-semibold text-xs"> {{ order.status.name }}</p>
                 </div>
                 <RouterLink :to="`/phone/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
-                  <h3 class="font-semibold   text-sm "> {{ $t("order number") }}: </h3>
-                  <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
+                  <h3 class="font-semibold   text-xs "> {{ $t("order number") }}: </h3>
+                  <span class="text-gray-500 font-semibold   text-xs ">{{ order.trx_id }} # </span>
                 </div>
               </RouterLink>
 
 
                 <div class=" flex items-center gap-5   overflow-x-auto ">
                   <div class=""  v-for="(product, index) in order.order_products" :key="index">
-                    <div class="w-[150px] h-[150px] ">
+                    <div class="w-[130px] h-[150px] ">
                       <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
                     </div>
                   </div>
                 </div>
                 <div class="flex items-center  gap-2 mt-2">
-                  <h3 class="font-semibold  text text-sm "> {{ $t("Number of products") }}: {{ order.total_products }} </h3>
-                  <h3 class="font-semibold  text-primary-900 text-sm ">  {{ $t("Total price") }}: {{ order.total }} ري </h3>
+                  <h3 class="font-semibold  text text-xs "> {{ $t("Number of products") }}: {{ order.total_products }} </h3>
+                  <h3 class="font-semibold  text-primary-900 text-xs ">  {{ $t("Total price") }}: {{ order.total }} ري </h3>
                 </div>
 
                 <!-- <div class="flex items-center gap-3 mt-2">
@@ -200,34 +200,34 @@
           </div>
 
           <!-- accepted -->
-          <div v-if="onclickNotPay" class="grid grid-cols-1 gap-1 w-full ">
+          <div v-if="onclickNotPay" class="grid grid-cols-1 gap-1 w-full  mt-5  ">
             <div v-for="(order, index) in approvedOrders"
               :key="index"
                 class="p-1 mt-4"
               >
               <div class="border  bg-white shadow p-3">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
-                  <p class="font-semibold text-sm"> {{ order.status.name }}</p>
+                  <div class="rounded-full w-4 h-4 " :style="['background-color:#' + order.status.color + '']"></div>
+                  <p class="font-semibold text-xs"> {{ order.status.name }}</p>
                 </div>
                 <RouterLink :to="`/phone/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
-                  <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
-                  <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
+                  <h3 class="font-semibold   text-xs "> رقم الطلب : </h3>
+                  <span class="text-gray-500 font-semibold   text-xs ">{{ order.trx_id }} # </span>
                 </div>
               </RouterLink>
 
 
                 <div class=" flex items-center gap-5   overflow-x-auto ">
                   <div class=""  v-for="(product, index) in order.order_products" :key="index">
-                    <div class="w-[150px] h-[150px] ">
+                    <div class="w-[130px] h-[150px] ">
                       <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
                     </div>
                   </div>
                 </div>
                 <div class="flex items-center  gap-2 mt-2">
-                  <h3 class="font-semibold  text text-sm ">  عدد المنتجات : {{ order.total_products }} </h3>
-                  <h3 class="font-semibold  text-primary-900 text-sm ">  السعر الاجمالي : {{ order.total }} ري </h3>
+                  <h3 class="font-semibold  text text-xs ">  عدد المنتجات : {{ order.total_products }} </h3>
+                  <h3 class="font-semibold  text-primary-900 text-xs ">  السعر الاجمالي : {{ order.total }} ري </h3>
                 </div>
 
                 <!-- <div class="flex items-center gap-3 mt-2">
@@ -252,19 +252,19 @@
           </div>
 
           <!-- قيد التجهيز -->
-          <div v-if="onclickEfficientprocessing" class="grid grid-cols-1 gap-1 w-full ">
+          <div v-if="onclickEfficientprocessing" class="grid grid-cols-1 gap-1 mt-5 w-full ">
             <div v-for="(order, index) in EfficientprocessingOrders"
               :key="index"
                 class="p-1 mt-4"
               >
               <div class="border  bg-white shadow p-3">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
-                  <p class="font-semibold text-sm"> {{ order.status.name }}</p>
+                  <div class="rounded-full w-4 h-4 " :style="['background-color:#' + order.status.color + '']"></div>
+                  <p class="font-semibold text-xs"> {{ order.status.name }}</p>
                 </div>
                 <RouterLink :to="`/phone/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
-                  <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
+                  <h3 class="font-semibold   text-xs "> رقم الطلب : </h3>
                   <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
                 </div>
               </RouterLink>
@@ -272,14 +272,14 @@
 
                 <div class=" flex items-center gap-5   overflow-x-auto ">
                   <div class=""  v-for="(product, index) in order.order_products" :key="index">
-                    <div class="w-[150px] h-[150px] ">
+                    <div class="w-[130px] h-[150px] ">
                       <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
                     </div>
                   </div>
                 </div>
                 <div class="flex items-center  gap-2 mt-2">
-                  <h3 class="font-semibold  text text-sm ">  عدد المنتجات : {{ order.total_products }} </h3>
-                  <h3 class="font-semibold  text-primary-900 text-sm ">  السعر الاجمالي : {{ order.total }} ري </h3>
+                  <h3 class="font-semibold  text text-xs ">  عدد المنتجات : {{ order.total_products }} </h3>
+                  <h3 class="font-semibold  text-primary-900 text-xs ">  السعر الاجمالي : {{ order.total }} ري </h3>
                 </div>
 
                 <!-- <div class="flex items-center gap-3 mt-2">
@@ -305,34 +305,34 @@
 
 
           <!--  تم التوصيل -->
-          <div v-if="onclickShipped" class="grid grid-cols-1 gap-1 w-full ">
+          <div v-if="onclickShipped" class="grid grid-cols-1 gap-1 w-full mt-5 ">
             <div v-for="(order, index) in EfficientprocessingOrders"
               :key="index"
                 class="p-1 mt-4"
               >
               <div class="border  bg-white shadow p-3">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="rounded-full w-5 h-5 " :style="['background-color:#' + order.status.color + '']"></div>
-                  <p class="font-semibold text-sm"> {{ order.status.name }}</p>
+                  <div class="rounded-full w-4 h-4 " :style="['background-color:#' + order.status.color + '']"></div>
+                  <p class="font-semibold text-xs"> {{ order.status.name }}</p>
                 </div>
                 <RouterLink :to="`/phone/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
-                  <h3 class="font-semibold   text-sm "> رقم الطلب : </h3>
-                  <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
+                  <h3 class="font-semibold   text-xs "> رقم الطلب : </h3>
+                  <span class="text-gray-500 font-semibold   text-xs ">{{ order.trx_id }} # </span>
                 </div>
               </RouterLink>
 
 
                 <div class=" flex items-center gap-5   overflow-x-auto ">
                   <div class=""  v-for="(product, index) in order.order_products" :key="index">
-                    <div class="w-[150px] h-[150px] ">
+                    <div class="w-[130px] h-[150px] ">
                       <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
                     </div>
                   </div>
                 </div>
                 <div class="flex items-center  gap-2 mt-2">
-                  <h3 class="font-semibold  text text-sm ">  عدد المنتجات : {{ order.total_products }} </h3>
-                  <h3 class="font-semibold  text-primary-900 text-sm ">  السعر الاجمالي : {{ order.total }} ري </h3>
+                  <h3 class="font-semibold  text text-xs ">  عدد المنتجات : {{ order.total_products }} </h3>
+                  <h3 class="font-semibold  text-primary-900 text-xs">  السعر الاجمالي : {{ order.total }} ري </h3>
                 </div>
 
                 <!-- <div class="flex items-center gap-3 mt-2">
