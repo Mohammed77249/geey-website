@@ -1,119 +1,46 @@
 <template>
-  <div
-    v-if="props.isOpen"
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-  >
-    <!-- Dialog Container -->
-    <div
-      class="bg-white w-full max-w-4xl gap-5 overflow-y-auto custom-scroll sm:max-h-[600px] h-full shadow-lg p-2"
-    >
-      <!-- Dialog Header -->
-      <div class="flex justify-end items-center">
-        <button
-          @click="close"
-          class="text-primary-900 text-[20px] hover:text-black"
-        >
-          &times;
-        </button>
+  <div class="bg-gray-100 h-screen">
+    <!-- header -->
+    <div class="fixed inset-0  bg-white p-2 shadow h-16">
+      <div class="grid grid-cols-12 mt-2 items-center justify-between">
+        <!-- back button -->
+          <div class="col-span-3">
+            <RouterLink to="/phone/user/setting/myaddresses">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </RouterLink>
+          </div>
+          <div class=" col-span-6 text-lg font-bold text-center">
+            {{ $t("Add a new address") }}
+          </div>
       </div>
+    </div>
 
-      <!-- Dialog Content -->
-      <div>
-        <div v-if="props.loading || storeAddress.loading">
-          <LoaderDatacomp :isLoader="props.loading || storeAddress.loading" />
-        </div>
-        <div v-else-if="props.error || storeAddress.loading">
-          {{ props.error }}
-        </div>
-        <div v-else-if="props.titles">
-          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 mt-5">
-            <div class="col-span-6 bg-gray-100">
-              <div class="py-4 p-5 shadow bg-white m-2">
-                <h1 class="text-primary-900 font-bold text-xl"> {{ $t("All your addresses") }}</h1>
-              </div>
-              <div class="p-2 bg-white m-2 sm:max-h-72 md:max-h-[500px] overflow-y-auto">
-                <div class="border" v-for="address in titles" :key="address.id">
-                  <div class="grid grid-cols-12 p-2">
-                    <div class="col-span-2 w-12 flex items-center justify-center  rounded-full h-12 bg-gray-200">
-                      <div class="">
-                        <svg
-                          width="36"
-                          height="36"
-                          viewBox="0 0 36 36"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect width="36" height="36" rx="18" fill="#8A1538" />
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M10.9167 16.598C10.9167 12.7647 14.12 9.6665 17.9946 9.6665C21.8802 9.6665 25.0834 12.7647 25.0834 16.598C25.0834 18.5296 24.3809 20.3229 23.2247 21.8428C21.9491 23.5194 20.3769 24.9802 18.6072 26.1269C18.2022 26.3919 17.8366 26.4119 17.3921 26.1269C15.6124 24.9802 14.0402 23.5194 12.7755 21.8428C11.6184 20.3229 10.9167 18.5296 10.9167 16.598ZM15.6619 16.8138C15.6619 18.0979 16.7098 19.1079 17.9946 19.1079C19.2803 19.1079 20.3382 18.0979 20.3382 16.8138C20.3382 15.5397 19.2803 14.4805 17.9946 14.4805C16.7098 14.4805 15.6619 15.5397 15.6619 16.8138Z"
-                            fill="white"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div
-                      class="col-span-4 cursor-pointer"
-                      @click="chooseAdress(address)"
-                    >
-                      <p class="text-md font-semibold text-black">
-                        {{ address.address }}
-                      </p>
-                      <span class="text-sm font-normal text-black">{{
-                        address.city.name
-                      }}</span>
-                      -
-                      <span class="text-sm font-normal text-black">{{
-                        address.district.name
-                      }}</span>
-                    </div>
-                    <div class="col-span-6">
-                      <div class="flex items-center justify-end mt-[10px]">
-                        <input
-                          id="default-radio-3"
-                          type="radio"
-                           @click="chooseAdress(address)"
-                          value="option3"
-                          name="default-radio"
-                          class="w-4 h-4 text-primary-900 bg-gray-100 focus:ring-primary-900"
-                        />
-                      </div>
-                    </div>
-                  </div>
+    <!-- main content -->
+    <div>
+      <div class="mt-16 pt-3 bg-gray-100">
+              <div class="">
+                <div class="mb-5 p-2">
+                  <span class="text-[#F7A219]">*يرجى اضافة عنوان جديد دقيق لتمتع بتجربة توصيل مميزة!</span>
                 </div>
-              </div>
-            </div>
-
-            <div class="col-span-6 bg-gray-100">
-              <div class="py-4 p-5 shadow bg-white m-2">
-                <h1 class="text-primary-900 font-bold text-xl">
-                 {{ $t("Add a new address") }}
-                </h1>
-              </div>
-
-              <div class="p-2 bg-white m-2">
                 <form @submit.prevent="handleAddress">
                   <!-- المكتب الخاص أو المنزل -->
-                  <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"> {{ $t("Private office or home") }}</label
-                    >
+                  <div class="mb-4 px-1">
                     <input
                       type="text"
                       v-model="Adress"
                       required
                       :placeholder="$t('Private office or home')"
-                      class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                      class="w-full border border-gray-300 py-4 shadow px-2 text-sm rounded-lg focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
 
                   <!-- المحافظة -->
-                  <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"> {{ $t("City") }} </label
-                    >
+                  <div class="px-1  mb-4">
                     <div ref="dropDownCite">
                       <button
-                        class="text-[#979797] w-full py-2 border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
+                        class="text-[#979797] bg-white w-full shadow py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
                         type="button"
                         @click="isDropdowenCiteVisable = true"
                         @mouseenter="isDropdowenCiteVisable = true"
@@ -130,7 +57,7 @@
                           viewBox="0 0 10 6"
                         >
                           <path
-                            stroke="currentColor"
+                            stroke="#8a1538"
                             stroke-linecap="round"
                             stroke-linejoin="round"
                             stroke-width="2"
@@ -143,7 +70,7 @@
                       <div
                         @mouseenter="isDropdowenCiteVisable = true"
                         @mouseleave="isDropdowenCiteVisable = false"
-                        class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300 rounded-lg shadow"
+                        class="z-50 absolute bg-white divide-y divide-gray-100 transition-all duration-300  rounded-lg shadow"
                         v-if="isDropdowenCiteVisable"
                       >
                         <ul
@@ -173,12 +100,10 @@
                   </div>
 
                   <!-- المنطقة -->
-                  <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"> {{ $t("Area") }} </label
-                    >
+                  <div class="px-1  mb-4">
                     <div ref="dropDownDistrict">
                       <button
-                        class="text-[#979797] w-full py-2 border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
+                        class="text-[#979797] bg-white w-full py-4 shadow rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
                         type="button"
                         @click="isDropdowenDistrictVisable = true"
                         @mouseenter="isDropdowenDistrictVisable = true"
@@ -195,7 +120,7 @@
                           viewBox="0 0 10 6"
                         >
                           <path
-                            stroke="currentColor"
+                            stroke="#8a1538"
                             stroke-linecap="round"
                             stroke-linejoin="round"
                             stroke-width="2"
@@ -216,8 +141,7 @@
                           aria-labelledby="dropdownSearchButton" v-if="filteredAreas.length > 0"
                         >
                           <li
-                            v-for="(
-                              district, index
+                            v-for="(district, index
                             ) in filteredAreas"
                             :key="index"
                             @click="toggleDistrictSelect(district)"
@@ -238,24 +162,22 @@
                   </div>
 
                   <!-- معلم قريب -->
-                  <div class="bg-white border shadow p-2">
-                    <label class="block text-xs font-semibold text-black mb-2"> {{ $t("nearest landmark") }}</label
-                    >
+                  <div class="px-1  mb-4">
                     <input
                       type="text"
                       v-model="NearestLand"
                       required
-                      :laceholder="$t('nearest landmark')"
-                      class="w-full border border-gray-300 py-2 p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                      :placeholder="$t('nearest landmark')"
+                      class="w-full border border-gray-300 py-4 shadow rounded-lg p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
 
                   <!-- الخريطة  -->
-                  <div class="bg-white border shadow p-2">
+                  <div class="px-1 mb-4">
                     <button
                       type="button"
-                      @click="cklickOpenMap()"
-                      class="w-full flex items-center border border-gray-300 text-black gap-2 py-2 font-semibold text-xs"
+                      @click="clickOpenMap()"
+                      class="w-full flex items-center bg-white shadow border border-gray-300 text-black gap-2 py-4 rounded-lg font-semibold text-xs"
                     >
                       <svg
                         width="24"
@@ -284,82 +206,87 @@
                           stroke-width="1.5"
                         />
                       </svg>
-                      <p>  {{ $t("Is it easier to click on the address using Google Map?") }}   </p>
+                      <p>{{ $t("Is it easier to click on the address using Google Map?") }}</p>
                     </button>
                   </div>
 
-                  <div class="bg-white border shadow p-2">
-                    <button
-                      type="submit"
-                      class="w-full bg-primary-900 text-white py-3 font-semibold text-sm"
-                    >
-                    {{ $t("Add a new address") }}
-                    </button>
+                  <!-- صورة الخريطة -->
+                  <div v-if="showMapImage" class=" px-1">
+                    <!-- <img
+                    :src="getMapImageUrl()"
+                      alt="Map"
+                      class="w-full h-auto rounded-lg cursor-pointer"
+                      @click="openMap"
+                    /> -->
+
+                    <img
+                    src="/src//assets/images/mapp.png"
+                      alt="Map"
+                      class="w-full h-[200px] rounded-lg cursor-pointer"
+                      @click="openMap"
+                    />
                   </div>
+
+                  <div v-if="isMapOpen">
+                    <GoogleMap  :isOpen="isMapOpen" @close="closeDialog"/>
+                  </div>
+
+
+                  <div class="bg-white py-3 px-2  flex items-center   fixed bottom-0 w-full">
+                      <button
+                        type="submit"
+                        class="w-full rounded-lg  bg-primary-900 text-white py-5 font-semibold  text-sm"
+                      >
+                      {{ $t("Add a new address") }}
+                      </button>
+                    </div>
                 </form>
               </div>
             </div>
-          </div>
 
-          <div v-if="isMap">
-            <GoogleMap  :isOpen="isMap" @close="closeDialog"/>
-          </div>
-        </div>
-        <div v-else>
-          <span>no data</span>
-        </div>
-      </div>
     </div>
+
   </div>
 </template>
 
 <script setup>
 import {   ref, onMounted, onBeforeMount,onUnmounted,defineAsyncComponent } from 'vue'
-const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
-import GoogleMap from './GoogleMap.vue'
-// const storedLanguage = localStorage.getItem("language");
+const GoogleMap = defineAsyncComponent(() => import('@/components/phone/GoogleMap.vue'));
 import { useAddressStore } from '@/stores/address'
 import { useConfirmOrders } from '@/stores/confirmorder'
+import { useI18n } from 'vue-i18n';
+import { useRouter  } from 'vue-router';
 const storeOrder = useConfirmOrders()
 const storeAddress = useAddressStore()
-
-import { useI18n } from 'vue-i18n';
+const router = useRouter();
 const { t } = useI18n();
-
-// Props
-const props = defineProps({
-  isOpen: {
-    type: Boolean,
-    required: true,
-  },
-  titles: {
-    type: Array,
-    default: () => []
-  },
-  loading: {
-    type: Boolean,
-  },
-  error: {
-    type: String,
-  },
-})
+const isMapOpen = ref(false);
+const showMapImage = ref(true);
+// const mapCenter = ref({ lat: 15.369445, lng: 44.191006 })
+// const zoom = ref(12);
 
 
+// رابط الخريطة الثابتة
+// const getMapImageUrl = () => {
+//   const apiKey = 'AIzaSyCHShZz-2aciDHjlCDh7rHFGWjxSIRJztY'; // استبدل بـ مفتاح API الخاص بك
+//   return `https://maps.googleapis.com/maps/api/staticmap?center=${mapCenter.value.lat},${mapCenter.value.lng}&zoom=${zoom.value}&size=600x300&markers=color:red%7Clabel:S%7C${mapCenter.value.lat},${mapCenter.value.lng}&key=${apiKey}`;
+// };
 
-const chooseAdress = address => {
-  localStorage.setItem('adressInfoId', address.id)
-  localStorage.setItem('adressInfoName', address.address)
-  close()
-}
 
-const isMap = ref(false)
+// فتح الخريطة
+const clickOpenMap = () => {
+  showMapImage.value = false; // إخفاء صورة الخريطة
+  isMapOpen.value = true; // عرض الخريطة
+};
 
-const cklickOpenMap = () => {
-  isMap.value = true
-}
+// إظهار نافذة الخريطة عند الضغط على الصورة
+const openMap = () => {
+  showMapImage.value = false;
+  isMapOpen.value = true;
+};
 
 const closeDialog = () => {
-  isMap.value = false
+  isMapOpen.value = false
 }
 
 const Getlong = ref(localStorage.getItem("long"));
@@ -374,6 +301,7 @@ const checkLocalStorageChanges = () => {
 const Getlat11 = localStorage.getItem("lat");
   if (currentValue !== Getcity.value) {
     Getcity.value = currentValue; // تحديث القيمة تلقائيًا
+
   }
   if(Getlat11 != null && Getlong11 != null){
     Getlat.value = Getlat11
@@ -386,9 +314,12 @@ const Getlat11 = localStorage.getItem("lat");
 
 
 
+
+
 // بدء المراقبة عند تحميل المكون
 onMounted(() => {
   intervalId = setInterval(checkLocalStorageChanges, 500); // التحقق من التغييرات كل 500 ملي ثانية
+
 });
 
 // إيقاف المراقبة عند إلغاء تحميل المكون
@@ -404,13 +335,13 @@ const checkName = () => {
     resultMessage.value = `${Getcity.value} موجود داخل المصفوفة`;
     selectedCite.value = Getcity.value;
     filteredData.value.city_id = exists.id
+    filteredAreas.value = storeAddress.getDistricts.filter(
+      (area) => area.city_id === parseInt(exists.id)
+    );
   } else {
     resultMessage.value = `${Getcity.value} غير موجود داخل المصفوفة`;
   }
 };
-
-
-
 
 const filteredAreas = ref([]);
 
@@ -434,14 +365,11 @@ const toggleCiteSelect = city => {
   filteredData.value.city_id = city.id
   selectedCite.value = city.name
   isDropdowenCiteVisable.value = false
-
-
   if (city.id) {
     filteredAreas.value = storeAddress.getDistricts.filter(
       (area) => area.city_id === parseInt(city.id)
     );
     selectedDistrict.value = t('Area')
-
   } else {
     filteredAreas.value = [];
   }
@@ -458,13 +386,10 @@ const toggleDistrictSelect = district => {
   filteredData.value.district_id = district.id
   selectedDistrict.value = district.name
   isDropdowenDistrictVisable.value = false
-
-
 }
 
 
 const handleAddress = async () => {
-
   if(selectedCite.value == t("City")){
     alert(t("Choose a city"))
     return;
@@ -490,6 +415,7 @@ const handleAddress = async () => {
   if (creataddress) {
     alert(t("Added successfully"))
     storeOrder.fetchDataOrders()
+    router.push("/phone/user/setting/myaddresses")
     Adress.value = "";
     NearestLand.value= "";
     selectedDistrict.value = t("Area");
@@ -516,35 +442,5 @@ onMounted(() => {
 })
 onBeforeMount(() => {
 
-})
-
-
-// Emits
-const emit = defineEmits(['close'])
-
-// Close the dialog
-const close = () => {
-  emit('close')
-}
-
-
+});
 </script>
-
-<style>
-.custom-scroll::-webkit-scrollbar {
-  width: 5px;
-  opacity: 0;
-}
-.custom-scroll:hover::-webkit-scrollbar,
-.custom-scroll:active::-webkit-scrollbar {
-  opacity: 1;
-}
-
-.custom-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scroll::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 4px;
-}
-</style>

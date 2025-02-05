@@ -6,7 +6,7 @@ export const useAddressStore = defineStore('addresses', {
     cities:[],
     districts:[],
     alladdresses: [],
-
+    showaddress: [],
 
     // subsectionsforfilter: [],
     // categories: [],
@@ -27,6 +27,7 @@ export const useAddressStore = defineStore('addresses', {
     getCities: state => state.cities,
     getDistricts: state => state.districts,
     getAllAddresses: state => state.alladdresses,
+    getShowAddress: state => state.showaddress,
 
     },
   actions: {
@@ -38,13 +39,28 @@ export const useAddressStore = defineStore('addresses', {
         const response = await axiosIns.get(`addresses`);
         this.alladdresses =  response.data;
       } catch (error) {
-        this.error = 'خطأ أثناء جلب المدن';
-        alert(error(error));
+        this.error = error+'خطأ أثناء جلب المدن';
         this.loading = false;
       } finally {
         this.loading = false;
       }
     },
+
+    async fetchAhowAddress(data) {
+      this.loading = true;
+      this.error = null;
+      try {
+        const response = await axiosIns.get(`addresses/show/${data}`);
+        this.showaddress =  response.data;
+
+      } catch (error) {
+        this.error = error+'خطأ أثناء جلب ';
+        this.loading = false;
+      } finally {
+        this.loading = false;
+      }
+    },
+
 
     async fetchCities() {
       this.loading = true;
@@ -116,7 +132,6 @@ export const useAddressStore = defineStore('addresses', {
       formData.append('lat', data.lat)
       formData.append('lng', data.lng)
       formData.append('is_default', data.is_default)
-
       try {
         const response = await axiosIns.post(`addresses/update/${data.address_id}`, formData, {
           headers: {

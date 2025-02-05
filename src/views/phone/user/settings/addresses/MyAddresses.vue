@@ -1,38 +1,40 @@
 <template>
-  <div
-    v-if="props.isOpen"
-    class="fixed bottom-0 mb-16 w-full z-50"
-  >
-    <!-- Dialog Container -->
-    <div
-      class="bg-white w-full overflow-y-auto custom-scroll max-h-[500px] h-full"
-    >
+  <div  class="bg-gray-100 h-screen">
+      <!-- header -->
+      <div class="fixed inset-0  bg-white p-2 shadow h-16">
+        <div class="grid grid-cols-12 mt-2 items-center justify-between">
+          <!-- back button -->
+            <div class="col-span-3">
+              <RouterLink to="/phone/user/setting">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </RouterLink>
+            </div>
+            <div class=" col-span-6 text-lg font-bold text-center">
+              العناوين
+            </div>
+        </div>
+      </div>
 
       <!-- Dialog Content -->
-      <div>
-        <div v-if="props.loading || storeAddress.loading">
-          <LoaderDatacomp :isLoader="props.loading || storeAddress.loading" />
+      <div class="mt-16  pb-10">
+        <div class="" v-if=" storeAddress.loading">
+          <LoaderDatacomp :isLoader="storeAddress.loading" />
         </div>
-        <div v-else-if="props.error || storeAddress.loading">
-          {{ props.error }}
+        <div v-else-if="storeAddress.error">
+          {{ storeAddress.error }}
         </div>
-        <div v-else-if="props.titles">
+        <div v-else-if="storeAddress.getAllAddresses">
           <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 mb-5 ">
-            <div class="col-span-6 bg-white">
-              <div class="py-4 p-5 shadow border mt-2 bg-white m-2 flex items-center justify-between">
-                <h1 class="text-primary-900 font-bold text-xl"> {{ $t("All your addresses") }}</h1>
-                <button
-                  @click="close"
-                  class="text-primary-900  text-[20px] hover:text-black"
-                >
-                  &times;
-                </button>
-              </div>
-              <div class="p-2  m-2 sm:max-h-72 md:max-h-[500px] overflow-y-auto">
-                <div class="rounded-xl shadow bg-gray-50 mb-3 py-2 " v-for="address in titles" :key="address.id">
-                  <div class="grid grid-cols-12 p-2">
-                    <div class="col-span-2 w-12 flex items-center justify-center  rounded-full h-12 bg-gray-200">
-                      <div class="">
+            <div class="col-span-6 bg-gray-100">
+
+              <div class="p-2 m-2 sm:max-h-72 md:max-h-[500px] overflow-y-auto">
+                <div class="rounded-xl shadow mb-3 py-2 bg-white" v-for="address in storeAddress.getAllAddresses" :key="address.id">
+                  <RouterLink :to="`/phone/user/myaddress/editaddress/${address.id}`">
+                  <div class="grid grid-cols-12 p-2 " >
+                    <div class="col-span-2 w-12 rounded-full flex items-center justify-center   h-12 bg-gray-200">
+                      <div class=" ">
                         <svg
                           width="36"
                           height="36"
@@ -52,38 +54,31 @@
                     </div>
                     <div
                       class="col-span-4 cursor-pointer"
-                      @click="chooseAdress(address)"
                     >
-                      <p class="text-md font-semibold text-black">
+                      <p class="text-sm font-semibold text-black">
                         {{ address.address }}
                       </p>
-                      <span class="text-sm font-normal text-black">{{
-                        address.city.name
-                      }}</span>
+                      <span class="text-xs font-normal text-black">{{address.city_name}}</span>
                       -
-                      <span class="text-sm font-normal text-black">{{
-                        address.district.name
+                      <span class="text-xs font-normal text-black">{{
+                        address.district_name
                       }}</span>
                     </div>
                     <div class="col-span-6">
                       <div class="flex items-center justify-end mt-[10px]">
-                        <input
-                          id="default-radio-3"
-                          type="radio"
-                           @click="chooseAdress(address)"
-                          value="option3"
-                          name="default-radio"
-                          class="w-4 h-4 text-primary-900 bg-gray-100 focus:ring-primary-900"
-                        />
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
                       </div>
                     </div>
                   </div>
+                </RouterLink>
                 </div>
               </div>
             </div>
 
              <!-- زر الحفظ -->
-             <RouterLink to="/phone/addaddressCom">
+             <RouterLink to="/phone/user/setting/addaddress">
              <div class="bg-white py-3 px-2  flex items-center   fixed bottom-0 w-full">
                 <button
                   type="button"
@@ -102,51 +97,23 @@
           <span>no data</span>
         </div>
       </div>
-    </div>
+
+
+
+
   </div>
+
 </template>
 
 <script setup>
-import {   defineAsyncComponent } from 'vue'
+import {   defineAsyncComponent ,onMounted } from 'vue'
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
-
 import { useAddressStore } from '@/stores/address'
 const storeAddress = useAddressStore()
 
-// Props
-const props = defineProps({
-  isOpen: {
-    type: Boolean,
-    required: true,
-  },
-  titles: {
-    type: Array,
-    default: () => []
-  },
-  loading: {
-    type: Boolean,
-  },
-  error: {
-    type: String,
-  },
-})
-
-
-
-const chooseAdress = address => {
-  localStorage.setItem('adressInfoId', address.id)
-  localStorage.setItem('adressInfoName', address.address)
-  close()
-}
-
-// Emits
-const emit = defineEmits(['close'])
-
-// Close the dialog
-const close = () => {
-  emit('close')
-};
-
+onMounted( async() => {
+ await storeAddress.fetchAllAddresses()
+});
 
 </script>
 

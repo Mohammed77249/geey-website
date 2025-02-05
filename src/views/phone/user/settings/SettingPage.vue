@@ -45,7 +45,7 @@
             <!-- addresses -->
               <li>
                 <button class="cursor-pointer h-16 w-full border-b-2">
-                  <RouterLink to="/desktop/user/myaddresses">
+                  <RouterLink to="/phone/user/setting/myaddresses">
                     <div class="flex items-center justify-between ">
                       <span class=" text-sm text-black font-medium"> {{ $t("Address book") }}</span>
                       <span>
@@ -61,7 +61,7 @@
               <!-- my account manage -->
               <li>
                 <button class="cursor-pointer h-16 w-full ">
-                  <RouterLink to="/phone/user/myaccount">
+                  <RouterLink to="/phone/user/setting/manageAccount">
                     <div class="flex items-center justify-between ">
                       <span class=" text-sm text-black font-medium"> {{ $t("Manage my account") }}</span>
                       <span>

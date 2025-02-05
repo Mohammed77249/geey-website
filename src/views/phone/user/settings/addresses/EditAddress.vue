@@ -1,38 +1,55 @@
 <template>
-  <div class="bg-gray-100 h-screen">
-    <!-- header -->
+  <div class="bg-gray-50 h-screen">
     <div class="fixed inset-0  bg-white p-2 shadow h-16">
-      <div class="grid grid-cols-12 mt-2 items-center justify-between">
-        <!-- back button -->
-          <div class="col-span-3">
-            <RouterLink to="/phone/confirmOrder">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </RouterLink>
-          </div>
-          <div class=" col-span-6 text-lg font-bold text-center">
-            {{ $t("Add a new address") }}
-          </div>
-      </div>
-    </div>
+        <div class="grid grid-cols-12 mt-2 items-center justify-between">
+          <!-- back button -->
+            <div class="col-span-3" @click="goBack">
+              <RouterLink to="/phone/user/setting/myaddresses">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </RouterLink>
+            </div>
+            <div class=" col-span-6 text-lg font-bold text-center">
+              تعديل العنوان
+            </div>
 
-    <!-- main content -->
-    <div>
-      <div class="mt-16 pt-3 bg-gray-100">
-              <div class="">
-                <div class="mb-5 p-2">
-                  <span class="text-[#F7A219]">*يرجى اضافة عنوان جديد دقيق لتمتع بتجربة توصيل مميزة!</span>
-                </div>
-                <form @submit.prevent="handleAddress">
+            <!-- deleted icon -->
+            <div @click="deleteAddress()" class=" col-span-3 flex items-center justify-end">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path opacity="0.34" d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14001" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path opacity="0.34" d="M10.33 16.5H13.66" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path opacity="0.34" d="M9.5 12.5H14.5" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+        </div>
+      </div>
+
+      <!-- main content -->
+      <div>
+        <div>
+      <div class="mt-16 pt-3 ">
+
+        <div v-if=" storeAddress.loading">
+          <LoaderDatacomp :isLoader="storeAddress.loading" />
+        </div>
+        <div v-else-if="storeAddress.error">
+          {{ storeAddress.error }}
+        </div>
+
+              <div v-else class="">
+
+                <form @submit.prevent="handleEditAddress">
                   <!-- المكتب الخاص أو المنزل -->
                   <div class="mb-4 px-1">
                     <input
                       type="text"
-                      v-model="Adress"
+                      v-model="filteredData.address"
                       required
                       :placeholder="$t('Private office or home')"
-                      class="w-full border border-gray-300 py-4 shadow px-2 text-sm rounded-lg focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                      class="w-full border border-gray-300 py-4  px-2 text-sm rounded-lg focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
 
@@ -40,13 +57,13 @@
                   <div class="px-1  mb-4">
                     <div ref="dropDownCite">
                       <button
-                        class="text-[#979797] bg-white w-full shadow py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
+                        class="text-[#979797] bg-white w-full  py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
                         type="button"
                         @click="isDropdowenCiteVisable = true"
                         @mouseenter="isDropdowenCiteVisable = true"
                         @mouseleave="isDropdowenCiteVisable = false"
                       >
-                        <p class="text-black">{{ selectedCite }}</p>
+                        <p class="text-black">{{ filteredData.city_name }}</p>
 
                         <svg
                           aria-hidden="true"
@@ -103,13 +120,13 @@
                   <div class="px-1  mb-4">
                     <div ref="dropDownDistrict">
                       <button
-                        class="text-[#979797] bg-white w-full py-4 shadow rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
+                        class="text-[#979797] bg-white w-full py-4  rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
                         type="button"
                         @click="isDropdowenDistrictVisable = true"
                         @mouseenter="isDropdowenDistrictVisable = true"
                         @mouseleave="isDropdowenDistrictVisable = false"
                       >
-                        <p class="text-black">{{ selectedDistrict }}</p>
+                        <p class="text-black">{{ filteredData.district_name }}</p>
 
                         <svg
                           aria-hidden="true"
@@ -165,10 +182,10 @@
                   <div class="px-1  mb-4">
                     <input
                       type="text"
-                      v-model="NearestLand"
+                      v-model="filteredData.nearest_landmark"
                       required
                       :placeholder="$t('nearest landmark')"
-                      class="w-full border border-gray-300 py-4 shadow rounded-lg p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                      class="w-full border border-gray-300 py-4  rounded-lg p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
 
@@ -177,7 +194,7 @@
                     <button
                       type="button"
                       @click="clickOpenMap()"
-                      class="w-full flex items-center bg-white shadow border border-gray-300 text-black gap-2 py-4 rounded-lg font-semibold text-xs"
+                      class="w-full flex items-center bg-white border border-gray-300 text-black gap-2 py-4 rounded-lg font-semibold text-xs"
                     >
                       <svg
                         width="24"
@@ -211,21 +228,15 @@
                   </div>
 
                   <!-- صورة الخريطة -->
-                  <div v-if="showMapImage" class=" px-1">
-                    <!-- <img
-                    :src="getMapImageUrl()"
-                      alt="Map"
-                      class="w-full h-auto rounded-lg cursor-pointer"
-                      @click="openMap"
-                    /> -->
-
+                  <div  class=" px-1">
                     <img
                     src="/src//assets/images/mapp.png"
                       alt="Map"
                       class="w-full h-[200px] rounded-lg cursor-pointer"
-                      @click="openMap"
+                      @click="clickOpenMap"
                     />
                   </div>
+
 
                   <div v-if="isMapOpen">
                     <GoogleMap  :isOpen="isMapOpen" @close="closeDialog"/>
@@ -237,7 +248,7 @@
                         type="submit"
                         class="w-full rounded-lg  bg-primary-900 text-white py-5 font-semibold  text-sm"
                       >
-                      {{ $t("Add a new address") }}
+                      {{ $t("Save edits")}}
                       </button>
                     </div>
                 </form>
@@ -245,45 +256,31 @@
             </div>
 
     </div>
-
+      </div>
   </div>
 </template>
 
+
 <script setup>
-import {   ref, onMounted, onBeforeMount,onUnmounted,defineAsyncComponent } from 'vue'
+import {   ref, onMounted,onUnmounted,defineAsyncComponent } from 'vue'
 const GoogleMap = defineAsyncComponent(() => import('@/components/phone/GoogleMap.vue'));
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
+
 import { useAddressStore } from '@/stores/address'
-import { useConfirmOrders } from '@/stores/confirmorder'
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
-const storeOrder = useConfirmOrders()
+import { useRoute ,useRouter } from 'vue-router';
 const storeAddress = useAddressStore()
+const route = useRoute()
 const router = useRouter();
 const { t } = useI18n();
 const isMapOpen = ref(false);
-const showMapImage = ref(true);
-// const mapCenter = ref({ lat: 15.369445, lng: 44.191006 })
-// const zoom = ref(12);
-
-
-// رابط الخريطة الثابتة
-// const getMapImageUrl = () => {
-//   const apiKey = 'AIzaSyCHShZz-2aciDHjlCDh7rHFGWjxSIRJztY'; // استبدل بـ مفتاح API الخاص بك
-//   return `https://maps.googleapis.com/maps/api/staticmap?center=${mapCenter.value.lat},${mapCenter.value.lng}&zoom=${zoom.value}&size=600x300&markers=color:red%7Clabel:S%7C${mapCenter.value.lat},${mapCenter.value.lng}&key=${apiKey}`;
-// };
-
+const addressId = route.params.id
 
 // فتح الخريطة
 const clickOpenMap = () => {
-  showMapImage.value = false; // إخفاء صورة الخريطة
-  isMapOpen.value = true; // عرض الخريطة
-};
-
-// إظهار نافذة الخريطة عند الضغط على الصورة
-const openMap = () => {
-  showMapImage.value = false;
   isMapOpen.value = true;
 };
+
 
 const closeDialog = () => {
   isMapOpen.value = false
@@ -291,7 +288,7 @@ const closeDialog = () => {
 
 const Getlong = ref(localStorage.getItem("long"));
 const Getlat = ref(localStorage.getItem("lat"));
-const Getcity = ref(localStorage.getItem('city')); // قراءة القيمة الأولية
+const Getcity = ref(localStorage.getItem('city'));
 let intervalId = null; // تعريف متغير لتخزين المعرف الخاص بـ setInterval
 
 // وظيفة لتحديث القيمة عند حدوث تغييرات
@@ -312,11 +309,10 @@ const Getlat11 = localStorage.getItem("lat");
 };
 
 
-
-
 // بدء المراقبة عند تحميل المكون
 onMounted(() => {
   intervalId = setInterval(checkLocalStorageChanges, 500); // التحقق من التغييرات كل 500 ملي ثانية
+
 });
 
 // إيقاف المراقبة عند إلغاء تحميل المكون
@@ -330,31 +326,24 @@ const checkName = () => {
   const exists =  storeAddress.getCities.find(item => item.name ===  Getcity.value);
   if (exists) {
     resultMessage.value = `${Getcity.value} موجود داخل المصفوفة`;
-    selectedCite.value = Getcity.value;
-    filteredData.value.city_id = exists.id
-
+    filteredData.value.city_name = Getcity.value;
     filteredAreas.value = storeAddress.getDistricts.filter(
       (area) => area.city_id === parseInt(exists.id)
     );
-
-
-
   } else {
     resultMessage.value = `${Getcity.value} غير موجود داخل المصفوفة`;
   }
+
 };
 
-
-
-
 const filteredAreas = ref([]);
-
-const Adress = ref('')
-const NearestLand = ref('')
 const filteredData = ref({
+  address_id:null,
   city_id: null,
   nearest_landmark: '',
   district_id: null,
+  district_name: t("Area"),
+  city_name:t("City"),
   address: '',
   lat: null,
   lng: null,
@@ -363,93 +352,117 @@ const filteredData = ref({
 
 // cities
 const dropDownCite = ref(null)
-const selectedCite = ref(t('City'))
 const isDropdowenCiteVisable = ref(false)
 const toggleCiteSelect = city => {
   filteredData.value.city_id = city.id
-  selectedCite.value = city.name
+  filteredData.value.city_name = city.name
+  filteredData.value.district_id = null
+  filteredData.value.district_name =t("Area")
+  filteredData.value.lng = null
+  filteredData.value.lat = null
   isDropdowenCiteVisable.value = false
-
-
   if (city.id) {
     filteredAreas.value = storeAddress.getDistricts.filter(
       (area) => area.city_id === parseInt(city.id)
     );
-    selectedDistrict.value = t('Area')
+    filteredData.value.district_name = t('Area')
   } else {
     filteredAreas.value = [];
   }
-
-
 }
 
 
 // District
 const dropDownDistrict = ref(null)
-const selectedDistrict = ref(t('Area'))
 const isDropdowenDistrictVisable = ref(false)
 const toggleDistrictSelect = district => {
   filteredData.value.district_id = district.id
-  selectedDistrict.value = district.name
+  filteredData.value.district_name = district.name
   isDropdowenDistrictVisable.value = false
-
-
 }
 
 
-const handleAddress = async () => {
+const handleEditAddress = async () => {
+  if( Getlat.value != null && Getlong.value != null){
+      filteredData.value.lat =  Getlat.value
+      filteredData.value.lng = Getlong.value
+    }
 
-  if(selectedCite.value == t("City")){
+
+  if(filteredData.value.city_id ==  null){
     alert(t("Choose a city"))
     return;
   }
-  if(selectedDistrict.value == t("Area")){
+  if(filteredData.value.district_id ==  null){
     alert(t("Choose a region"))
     return;
   }
-  if(!Getlat.value &&  !Getlong.value){
-    alert(t("Choose from the map"))
+
+  if(filteredData.value.lat == null && filteredData.value.lng ==  null){
+    alert(t("Choose from map lat and lng"))
     return;
   }
 
-  filteredData.value.address = Adress.value
-  filteredData.value.nearest_landmark = NearestLand.value
+  filteredData.value.address_id = addressId
 
-  filteredData.value.lat =  Getlat.value;
-  filteredData.value.lng = Getlong.value;
+  try {
+    const result = await storeAddress.updateAddress(filteredData.value)
 
+    if (result) {
+      alert(t("Modified successfully"))
+      router.push("/phone/user/setting/myaddresses")
+      localStorage.removeItem('long')
+      localStorage.removeItem('lat')
+      localStorage.removeItem('city')
+      localStorage.removeItem('region')
 
-
-  const creataddress = await storeAddress.creatAddress(filteredData.value)
-  if (creataddress) {
-    alert(t("Added successfully"))
-    storeOrder.fetchDataOrders()
-    router.push("/phone/confirmOrder")
-    Adress.value = "";
-    NearestLand.value= "";
-    selectedDistrict.value = t("Area");
-    selectedCite.value =t("City")
-
-    localStorage.removeItem('long')
-    localStorage.removeItem('lat')
-    localStorage.removeItem('city')
-    localStorage.removeItem('region')
-
-  } else {
-    alert(storeAddress.error + 'error')
-    localStorage.removeItem('long')
-    localStorage.removeItem('lat')
-    localStorage.removeItem('city')
-    localStorage.removeItem('region')
+    } else {
+      alert(t("An error occurred while modifying the address"))
+      localStorage.removeItem('long')
+      localStorage.removeItem('lat')
+      localStorage.removeItem('city')
+      localStorage.removeItem('region')
+    }
+  } catch (error) {
+    console.error('Error updating address:', error)
   }
 
 }
 
-onMounted(() => {
-  storeAddress.fetchCities()
-  storeAddress.fetchDistricts()
-})
-onBeforeMount(() => {
+// حذف عنوان
+const deleteAddress= async () =>{
+  const address_id = addressId
+  const res = await storeAddress.deleteAddress(address_id)
+  if(res){
+    alert("تم الحذف بنجاح")
+    router.push("/phone/user/setting/myaddresses")
+  }else{
+    alert(storeAddress.error + 'error')
+  }
+}
+
+
+onMounted(async() => {
+ await storeAddress.fetchCities()
+ await storeAddress.fetchDistricts()
+ await storeAddress.fetchAhowAddress(addressId)
+
+  if(storeAddress.getShowAddress[0]){
+    filteredData.value.address = storeAddress.getShowAddress[0].address
+    filteredData.value.city_name =  storeAddress.getShowAddress[0].city_name
+    filteredData.value.district_name= storeAddress.getShowAddress[0].district_name
+    filteredData.value.city_id =  storeAddress.getShowAddress[0].city_id
+    filteredData.value.district_id= storeAddress.getShowAddress[0].district_id
+    filteredData.value.nearest_landmark = storeAddress.getShowAddress[0].nearest_landmark
+    filteredData.value.lat = storeAddress.getShowAddress[0].lat
+    filteredData.value.lng = storeAddress.getShowAddress[0].lng
+
+
+    filteredAreas.value = storeAddress.getDistricts.filter(
+      (area) => area.city_id === parseInt(storeAddress.getShowAddress[0].city_id)
+    );
+  }
 
 });
+
 </script>

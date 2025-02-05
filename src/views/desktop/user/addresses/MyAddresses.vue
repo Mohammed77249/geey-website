@@ -31,8 +31,8 @@
               <div class="p-2 bg-white">
                 <div class="border mb-2 shadow" v-for="(address,index) in storeAddress.getAllAddresses" :key="index">
                   <div class="grid grid-cols-12 p-2">
-                    <div class="col-span-1 w-12 rounded-full h-12 bg-gray-200">
-                      <div class="flex items-center justify-center mt-[6px]">
+                    <div class="col-span-1 w-12 rounded-full flex items-center justify-center  h-12 bg-gray-200">
+                      <div class="">
                         <svg
                           width="36"
                           height="36"
