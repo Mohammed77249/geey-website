@@ -2,17 +2,17 @@
   <div  class="bg-white h-screen">
 
      <!-- header -->
-    <div class="fixed inset-0  bg-white p-2 shadow h-16">
+    <div class="fixed inset-0  bg-white p-2 shadow h-12">
         <div class="grid grid-cols-12 mt-2 items-center justify-between">
           <!-- back button -->
             <div class="col-span-3">
               <RouterLink to="/phone/user/setting/manageAccount">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </RouterLink>
             </div>
-            <div class=" col-span-6 text-lg font-bold text-center">
+            <div class=" col-span-6 text-sm font-bold text-center">
               تغيير كلمه المرور
             </div>
         </div>
@@ -24,15 +24,15 @@
     <!-- نموذج تغيير كلمة المرور -->
     <form @submit.prevent="changePassword">
       <!-- كلمة المرور الحالية -->
-      <div  class="mb-4 p-2 border-b-2 pb-6">
-        <label class="block text-sm font-medium mb-2"> {{ $t("Current Password") }}</label>
+      <div  class="mb-2 p-2 border-b-2 pb-4">
+        <label class="block text-xs font-medium mb-2"> {{ $t("Current Password") }}</label>
                 <div class="relative ">
                 <input
                   v-model="currentPassword"
                   required
                   :type="isPasswordCurrentVisible ? 'text' : 'password'"
                     :placeholder="$t('Enter your current password')"
-                   class="w-full px-4 py-3 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
+                   class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
                 />
                 <button
                   type="button"
@@ -77,15 +77,15 @@
       </div>
 
       <!-- كلمة المرور الجديدة -->
-      <div  class="mb-4 p-2 border-b-2 pb-6">
-        <label class="block text-sm font-medium mb-2"> {{ $t("New Password") }}</label>
+      <div  class="mb-2 p-2 border-b-2 pb-4">
+        <label class="block text-xs font-medium mb-2"> {{ $t("New Password") }}</label>
         <div class="relative ">
                 <input
                   v-model="newPassword"
                   required
                   :type="isPasswordNewVisible ? 'text' : 'password'"
                    :placeholder="$t('Enter password')"
-                   class="w-full px-4 py-3 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
+                   class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
                 />
                 <button
                   type="button"
@@ -130,15 +130,15 @@
       </div>
 
       <!-- تأكيد كلمة المرور الجديدة -->
-      <div  class="mb-4 p-2 border-b-2 pb-6">
-        <label class="block text-sm font-medium mb-2"> {{ $t("Confirm the new password") }}</label>
+      <div  class="mb-2 p-2 border-b-2 pb-4">
+        <label class="block text-xs font-medium mb-2"> {{ $t("Confirm the new password") }}</label>
                 <div class="relative ">
                 <input
                   v-model="confirmPassword"
                   required
                   :type="isPasswordConfirmVisible ? 'text' : 'password'"
                    :placeholder="$t('Confirm the new password')"
-                   class="w-full px-4 py-3 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
+                   class="w-full px-4 py-2 border border-gray-300  focus:outline-none focus:ring-0 focus:ring-primary-900 focus:border-primary-900 focus:border-[1px]"
                 />
                 <button
                   type="button"
@@ -191,10 +191,10 @@
       <p v-if="successMessage" class="text-green-500 text-sm mb-4">{{ successMessage }}</p>
 
       <!-- زر تغيير كلمة المرور -->
-      <div class="bg-white py-4 px-2  flex items-center   fixed bottom-0 w-full">
+      <div class="bg-white py-2 px-2  flex items-center   fixed bottom-0 w-full">
       <button
         type="submit"
-        class="w-full bg-primary-900 hover:bg-primary-800 text-white font-medium py-4 px-4 rounded-md"
+        class="w-full bg-primary-900 hover:bg-primary-800 text-white font-medium py-3 px-4 rounded-md"
       >
         تغيير كلمة المرور
       </button>
@@ -257,7 +257,7 @@ const changePassword = async() => {
         // إذا نجح تغيير كلمة المرور
         errorMessage.value = "";
         successMessage.value = t("The password has been changed successfully.");
-        
+
         // إعادة تعيين الحقول
         currentPassword.value = "";
         newPassword.value = "";

@@ -1,22 +1,22 @@
 <template>
   <div class="bg-gray-50 h-screen">
-    <div class="fixed inset-0  bg-white p-2 shadow h-16">
+    <div class="fixed inset-0  bg-white p-2 shadow h-12">
         <div class="grid grid-cols-12 mt-2 items-center justify-between">
           <!-- back button -->
             <div class="col-span-3" @click="goBack">
               <RouterLink to="/phone/user/setting/myaddresses">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </RouterLink>
             </div>
-            <div class=" col-span-6 text-lg font-bold text-center">
+            <div class=" col-span-6 text-sm font-bold text-center">
               تعديل العنوان
             </div>
 
             <!-- deleted icon -->
             <div @click="deleteAddress()" class=" col-span-3 flex items-center justify-end">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path opacity="0.34" d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14001" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -30,7 +30,7 @@
       <!-- main content -->
       <div>
         <div>
-      <div class="mt-16 pt-3 ">
+      <div class="mt-12 pt-3 ">
 
         <div v-if=" storeAddress.loading">
           <LoaderDatacomp :isLoader="storeAddress.loading" />
@@ -243,10 +243,10 @@
                   </div>
 
 
-                  <div class="bg-white py-3 px-2  flex items-center   fixed bottom-0 w-full">
+                  <div class="bg-white py-2 px-2  flex items-center   fixed bottom-0 w-full">
                       <button
                         type="submit"
-                        class="w-full rounded-lg  bg-primary-900 text-white py-5 font-semibold  text-sm"
+                        class="w-full rounded-lg  bg-primary-900 text-white py-4 font-semibold  text-sm"
                       >
                       {{ $t("Save edits")}}
                       </button>

@@ -1,18 +1,18 @@
 <template>
     <div class="bg-gray-100 h-screen">
     <!-- header -->
-    <div class="fixed inset-0  bg-white p-2 shadow h-16">
+    <div class="fixed inset-0  bg-white p-2 shadow h-12">
 
       <div class="grid grid-cols-12 mt-2 items-center justify-between">
         <!-- back button -->
           <div class="col-span-3">
             <RouterLink to="/phone/cart">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </RouterLink>
           </div>
-          <div class=" col-span-6 text-lg font-bold text-center">
+          <div class=" col-span-6 text-sm font-bold text-center">
           تاكيد الطلب
           </div>
       </div>
@@ -108,9 +108,9 @@
 
               <!--   تفاصيل الطلب -->
               <div class="">
-                <div class="w-full h-full   bg-white p-3">
+                <div class="w-full h-full   bg-white p-1">
                   <div class="flex items-center justify-between ">
-                    <span class="text-[16px] font-semibold">  {{ $t("Order details") }}</span>
+                    <span class="text-sm font-semibold">  {{ $t("Order details") }}</span>
                   </div>
 
                   <div class=" p-2 w-full h-full ">
@@ -160,20 +160,20 @@
 
               <div class="pb-20">
                 <div class="bg-white  shadow p-4">
-                  <h2 class="font-semibold text-lg mb-4">{{ $t("Order summary") }} </h2>
+                  <h2 class="font-semibold text-sm mb-4">{{ $t("Order summary") }} </h2>
                   <div class="text-sm">
                     <div class="flex justify-between py-2">
-                      <span> تكلفه التوصيل:</span>
-                      <span> YER 0</span>
+                      <span class="text-xs"> تكلفه التوصيل:</span>
+                      <span  class="text-xs"> YER 0</span>
                     </div>
                     <div class="flex justify-between py-2">
-                      <span>{{ $t("Discount") }}:</span>
-                      <span>- YER {{ storeCart.totalDiscount }}</span>
+                      <span  class="text-xs">{{ $t("Discount") }}:</span>
+                      <span  class="text-xs">- YER {{ storeCart.totalDiscount }}</span>
                     </div>
-                    <div class="border-t my-4"></div>
+                    <div class="border-t my-2"></div>
                     <div class="flex justify-between font-semibold text-lg">
-                      <span>{{ $t("Total") }}:</span>
-                      <span class="text-primary-900"> YER {{ selectedTotalPrice }}</span>
+                      <span  class="text-sm">{{ $t("Total") }}:</span>
+                      <span class="text-primary-900 text-sm"> YER {{ selectedTotalPrice }}</span>
                     </div>
                   </div>
                 </div>
@@ -181,10 +181,10 @@
               </div>
 
             <!-- زر الحفظ -->
-            <div class="bg-white py-3 px-2  flex items-center   fixed bottom-0 w-full">
+            <div class="bg-white py-2 px-2  flex items-center   fixed bottom-0 w-full">
             <button
               type="submit"
-              class="w-full  bg-primary-900 text-white py-5 font-semibold  text-sm"
+              class="w-full  bg-primary-900 text-white py-4 font-semibold  text-sm"
             >
              {{ $t("Confirm the order") }}
             </button>

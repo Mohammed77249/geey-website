@@ -19,10 +19,10 @@
 
     <!-- main content -->
     <div>
-      <div class="mt-16 pt-3 bg-gray-100">
+      <div class="mt-14 pt-3 bg-gray-100">
               <div class="">
-                <div class="mb-5 p-2">
-                  <span class="text-[#F7A219]">*يرجى اضافة عنوان جديد دقيق لتمتع بتجربة توصيل مميزة!</span>
+                <div class=" p-2">
+                  <span class="text-sm text-[#F7A219]">*يرجى اضافة عنوان جديد دقيق لتمتع بتجربة توصيل مميزة!</span>
                 </div>
                 <form @submit.prevent="handleAddress">
                   <!-- المكتب الخاص أو المنزل -->
@@ -232,10 +232,10 @@
                   </div>
 
 
-                  <div class="bg-white py-3 px-2  flex items-center   fixed bottom-0 w-full">
+                  <div class="bg-white py-2 px-2  flex items-center   fixed bottom-0 w-full">
                       <button
                         type="submit"
-                        class="w-full rounded-lg  bg-primary-900 text-white py-5 font-semibold  text-sm"
+                        class="w-full rounded-lg  bg-primary-900 text-white py-4 font-semibold  text-sm"
                       >
                       {{ $t("Add a new address") }}
                       </button>

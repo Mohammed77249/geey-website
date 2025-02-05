@@ -19,8 +19,8 @@
         <div v-else-if="props.titles">
           <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 mb-5 ">
             <div class="col-span-6 bg-white">
-              <div class="py-4 p-5 shadow border mt-2 bg-white m-2 flex items-center justify-between">
-                <h1 class="text-primary-900 font-bold text-xl"> {{ $t("All your addresses") }}</h1>
+              <div class="py-2 p-5  border mt-2 bg-white m-2 flex items-center justify-between">
+                <h1 class="text-primary-900 font-bold text-sm"> {{ $t("All your addresses") }}</h1>
                 <button
                   @click="close"
                   class="text-primary-900  text-[20px] hover:text-black"
@@ -31,11 +31,11 @@
               <div class="p-2  m-2 sm:max-h-72 md:max-h-[500px] overflow-y-auto">
                 <div class="rounded-xl shadow bg-gray-50 mb-3 py-2 " v-for="address in titles" :key="address.id">
                   <div class="grid grid-cols-12 p-2">
-                    <div class="col-span-2 w-12 flex items-center justify-center  rounded-full h-12 bg-gray-200">
+                    <div class="col-span-2 w-10 flex items-center justify-center  rounded-full h-10 bg-gray-200">
                       <div class="">
                         <svg
-                          width="36"
-                          height="36"
+                          width="30"
+                          height="30"
                           viewBox="0 0 36 36"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -54,14 +54,14 @@
                       class="col-span-4 cursor-pointer"
                       @click="chooseAdress(address)"
                     >
-                      <p class="text-md font-semibold text-black">
+                      <p class="text-sm font-semibold text-black">
                         {{ address.address }}
                       </p>
-                      <span class="text-sm font-normal text-black">{{
+                      <span class="text-xs font-normal text-black">{{
                         address.city.name
                       }}</span>
                       -
-                      <span class="text-sm font-normal text-black">{{
+                      <span class="text-xs font-normal text-black">{{
                         address.district.name
                       }}</span>
                     </div>
@@ -73,7 +73,7 @@
                            @click="chooseAdress(address)"
                           value="option3"
                           name="default-radio"
-                          class="w-4 h-4 text-primary-900 bg-gray-100 focus:ring-primary-900"
+                          class="w-3 h-3 text-primary-900 bg-gray-100 focus:ring-primary-900"
                         />
                       </div>
                     </div>
@@ -84,10 +84,10 @@
 
              <!-- زر الحفظ -->
              <RouterLink to="/phone/addaddressCom">
-             <div class="bg-white py-3 px-2  flex items-center   fixed bottom-0 w-full">
+             <div class="bg-white py-2 px-2  flex items-center   fixed bottom-0 w-full">
                 <button
                   type="button"
-                  class="w-full rounded-xl  bg-primary-900 text-white py-5 font-semibold  text-sm"
+                  class="w-full rounded-xl  bg-primary-900 text-white py-4 font-semibold  text-sm"
                 >
                 {{ $t("Add a new address") }}
                 </button>

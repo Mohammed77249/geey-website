@@ -48,7 +48,7 @@
       <!-- أزرار التحكم -->
       <div class="bg-white py-3 px-2  flex items-center   fixed bottom-0 w-full">
         <button
-          class="w-full rounded-lg  bg-primary-900 text-white py-5 font-semibold  text-sm"
+          class="w-full rounded-lg  bg-primary-900 text-white py-4 font-semibold  text-sm"
           @click="ConfirmLanLat"
         >
           حفظ

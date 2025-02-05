@@ -2,13 +2,13 @@
   <div class="bg-gray-100 w-full h-screen">
     <!-- header -->
     <div class="fixed inset-0  flex items-center justify-between  bg-white p-2 shadow h-12">
-      <div class=" text-lg font-bold">
+      <div class=" text-sm font-bold">
       حقيبه التسوق
      </div>
 
      <!-- like button -->
                 <div class="">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </div>
@@ -30,7 +30,7 @@
                 class="w-4 h-3 text-primary-900"
                 @change="updateSelectAll"
               />
-              <RouterLink  :to="`/phone/product/${item.product_id}`">
+              <!-- <RouterLink  :to="`/phone/product/${item.product_id}`"> -->
                 <img v-if="item.image != 'https:\/\/jeeey-dashboard.najaz.in\/storage'"
                 :src="item.image"
                 alet="jj"
@@ -42,14 +42,14 @@
                 class="w-full h-24 object-cover"
               />
 
-              </RouterLink>
+              <!-- </RouterLink> -->
 
             </div>
             <div class="col-span-6 md:col-span-7">
               <div class="md:mx-4 mx-1 mt-1">
-                <RouterLink  :to="`/phone/product/${item.product_id}`">
+                <!-- <RouterLink  :to="`/phone/product/${item.product_id}`"> -->
               <h3 class="font-semibold text-xs mb-2 ">{{ item.product_name }}</h3>
-            </RouterLink>
+            <!-- </RouterLink> -->
               <button  @click="openDialog(item)"  class="border-[1px] px-2 mb-2 rounded-full flex items-center justify-center">
                 <div class="flex">
                 <span  class="text-xs md:text-sm text-gray-500 cursor-pointer">
