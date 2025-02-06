@@ -21,7 +21,7 @@
           <div v-if="storeCart.loading" class="mt-10">
             <LoaderDatacomp :is-loader="storeCart.loading"/>
           </div>
-          <div v-else class="grid grid-cols-12   w-full gap-2 p-5 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
+          <div v-else class="grid grid-cols-12   w-full gap-8 p-5 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
 
             <div class="col-span-3 flex gap-2 md:col-span-2">
               <input

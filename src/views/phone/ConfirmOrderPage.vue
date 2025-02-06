@@ -23,7 +23,7 @@
 
       <!-- main content -->
       <div>
-        <div class="mt-16 pt-3">
+        <div class="mt-12 pt-3">
         <div class="">
           <form class="space-y-3" @submit.prevent="handlOrder">
             <!-- الصف الأول:  اضافه  الموقع  -->
