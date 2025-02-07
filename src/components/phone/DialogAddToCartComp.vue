@@ -418,7 +418,6 @@ const storeCart = useCartStore()
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    required: true,
   },
 
   IdProduct: {
@@ -428,6 +427,8 @@ const props = defineProps({
 
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
+
+
 
 const filteredData = ref({
   product_id: null,

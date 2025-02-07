@@ -21,7 +21,7 @@
           <div v-if="storeCart.loading" class="mt-10">
             <LoaderDatacomp :is-loader="storeCart.loading"/>
           </div>
-          <div v-else class="grid grid-cols-12   w-full gap-8 p-5 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
+          <div v-else class="grid grid-cols-12   w-full gap-6 p-4 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
 
             <div class="col-span-3 flex gap-2 md:col-span-2">
               <input
@@ -45,8 +45,8 @@
               <!-- </RouterLink> -->
 
             </div>
-            <div class="col-span-6 md:col-span-7">
-              <div class="md:mx-4 mx-1 mt-1">
+            <div class="col-span-6 ">
+              <div class=" mx-1 mt-1">
                 <!-- <RouterLink  :to="`/phone/product/${item.product_id}`"> -->
               <h3 class="font-semibold text-xs mb-2 ">{{ item.product_name }}</h3>
             <!-- </RouterLink> -->
@@ -73,7 +73,7 @@
             </div>
 
             </div>
-            <div class="col-span-3 flex items-end justify-end ">
+            <div class="col-span-3  flex items-end justify-end ">
               <div class="flex items-center  ">
 
                 <!-- more product -->

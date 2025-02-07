@@ -380,7 +380,6 @@
 
     </div>
 
-    <DialogAddToCart  v-if="filteredData != null"   :-id-product="filteredData"  :is-open="isDialogOpen"  @close="closeDialog"  />
 
     </div>
 
@@ -539,14 +538,18 @@
 
       </div>
     </div>
+
+
+    <DialogAddToCart  v-if="filteredData != null"   :IdProduct="filteredData"  :isOpen="isDialogOpen"  @close="closeDialog"  />
+
   </div>
 </template>
 
 <script setup>
-import { ref,onMounted } from 'vue'
+import { ref,onMounted,defineAsyncComponent } from 'vue'
 import { useSectionsStore } from '@/stores/section'
 import { useRoute } from 'vue-router'
-const DialogAddToCart = () => import('@/components/phone/DialogAddToCartComp.vue');
+const DialogAddToCart = defineAsyncComponent(() => import('@/components/phone/DialogAddToCartComp.vue'));
 const storeSecion = useSectionsStore()
 const isDrawerOpen = ref(false)
 const route = useRoute()
@@ -564,8 +567,11 @@ const openDialog = (id) => {
   //   router.push('/phone/login');
   //   return;
   // }
-  isDialogOpen.value = true
   filteredData.value = id;
+  isDialogOpen.value = true;
+
+
+
 }
 
 const closeDialog = () => {
