@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen bg-gray-50">
    <!-- header -->
-    <div class="fixed  inset-0 w-full bg-white px-2 py-1  h-16 ">
+    <div class="fixed  inset-0 w-full bg-white px-2 py-1  h-12 ">
       <div class="grid grid-cols-12 mt-2 items-center justify-between">
         <!-- back button -->
           <div class="col-span-1">
@@ -15,29 +15,27 @@
             <input
               type="text"
               placeholder="ابحث عن منتج..."
-              class="flex-1 px-4 py-2 border w-full rounded-full border-primary-900 "
+              class="flex-1 px-4 py-1 border w-full rounded-full border-primary-900 "
             >
           </div>
       </div>
     </div>
 
     <!-- قائمة الفئات الرئيسية -->
-    <div class="bg-white   mb-5 h-24 mt-14  ">
-      <div class="flex items-center p-2 gap-6 overflow-x-auto w-full text-gray-600">
+    <div class="bg-white mb-3 h-28 mt-16">
+      <div class="flex items-center p-2 gap-2 overflow-x-auto w-full text-gray-600">
         <div
           v-for="category in storeSecion.getSubCategories"
           :key="category"
-          class=""
+          class=" bg-gray-50 w-16 h-24 flex-col-1 items-center justify-center rounded"
         >
-
-
           <img
             :src="category.image != null ?category.image :'/jeeeylogo.jpg'"
             alt="moaham"
-            class=" rounded-full  h-12 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
+            class="h-16 w-full rounded object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
           />
 
-          <button class="  text-xs hover:text-blue-600">
+          <button class="  text-xs  w-full hover:text-blue-600">
            <p> {{ category.name }}</p>
           </button>
 
@@ -47,17 +45,17 @@
     </div>
 
     <!-- محتوى الصفحة الرئيسي -->
-    <main class="mx-auto  mt-4 p-2 bg-white">
+    <main class="mx-auto  bg-white">
 
       <div class="grid grid-cols-1 container mx-auto  p-2 bg-white">
 
-        <!-- تصنيف -->
+        <!--   تصنيف والسعر-->
         <div class="grid grid-cols-12 items-center  gap-2">
 
           <!-- السعر -->
           <div class="col-span-9">
             <button
-              class="px-2 py-1  text-gray-500 font-semibold border border-gray-300 text-xs flex items-center gap-2"
+              class="px-2 py-1  text-gray-500 font-semibold  text-xs flex items-center gap-2"
             >
             السعر
 
@@ -79,8 +77,8 @@
           <!-- التصنيف -->
           <div class="col-span-3 flex items-center justify-end">
             <button
-              @click="isDrawerOpen = !isDrawerOpen"
-              class="px-2 py-1  text-black font-semibold border border-gray-300 text-xs flex"
+              @click="isDrawerOpen = !isDrawerOpen ; isDropdowenColorVisable =false; isDropdowenSizeVisable=false; isDropdowenCategoryVisable = false"
+              class="px-2 py-1  text-black font-semibold  text-xs flex"
             >
               التصنيف
 
@@ -139,7 +137,7 @@
                         v-for="(color, index) in storeSecion.getSubCategoryColors"
                         :key="index"
                         @click="toggleColorSelect(color.id)"
-                        class="w-7 h-7 rounded-full flex flex-col items-center border border-gray-500  cursor-pointer"
+                        class="w-6 h-6 rounded-full flex flex-col items-center border border-gray-500  cursor-pointer"
                         :style="['background-color:' + color.hex_code + '']"
 
                       >
@@ -262,7 +260,7 @@
 
 
     <!-- المنتجات المعروضة -->
-    <div class="">
+    <div class="px-2">
       <div v-if=" storeSecion.getProducts.length >0"   class="grid grid-cols-2 gap-1">
       <div
         v-for="product in storeSecion.getProducts"
@@ -364,11 +362,11 @@
     >
 
     <!-- header -->
-    <div class="mb-6 border-b-2 p-4 flex items-center justify-between">
-      <h2 class="text-lg  font-bold ">تصنيف</h2>
+    <div class=" border-b-2 p-2 flex items-center justify-between">
+      <h2 class="text-md  font-bold ">تصنيف</h2>
       <button
           @click="isDrawerOpen = false"
-          class="w-10  bg-primary-900 rounded text-white"
+          class="w-8 text-md  bg-primary-900 rounded text-white"
         >
           X
         </button>
@@ -379,7 +377,8 @@
         <!-- فلتر الألوان -->
           <div class="mb-8">
             <div class="flex items-center justify-between">
-              <p class="font-bold text-[15px]"> الالوان</p>
+              <p @click="
+                  isDropdowenColorOnDrwerVisable = !isDropdowenColorOnDrwerVisable" class="font-semibold text-sm"> الالوان</p>
               <button
                 type="button"
                 @click="
@@ -425,12 +424,10 @@
         <!-- فلتر المقاسات -->
         <div class="mb-8">
           <div class="flex items-center justify-between">
-              <p class="font-bold text-[15px]"> المقاسات</p>
+              <p @click="isDropdowenSizeOnDrwerVisable = !isDropdowenSizeOnDrwerVisable" class="font-semibold text-sm"> المقاسات</p>
               <button
                 type="button"
-                @click="
-                  isDropdowenSizeOnDrwerVisable = !isDropdowenSizeOnDrwerVisable
-                "
+                @click="isDropdowenSizeOnDrwerVisable = !isDropdowenSizeOnDrwerVisable"
               >
 
               <svg   v-if="!isDropdowenSizeOnDrwerVisable" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -472,12 +469,10 @@
         <!-- فلتر الفئات -->
         <div class="mb-8">
           <div class="flex items-center justify-between">
-              <p class="font-bold text-[15px]"> الفئات </p>
+              <p @click="isDropdowenCategoryOnDrwerVisable = !isDropdowenCategoryOnDrwerVisable" class="font-semibold text-sm"> الفئات </p>
               <button
                 type="button"
-                @click="
-                  isDropdowenCategoryOnDrwerVisable = !isDropdowenCategoryOnDrwerVisable
-                "
+                @click="isDropdowenCategoryOnDrwerVisable = !isDropdowenCategoryOnDrwerVisable"
               >
 
               <svg   v-if="!isDropdowenCategoryOnDrwerVisable" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
