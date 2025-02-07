@@ -94,12 +94,14 @@
               :key="index"
               class="bg-white flex flex-col items-center"
             >
+            <RouterLink :to="`/phone/recommend/${category.id}`">
               <img
                 :src="category.image ? category.image : '/jeeeylogo.jpg'"
                 :alt="category.name"
                 @click="toggleChildren(category.id)"
                 class="w-14 md:w-24 rounded-full h-14 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
               />
+            </RouterLink>
               <h3
                 @click="toggleChildren(category.id)"
                 class="text-center mt-2 text-[10px] font-sans text-gray-800"
@@ -137,6 +139,7 @@ const onclickSubSection = (index) => {
 
 const toggleChildren = (id) => {
   if (id) {
+
     console.log('Category ID:', id);
     // Add logic to handle child categories
   }

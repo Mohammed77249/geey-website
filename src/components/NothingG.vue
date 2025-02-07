@@ -3435,3 +3435,315 @@ const onMapClick = (event) => {
 <style scoped>
 /* إضافة بعض التنسيق إذا لزم الأمر */
 </style>
+
+
+
+
+// ================================
+
+<template>
+  <div class="relative">
+    <!-- قسم البحث -->
+    <div class="flex items-center justify-between p-4 border-b">
+      <input
+        type="text"
+        v-model="searchQuery"
+        placeholder="بحث"
+        class="p-2 border rounded w-11/12"
+      />
+      <button @click="toggleDrawer" class="p-2 bg-indigo-600 text-white rounded">
+        التصنيف
+      </button>
+    </div>
+
+    <!-- قائمة الفئات، المقاسات، والألوان تحت قسم البحث -->
+    <div class="flex flex-wrap justify-between p-4">
+      <!-- فئات المنتجات -->
+      <div class="flex-1 mb-4">
+        <label for="category" class="block mb-2">الفئة</label>
+        <select id="category" class="w-full p-2 border rounded" v-model="selectedCategory">
+          <option>ملابس نسائية</option>
+          <option>ملابس رجالية</option>
+        </select>
+      </div>
+
+      <!-- مقاسات المنتجات -->
+      <div class="flex-1 mb-4">
+        <label for="size" class="block mb-2">المقاس</label>
+        <select id="size" class="w-full p-2 border rounded" v-model="selectedSize">
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+          <option>XL</option>
+        </select>
+      </div>
+
+      <!-- ألوان المنتجات -->
+      <div class="flex-1 mb-4">
+        <label for="color" class="block mb-2">اللون</label>
+        <select id="color" class="w-full p-2 border rounded" v-model="selectedColor">
+          <option>أحمر</option>
+          <option>أزرق</option>
+          <option>أسود</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- المنتجات المعروضة -->
+    <div class="p-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="border p-4">
+          <img src="" alt="منتج" class="w-full h-64 object-cover mb-4" />
+          <h3 class="text-lg">فستان مشجر جيزاني</h3>
+          <p>25500.00 ريال</p>
+        </div>
+        <div class="border p-4">
+          <img src="" alt="منتج" class="w-full h-64 object-cover mb-4" />
+          <h3 class="text-lg">فستان مشجر جيزاني</h3>
+          <p>2500.00 ريال</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer الذي يظهر عند الضغط على زر التصنيف -->
+    <div v-if="drawerOpen" class="fixed inset-0 bg-black bg-opacity-50 z-50">
+      <div class="w-64 bg-white h-full p-4 absolute left-0 top-0">
+        <button @click="toggleDrawer" class="text-red-500 mb-4">إغلاق</button>
+
+        <!-- داخل الـ Drawer: نفس القوائم المنسدلة -->
+        <div>
+          <label for="drawer-category" class="block mb-2">الفئة</label>
+          <select
+            id="drawer-category"
+            class="w-full p-2 border rounded"
+            v-model="selectedCategory"
+          >
+            <option>ملابس نسائية</option>
+            <option>ملابس رجالية</option>
+          </select>
+        </div>
+
+        <div class="mt-4">
+          <label for="drawer-size" class="block mb-2">المقاس</label>
+          <select
+            id="drawer-size"
+            class="w-full p-2 border rounded"
+            v-model="selectedSize"
+          >
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+          </select>
+        </div>
+
+        <div class="mt-4">
+          <label for="drawer-color" class="block mb-2">اللون</label>
+          <select
+            id="drawer-color"
+            class="w-full p-2 border rounded"
+            v-model="selectedColor"
+          >
+            <option>أحمر</option>
+            <option>أزرق</option>
+            <option>أسود</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+// متغيرات لتخزين القيم المختارة
+const searchQuery = ref("");
+const selectedCategory = ref("ملابس نسائية");
+const selectedSize = ref("M");
+const selectedColor = ref("أحمر");
+
+// حالة الـ Drawer لفتحها وإغلاقها
+const drawerOpen = ref(false);
+
+// دالة لتبديل حالة الـ Drawer
+const toggleDrawer = () => {
+  drawerOpen.value = !drawerOpen.value;
+};
+</script>
+
+<style scoped>
+/* تخصيص مظهر الـ Drawer */
+.fixed {
+  z-index: 1000;
+}
+
+.bg-black {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+button {
+  cursor: pointer;
+}
+
+select {
+  cursor: pointer;
+}
+</style>
+<template>
+  <div class="relative">
+    <!-- قسم البحث -->
+    <div class="flex items-center justify-between p-4 border-b">
+      <input
+        type="text"
+        v-model="searchQuery"
+        placeholder="بحث"
+        class="p-2 border rounded w-11/12"
+      />
+      <button @click="toggleDrawer" class="p-2 bg-indigo-600 text-white rounded">
+        التصنيف
+      </button>
+    </div>
+
+    <!-- قائمة الفئات، المقاسات، والألوان تحت قسم البحث -->
+    <div class="flex flex-wrap justify-between p-4">
+      <!-- فئات المنتجات -->
+      <div class="flex-1 mb-4">
+        <label for="category" class="block mb-2">الفئة</label>
+        <select id="category" class="w-full p-2 border rounded" v-model="selectedCategory">
+          <option>ملابس نسائية</option>
+          <option>ملابس رجالية</option>
+        </select>
+      </div>
+
+      <!-- مقاسات المنتجات -->
+      <div class="flex-1 mb-4">
+        <label for="size" class="block mb-2">المقاس</label>
+        <select id="size" class="w-full p-2 border rounded" v-model="selectedSize">
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+          <option>XL</option>
+        </select>
+      </div>
+
+      <!-- ألوان المنتجات -->
+      <div class="flex-1 mb-4">
+        <label for="color" class="block mb-2">اللون</label>
+        <select id="color" class="w-full p-2 border rounded" v-model="selectedColor">
+          <option>أحمر</option>
+          <option>أزرق</option>
+          <option>أسود</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- المنتجات المعروضة -->
+    <div class="p-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="border p-4">
+          <img src="" alt="منتج" class="w-full h-64 object-cover mb-4" />
+          <h3 class="text-lg">فستان مشجر جيزاني</h3>
+          <p>25500.00 ريال</p>
+        </div>
+        <div class="border p-4">
+          <img src="" alt="منتج" class="w-full h-64 object-cover mb-4" />
+          <h3 class="text-lg">فستان مشجر جيزاني</h3>
+          <p>2500.00 ريال</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer الذي يظهر عند الضغط على زر التصنيف -->
+    <div v-if="drawerOpen" class="fixed inset-0 bg-black bg-opacity-50 z-50">
+      <div class="w-64 bg-white h-full p-4 absolute left-0 top-0">
+        <button @click="toggleDrawer" class="text-red-500 mb-4">إغلاق</button>
+
+        <!-- داخل الـ Drawer: نفس القوائم المنسدلة -->
+        <div>
+          <label for="drawer-category" class="block mb-2">الفئة</label>
+          <select
+            id="drawer-category"
+            class="w-full p-2 border rounded"
+            v-model="selectedCategory"
+          >
+            <option>ملابس نسائية</option>
+            <option>ملابس رجالية</option>
+          </select>
+        </div>
+
+        <div class="mt-4">
+          <label for="drawer-size" class="block mb-2">المقاس</label>
+          <select
+            id="drawer-size"
+            class="w-full p-2 border rounded"
+            v-model="selectedSize"
+          >
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+          </select>
+        </div>
+
+        <div class="mt-4">
+          <label for="drawer-color" class="block mb-2">اللون</label>
+          <select
+            id="drawer-color"
+            class="w-full p-2 border rounded"
+            v-model="selectedColor"
+          >
+            <option>أحمر</option>
+            <option>أزرق</option>
+            <option>أسود</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+// متغيرات لتخزين القيم المختارة
+const searchQuery = ref("");
+const selectedCategory = ref("ملابس نسائية");
+const selectedSize = ref("M");
+const selectedColor = ref("أحمر");
+
+// حالة الـ Drawer لفتحها وإغلاقها
+const drawerOpen = ref(false);
+
+// دالة لتبديل حالة الـ Drawer
+const toggleDrawer = () => {
+  drawerOpen.value = !drawerOpen.value;
+};
+</script>
+
+<style scoped>
+/* تخصيص مظهر الـ Drawer */
+.fixed {
+  z-index: 1000;
+}
+
+.bg-black {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+button {
+  cursor: pointer;
+}
+
+select {
+  cursor: pointer;
+}
+</style>

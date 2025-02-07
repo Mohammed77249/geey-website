@@ -15,7 +15,6 @@
                     :style="['background-color:' + color.hex_code + '']"
 
                   >
-
                   </div>
                 </div>
               </li>

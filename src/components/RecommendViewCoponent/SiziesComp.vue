@@ -13,12 +13,12 @@
                   >
 
                   <input
-                type="checkbox"
-                :value="size"
-                  @click="toggleSize(size.id)"
-                class=" ml-2 rounded border-gray-300 text-blue-600  focus:ring-blue-500"
-              />
-                <label  class="cursor-pointer text-[10px]">{{ size.measuring_value }}</label>
+                    type="checkbox"
+                    :value="size"
+                      @click="toggleSize(size.id)"
+                    class=" ml-2 rounded border-gray-300 text-blue-600  focus:ring-blue-500"
+                  />
+                  <label  class="cursor-pointer text-[10px]">{{ size.measuring_value }}</label>
 
                   </div>
                 </div>
