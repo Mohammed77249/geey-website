@@ -511,11 +511,10 @@
 </template>
 
 <script setup>
-import { ref,onMounted ,defineAsyncComponent} from 'vue'
+import { ref,onMounted } from 'vue'
 import { useSectionsStore } from '@/stores/section'
 import { useRoute } from 'vue-router'
-const DialogAddToCart = defineAsyncComponent(() => import('@/components/phone/DialogAddToCartComp.vue'));
-
+const DialogAddToCart = () => import('@/components/phone/DialogAddToCartComp.vue');
 const storeSecion = useSectionsStore()
 const isDrawerOpen = ref(false)
 const route = useRoute()
