@@ -55,10 +55,14 @@
 
     <!-- قائمة الفئات الرئيسية -->
     <div class="bg-white mb-3 h-28 mt-14">
-      <div class="flex items-center p-2 gap-2 overflow-x-auto w-full text-gray-600">
+      <div v-if="storeSecion.loading">
+      <LoaderDatacomp :is-loader="storeSecion.loading"/>
+    </div>
+      <div v-else-if="storeSecion.getSubCategories.length>0" class="flex items-center p-2 gap-2 overflow-x-auto w-full text-gray-600">
         <div
           v-for="category in storeSecion.getSubCategories"
           :key="category"
+          @click="clickCat(category)"
           class=" bg-gray-50 w-16 h-24 flex-col-1 items-center justify-center rounded"
         >
           <img
@@ -72,6 +76,9 @@
           </button>
 
         </div>
+
+      </div>
+      <div v-else>
 
       </div>
     </div>
@@ -93,13 +100,26 @@
 
             <div class="flex-col">
               <!-- up -->
-              <svg width="10" height="10" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6.22667 4.66L5.15667 3.59L4.50334 2.93333C4.22667 2.65666 3.77667 2.65666 3.5 2.93333L1.77334 4.66C1.54667 4.88666 1.71 5.27333 2.02667 5.27333H3.89667H5.97334C6.29334 5.27333 6.45334 4.88666 6.22667 4.66Z" fill="#707070"/>
-              </svg>
+               <div @click="togglePriceSelect('max')" >
+                <svg v-if="maxPrice" width="10" height="10" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.22667 4.66L5.15667 3.59L4.50334 2.93333C4.22667 2.65666 3.77667 2.65666 3.5 2.93333L1.77334 4.66C1.54667 4.88666 1.71 5.27333 2.02667 5.27333H3.89667H5.97334C6.29334 5.27333 6.45334 4.88666 6.22667 4.66Z" fill="black"/>
+                </svg>
+                <svg v-else width="10" height="10" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.22667 4.66L5.15667 3.59L4.50334 2.93333C4.22667 2.65666 3.77667 2.65666 3.5 2.93333L1.77334 4.66C1.54667 4.88666 1.71 5.27333 2.02667 5.27333H3.89667H5.97334C6.29334 5.27333 6.45334 4.88666 6.22667 4.66Z" fill="#707070"/>
+                </svg>
+               </div>
+
               <!-- down -->
-              <svg width="10" height="10" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5.97331 2.72665H3.89664H2.02664C1.70664 2.72665 1.54664 3.11332 1.77331 3.33999L3.49998 5.06665C3.77664 5.34332 4.22664 5.34332 4.50331 5.06665L5.15998 4.40999L6.22998 3.33999C6.45331 3.11332 6.29331 2.72665 5.97331 2.72665Z" fill="#707070"/>
-              </svg>
+               <div @click="togglePriceSelect('min')">
+                <svg v-if="minPrice" width="10" height="10" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.97331 2.72665H3.89664H2.02664C1.70664 2.72665 1.54664 3.11332 1.77331 3.33999L3.49998 5.06665C3.77664 5.34332 4.22664 5.34332 4.50331 5.06665L5.15998 4.40999L6.22998 3.33999C6.45331 3.11332 6.29331 2.72665 5.97331 2.72665Z" fill="black"/>
+                </svg>
+
+                <svg v-else  width="10" height="10" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.97331 2.72665H3.89664H2.02664C1.70664 2.72665 1.54664 3.11332 1.77331 3.33999L3.49998 5.06665C3.77664 5.34332 4.22664 5.34332 4.50331 5.06665L5.15998 4.40999L6.22998 3.33999C6.45331 3.11332 6.29331 2.72665 5.97331 2.72665Z" fill="#707070"/>
+                </svg>
+               </div>
+
             </div>
 
             </button>
@@ -130,11 +150,12 @@
           <!-- colors -->
           <div ref="dropDownColor">
               <button
-                class="text-[#979797]  w-[80px]  h-[30px]   bg-gray-100 font-medium  text-[10px]  px-5 py-2.5 text-center inline-flex items-center justify-between"
+                class="text-[#979797]  w-[80px]  h-[30px]   bg-gray-100 font-medium  text-[10px]  px-3 py-2.5 text-center  flex items-center justify-center gap-1"
                 type="button"
+                :class="[{'border border-primary-900 scale-110': selectedColorIds.length > 0}]"
                 @click="isDropdowenColorVisable = !isDropdowenColorVisable; isDropdowenSizeVisable = false ; isDropdowenCategoryVisable=false"
               >
-                الالوان
+                الالوان  <p v-if="selectedColorIds.length>0">({{ selectedColorIds.length }})</p>
 
                 <svg
                   aria-hidden="true"
@@ -169,8 +190,14 @@
                         v-for="(color, index) in storeSecion.getSubCategoryColors"
                         :key="index"
                         @click="toggleColorSelect(color.id)"
-                        class="w-6 h-6 rounded-full flex flex-col items-center border border-gray-500  cursor-pointer"
-                        :style="['background-color:' + color.hex_code + '']"
+                        :class="[
+                        'w-8 h-8 rounded-full cursor-pointer border-2 transition-all',
+                        {
+                          'border-primary-900 scale-110': selectedColorIds.includes(color.id),
+                          'border-gray-300': !selectedColorIds.includes(color.id)
+                        }
+                      ]"
+                      :style="{ backgroundColor: color.hex_code }"
 
                       >
                       </div>
@@ -181,14 +208,15 @@
             </div>
 
           <!-- sizes  -->
-          <div ref="dropDownSize">
+          <div v-if="storeSecion.getSubCategorySizes.length>0" ref="dropDownSize">
               <button
-                class="text-[#979797]  w-[80px]  h-[30px]   bg-gray-100 font-medium  text-[10px]  px-5 py-2.5 text-center inline-flex items-center justify-between"
+                class="text-[#979797]  w-[80px]  h-[30px]   bg-gray-100 font-medium  text-[10px]  px-3 py-2.5 text-center flex items-center justify-center"
                 type="button"
+                :class="[{'border border-primary-900 scale-110': selectedSizeIds.length > 0}]"
                 @click="isDropdowenSizeVisable = !isDropdowenSizeVisable;isDropdowenColorVisable =false ;isDropdowenCategoryVisable=false"
               >
                 مقاس
-
+                <p v-if="selectedSizeIds.length>0">({{ selectedSizeIds.length }})</p>
                 <svg
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
@@ -218,17 +246,16 @@
                     <div
                       v-for="(size, index) in storeSecion.getSubCategorySizes"
                         :key="index"
-                        class="rounded-full flex  items-center"
+                        :class="[
+                        ' h-6 rounded-full flex  items-center justify-center text-xs cursor-pointer border-2 transition-all',
+                        {
+                          'border-primary-900 scale-110': selectedSizeIds.includes(size.id),
+                          'border-gray-300': !selectedSizeIds.includes(size.id)
+                        }
+                      ]"
+                      @click="toggleSizeSelect(size.id)"
                       >
-
-                      <input
-                        type="checkbox"
-                        :value="size"
-                          @click="toggleSizeSelect(size.id)"
-                        class=" ml-2 rounded border-gray-300 text-blue-600  focus:ring-blue-500"
-                      />
-                      <label  class="cursor-pointer text-[10px]">{{ size.measuring_value }}</label>
-
+                        {{ size.measuring_value }}
                       </div>
                   </li>
                 </ul>
@@ -236,14 +263,71 @@
             </div>
 
 
+            <!-- units -->
+            <div v-if="storeSecion.getSubCategoryUnits.length>0" ref="dropDownUnit">
+              <button
+                class="text-[#979797]  w-[80px]  h-[30px]   bg-gray-100 font-medium  text-[10px]  px-3 py-2.5 text-center flex items-center justify-center"
+                type="button"
+                :class="[{'border border-primary-900 scale-110': selectedUnitIds.length > 0}]"
+                @click="isDropdowenUnitVisable = !isDropdowenUnitVisable;isDropdowenColorVisable =false ;isDropdowenCategoryVisable=false"
+              >
+                وحدة
+                <p v-if="selectedUnitIds.length>0">({{ selectedUnitIds.length }})</p>
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  width="10px"
+                  height="10px"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              </button>
+
+              <!-- Dropdown menu -->
+              <div
+                class="z-50 absolute left-0 border-b-2 bg-white divide-y divide-gray-100 transition-all duration-300 w-full  mt-4"
+                v-if="isDropdowenUnitVisable"
+              >
+
+                <ul class="space-y-5 ">
+                  <li class="grid grid-cols-6 p-2  gap-5">
+                    <div
+                      v-for="(unit, index) in storeSecion.getSubCategoryUnits"
+                        :key="index"
+                        :class="[
+                        ' h-6 rounded-full flex  items-center justify-center text-xs cursor-pointer border-2 transition-all',
+                        {
+                          'border-primary-900 scale-110': selectedUnitIds.includes(unit.id),
+                          'border-gray-300': !selectedUnitIds.includes(unit.id)
+                        }
+                      ]"
+                      @click="toggleUnitSelect(unit.id)"
+                      >
+                        {{ unit.measuring_value }}
+                      </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
           <!-- category -->
           <div ref="dropDownCategory">
               <button
-                class="text-[#979797]  w-[80px]  h-[30px]   bg-gray-100 font-medium  text-[10px]  px-5 py-2.5 text-center inline-flex items-center justify-between"
+                class="text-[#979797]  w-[80px]  h-[30px]   bg-gray-100 font-medium  text-[10px]  px-3 py-2.5 text-center flex items-center justify-center"
                 type="button"
+                :class="[{'border border-primary-900 scale-110': selectedCategoryIds.length > 0}]"
                 @click="isDropdowenCategoryVisable = !isDropdowenCategoryVisable;isDropdowenSizeVisable = false;isDropdowenColorVisable =false"
               >
                 فئات
+                <p v-if="selectedCategoryIds.length>0">({{ selectedCategoryIds.length }})</p>
 
                 <svg
                   aria-hidden="true"
@@ -276,7 +360,15 @@
                         :key="index"
                         class=" "
                       >
-                      <button  @click="toggleCategorySelect(category.id)" class="text-xs border border-gray-500 ">
+                      <button  @click="toggleCategorySelect(category.id)"
+                       :class="[
+                        'text-xs border border-gray-500  cursor-pointer  transition-all',
+                        {
+                          'border-primary-900 scale-110': selectedCategoryIds.includes(category.id),
+                          'border-gray-300': !selectedCategoryIds.includes(category.id)
+                        }
+                      ]"
+                       >
                         <span class="text-[10px]  px-[3px] py-[3px]"> {{ category.name }}</span>
                       </button>
 
@@ -378,7 +470,21 @@
         </div>
       </div>
 
+      </div>
+       <!-- رسالة تحميل المزيد -->
+    <div v-if="storeSecion.showLoadingMessage" class="mt-4 mb-10 flex items-center justify-center">
+      <LoaderDatacomp :is-loader="storeSecion.showLoadingMessage"/>
     </div>
+
+     <!-- رسالة انتهاء التحميل -->
+     <div v-if="!storeSecion.hasMore && !storeSecion.loading" class="text-center mt-4">
+      <p>لا توجد منتجات إضافية.</p>
+    </div>
+
+    <!-- عنصر مراقبة نهاية الصفحة -->
+    <div ref="loadMoreTrigger" class="h-1"></div>
+
+
 
 
     </div>
@@ -408,8 +514,10 @@
         <!-- فلتر الألوان -->
           <div class="mb-8">
             <div class="flex items-center justify-between">
-              <p @click="
-                  isDropdowenColorOnDrwerVisable = !isDropdowenColorOnDrwerVisable" class="font-semibold text-sm"> الالوان</p>
+              <p @click=" isDropdowenColorOnDrwerVisable = !isDropdowenColorOnDrwerVisable" class="font-semibold text-sm">
+                 الالوان
+                 <span v-if="selectedColorIds.length>0">({{ selectedColorIds.length }})</span>
+                 </p>
               <button
                 type="button"
                 @click="
@@ -439,8 +547,14 @@
                         v-for="(color, index) in storeSecion.getSubCategoryColors"
                         :key="index"
                         @click="toggleColorSelect(color.id)"
-                        class="w-7 h-7 rounded-full flex flex-col items-center border border-gray-500  cursor-pointer"
-                        :style="['background-color:' + color.hex_code + '']"
+                        :class="[
+                          'w-7 h-7 rounded-full flex flex-col items-center cursor-pointer border-2 transition-all',
+                          {
+                            'border-primary-900 scale-110': selectedColorIds.includes(color.id),
+                            'border-gray-300': !selectedColorIds.includes(color.id)
+                          }
+                        ]"
+                        :style="{ backgroundColor: color.hex_code }"
 
                       >
                       </div>
@@ -453,9 +567,12 @@
 
 
         <!-- فلتر المقاسات -->
-        <div class="mb-8">
+        <div v-if="storeSecion.getSubCategorySizes.length>0" class="mb-8">
           <div class="flex items-center justify-between">
-              <p @click="isDropdowenSizeOnDrwerVisable = !isDropdowenSizeOnDrwerVisable" class="font-semibold text-sm"> المقاسات</p>
+              <p @click="isDropdowenSizeOnDrwerVisable = !isDropdowenSizeOnDrwerVisable" class="font-semibold text-sm">
+                 المقاسات
+                 <span v-if="selectedSizeIds.length>0">({{ selectedSizeIds.length }})</span>
+                </p>
               <button
                 type="button"
                 @click="isDropdowenSizeOnDrwerVisable = !isDropdowenSizeOnDrwerVisable"
@@ -479,17 +596,62 @@
                     <div
                       v-for="(size, index) in storeSecion.getSubCategorySizes"
                         :key="index"
-                        class="rounded-full flex  items-center"
+                        :class="[
+                        ' h-6 rounded-full flex  items-center justify-center text-xs cursor-pointer border-2 transition-all',
+                        {
+                          'border-primary-900 scale-110': selectedSizeIds.includes(size.id),
+                          'border-gray-300': !selectedSizeIds.includes(size.id)
+                        }
+                      ]"
+                      @click="toggleSizeSelect(size.id)"
                       >
+                        {{ size.measuring_value }}
+                      </div>
+                  </li>
+                </ul>
+            </div>
+        </div>
 
-                      <input
-                        type="checkbox"
-                        :value="size"
-                          @click="toggleSizeSelect(size.id)"
-                        class=" ml-2 rounded border-gray-300 text-blue-600  focus:ring-blue-500"
-                      />
-                      <label  class="cursor-pointer text-[10px]">{{ size.measuring_value }}</label>
+        <!-- فلتر الوحدات -->
+        <div v-if="storeSecion.getSubCategoryUnits.length>0" class="mb-8">
+          <div class="flex items-center justify-between">
+              <p @click="isDropdowenUnitOnDrwerVisable = !isDropdowenUnitOnDrwerVisable" class="font-semibold text-sm">
+                 الوحدات
+                 <span v-if="selectedUnitIds.length>0">({{ selectedUnitIds.length }})</span>
+                </p>
+              <button
+                type="button"
+                @click="isDropdowenUnitOnDrwerVisable = !isDropdowenUnitOnDrwerVisable"
+              >
 
+              <svg   v-if="!isDropdowenUnitOnDrwerVisable" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995" stroke="#292D32" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+                <svg  v-if="isDropdowenUnitOnDrwerVisable" width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.9201 15.05L13.4001 8.53001C12.6301 7.76001 11.3701 7.76001 10.6001 8.53001L4.08008 15.05" stroke="#292D32" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+              </button>
+            </div>
+
+            <!-- list sizes -->
+            <div v-if="isDropdowenUnitOnDrwerVisable">
+              <ul class="space-y-5 p-4">
+                  <li class="grid grid-cols-4 p-2  gap-5">
+                    <div
+                      v-for="(unit, index) in storeSecion.getSubCategoryUnits"
+                        :key="index"
+                        :class="[
+                        ' h-6 rounded-full flex  items-center justify-center text-xs cursor-pointer border-2 transition-all',
+                        {
+                          'border-primary-900 scale-110': selectedUnitIds.includes(unit.id),
+                          'border-gray-300': !selectedUnitIds.includes(unit.id)
+                        }
+                      ]"
+                      @click="toggleUnitSelect(unit.id)"
+                      >
+                        {{ unit.measuring_value }}
                       </div>
                   </li>
                 </ul>
@@ -500,7 +662,10 @@
         <!-- فلتر الفئات -->
         <div class="mb-8">
           <div class="flex items-center justify-between">
-              <p @click="isDropdowenCategoryOnDrwerVisable = !isDropdowenCategoryOnDrwerVisable" class="font-semibold text-sm"> الفئات </p>
+              <p @click="isDropdowenCategoryOnDrwerVisable = !isDropdowenCategoryOnDrwerVisable" class="font-semibold text-sm">
+                الفئات
+                <span v-if="selectedCategoryIds.length>0">({{ selectedCategoryIds.length }})</span>
+              </p>
               <button
                 type="button"
                 @click="isDropdowenCategoryOnDrwerVisable = !isDropdowenCategoryOnDrwerVisable"
@@ -526,7 +691,15 @@
                         :key="index"
                         class=" "
                       >
-                      <button  @click="toggleCategorySelect(category.id)" class="text-xs border border-gray-500 ">
+                      <button  @click="toggleCategorySelect(category.id)"
+                      :class="[
+                        'text-xs border border-gray-500  cursor-pointer  transition-all',
+                        {
+                          'border-primary-900 scale-110': selectedCategoryIds.includes(category.id),
+                          'border-gray-300': !selectedCategoryIds.includes(category.id)
+                        }
+                      ]"
+                       >
                         <span class="text-[10px]  px-[2px] py-[3px]"> {{ category.name }}</span>
                       </button>
 
@@ -546,10 +719,12 @@
 </template>
 
 <script setup>
-import { ref,onMounted,defineAsyncComponent } from 'vue'
+import { ref,onMounted,defineAsyncComponent ,watch} from 'vue'
 import { useSectionsStore } from '@/stores/section'
-import { useRoute } from 'vue-router'
+import { useRoute, } from 'vue-router'
+import { useIntersectionObserver } from '@vueuse/core';
 const DialogAddToCart = defineAsyncComponent(() => import('@/components/phone/DialogAddToCartComp.vue'));
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 const storeSecion = useSectionsStore()
 const isDrawerOpen = ref(false)
 const route = useRoute()
@@ -557,10 +732,12 @@ const filteredData = ref(null)
 const id = route.params.id
 const isDialogOpen = ref(false)
 
-
 const isDropdowenColorOnDrwerVisable = ref(false)
 const isDropdowenSizeOnDrwerVisable = ref(false)
+const isDropdowenUnitOnDrwerVisable = ref(false)
 const isDropdowenCategoryOnDrwerVisable = ref(false)
+
+
 
 const openDialog = (id) => {
   // if (!authStore.isAuthenticated) {
@@ -569,9 +746,6 @@ const openDialog = (id) => {
   // }
   filteredData.value = id;
   isDialogOpen.value = true;
-
-
-
 }
 
 const closeDialog = () => {
@@ -585,43 +759,159 @@ const filteredData3 = ref({
   perPage: 30,
 });
 
+const filterData2 = ref({
+    page:1,
+    perPage:10,
+    categoryId:null,
+    colors: null,
+    sizes: null,
+    price:null,
+    units:null,
+    search:null
+  });
+
 if (id != null) {
   filteredData3.value.categoryId = id
+  filterData2.value.categoryId = id
 }
 
 
 
+
+
 const dropDownColor = ref(null)
-const selectedColor = ref('')
+const selectedColorIds = ref([]);
 const isDropdowenColorVisable = ref(false)
 const toggleColorSelect = color => {
-  selectedColor.value = color
-  isDropdowenColorVisable.value = false
+  if (selectedColorIds.value.includes(color)) {
+    selectedColorIds.value = selectedColorIds.value.filter((colorId) => colorId !== color);
+  } else {
+    selectedColorIds.value.push(color);
+  }
+
 };
 
 
 const dropDownSize = ref(null)
-const selectedSize = ref('')
+const selectedSizeIds = ref([]);
 const isDropdowenSizeVisable = ref(false)
 const toggleSizeSelect = size => {
-  selectedSize.value = size
-  isDropdowenSizeVisable.value = false
+  if (selectedSizeIds.value.includes(size)) {
+    selectedSizeIds.value = selectedSizeIds.value.filter((sizeId) => sizeId !== size);
+  } else {
+    selectedSizeIds.value.push(size);
+  }
+};
+
+
+const dropDownUnit = ref(null)
+const selectedUnitIds = ref([]);
+const isDropdowenUnitVisable = ref(false)
+const toggleUnitSelect = unit => {
+  if (selectedUnitIds.value.includes(unit)) {
+    selectedUnitIds.value = selectedUnitIds.value.filter((unitId) => unitId !== unit);
+  } else {
+    selectedUnitIds.value.push(unit);
+  }
 };
 
 const dropDownCategory = ref(null)
-const selectedCategory = ref('')
+const selectedCategoryIds = ref([]);
 const isDropdowenCategoryVisable = ref(false)
 const toggleCategorySelect = category => {
-  selectedCategory.value = category
-  isDropdowenCategoryVisable.value = false
+  if (selectedCategoryIds.value.includes(category)) {
+    selectedCategoryIds.value = selectedCategoryIds.value.filter((categoryId) => categoryId !== category);
+  } else {
+    selectedCategoryIds.value.push(category);
+  }
+
+  // alert(category)
 };
 
 
+const maxPrice = ref(false);
+const minPrice = ref(false);
+const selectedPrice = ref('');
+const togglePriceSelect = (price)=>{
+  if(price == "max"){
+    maxPrice.value = true
+
+    selectedPrice.value = "max"
+  } else if(price == "min"){
+    maxPrice.value = false
+    minPrice.value = true
+    selectedPrice.value = "min"
+
+  }
+}
+
+
+const clickCat = (category) =>{
+  if(category.has_children == true){
+    filteredData3.value.categoryId = category.id
+    storeSecion.resetProducts();
+   storeSecion.fetchSubCategoryByCategoryID(filteredData3)
+   storeSecion.fetchProductsFilterBySubcategry(filteredData3)
+
+  }else if(category.has_children == false){
+    filteredData3.value.categoryId = category.id
+    storeSecion.resetProducts();
+    storeSecion.fetchProductsFilterBySubcategry(filteredData3)
+    console.log("no")
+  }
+
+}
+
+
+// دالة لجلب المنتجات من API
+const fetchProducts = async () => {
+
+ filterData2.value.categoryId = selectedCategoryIds.value? selectedCategoryIds.value : id;
+
+// alert(filterData2.value.categoryId)
+filterData2.value.colors = selectedColorIds.value.length >0 ? JSON.stringify(selectedColorIds.value) : null;
+filterData2.value.sizes = selectedSizeIds.value.length > 0 ? JSON.stringify(selectedSizeIds.value) : null;
+filterData2.value.units = selectedUnitIds.value.length > 0 ? JSON.stringify(selectedUnitIds.value) : null;
+filterData2.value.price = selectedPrice.value ?selectedPrice.value : null;
+
+storeSecion.resetProductsCatPage()
+await storeSecion.fetchProductsFilterBySubcategry(filterData2)
+
+};
+
+
+// مراقبة أي تغيير على الفئات أو الألوان أو المقاسات
+watch(
+  [selectedCategoryIds, selectedColorIds, selectedSizeIds,selectedPrice,selectedUnitIds],
+  () => {
+    fetchProducts(); // جلب المنتجات تلقائيًا عند حدوث تغيير
+  },
+  { deep: true }
+);
+
+
+
+
+
+// load more product
+const loadMoreTrigger = ref(null);
+// استخدام IntersectionObserver لمراقبة نهاية الصفحة
+useIntersectionObserver(
+  loadMoreTrigger,
+  ([{ isIntersecting }]) => {
+    if (isIntersecting) {
+          storeSecion.fetchProductsFilterBySubcategry(filterData2);
+    }
+  },
+
+
+  { threshold: 0.5 }
+);
+
 
 onMounted(async() => {
-
+  storeSecion.resetProducts();
   await storeSecion.fetchSubCategoryByCategoryID(filteredData3)
-
   await storeSecion.fetchProductsFilterBySubcategry(filteredData3)
 
 });

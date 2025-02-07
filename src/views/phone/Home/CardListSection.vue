@@ -65,12 +65,14 @@
               :key="index"
               class="bg-white flex flex-col items-center"
             >
+            <RouterLink :to="`/phone/recommend/${category.id}`">
               <img
                 :src="category.image ? category.image : '/jeeeylogo.jpg'"
                 :alt="category.name"
                 @click="toggleChildren(category.id)"
                 class="w-14 md:w-24 rounded-full h-14 object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
               />
+              </RouterLink>
               <h3
                 @click="toggleChildren(category.id)"
                 class="text-center mt-2 text-[10px] font-sans text-gray-800"
@@ -84,10 +86,11 @@
 
 
           <!-- Sections without subcategories -->
-          <div
+          <!-- <div
             v-if="storeSection.subsections && storeSection.subsections.length && storeSection.subsections[0].has_sub === 'false'"
             class="grid grid-rows-3 overflow-x-auto w-full md:hidden custom-scroll gap-1"
             style="grid-template-columns: repeat(10, minmax(80px, 1fr));"
+
           >
             <div
               v-for="(category, index) in storeSection.getSubSections[0]?.categories || []"
@@ -109,7 +112,35 @@
                 {{ category.name }}
               </h3>
             </div>
+          </div> -->
+
+          <div
+            v-if="storeSection.subsections && storeSection.subsections.length && storeSection.subsections[0].has_sub === 'false'"
+            class="grid grid-rows-3 grid-flow-col gap-2 overflow-x-auto w-full md:hidden custom-scroll"
+            style="grid-auto-columns: minmax(80px, 1fr);"
+          >
+            <div
+              v-for="(category, index) in storeSection.getSubSections[0]?.categories || []"
+              :key="index"
+              class="bg-white flex flex-col items-center p-2 min-w-[80px]"
+            >
+              <RouterLink :to="`/phone/recommend/${category.id}`">
+                <img
+                  :src="category.image ? category.image : '/jeeeylogo.jpg'"
+                  :alt="category.name"
+                  @click="toggleChildren(category.id)"
+                  class="w-14 h-14 md:w-24 md:h-24 rounded-full object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
+                />
+              </RouterLink>
+              <h3
+                @click="toggleChildren(category.id)"
+                class="text-center mt-2 text-[10px] font-sans text-gray-800 whitespace-nowrap"
+              >
+                {{ category.name }}
+              </h3>
+            </div>
           </div>
+
         </li>
 
         <!-- No data available -->
@@ -145,14 +176,7 @@ const toggleChildren = (id) => {
   }
 };
 
-// onMounted(async () => {
-//   try {
-//     await storeSection.fetchSections();
-//     await storeSection.fetchSubSectionBySectionID();
-//   } catch (error) {
-//     console.error('Error fetching sections or subsections:', error);
-//   }
-// });
+
 </script>
 
 <style>

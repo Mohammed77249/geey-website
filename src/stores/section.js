@@ -12,6 +12,7 @@ export const useSectionsStore = defineStore('sections', {
     subcategories: [],
     subcategory_Colors:[],
     subcategory_Sizes:[],
+    subcategory_Units:[],
     products:[],
 
 
@@ -52,6 +53,7 @@ export const useSectionsStore = defineStore('sections', {
 
     getSubCategoryColors:state => state.subcategory_Colors,
     getSubCategorySizes:state => state.subcategory_Sizes,
+    getSubCategoryUnits:state => state.subcategory_Units,
     getProducts: state => state.products,
 
     // not used
@@ -229,6 +231,7 @@ export const useSectionsStore = defineStore('sections', {
       }
         this.subcategory_Sizes = response.data.sizes
         this.subcategory_Colors =  response.data.colors
+        this.subcategory_Units = response.data.units
 
       } catch (error) {
         this.error = error+'خطأ أثناء جلب الفئات'
@@ -240,24 +243,24 @@ export const useSectionsStore = defineStore('sections', {
 
     async fetchProductsFilterBySubcategry(data) {
 
-      if (this.loading || !this.hasMore) return;
-      this.loading = true;
+      if (this.showLoadingMessage || !this.hasMore) return;
       this.showLoadingMessage = true;
       this.error = null;
       try {
-        const response = await axiosIns.get(`products_filter/${data.value.categoryId}`,
+        const response = await axiosIns.get(`product_filter`,
           {
-            params: { page: this.page ,perPage:this.perPage ,size:data.value.sizes ,price:data.value.price ,color:data.value.colors,category:data.value.categoryChild },
+            params: { page: this.page ,perPage:this.perPage ,size:data.value.sizes ,price:data.value.price ,
+              color:data.value.colors,category_id:data.value.categoryId,unit:data.value.units,search:data.value.search  },
           }
          );
 
           // تأخير عرض المنتجات لمدة ثانيتين
         setTimeout(() => {
           // إضافة المنتجات الجديدة إلى القائمة
-           this.products.push(...response.data.products.data);
+           this.products.push(...response.data.data);
 
           // تحقق مما إذا كان هناك المزيد من المنتجات
-          if (response.data.products.data.length < this.perPage) {
+          if (response.data.data.length < this.perPage) {
             this.hasMore = false;
           } else {
             this.page++;
@@ -268,13 +271,52 @@ export const useSectionsStore = defineStore('sections', {
         }, 1000);
 
       } catch (error) {
-        this.error = 'خطأ أثناء جلب الفئات'
-        console.error(error)
-
+        this.error = error + 'خطأ أثناء جلب الفئات'
       } finally {
         this.loading = false
       }
     },
+
+
+    // async fetchProductsFilterBySubcategry(data) {
+
+    //   if (this.loading || !this.hasMore) return;
+    //   this.loading = true;
+    //   this.showLoadingMessage = true;
+    //   this.error = null;
+    //   try {
+    //     const response = await axiosIns.get(`products_filter/${data.value.categoryId}`,
+    //       {
+    //         params: { page: this.page ,perPage:this.perPage ,size:data.value.sizes ,price:data.value.price ,color:data.value.colors,category:data.value.categoryChild },
+    //       }
+    //      );
+
+    //       // تأخير عرض المنتجات لمدة ثانيتين
+    //     setTimeout(() => {
+    //       // إضافة المنتجات الجديدة إلى القائمة
+    //        this.products.push(...response.data.products.data);
+
+    //       // تحقق مما إذا كان هناك المزيد من المنتجات
+    //       if (response.data.products.data.length < this.perPage) {
+    //         this.hasMore = false;
+    //       } else {
+    //         this.page++;
+    //       }
+
+    //       // إخفاء رسالة تحميل المزيد
+    //       this.showLoadingMessage = false;
+    //     }, 1000);
+
+    //   } catch (error) {
+    //     this.error = 'خطأ أثناء جلب الفئات'
+    //     console.error(error)
+
+    //   } finally {
+    //     this.loading = false
+    //   }
+    // },
+
+
     resetProducts() {
       this.products = [];
       this.page = 1;
@@ -283,8 +325,8 @@ export const useSectionsStore = defineStore('sections', {
       this.showLoadingMessage = false;
       this.error = null;
       this.subcategory_Colors=[],
-      this.subcategory_Sizes=[],
-      this.subcategories = []
+      this.subcategory_Sizes=[]
+
     },
 
     resetProductsCatPage() {
