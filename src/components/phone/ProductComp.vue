@@ -114,7 +114,7 @@
 
 <script setup>
 import { ref, onMounted,defineAsyncComponent } from 'vue';
-import DialogAddToCart from './DialogAddToCartComp.vue';
+const DialogAddToCart = () => import('@/components/phone/DialogAddToCartComp.vue');
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
