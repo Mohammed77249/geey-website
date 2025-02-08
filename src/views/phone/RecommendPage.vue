@@ -323,11 +323,11 @@
               <button
                 class="text-[#979797]  w-[80px]  h-[30px]   bg-gray-100 font-medium  text-[10px]  px-3 py-2.5 text-center flex items-center justify-center"
                 type="button"
-                :class="[{'border border-primary-900 scale-110': selectedCategoryIds.length > 0}]"
+                :class="[{'border border-primary-900 scale-110': selectedCategoryIds != null}]"
                 @click="isDropdowenCategoryVisable = !isDropdowenCategoryVisable;isDropdowenSizeVisable = false;isDropdowenColorVisable =false"
               >
                 فئات
-                <p v-if="selectedCategoryIds.length>0">({{ selectedCategoryIds.length }})</p>
+                <p v-if="selectedCategoryIds != null">(1)</p>
 
                 <svg
                   aria-hidden="true"
@@ -364,8 +364,8 @@
                        :class="[
                         'text-xs border border-gray-500  cursor-pointer  transition-all',
                         {
-                          'border-primary-900 scale-110': selectedCategoryIds.includes(category.id),
-                          'border-gray-300': !selectedCategoryIds.includes(category.id)
+                          'border-primary-900 scale-110': selectedCategoryIds ==category.id,
+                          'border-gray-300': selectedCategoryIds !=category.id
                         }
                       ]"
                        >
@@ -664,7 +664,7 @@
           <div class="flex items-center justify-between">
               <p @click="isDropdowenCategoryOnDrwerVisable = !isDropdowenCategoryOnDrwerVisable" class="font-semibold text-sm">
                 الفئات
-                <span v-if="selectedCategoryIds.length>0">({{ selectedCategoryIds.length }})</span>
+                <span v-if="selectedCategoryIds != null">(1)</span>
               </p>
               <button
                 type="button"
@@ -695,8 +695,8 @@
                       :class="[
                         'text-xs border border-gray-500  cursor-pointer  transition-all',
                         {
-                          'border-primary-900 scale-110': selectedCategoryIds.includes(category.id),
-                          'border-gray-300': !selectedCategoryIds.includes(category.id)
+                          'border-primary-900 scale-110': selectedCategoryIds = category.id,
+                          'border-gray-300': selectedCategoryIds != category.id
                         }
                       ]"
                        >
@@ -753,10 +753,13 @@ const closeDialog = () => {
   filteredData.value = null;
 }
 
+
+
 const filteredData3 = ref({
   categoryId:null,
   page: 1,
   perPage: 30,
+
 });
 
 const filterData2 = ref({
@@ -765,7 +768,7 @@ const filterData2 = ref({
     categoryId:null,
     colors: null,
     sizes: null,
-    price:null,
+    price:'',
     units:null,
     search:null
   });
@@ -816,16 +819,15 @@ const toggleUnitSelect = unit => {
 };
 
 const dropDownCategory = ref(null)
-const selectedCategoryIds = ref([]);
+const selectedCategoryIds = ref(null);
 const isDropdowenCategoryVisable = ref(false)
 const toggleCategorySelect = category => {
-  if (selectedCategoryIds.value.includes(category)) {
-    selectedCategoryIds.value = selectedCategoryIds.value.filter((categoryId) => categoryId !== category);
+  if (selectedCategoryIds.value == category) {
+    selectedCategoryIds.value = null
   } else {
-    selectedCategoryIds.value.push(category);
+    selectedCategoryIds.value = category;
   }
 
-  // alert(category)
 };
 
 
@@ -833,30 +835,30 @@ const maxPrice = ref(false);
 const minPrice = ref(false);
 const selectedPrice = ref('');
 const togglePriceSelect = (price)=>{
-  if(price == "max"){
+  if(price == 'max'){
     maxPrice.value = true
 
-    selectedPrice.value = "max"
-  } else if(price == "min"){
+    selectedPrice.value = 'max'
+  } else if(price == 'min'){
     maxPrice.value = false
     minPrice.value = true
-    selectedPrice.value = "min"
+    selectedPrice.value = 'min'
 
   }
 }
 
 
+const idFromCatUp = ref(null)
 const clickCat = (category) =>{
   if(category.has_children == true){
     filteredData3.value.categoryId = category.id
+    idFromCatUp.value = category.id
     storeSecion.resetProducts();
    storeSecion.fetchSubCategoryByCategoryID(filteredData3)
    storeSecion.fetchProductsFilterBySubcategry(filteredData3)
 
   }else if(category.has_children == false){
     filteredData3.value.categoryId = category.id
-    storeSecion.resetProducts();
-    storeSecion.fetchProductsFilterBySubcategry(filteredData3)
     console.log("no")
   }
 
@@ -866,15 +868,15 @@ const clickCat = (category) =>{
 // دالة لجلب المنتجات من API
 const fetchProducts = async () => {
 
- filterData2.value.categoryId = selectedCategoryIds.value? selectedCategoryIds.value : id;
-
-// alert(filterData2.value.categoryId)
+ filterData2.value.categoryId = selectedCategoryIds.value ? selectedCategoryIds.value : idFromCatUp.value != null ?idFromCatUp.value: id;
 filterData2.value.colors = selectedColorIds.value.length >0 ? JSON.stringify(selectedColorIds.value) : null;
 filterData2.value.sizes = selectedSizeIds.value.length > 0 ? JSON.stringify(selectedSizeIds.value) : null;
 filterData2.value.units = selectedUnitIds.value.length > 0 ? JSON.stringify(selectedUnitIds.value) : null;
 filterData2.value.price = selectedPrice.value ?selectedPrice.value : null;
 
-storeSecion.resetProductsCatPage()
+storeSecion.resetProductsCatPage();
+
+
 await storeSecion.fetchProductsFilterBySubcategry(filterData2)
 
 };
@@ -884,6 +886,7 @@ await storeSecion.fetchProductsFilterBySubcategry(filterData2)
 watch(
   [selectedCategoryIds, selectedColorIds, selectedSizeIds,selectedPrice,selectedUnitIds],
   () => {
+
     fetchProducts(); // جلب المنتجات تلقائيًا عند حدوث تغيير
   },
   { deep: true }

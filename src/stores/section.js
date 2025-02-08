@@ -223,6 +223,7 @@ export const useSectionsStore = defineStore('sections', {
       const filter = 0
       this.loading = true
       this.error = null
+
       try {
         const response = await axiosIns.get(`categories/${data.value.categoryId}?page=${data.value.page}&perPage=${data.value.perPage}&filter=${filter}` )
         if( response.data.categories.length>0){
@@ -242,7 +243,6 @@ export const useSectionsStore = defineStore('sections', {
     },
 
     async fetchProductsFilterBySubcategry(data) {
-
       if (this.showLoadingMessage || !this.hasMore) return;
       this.showLoadingMessage = true;
       this.error = null;
@@ -253,6 +253,15 @@ export const useSectionsStore = defineStore('sections', {
               color:data.value.colors,category_id:data.value.categoryId,unit:data.value.units,search:data.value.search  },
           }
          );
+
+
+
+        //  alert(data.value.categoryId)
+        //  alert(data.value.price)
+
+
+
+        //  alert("ddd2"+data.value.categoryId)
 
           // تأخير عرض المنتجات لمدة ثانيتين
         setTimeout(() => {
