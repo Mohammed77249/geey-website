@@ -126,9 +126,7 @@ export const useSectionsPhoneStore = defineStore('sectionsphone', {
         this.subcategories = response.data.categories
 
       }
-
-        this.products = response.data.products.data
-        this.products = response.data.products.data
+        // this.products = response.data.products.data
         this.totalProducts.currentPage = response.data.products.current_page
         this.totalProducts.totalItems = response.data.products.total
         this.totalProducts.totalPages = response.data.products.last_page

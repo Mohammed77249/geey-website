@@ -144,6 +144,8 @@ const taggleActiveCategory = () => {
   onclickNew.value  = false
   onclickCart.value  = false
   onclickUser.value =false
+
+  router.push('/phone/categories');
 };
 
 const taggleActiveNew = () => {
