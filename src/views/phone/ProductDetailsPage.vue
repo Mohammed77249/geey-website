@@ -10,8 +10,8 @@
       <div class="flex items-center gap-2">
 
         <!-- back home icon -->
-         <RouterLink to="/phone/home">
-          <div
+
+          <div @click="goBack"
             :class="isScrolled?'w-7 h-7':'bg-gray-100 rounded-full h-7 w-7 flex items-center justify-center'">
               <div>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,19 +19,22 @@
                 </svg>
               </div>
             </div>
-         </RouterLink>
+
 
 
 
         <!-- search -->
+
         <div  class="w-full h-7 ">
 
           <div v-if="isScrolled">
             <SearchComp :isScrolled="isScrolled" />
           </div>
         </div>
+       
 
         <!-- icon search -->
+        <RouterLink to="/phone/search">
         <div :class="isScrolled?'hidden':'bg-gray-100 rounded-full h-7 w-7 flex items-center  justify-center'">
           <div>
             <svg  width="24" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,6 +43,8 @@
             </svg>
           </div>
         </div>
+        </RouterLink>
+
 
         <!-- cart icon -->
         <div  >
@@ -129,6 +134,12 @@ import { ref, onMounted, onUnmounted } from "vue";
 import { useSectionsPhoneStore } from '@/stores/sectionsphone'
 import SearchComp from "@/components/SearchComp.vue";
 import MainPageComp from "@/components/phone/productdetails/MainPageComp.vue";
+
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const goBack = () => {
+  router.back();
+};
 
 const onclickForYou = ref(true)
 const onclickNewEnters = ref(false)

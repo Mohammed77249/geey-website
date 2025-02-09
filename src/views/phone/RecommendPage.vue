@@ -1,19 +1,22 @@
 <template>
   <div class="h-screen bg-gray-50">
    <!-- header -->
-    <div class="fixed  inset-0 w-full bg-white px-2 py-1  h-14 ">
+    <div class="fixed  inset-0 w-full bg-white px-2 py-1 "
+    :class="isScrolled ? 'h-32' : ' h-44'">
       <div class="grid grid-cols-12 mt-2 items-center justify-between">
         <!-- back button -->
-          <div class="col-span-1">
-            <RouterLink to="/phone/home">
+          <div @click="goBack" class="col-span-1">
+
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            </RouterLink>
+
           </div>
 
           <!-- search -->
+
           <div class=" relative col-span-11 text-sm font-bold text-center">
+            <RouterLink to="/phone/search">
             <div class="flex items-center overflow-hidden">
               <input
                 type="text"
@@ -48,43 +51,51 @@
                 </svg>
               </button>
             </div>
+          </RouterLink>
+          </div>
+
+      </div>
+
+
+       <!-- قائمة الفئات الرئيسية -->
+
+      <div class="mt-4">
+        <div v-if="storeSecion.loading">
+          <LoaderDatacomp :is-loader="storeSecion.loading"/>
+        </div>
+          <div v-else-if="storeSecion.getSubCategories.length>0" class="flex items-center p-2 gap-2 overflow-x-auto w-full text-gray-600">
+            <div
+              v-for="category in storeSecion.getSubCategories"
+              :key="category"
+              @click="clickCat(category)"
+              class=" bg-gray-50 rounded"
+              :class="isScrolled ? 'w-24 h-12 flex items-center justify-center ' : ' w-16 h-24 flex-col-1 items-center justify-center '"
+            >
+              <img
+                :src="category.image != null ?category.image :'/jeeeylogo.jpg'"
+                alt="moaham"
+                class=" w-full rounded object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
+
+                :class="isScrolled ? 'h-10' : 'h-16'"
+
+              />
+
+              <button class="  text-xs  w-full hover:text-blue-600">
+              <p> {{ category.name }}</p>
+              </button>
+
+            </div>
+
+          </div>
+          <div v-else>
 
           </div>
       </div>
     </div>
 
-    <!-- قائمة الفئات الرئيسية -->
-    <div class="bg-white mb-3 h-28 mt-14">
-      <div v-if="storeSecion.loading">
-      <LoaderDatacomp :is-loader="storeSecion.loading"/>
-    </div>
-      <div v-else-if="storeSecion.getSubCategories.length>0" class="flex items-center p-2 gap-2 overflow-x-auto w-full text-gray-600">
-        <div
-          v-for="category in storeSecion.getSubCategories"
-          :key="category"
-          @click="clickCat(category)"
-          class=" bg-gray-50 w-16 h-24 flex-col-1 items-center justify-center rounded"
-        >
-          <img
-            :src="category.image != null ?category.image :'/jeeeylogo.jpg'"
-            alt="moaham"
-            class="h-16 w-full rounded object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
-          />
-
-          <button class="  text-xs  w-full hover:text-blue-600">
-           <p> {{ category.name }}</p>
-          </button>
-
-        </div>
-
-      </div>
-      <div v-else>
-
-      </div>
-    </div>
 
     <!-- محتوى الصفحة الرئيسي -->
-    <main class="mx-auto  bg-white">
+    <main class="mx-auto mt-44 bg-white">
 
       <div class="grid grid-cols-1 container mx-auto  p-2 bg-white">
 
@@ -146,7 +157,7 @@
 
 
         <!-- colors sizes categories -->
-        <div class="flex items-center relative justify-center gap-2  mt-2">
+        <div class="flex items-center  justify-center gap-2  mt-2">
           <!-- colors -->
           <div ref="dropDownColor">
               <button
@@ -719,12 +730,18 @@
 </template>
 
 <script setup>
-import { ref,onMounted,defineAsyncComponent ,watch} from 'vue'
+import { ref,onMounted,defineAsyncComponent ,watch,onUnmounted} from 'vue'
 import { useSectionsStore } from '@/stores/section'
 import { useRoute, } from 'vue-router'
 import { useIntersectionObserver } from '@vueuse/core';
 const DialogAddToCart = defineAsyncComponent(() => import('@/components/phone/DialogAddToCartComp.vue'));
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const goBack = () => {
+  router.back();
+};
+
 const storeSecion = useSectionsStore()
 const isDrawerOpen = ref(false)
 const route = useRoute()
@@ -912,11 +929,32 @@ useIntersectionObserver(
 );
 
 
+
+
+// متغير لتتبع التمرير
+const isScrolled = ref(false);
+
+// دالة لتحديث الخلفية عند التمرير
+const handleScroll = () => {
+  const threshold = 50; // ارتفاع صورة البنر
+  isScrolled.value = window.scrollY > threshold;
+};
+
 onMounted(async() => {
   storeSecion.resetProducts();
   await storeSecion.fetchSubCategoryByCategoryID(filteredData3)
   await storeSecion.fetchProductsFilterBySubcategry(filteredData3)
 
+
+
+
+  window.addEventListener("scroll", handleScroll);
+
+});
+
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
 });
 </script>
 

@@ -63,7 +63,7 @@
             <div
               v-for="(category, index) in storeSection.getSubSections[listCategories]?.categories || []"
               :key="index"
-              class="bg-white flex flex-col items-center"
+              class="mt-2 flex flex-col items-center"
             >
             <RouterLink :to="`/phone/recommend/${category.id}`">
               <img
@@ -122,7 +122,7 @@
             <div
               v-for="(category, index) in storeSection.getSubSections[0]?.categories || []"
               :key="index"
-              class="bg-white flex flex-col items-center p-2 min-w-[80px]"
+              class=" flex flex-col items-center  p-2 min-w-[80px]"
             >
               <RouterLink :to="`/phone/recommend/${category.id}`">
                 <img
