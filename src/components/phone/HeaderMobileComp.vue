@@ -57,7 +57,7 @@
 
         <!-- search -->
         <div  class="w-full h-7 ">
-          <SearchComp :isScrolled="isScrolled" />
+          <SearchPhoneComp :isScrolled="isScrolled" />
         </div>
 
         <!-- favorate icon -->
@@ -142,7 +142,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { useSectionsPhoneStore } from '@/stores/sectionsphone'
 import SwiperPhoneComp from './SwiperPhoneComp.vue';
-import SearchComp from "@/components/phone/SearchPhoneComp.vue";
+import SearchPhoneComp from "@/components/phone/SearchPhoneComp.vue";
 
 const storeSecion = useSectionsPhoneStore();
 const filteredData = ref({

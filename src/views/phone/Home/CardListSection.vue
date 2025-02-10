@@ -124,16 +124,14 @@
               :key="index"
               class=" flex flex-col items-center  p-2 min-w-[80px]"
             >
-              <RouterLink :to="`/phone/recommend/${category.id}`">
                 <img
                   :src="category.image ? category.image : '/jeeeylogo.jpg'"
                   :alt="category.name"
-                  @click="toggleChildren(category.id)"
+                  @click="toggleChildren(category)"
                   class="w-14 h-14 md:w-24 md:h-24 rounded-full object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
                 />
-              </RouterLink>
               <h3
-                @click="toggleChildren(category.id)"
+                @click="toggleChildren(category)"
                 class="text-center mt-2 text-[10px] font-sans text-gray-800 whitespace-nowrap"
               >
                 {{ category.name }}
@@ -156,7 +154,8 @@
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 import { useSectionsPhoneStore } from '@/stores/sectionsphone';
 import { ref,defineAsyncComponent } from 'vue';
-
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const storeSection = useSectionsPhoneStore();
 const listCategories = ref(0);
 const tempSubSection = ref(0);
@@ -168,11 +167,10 @@ const onclickSubSection = (index) => {
   }
 };
 
-const toggleChildren = (id) => {
-  if (id) {
+const toggleChildren = (category) => {
+  if (category) {
+    router.push({ path: `/phone/recommend`, query: { q: encodeURIComponent(null) ,id: encodeURIComponent(category.id) ,name: encodeURIComponent(category.name)} })
 
-    console.log('Category ID:', id);
-    // Add logic to handle child categories
   }
 };
 

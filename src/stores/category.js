@@ -7,6 +7,7 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
     subcategories: [],
     categories_for_search:[],
     product_for_search:[],
+    categories_for_name:[],
     products: [],
     totalProducts: {
       currentPage: null,
@@ -24,7 +25,9 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
     getTotalProducts: state => state.totalProducts,
     getProductDetails: state => state.productDetails,
     getCategoriesForSearch: state => state.categories_for_search,
-    getProductForSearch : state => state.product_for_search
+    getProductForSearch : state => state.product_for_search,
+    getCategoriesForName : state => state.categories_for_name
+
   },
   actions: {
     async fetchAllCategories(data) {
@@ -67,23 +70,23 @@ export const useCategoriesStore = defineStore('useCategoriesStore', {
     },
 
 
-    // async fetchCategoryByNameSearch(data) {
-    //   this.loading = true
-    //   this.error = null
+    async fetchCategoryByNameSearch(data) {
+      this.loading = true
+      this.error = null
 
-    //   try {
-    //     const response = await axiosIns.get(`/categories_by_name`, {
-    //       params: { search: data },
-    //     });
-    //     this.categories_for_search = response.data
 
-    //   } catch (error) {
-    //     this.error = 'خطأ أثناء جلب الفئات'
-    //     console.error(error)
-    //   } finally {
-    //     this.loading = false
-    //   }
-    // },
+      try {
+        const response = await axiosIns.get(`/categories_by_name`, {
+          params: { search: data },
+        });
+        this.categories_for_name = response.data
+
+      } catch (error) {
+        this.error = error+ 'خطأ أثناء جلب الفئات'
+      } finally {
+        this.loading = false
+      }
+    },
 
     async fetchCategoryBySearch(data) {
       this.loading = true

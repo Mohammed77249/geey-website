@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen bg-gray-50">
    <!-- header -->
-    <div class="fixed  inset-0 w-full bg-white px-2 py-1 "
-    :class="isScrolled ? 'h-32' : ' h-44'">
+    <div class="fixed  inset-0 w-full bg-white  px-2 py-1 "
+    :class="storeSecion.getSubCategories.length<=0 ?'h-16': isScrolled ? 'h-32' : ' h-44'">
       <div class="grid grid-cols-12 mt-2 items-center justify-between">
         <!-- back button -->
           <div @click="goBack" class="col-span-1">
@@ -20,6 +20,7 @@
             <div class="flex items-center overflow-hidden">
               <input
                 type="text"
+                :value="name"
                 class="w-full flex-1  px-4 py-1   border border-primary-900 rounded-full"
                 :placeholder="$t('Search for products...')"
               >
@@ -60,10 +61,7 @@
        <!-- قائمة الفئات الرئيسية -->
 
       <div class="mt-4">
-        <div v-if="storeSecion.loading">
-          <LoaderDatacomp :is-loader="storeSecion.loading"/>
-        </div>
-          <div v-else-if="storeSecion.getSubCategories.length>0" class="flex items-center p-2 gap-2 overflow-x-auto w-full text-gray-600">
+          <div v-if="storeSecion.getSubCategories.length>0" class="flex items-center p-2 gap-2 overflow-x-auto w-full text-gray-600">
             <div
               v-for="category in storeSecion.getSubCategories"
               :key="category"
@@ -71,6 +69,7 @@
               class=" bg-gray-50 rounded"
               :class="isScrolled ? 'w-24 h-12 flex items-center justify-center ' : ' w-16 h-24 flex-col-1 items-center justify-center '"
             >
+
               <img
                 :src="category.image != null ?category.image :'/jeeeylogo.jpg'"
                 alt="moaham"
@@ -79,6 +78,7 @@
                 :class="isScrolled ? 'h-10' : 'h-16'"
 
               />
+
 
               <button class="  text-xs  w-full hover:text-blue-600">
               <p> {{ category.name }}</p>
@@ -95,7 +95,8 @@
 
 
     <!-- محتوى الصفحة الرئيسي -->
-    <main class="mx-auto mt-44 bg-white">
+    <main class="mx-auto  bg-white"
+    :class="storeSecion.getSubCategories.length>0 ? 'mt-44' : 'mt-16'">
 
       <div class="grid grid-cols-1 container mx-auto  p-2 bg-white">
 
@@ -746,8 +747,12 @@ const storeSecion = useSectionsStore()
 const isDrawerOpen = ref(false)
 const route = useRoute()
 const filteredData = ref(null)
-const id = route.params.id
+const id = ref()
+const name = ref()
 const isDialogOpen = ref(false)
+const searchTerm = ref('');
+const isss = ref('')
+// const urll = window.location.href
 
 const isDropdowenColorOnDrwerVisable = ref(false)
 const isDropdowenSizeOnDrwerVisable = ref(false)
@@ -790,14 +795,10 @@ const filterData2 = ref({
     search:null
   });
 
-if (id != null) {
-  filteredData3.value.categoryId = id
-  filterData2.value.categoryId = id
-}
-
-
-
-
+// if (id.value != null) {
+//   filteredData3.value.categoryId = id.value
+//   filterData2.value.categoryId = id.value
+// }
 
 const dropDownColor = ref(null)
 const selectedColorIds = ref([]);
@@ -807,6 +808,7 @@ const toggleColorSelect = color => {
     selectedColorIds.value = selectedColorIds.value.filter((colorId) => colorId !== color);
   } else {
     selectedColorIds.value.push(color);
+
   }
 
 };
@@ -821,6 +823,8 @@ const toggleSizeSelect = size => {
   } else {
     selectedSizeIds.value.push(size);
   }
+
+
 };
 
 
@@ -833,6 +837,8 @@ const toggleUnitSelect = unit => {
   } else {
     selectedUnitIds.value.push(unit);
   }
+
+
 };
 
 const dropDownCategory = ref(null)
@@ -862,38 +868,60 @@ const togglePriceSelect = (price)=>{
     selectedPrice.value = 'min'
 
   }
+
+
 }
 
 
 const idFromCatUp = ref(null)
 const clickCat = (category) =>{
   if(category.has_children == true){
-    filteredData3.value.categoryId = category.id
-    idFromCatUp.value = category.id
-    storeSecion.resetProducts();
-   storeSecion.fetchSubCategoryByCategoryID(filteredData3)
-   storeSecion.fetchProductsFilterBySubcategry(filteredData3)
+    // filteredData3.value.categoryId = category.id
+    // idFromCatUp.value = category.id
+    // name.value = category.name
+
+    router.push({ path: `/phone/recommend`, query: { q: encodeURIComponent(null) ,id: encodeURIComponent(category.id) ,name: encodeURIComponent(category.name)} })
+
+  //   storeSecion.resetProducts();
+  //  storeSecion.fetchSubCategoryByCategoryID(filteredData3)
+  //  storeSecion.fetchProductsFilterBySubcategry(filteredData3)
 
   }else if(category.has_children == false){
     filteredData3.value.categoryId = category.id
-    console.log("no")
-  }
+    name.value = category.name
+    storeSecion.resetProductsCatPage();
+    storeSecion.fetchProductsFilterBySubcategry(filteredData3)
 
+  }
 }
 
 
 // دالة لجلب المنتجات من API
 const fetchProducts = async () => {
-
- filterData2.value.categoryId = selectedCategoryIds.value ? selectedCategoryIds.value : idFromCatUp.value != null ?idFromCatUp.value: id;
-filterData2.value.colors = selectedColorIds.value.length >0 ? JSON.stringify(selectedColorIds.value) : null;
+  filterData2.value.categoryId = selectedCategoryIds.value ? selectedCategoryIds.value : idFromCatUp.value != null ?idFromCatUp.value: id.value != null ? id.value: null;
+ filterData2.value.colors = selectedColorIds.value.length >0 ? JSON.stringify(selectedColorIds.value) : null;
 filterData2.value.sizes = selectedSizeIds.value.length > 0 ? JSON.stringify(selectedSizeIds.value) : null;
 filterData2.value.units = selectedUnitIds.value.length > 0 ? JSON.stringify(selectedUnitIds.value) : null;
 filterData2.value.price = selectedPrice.value ?selectedPrice.value : null;
 
+
+  if(filterData2.value.categoryId == 'null' && filterData2.value.colors === null &&
+  filterData2.value.sizes === null&& filterData2.value.units === null && filterData2.value.price === null ){
+    if(searchTerm.value){
+    isss.value = searchTerm.value
+    filterData2.value.search = isss.value
+    storeSecion.resetProductsCatPage();
+    await storeSecion.fetchCategoryBySearch(searchTerm.value)
+  }
+
+  }else{
+    isss.value = null
+  }
+
+
+
+
 storeSecion.resetProductsCatPage();
-
-
 await storeSecion.fetchProductsFilterBySubcategry(filterData2)
 
 };
@@ -903,11 +931,52 @@ await storeSecion.fetchProductsFilterBySubcategry(filterData2)
 watch(
   [selectedCategoryIds, selectedColorIds, selectedSizeIds,selectedPrice,selectedUnitIds],
   () => {
-
-    fetchProducts(); // جلب المنتجات تلقائيًا عند حدوث تغيير
+    fetchProducts();
   },
   { deep: true }
 );
+
+
+
+
+const loadContent = async() => {
+
+  searchTerm.value = decodeURIComponent(route.query.q || '')
+  id.value = decodeURIComponent(route.query.id || '')
+  name.value = decodeURIComponent(route.query.name || '')
+
+  if(id.value){
+    filteredData3.value.categoryId = id.value
+    filterData2.value.categoryId = id.value
+    storeSecion.resetProducts();
+  await storeSecion.fetchSubCategoryByCategoryID(filteredData3)
+  await storeSecion.fetchProductsFilterBySubcategry(filteredData3);
+  }else if(searchTerm.value){
+    name.value = searchTerm.value;
+     isss.value = searchTerm.value;
+     filterData2.value.search = isss.value;
+     storeSecion.resetProducts();
+    await storeSecion.fetchCategoryBySearch( searchTerm.value)
+  }
+
+  window.addEventListener("scroll", handleScroll);
+
+};
+
+
+watch(
+      () => route.fullPath,
+      (newPath, oldPath) => {
+        if (newPath !== oldPath) {
+          router.push({ path: newPath, query: route.query });
+          loadContent();
+
+        }
+      }
+    );
+
+
+
 
 
 
@@ -920,16 +989,19 @@ useIntersectionObserver(
   loadMoreTrigger,
   ([{ isIntersecting }]) => {
     if (isIntersecting) {
-          storeSecion.fetchProductsFilterBySubcategry(filterData2);
+
+      if(isss.value){
+        storeSecion.fetchProductLoadMoreCategoryBySearch(isss.value)
+      }else{
+        storeSecion.fetchProductsFilterBySubcategry(filterData2);
+      }
+
     }
   },
 
 
   { threshold: 0.5 }
 );
-
-
-
 
 // متغير لتتبع التمرير
 const isScrolled = ref(false);
@@ -940,17 +1012,33 @@ const handleScroll = () => {
   isScrolled.value = window.scrollY > threshold;
 };
 
+
 onMounted(async() => {
-  storeSecion.resetProducts();
-  await storeSecion.fetchSubCategoryByCategoryID(filteredData3)
-  await storeSecion.fetchProductsFilterBySubcategry(filteredData3)
 
 
+  loadContent();
+  // searchTerm.value = decodeURIComponent(route.query.q || '')
+  // id.value = decodeURIComponent(route.query.id || '')
+  // name.value = decodeURIComponent(route.query.name || '')
 
+  // if(id.value){
+  //   filteredData3.value.categoryId = id.value
+  //   filterData2.value.categoryId = id.value
+  //   storeSecion.resetProducts();
+  // await storeSecion.fetchSubCategoryByCategoryID(filteredData3)
+  // await storeSecion.fetchProductsFilterBySubcategry(filteredData3);
+  // }else if(searchTerm.value){
+  //   name.value = searchTerm.value;
+  //    isss.value = searchTerm.value;
+  //    filterData2.value.search = isss.value;
+  //    storeSecion.resetProducts();
+  //   await storeSecion.fetchCategoryBySearch( searchTerm.value)
+  // }
 
-  window.addEventListener("scroll", handleScroll);
+  // window.addEventListener("scroll", handleScroll);
 
 });
+
 
 
 onUnmounted(() => {

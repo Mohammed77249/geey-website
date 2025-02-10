@@ -627,7 +627,7 @@ const routes = [
       { path: 'user/myaddress/editaddress/:id', name: 'phoneEditAddresses', component: () => import('@/views/phone/user/settings/addresses/EditAddress.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
       { path: 'user/setting/manageAccount', name: 'phoneManageAccount', component: () => import('@/views/phone/user/settings/manageaccount/ManageAccountPage.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
       { path: 'user/setting/manageAccount/changePassowrd', name: 'phoneChangePassowrd', component: () => import('@/views/phone/user/settings/manageaccount/ChangePassowrd.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
-      { path: 'recommend/:id', name: 'phoneRecommend', component: () => import('@/views/phone/RecommendPage.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  } },
+      { path: 'recommend', name: 'phoneRecommend', component: () => import('@/views/phone/RecommendPage.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
 
       {
         path: 'login',

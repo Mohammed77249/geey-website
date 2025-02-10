@@ -21,7 +21,7 @@
       </button>
     </div>
 
-    <!-- <div class="">
+    <div class="">
       <button
         @click="taggleActiveNewEnters"
         :class="[
@@ -35,9 +35,9 @@
       </p>
 
       </button>
-    </div> -->
+    </div>
 
-    <!-- <div class="">
+    <div class="">
       <button
         @click="taggleActiveDiscounts"
         :class="[
@@ -51,9 +51,9 @@
       </p>
 
       </button>
-    </div> -->
+    </div>
 
-    <!-- <div class="">
+    <div class="">
       <button
         @click="taggleActiveMoreSells"
         :class="[
@@ -64,7 +64,7 @@
       >
         الاكثر_مبيعا
       </button>
-    </div> -->
+    </div>
 
 
   </div>
@@ -97,26 +97,26 @@ const taggleActiveForYou = () => {
   onclickMoreSells.value = false
 }
 
-// const taggleActiveNewEnters = () => {
-//   onclickForYou.value  = false
-//   onclickNewEnters.value  = true
-//   onclickDiscounts.value = false
-//   onclickMoreSells.value = false
-// };
+const taggleActiveNewEnters = () => {
+  onclickForYou.value  = false
+  onclickNewEnters.value  = true
+  onclickDiscounts.value = false
+  onclickMoreSells.value = false
+};
 
-// const taggleActiveDiscounts = () => {
-//   onclickForYou.value  = false
-//   onclickNewEnters.value  = false
-//   onclickDiscounts.value = true
-//   onclickMoreSells.value = false
-// };
+const taggleActiveDiscounts = () => {
+  onclickForYou.value  = false
+  onclickNewEnters.value  = false
+  onclickDiscounts.value = true
+  onclickMoreSells.value = false
+};
 
-// const taggleActiveMoreSells = () => {
-//   onclickForYou.value  = false
-//   onclickNewEnters.value  = false
-//   onclickDiscounts.value = false
-//   onclickMoreSells.value = true
-// };
+const taggleActiveMoreSells = () => {
+  onclickForYou.value  = false
+  onclickNewEnters.value  = false
+  onclickDiscounts.value = false
+  onclickMoreSells.value = true
+};
 
 </script>
 

@@ -12,7 +12,7 @@
         <!-- back home icon -->
 
           <div @click="goBack"
-            :class="isScrolled?'w-7 h-7':'bg-gray-100 rounded-full h-7 w-7 flex items-center justify-center'">
+            :class="isScrolled?'w-7 h-7':'bg-gray-100 rounded-full h-7 w-10 flex items-center justify-center'">
               <div>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -20,18 +20,15 @@
               </div>
             </div>
 
-
-
-
         <!-- search -->
 
         <div  class="w-full h-7 ">
 
           <div v-if="isScrolled">
-            <SearchComp :isScrolled="isScrolled" />
+            <SearchPhoneComp :isScrolled="isScrolled" />
           </div>
         </div>
-       
+
 
         <!-- icon search -->
         <RouterLink to="/phone/search">
@@ -132,10 +129,9 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import { useSectionsPhoneStore } from '@/stores/sectionsphone'
-import SearchComp from "@/components/SearchComp.vue";
 import MainPageComp from "@/components/phone/productdetails/MainPageComp.vue";
-
 import { useRouter } from 'vue-router';
+import SearchPhoneComp from "@/components/phone/SearchPhoneComp.vue";
 const router = useRouter();
 const goBack = () => {
   router.back();

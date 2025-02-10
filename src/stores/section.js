@@ -247,21 +247,18 @@ export const useSectionsStore = defineStore('sections', {
       this.showLoadingMessage = true;
       this.error = null;
       try {
-        const response = await axiosIns.get(`product_filter`,
+
+        const response = data.value.categoryId == 'null'? await axiosIns.get(`product_filter`,
+          {
+            params: { page: this.page ,perPage:this.perPage ,size:data.value.sizes ,price:data.value.price ,
+              color:data.value.colors ,unit:data.value.units,search:data.value.search  },
+          }
+         ) :  await axiosIns.get(`product_filter`,
           {
             params: { page: this.page ,perPage:this.perPage ,size:data.value.sizes ,price:data.value.price ,
               color:data.value.colors,category_id:data.value.categoryId,unit:data.value.units,search:data.value.search  },
           }
          );
-
-
-
-        //  alert(data.value.categoryId)
-        //  alert(data.value.price)
-
-
-
-        //  alert("ddd2"+data.value.categoryId)
 
           // تأخير عرض المنتجات لمدة ثانيتين
         setTimeout(() => {
@@ -334,7 +331,8 @@ export const useSectionsStore = defineStore('sections', {
       this.showLoadingMessage = false;
       this.error = null;
       this.subcategory_Colors=[],
-      this.subcategory_Sizes=[]
+      this.subcategory_Sizes=[],
+      this.subcategories = []
 
     },
 
@@ -348,6 +346,65 @@ export const useSectionsStore = defineStore('sections', {
     },
     //============================
 
+
+    // search =============
+
+    async fetchCategoryBySearch(data) {
+      this.loading = true
+      this.error = null
+      try {
+        const response = await axiosIns.get(`/categories_search`, {
+          params: { search: data , page: this.page ,perPage:this.perPage , },
+        });
+
+        if(response.data.testcat == "cat"){
+          this.subcategories = response.data.categories
+        }
+        this.subcategory_Sizes = response.data.sizes
+        this.subcategory_Colors =  response.data.colors
+        this.subcategory_Units = response.data.units
+        this.products = response.data.products.data
+      } catch (error) {
+        this.error = 'خطأ أثناء جلب الفئات'
+        console.error(error)
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async fetchProductLoadMoreCategoryBySearch(data) {
+
+      if (this.showLoadingMessage || !this.hasMore) return;
+      this.showLoadingMessage = true;
+      this.error = null;
+      try {
+        const response = await axiosIns.get(`/categories_search`, {
+          params: { search : data, page: this.page ,perPage:this.perPage , },
+        });
+
+
+        setTimeout(() => {
+          // إضافة المنتجات الجديدة إلى القائمة
+           this.products.push(...response.data.products.data);
+
+          // تحقق مما إذا كان هناك المزيد من المنتجات
+          if (response.data.products.data.length < this.perPage) {
+            this.hasMore = false;
+          } else {
+            this.page++;
+          }
+
+          // إخفاء رسالة تحميل المزيد
+          this.showLoadingMessage = false;
+        }, 1000);
+
+      } catch (error) {
+        this.error = 'خطأ أثناء جلب الفئات'
+        console.error(error)
+      } finally {
+        this.loading = false
+      }
+    },
 
     // not used
     async fetchAllSections(data) {
