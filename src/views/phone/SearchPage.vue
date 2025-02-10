@@ -52,9 +52,9 @@
     <!-- سجل البحث -->
     <div class="p-4 bg-white">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-semibold">البحث الأخير</h2>
+        <h2 class="text-sm font-semibold">البحث الأخير</h2>
         <button @click="clearSearchHistory" class="text-primary-900 text-sm">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path opacity="0.34" d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14001" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -64,7 +64,7 @@
         </button>
       </div>
 
-      <div v-if="searchHistory.length === 0" class="text-gray-500 text-center py-4">
+      <div v-if="searchHistory.length === 0" class=" text-xs text-gray-500 text-center py-4">
         لا يوجد سجل بحث
       </div>
 
@@ -72,9 +72,9 @@
         <div
           v-for="(item, index) in searchHistory"
           :key="index"
-          class="flex items-center bg-gray-100 rounded-full px-4 py-2"
+          class="flex items-center border rounded-full px-2 py-1"
         >
-          <span  @click="goToRecommendPage(item)" class="text-sm">{{ item }}</span>
+          <span  @click="goToRecommendPage(item)" class="text-xs">{{ item }}</span>
           <button
             @click="removeSearchItem(index),goToRecommendPage(item)"
 
@@ -88,9 +88,9 @@
 
     <!-- نتائج البحث -->
     <div class="p-4 bg-white">
-      <h2 class="text-lg font-semibold mb-4">نتائج البحث</h2>
+      <h2 class="text-sm font-semibold mb-4">نتائج البحث</h2>
 
-      <div v-if="allResults.length === 0" class="text-gray-500 text-center py-4">
+      <div v-if="allResults.length === 0" class="text-gray-500 text-center py-4 text-xs">
         لا توجد نتائج
       </div>
 
@@ -125,7 +125,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <span>{{ category.name }}</span>
+            <span class="text-xs">{{ category.name }}</span>
           </div>
         </RouterLink>
         </li>
