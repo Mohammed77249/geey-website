@@ -78,11 +78,11 @@
     </header>
 
     <!-- محتوى الصفحة -->
-    <div class="mt-20 mb-16 ">
+    <div class="mt-16 mb-14 ">
       <div class="grid grid-cols-12 ">
 
         <!-- list sidebar -->
-        <div class="col-span-3  border-e-2 overflow-y-auto  w-full h-screen p-2 bg-gray-100 custom-scroll " >
+        <div class="col-span-3   border-e-2 overflow-y-auto  w-full h-screen p-2 bg-gray-100 custom-scroll " >
           <ul  class=" text-gray-700 text-[12px] font-sans">
         <li
           v-for="(category, index) in storeSecion.getSubSections[0]?.categories"
@@ -97,7 +97,7 @@
 
 
         <!-- list sub category -->
-        <div class="col-span-9    border-s-2  overflow-y-auto h-[440px]  custom-scroll">
+        <div class="col-span-9 pt-5   border-s-2  overflow-y-auto h-[440px]  custom-scroll">
 
 
         <div class="">
@@ -108,16 +108,12 @@
                 <div
                   v-for="(subcategory, index) in  storeSecion.getSubCategories"
                   :key="index"
+                   @click="onClickSubCategory(subcategory)"
                   class="bg-white flex flex-col items-center "
                 >
-
-                <RouterLink :to="`/phone/recommend/${subcategory.id}`">
                   <img :src="subcategory.image ? subcategory.image :'/logogeey.svg'" :alt="subcategory.name" class="w-12 text-center rounded-full h-12 object-cover bg-gray-50  transition-transform duration-200 hover:scale-105 hover:shadow">
-                </RouterLink>
                   <h3 class="text-center mt-2 text-xs  font-sans text-gray-800">{{ subcategory.name }}</h3>
                 </div>
-
-
               </div>
               <LoaderDatacomp :isLoader="storeSecion.loading"/>
              </li>
@@ -136,7 +132,9 @@
 import { ref, onMounted, } from "vue";
 import { useSectionsPhoneStore } from '@/stores/sectionsphone'
 import SearchComp from "../../components/SearchComp.vue";
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const storeSecion = useSectionsPhoneStore();
 const filteredData = ref({
   sectionId:1,
@@ -162,6 +160,11 @@ const onClickSubsection = async(id) =>{
 const onClickCategory = async(id) =>{
   filteredData2.value.categoryId = id
   await storeSecion.fetchSubCategoryByCategoryID(filteredData2)
+}
+
+const onClickSubCategory = (subcategory)=>{
+  router.push({ path: `/phone/recommend`, query: { q: encodeURIComponent(null) ,id: encodeURIComponent(subcategory.id) ,name: encodeURIComponent(subcategory.name)} })
+
 }
 
 // إضافة وإزالة مستمع التمرير
