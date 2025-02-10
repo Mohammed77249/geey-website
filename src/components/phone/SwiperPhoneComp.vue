@@ -5,7 +5,7 @@
     :modules="modules"
       :slides-per-view="1"
       :space-between="30"
-      :loop="true"
+      :loop="storeSecion.getBannerImage.length>1"
       :autoplay="autoplayOptions"
       :pagination="{ clickable : true}"
        :navigation="true"
