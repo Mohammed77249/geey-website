@@ -113,7 +113,102 @@
   </div>
 </template>
 
+
+
 <script setup>
+import { ref, watch, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router';
+
+// الحصول على الكائنات
+const router = useRouter();
+const route = useRoute();
+
+// تعريف الحالات للأيقونات
+const onclickHome = ref(false);
+const onclickCategory = ref(false);
+const onclickNew = ref(false);
+const onclickCart = ref(false);
+const onclickUser = ref(false);
+
+// تفعيل الأيقونة بناءً على الرابط الحالي
+const setActiveIcon = () => {
+  const currentPath = route.path;
+
+  if (currentPath === '/phone/home') {
+    onclickHome.value = true;
+    onclickCategory.value = false;
+    onclickNew.value = false;
+    onclickCart.value = false;
+    onclickUser.value = false;
+  } else if (currentPath === '/phone/categories') {
+    onclickHome.value = false;
+    onclickCategory.value = true;
+    onclickNew.value = false;
+    onclickCart.value = false;
+    onclickUser.value = false;
+  } else if (currentPath === '/phone/cart') {
+    onclickHome.value = false;
+    onclickCategory.value = false;
+    onclickNew.value = false;
+    onclickCart.value = true;
+    onclickUser.value = false;
+  } else if (currentPath === '/phone/user') {
+    onclickHome.value = false;
+    onclickCategory.value = false;
+    onclickNew.value = false;
+    onclickCart.value = false;
+    onclickUser.value = true;
+  }
+};
+
+// مراقبة المسار باستخدام `watch`
+watch(() => route.path, setActiveIcon, { immediate: true });
+
+// حفظ الحالة في `localStorage` عند التغيير
+const saveActiveState = (page) => {
+  localStorage.setItem('activePage', page);
+};
+
+// استرجاع الحالة المحفوظة من `localStorage`
+onMounted(() => {
+  const savedState = localStorage.getItem('activePage');
+  if (savedState) {
+    if (savedState === '/phone/home') onclickHome.value = true;
+    if (savedState === '/phone/categories') onclickCategory.value = true;
+    if (savedState === '/phone/cart') onclickCart.value = true;
+    if (savedState === '/phone/user') onclickUser.value = true;
+  }
+});
+
+// دوال التنقل بين الصفحات
+const taggleActiveHome = () => {
+  saveActiveState('/phone/home');
+  router.push('/phone/home');
+};
+
+const taggleActiveCategory = () => {
+  saveActiveState('/phone/categories');
+  router.push('/phone/categories');
+};
+
+const taggleActiveNew = () => {
+  saveActiveState('/phone/new');
+  router.push('/phone/new');
+};
+
+const taggleActiveCart = () => {
+  saveActiveState('/phone/cart');
+  router.push('/phone/cart');
+};
+
+const taggleActiveUser = () => {
+  saveActiveState('/phone/user');
+  router.push('/phone/user');
+};
+</script>
+
+
+<!-- <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 const router = useRouter();
@@ -122,11 +217,6 @@ const onclickCategory = ref(false)
 const onclickNew = ref(false)
 const onclickCart = ref(false);
 const onclickUser = ref(false);
-
-
-
-
-
 
 const taggleActiveHome = () => {
   onclickHome.value  = true
@@ -177,4 +267,4 @@ const taggleActiveUser = () => {
 };
 
 
-</script>
+</script> -->
