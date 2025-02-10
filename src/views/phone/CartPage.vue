@@ -38,7 +38,7 @@
               />
 
               <img v-else
-                src="/public/jeeeylogo.jpg"
+                src="/jeeeylogo.jpg"
                 class="w-full h-24 object-cover"
               />
 
