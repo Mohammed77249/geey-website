@@ -613,7 +613,8 @@ const routes = [
       },
       { path: 'user/setting', name: 'phoneSetting', component: () => import('@/views/phone/user/settings/SettingPage.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
       { path: 'user/myorders', name: 'phoneMyOrders', component: () => import('@/views/phone/user/orders/MyOrders.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
-      { path: 'user/myorder/:id', name: 'phoneOrderDetails', component: () => import('@/views/phone/user/orders/OrderDetails.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
+      { path: 'user/myorder', name: 'phoneOrderDetails', component: () => import('@/views/phone/user/orders/OrderDetails.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  },props: (route) => ({query: route.query}) },
+      { path: 'user/myorder/comments', name: 'phoneOrderComments', component: () => import('@/views/phone/user/orders/comments/OrderComments.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  },props: (route) => ({query: route.query})  },
 
       { path: 'product/:id', name: 'phoneProductDetails', component: () => import('@/views/phone/ProductDetailsPage.vue'), meta: {   showFooter:false ,showHeader:false} },
       { path: 'cart', name: 'phoneCart', component: () => import('@/views/phone/CartPage.vue'), meta: { requiresAuth: true, showFooter:true ,showHeader:false  } },

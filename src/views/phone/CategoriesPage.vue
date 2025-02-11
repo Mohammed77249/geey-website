@@ -129,10 +129,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, } from "vue";
+import { ref, onMounted,defineAsyncComponent } from "vue";
 import { useSectionsPhoneStore } from '@/stores/sectionsphone'
 import SearchComp from "../../components/SearchComp.vue";
 import { useRouter } from 'vue-router';
+const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 
 const router = useRouter();
 const storeSecion = useSectionsPhoneStore();

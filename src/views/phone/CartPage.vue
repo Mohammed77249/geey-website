@@ -34,12 +34,12 @@
                 <img v-if="item.image != 'https:\/\/jeeey-dashboard.najaz.in\/storage'"
                 :src="item.image"
                 alet="jj"
-                class="w-full h-24 object-cover"
+                class="w-full h-full rounded object-contain"
               />
 
               <img v-else
                 src="/jeeeylogo.jpg"
-                class="w-full h-24 object-cover"
+                class="w-full h-full rounded object-contain"
               />
 
               <!-- </RouterLink> -->
@@ -65,7 +65,7 @@
 
               </button>
 
-              <p class="text-primary-900 text-xs  font-semibold mb-2">-0%</p>
+              <!-- <p class="text-primary-900 text-xs  font-semibold mb-2">-0%</p> -->
               <p class="text-xs  font-bold">
                 YER
                 {{ item.product_currency }} {{ item.product_price * item.quantity  }}

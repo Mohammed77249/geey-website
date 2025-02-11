@@ -258,12 +258,13 @@ const handlOrder = async () => {
   const createorder = await storeOrder.creatOrder(filteredData.value);
   if(createorder){
     alert("تم الاضافه بنجاح")
-    window.location.reload();
     localStorage.removeItem("adressInfoName");
     localStorage.removeItem("adressInfoId");
     setTimeout(() => {
         router.push('/phone/home');
-      }, 1500);
+      }, 1000);
+
+      window.location.reload();
   }else{
     alert(storeOrder.error + "error");
     localStorage.removeItem("adressInfoName");
