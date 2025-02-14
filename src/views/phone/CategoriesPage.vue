@@ -188,7 +188,7 @@ onMounted(async() => {
 <style scoped>
 
 header {
-  height: 80px;
+  height: 85px;
 }
 .custom-scroll::-webkit-scrollbar {
   width: 0px;

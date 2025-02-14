@@ -10,7 +10,7 @@
     >
 
     <RouterLink :to="`/phone/product/${product.id}`">
-      <div class="cursor-pointer w-[full] h-[200px] md:h-[280px]" @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
+      <div class="cursor-pointer w-[full] h-[200px] " @mouseenter="onhover(product.id)" @mouseleave="isHover = false"  >
       <img v-if="product.main_imags != null && product.main_imags.length > 0 "
               :src="
                 hoverId === product.id &&
@@ -18,11 +18,11 @@
                 product.main_imags[1]?.image
                   ? product.main_imags[1]?.image
                   : product.main_imags[0]?.image
-              "  alt="" class="w-full h-full object-contain transition duration-300 ease-in-out"
+              "  alt="" class="w-full h-full  transition duration-300 ease-in-out"
               />
 
               <img v-else
-              src="/jeeeylogo.jpg"  alt="" class="w-full h-full object-contain transition duration-300 ease-in-out"
+              src="/jeeeylogo.jpg"  alt="" class="w-full h-full  transition duration-300 ease-in-out"
               />
 
       </div>

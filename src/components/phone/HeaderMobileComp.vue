@@ -77,7 +77,7 @@
                 <RouterLink to="/phone/search">
                 <div :class="isScrolled?'hidden':' rounded-full h-7 w-7 flex items-center  justify-center'">
                   <div>
-                    <svg  width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg  width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.33331 13.3333C10.647 13.3333 13.3333 10.647 13.3333 7.33331C13.3333 4.0196 10.647 1.33331 7.33331 1.33331C4.0196 1.33331 1.33331 4.0196 1.33331 7.33331C1.33331 10.647 4.0196 13.3333 7.33331 13.3333Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path opacity="0.6" d="M12.6199 13.7932C12.9733 14.8599 13.7799 14.9665 14.3999 14.0332C14.9666 13.1799 14.5933 12.4799 13.5666 12.4799C12.8066 12.4732 12.3799 13.0665 12.6199 13.7932Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -105,14 +105,14 @@
 
           <!-- list section -->
           <div class="max-w-md flex items-center overflow-x-auto custom-scroll">
-            <ul class="flex items-center justify-center gap-2 text-[12px] font-sans">
+            <ul class="flex items-center justify-center gap-2 text-[12px]  font-sans">
               <li
                 v-for="(section, index) in storeSecion.getSections"
                 :key="index"
                 @click="onClickSubsection(section.id)"
                 :class="{
                   'text-primary-900 border-b-2 font-semibold border-primary-900': activeSectionId === section.id,
-                  'text-white': activeSectionId !== section.id
+                  'text-white': activeSectionId !== section.id && !isScrolled
                 }"
                 class="p-2 text-center  cursor-pointer transition-all duration-200"
               >
@@ -222,7 +222,7 @@ onUnmounted(() => {
 <style scoped>
 
 header {
-  height: 70px;
+  height: 80px;
 }
 
 

@@ -30,7 +30,7 @@
                 class="w-4 h-3 text-primary-900"
                 @change="updateSelectAll"
               />
-              <img :src="item.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? item.image :'/jeeeeylogo3.jpg'"  alt="" class=" h-full rounded-lg border   object-contain " />
+              <img :src="item.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? item.image :'/jeeeeylogo3.jpg'"  alt="" class=" h-full rounded-lg border " />
             </div>
             <div class="col-span-6 ">
               <div class=" mx-1 mt-1">

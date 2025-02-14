@@ -3,7 +3,9 @@
     <CardListSection/>
     <GreatOffersSection/>
     <TrendDiscountSection/>
-    <ProductsSection/>
+      <ProductsSection/>
+
+
   </div>
 </template>
 

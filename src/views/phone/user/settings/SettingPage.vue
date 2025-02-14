@@ -29,9 +29,9 @@
     </div>
 
     <!-- main content -->
-    <div class="mt-10 pt-4">
+    <div class="mt-9 pt-4">
       <!-- اللغه -->
-      <div class="h-12 border bg-white p-4 mb-2">
+      <div class="h-12 border bg-white p-4 mb-1">
         <div class="flex items-center justify-between">
           <span class="text-sm text-black font-medium">اللغه</span>
           <span>
@@ -56,7 +56,7 @@
       </div>
 
       <aside class="">
-        <ul class="space-y-2">
+        <ul class="space-y-1">
           <!-- الاعدادات -->
           <li class="border bg-white p-4">
             <span class="text-sm font-semibold mb-4"> الاعدادات</span>
@@ -256,7 +256,7 @@
           </li>
 
           <!-- تسجيل الخروج -->
-          <li class="border bg-white p-3">
+          <li class="border bg-white p-4">
             <div class="cursor-pointer text-center" @click="toggleLougOut()">
               <h3 class="font-bold text-sm text-primary-900">
                 {{ $t('Log out') }}

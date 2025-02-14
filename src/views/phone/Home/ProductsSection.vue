@@ -1,9 +1,9 @@
 <template>
-<div class="max-w-md  flex items-center overflow-x-auto custom-scroll">
+<div class=" bg-white border max-w-md p-2 wshadow h-[70px] flex items-center">
 
 
   <div
-    class="flex items-center w-full justify-center rounded-[10px] h-[70px]  bg-white  gap-4 shadow"
+    class="flex items-center  overflow-x-auto custom-scroll    gap-4 "
   >
     <div class="">
       <button
@@ -11,7 +11,7 @@
         :class="[
           onclickForYou
           ? ' text-white text-sm bg-[#8a1538] py-1.5 px-3 rounded-full'
-          : ' bg-gray-50 text-sm py-1.5 px-3 rounded-full text-[#252525]',
+          : ' bg-gray-50 text-sm py-1.5  rounded-full text-[#252525]',
         ]"
       >
       <p>
