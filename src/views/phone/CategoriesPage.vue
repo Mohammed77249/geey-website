@@ -53,18 +53,22 @@
       </div>
 
       <!-- list section  and menu icon-->
-      <div class="flex items-center justify-between gap-2  ">
+      <div class="flex items-center justify-between gap-2 mt-2 ">
 
           <!-- list section -->
           <div class="w-full  flex items-center overflow-x-auto custom-scroll">
               <ul
-                class="flex item-center justify-center gap-2   text-[12px]  font-sans"
+                class="flex item-center justify-center gap-2   text-sm  font-sans"
               >
                 <li
                   v-for="(section, index) in storeSecion.getSections"
                   :key="index"
                   @click="onClickSubsection(section.id)"
-                  class=" p-2 text-center rounded-lg cursor-pointer text-black  transition-all duration-200"
+                  :class="{
+                  'text-primary-900 border-b-2 font-semibold border-primary-900': activeSectionId === section.id,
+                  'text-black': activeSectionId !== section.id
+                }"
+                class="p-2 text-center  cursor-pointer transition-all duration-200"
                 >
                   {{ section.name }}
                 </li>
@@ -78,11 +82,11 @@
     </header>
 
     <!-- محتوى الصفحة -->
-    <div class="mt-16 mb-14 ">
+    <div class="mt-20 mb-14 ">
       <div class="grid grid-cols-12 ">
 
         <!-- list sidebar -->
-        <div class="col-span-3   border-e-2 overflow-y-auto  w-full h-screen p-2 bg-gray-100 custom-scroll " >
+        <div class="col-span-4   border-e-2 overflow-y-auto  w-full h-screen p-2 bg-gray-50 custom-scroll " >
           <ul  class=" text-gray-700 text-[12px] font-sans">
         <li
           v-for="(category, index) in storeSecion.getSubSections[0]?.categories"
@@ -97,7 +101,7 @@
 
 
         <!-- list sub category -->
-        <div class="col-span-9 pt-5   border-s-2  overflow-y-auto h-[440px]  custom-scroll">
+        <div class="col-span-8 pt-5   border-s-2  overflow-y-auto h-[440px]  custom-scroll">
 
 
         <div class="">
@@ -136,6 +140,8 @@ import { useRouter } from 'vue-router';
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 
 const router = useRouter();
+
+const activeSectionId = ref(null);
 const storeSecion = useSectionsPhoneStore();
 const filteredData = ref({
   sectionId:1,
@@ -154,6 +160,7 @@ const filteredData2 = ref({
 
 
 const onClickSubsection = async(id) =>{
+  activeSectionId.value = id;
   filteredData.value.sectionId = id
    await storeSecion.fetchSubSectionBySectionID(filteredData);
 }
@@ -181,7 +188,7 @@ onMounted(async() => {
 <style scoped>
 
 header {
-  height: 70px;
+  height: 80px;
 }
 .custom-scroll::-webkit-scrollbar {
   width: 0px;

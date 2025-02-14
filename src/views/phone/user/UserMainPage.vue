@@ -1,6 +1,6 @@
 
 <template>
-  <div class="bg-gray-100 w-full h-screen">
+  <div class="bg-gray-50 w-full h-screen">
     <!-- header -->
     <div class="flex items-center justify-between bg-white p-2 shadow h-12">
       <div class="text-sm font-semibold">
@@ -19,7 +19,7 @@
 
     </div>
 
-    <div class="mt-5 bg-white h-24 w-full p-2">
+    <div class="mt-2 bg-white h-24 w-full p-2">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-semibold">طلبي</p>
@@ -28,7 +28,7 @@
         <RouterLink to="/phone/user/myorders">
         <div class="flex items-center justify-center">
           <p class="text-xs font-normal text-gray-500">عرض الكل</p>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="gray" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>

@@ -116,13 +116,13 @@
 
           <div
             v-if="storeSection.subsections && storeSection.subsections.length && storeSection.subsections[0].has_sub === 'false'"
-            class="grid grid-rows-3 grid-flow-col gap-2 overflow-x-auto w-full md:hidden custom-scroll"
+            class="grid grid-rows-3 grid-flow-col  gap-2 overflow-x-auto w-full md:hidden custom-scroll"
             style="grid-auto-columns: minmax(80px, 1fr);"
           >
             <div
               v-for="(category, index) in storeSection.getSubSections[0]?.categories || []"
               :key="index"
-              class=" flex flex-col items-center  p-2 min-w-[80px]"
+              class=" flex flex-col items-center  p-2 min-w-[40px]"
             >
                 <img
                   :src="category.image ? category.image : '/jeeeylogo.jpg'"

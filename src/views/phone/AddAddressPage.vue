@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 h-screen">
+  <div class="bg-gray-50 h-screen">
     <!-- header -->
     <div class="fixed inset-0  bg-white p-2 shadow h-12">
       <div class="grid grid-cols-12 mt-2 items-center justify-between">
@@ -19,20 +19,20 @@
 
     <!-- main content -->
     <div>
-      <div class="mt-12 pt-3 bg-gray-100">
+      <div class="mt-10 pt-3">
               <div class="">
                 <div class=" p-2">
                   <span class="text-sm text-[#F7A219]">*يرجى اضافة عنوان جديد دقيق لتمتع بتجربة توصيل مميزة!</span>
                 </div>
                 <form @submit.prevent="handleAddress">
                   <!-- المكتب الخاص أو المنزل -->
-                  <div class="mb-3 px-1">
+                  <div class="mb-2 px-1">
                     <input
                       type="text"
                       v-model="Adress"
                       required
                       :placeholder="$t('Private office or home')"
-                      class="w-full border border-gray-300 py-3 shadow px-2 text-sm rounded-lg focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                      class="w-full border border-gray-300 py-4 shadow px-2 text-sm rounded-lg focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
 
@@ -40,7 +40,7 @@
                   <div class="px-1  mb-3">
                     <div ref="dropDownCite">
                       <button
-                        class="text-[#979797] bg-white w-full shadow py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
+                        class="text-[#979797] bg-white w-full shadow py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
                         type="button"
                         @click="isDropdowenCiteVisable = true"
                         @mouseenter="isDropdowenCiteVisable = true"
@@ -100,10 +100,10 @@
                   </div>
 
                   <!-- المنطقة -->
-                  <div class="px-1  mb-3">
+                  <div class="px-1  mb-2">
                     <div ref="dropDownDistrict">
                       <button
-                        class="text-[#979797] bg-white w-full py-3 shadow rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
+                        class="text-[#979797] bg-white w-full py-4 shadow rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
                         type="button"
                         @click="isDropdowenDistrictVisable = true"
                         @mouseenter="isDropdowenDistrictVisable = true"
@@ -162,18 +162,18 @@
                   </div>
 
                   <!-- معلم قريب -->
-                  <div class="px-1  mb-3">
+                  <div class="px-1  mb-2">
                     <input
                       type="text"
                       v-model="NearestLand"
                       required
                       :placeholder="$t('nearest landmark')"
-                      class="w-full border border-gray-300 py-3 shadow rounded-lg p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                      class="w-full border border-gray-300 py-4 shadow rounded-lg p-2 text-sm focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
 
                   <!-- الخريطة  -->
-                  <div class="px-1 mb-4">
+                  <div class="px-1 mb-2">
                     <button
                       type="button"
                       @click="clickOpenMap()"

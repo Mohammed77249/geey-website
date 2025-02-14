@@ -23,7 +23,7 @@
         <div v-if="commentStore.loading" class="mt-20">
           <LoaderDatacomp :isLoader="commentStore.loading"/>
         </div>
-        <div v-else-if="commentStore.getCommentsForProduct" >
+        <div v-else-if="commentStore.getReviews.length >0 " >
           <!-- product details -->
          <div class=" bg-white w-full  mb-4" >
           <div class="grid grid-cols-12 p-2">
@@ -186,11 +186,30 @@
       </div>
 
       <div v-else>
-        no data
+        <span class="flex items-center justify-center mt-20 font-semibold">
+          لاتوجد تقييمات لهذا المنتج
+        </span>
+      </div>
+
+
+      <div>
+          <!-- addComment -->
+        <div class="fixed bottom-0 w-full bg-white">
+          <div class="flex items-center gap-1 p-3">
+              <button
+                @click="openDialog"
+                class=" w-full rounded bg-primary-900 text-white py-3 text-md font-medium hover:bg-primary-800 transition"
+              >
+                <span>أضافه تقييم</span>
+              </button>
+          </div>
+        </div>
       </div>
 
 
 
+
+      <DialogAddComment :is-open="isDialogOpen" @close="closeDialog"  :loading="commentStore.loading" :error="commentStore.error" />
 
     </div>
 
@@ -201,8 +220,11 @@
 <script setup>
 import { onMounted, ref,defineAsyncComponent } from "vue";
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
+
 import { useCommentsStore } from '@/stores/comments.js';
 import { useRouter,useRoute } from 'vue-router';
+import DialogAddComment from "@/components/phone/Comments/DialogAddComment.vue";
+
 const route = useRoute();
 const router = useRouter();
 const commentStore = useCommentsStore();
@@ -213,6 +235,15 @@ const fullStars = ref(0);
 const halfStar = ref(false);
 const isLiked = ref(false);
 
+const isDialogOpen = ref(false)
+
+const openDialog = () => {
+  isDialogOpen.value = true
+}
+
+const closeDialog = () => {
+  isDialogOpen.value = false
+}
 
 const goBack = () => {
   router.back();

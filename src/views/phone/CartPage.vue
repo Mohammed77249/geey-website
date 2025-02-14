@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 w-full h-screen">
+  <div class="bg-gray-50 w-full h-screen">
     <!-- header -->
     <div class="fixed inset-0  flex items-center justify-between  bg-white p-2 shadow h-12">
       <div class=" text-sm font-bold">
@@ -16,34 +16,21 @@
     </div>
 
     <!-- list cats -->
-    <div class="mt-12 pt-5 pb-32  ">
-      <div class="space-y-4 ">
+    <div class="mt-10 pt-5 pb-32  ">
+      <div class="space-y-2 ">
           <div v-if="storeCart.loading" class="mt-10">
             <LoaderDatacomp :is-loader="storeCart.loading"/>
           </div>
           <div v-else class="grid grid-cols-12   w-full gap-6 p-4 shadow bg-white "  v-for="(item,index) in storeCart.getallCarts" :key="item.id">
 
-            <div class="col-span-3 flex gap-2 md:col-span-2">
+            <div class="col-span-3 flex gap-2">
               <input
                 type="checkbox"
                 v-model="item.selected"
                 class="w-4 h-3 text-primary-900"
                 @change="updateSelectAll"
               />
-              <!-- <RouterLink  :to="`/phone/product/${item.product_id}`"> -->
-                <img v-if="item.image != 'https:\/\/jeeey-dashboard.najaz.in\/storage'"
-                :src="item.image"
-                alet="jj"
-                class="w-full h-full rounded object-contain"
-              />
-
-              <img v-else
-                src="/jeeeylogo.jpg"
-                class="w-full h-full rounded object-contain"
-              />
-
-              <!-- </RouterLink> -->
-
+              <img :src="item.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? item.image :'/jeeeeylogo3.jpg'"  alt="" class=" h-full rounded-lg border   object-contain " />
             </div>
             <div class="col-span-6 ">
               <div class=" mx-1 mt-1">

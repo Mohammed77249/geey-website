@@ -1,57 +1,92 @@
 <template>
-  <div class="bg-gray-100 h-screen">
+  <div class="bg-gray-50 h-screen">
     <!-- header -->
-    <div class="fixed inset-0  grid grid-cols-12 items-center justify-between  bg-white p-2 shadow h-12">
+    <div
+      class="fixed inset-0 grid grid-cols-12 items-center justify-between bg-white p-2 shadow h-12"
+    >
       <!-- back button -->
       <div class="col-span-2">
         <RouterLink to="/phone/user">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.90991 19.92L15.4299 13.4C16.1999 12.63 16.1999 11.37 15.4299 10.6L8.90991 4.07996"
+              stroke="#8a1538"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </RouterLink>
       </div>
-      <div class="col-span-8 text-sm font-bold text-center">
-       الاعدادات
-     </div>
-
-
-
+      <div class="col-span-8 text-sm font-bold text-center">الاعدادات</div>
     </div>
 
     <!-- main content -->
-    <div class="mt-12 pt-4 ">
-
+    <div class="mt-10 pt-4">
       <!-- اللغه -->
       <div class="h-12 border bg-white p-4 mb-2">
-                    <div class="flex items-center justify-between ">
-                      <span class=" text-sm text-black font-medium">اللغه</span>
-                      <span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      </span>
-                    </div>
-
-
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-black font-medium">اللغه</span>
+          <span>
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996"
+                stroke="#8a1538"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
 
       <aside class="">
-        <ul class="space-y-5 ">
+        <ul class="space-y-2">
           <!-- الاعدادات -->
           <li class="border bg-white p-4">
-            <span class="text-sm  font-semibold mb-4"> الاعدادات</span>
+            <span class="text-sm font-semibold mb-4"> الاعدادات</span>
 
-            <ul class="  text-gray-600 text-xs">
-            <!-- addresses -->
+            <ul class="text-gray-600 text-xs">
+              <!-- addresses -->
               <li>
                 <button class="cursor-pointer h-12 w-full border-b-2">
                   <RouterLink to="/phone/user/setting/myaddresses">
-                    <div class="flex items-center justify-between ">
-                      <span class=" text-xs text-black font-medium"> {{ $t("Address book") }}</span>
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs text-black font-medium">
+                        {{ $t('Address book') }}</span
+                      >
                       <span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996"
+                            stroke="#8a1538"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
                       </span>
                     </div>
                   </RouterLink>
@@ -60,14 +95,29 @@
 
               <!-- my account manage -->
               <li>
-                <button class="cursor-pointer h-12 w-full ">
+                <button class="cursor-pointer h-12 w-full">
                   <RouterLink to="/phone/user/setting/manageAccount">
-                    <div class="flex items-center justify-between ">
-                      <span class=" text-xs text-black font-medium"> {{ $t("Manage my account") }}</span>
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs text-black font-medium">
+                        {{ $t('Manage my account') }}</span
+                      >
                       <span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996"
+                            stroke="#8a1538"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
                       </span>
                     </div>
                   </RouterLink>
@@ -75,39 +125,68 @@
               </li>
             </ul>
           </li>
-
 
           <!-- معلومات -->
           <li class="border bg-white p-4">
-            <span class="text-sm  font-bold mb-2"> معلومات</span>
+            <span class="text-sm font-bold mb-2"> معلومات</span>
 
-            <ul class="  text-gray-600 text-xs">
-            <!-- الارجاع -->
+            <ul class="text-gray-600 text-xs">
+              <!-- الارجاع -->
               <li>
                 <button class="cursor-pointer h-12 w-full border-b-2">
                   <!-- <RouterLink to="/desktop/user/myaddresses"> -->
-                    <div class="flex items-center justify-between ">
-                      <span class=" text-xs text-black font-medium"> سياسه الارجاع</span>
-                      <span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs text-black font-medium">
+                      سياسه الارجاع</span
+                    >
+                    <span>
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996"
+                          stroke="#8a1538"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
                       </svg>
-                      </span>
-                    </div>
+                    </span>
+                  </div>
                   <!-- </RouterLink> -->
                 </button>
               </li>
 
               <!-- الخصوصيه -->
               <li>
-                <button class="cursor-pointer h-12 w-full  border-b-2">
+                <button class="cursor-pointer h-12 w-full border-b-2">
                   <RouterLink to="/phone/user/myaccount">
-                    <div class="flex items-center justify-between ">
-                      <span class=" text-xs text-black font-medium"> مركز الخصوصيه</span>
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs text-black font-medium">
+                        مركز الخصوصيه</span
+                      >
                       <span>
-                      <svg width="16" height="16+" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996"
+                            stroke="#8a1538"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
                       </span>
                     </div>
                   </RouterLink>
@@ -116,70 +195,85 @@
 
               <!-- الخصوصيه -->
               <li>
-                <button class="cursor-pointer h-12 w-full  border-b-2 ">
+                <button class="cursor-pointer h-12 w-full border-b-2">
                   <RouterLink to="/phone/user/myaccount">
-                    <div class="flex items-center justify-between ">
-                      <span class=" text-xs text-black font-medium"> سياسه الخصوصيه</span>
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs text-black font-medium">
+                        سياسه الخصوصيه</span
+                      >
                       <span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996"
+                            stroke="#8a1538"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
                       </span>
                     </div>
                   </RouterLink>
                 </button>
               </li>
 
-               <!-- حول جي -->
-               <li>
-                <button class="cursor-pointer h-12 w-full ">
+              <!-- حول جي -->
+              <li>
+                <button class="cursor-pointer h-10 w-full">
                   <!-- <RouterLink to="/phone/user/myaccount"> -->
-                    <div class="flex items-center justify-between ">
-                      <span class=" text-xs text-black font-medium"> حول جي</span>
-                      <span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996" stroke="#8a1538" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs text-black font-medium"> حول جي</span>
+                    <span>
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15.0001 19.92L8.48009 13.4C7.71009 12.63 7.71009 11.37 8.48009 10.6L15.0001 4.07996"
+                          stroke="#8a1538"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
                       </svg>
-                      </span>
-                    </div>
+                    </span>
+                  </div>
                   <!-- </RouterLink> -->
                 </button>
               </li>
-
-
             </ul>
           </li>
 
-
-
-
-
-
           <!-- تسجيل الخروج -->
-          <li class="border bg-white p-4 ">
-            <div
-              class=" cursor-pointer text-center py-1 "
-              @click="toggleLougOut()"
-            >
-              <h3 class="font-bold text-cm text-primary-900">{{ $t("Log out") }}</h3>
+          <li class="border bg-white p-3">
+            <div class="cursor-pointer text-center" @click="toggleLougOut()">
+              <h3 class="font-bold text-sm text-primary-900">
+                {{ $t('Log out') }}
+              </h3>
             </div>
           </li>
         </ul>
       </aside>
-
     </div>
   </div>
 </template>
 
 <script setup>
-import { useAuthStore } from '@/stores/auth';
-const storeAuth = useAuthStore();
+import { useAuthStore } from '@/stores/auth'
+const storeAuth = useAuthStore()
 
-
-
-
-const toggleLougOut = ()=>{
-  storeAuth.logout("desktop")
-};
-
+const toggleLougOut = () => {
+  storeAuth.logout('desktop')
+}
 </script>

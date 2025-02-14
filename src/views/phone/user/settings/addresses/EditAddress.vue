@@ -16,7 +16,7 @@
 
             <!-- deleted icon -->
             <div @click="deleteAddress()" class=" col-span-3 flex items-center justify-end">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path opacity="0.34" d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M18.85 9.14001L18.2 19.21C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14001" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -43,7 +43,7 @@
 
                 <form @submit.prevent="handleEditAddress">
                   <!-- المكتب الخاص أو المنزل -->
-                  <div class="mb-4 px-1">
+                  <div class="mb-2 px-1">
                     <input
                       type="text"
                       v-model="filteredData.address"
@@ -54,7 +54,7 @@
                   </div>
 
                   <!-- المحافظة -->
-                  <div class="px-1  mb-4">
+                  <div class="px-1  mb-2">
                     <div ref="dropDownCite">
                       <button
                         class="text-[#979797] bg-white w-full  py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
@@ -117,7 +117,7 @@
                   </div>
 
                   <!-- المنطقة -->
-                  <div class="px-1  mb-4">
+                  <div class="px-1  mb-2">
                     <div ref="dropDownDistrict">
                       <button
                         class="text-[#979797] bg-white w-full py-4  rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-sm px-5 inline-flex items-center justify-between"
@@ -179,7 +179,7 @@
                   </div>
 
                   <!-- معلم قريب -->
-                  <div class="px-1  mb-4">
+                  <div class="px-1  mb-2">
                     <input
                       type="text"
                       v-model="filteredData.nearest_landmark"
@@ -190,7 +190,7 @@
                   </div>
 
                   <!-- الخريطة  -->
-                  <div class="px-1 mb-4">
+                  <div class="px-1 mb-2">
                     <button
                       type="button"
                       @click="clickOpenMap()"

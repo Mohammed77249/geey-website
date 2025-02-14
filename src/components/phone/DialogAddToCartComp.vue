@@ -536,12 +536,11 @@ const addToCart = async () => {
         close()
       } else {
         alert(t("Product added to cart!"))
-        window.location.reload()
+
         close()
       }
     } else {
       alert(storeCart.error)
-      window.location.reload()
       close()
     }
   }

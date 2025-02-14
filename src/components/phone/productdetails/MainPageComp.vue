@@ -524,7 +524,7 @@
             </div>
             <button
               @click="addToCart"
-              class=" w-full bg-primary-900 text-white py-3 text-lg font-bold hover:bg-primary-800 transition"
+              class=" w-full bg-primary-900 rounded text-white py-3 text-lg font-bold hover:bg-primary-800 transition"
             >
               <span v-if="storeCart.loading" class="loader mr-2"></span>
               <span>{{
@@ -722,6 +722,7 @@ const addToCart = async () => {
         alert(storeCart.productMessage)
       } else {
         alert(t("Product added to cart!"))
+        router.push("/phone/home/")
       }
     } else {
       alert(storeCart.error)

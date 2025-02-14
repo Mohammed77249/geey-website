@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 h-screen">
+  <div class="bg-gray-50 h-screen">
     <!-- header -->
     <div class="fixed inset-0  bg-white p-2 shadow h-12">
       <div class="grid grid-cols-12 mt-2 items-center justify-between">
@@ -19,28 +19,28 @@
 
     <!-- main content -->
     <div>
-      <div class="mt-10 pt-3 bg-gray-100">
+      <div class="mt-8 pt-3">
               <div class="">
-                <div class="mb-3 p-2">
+                <div class="mb-2 p-2">
                   <span class="text-[#F7A219] text-sm">*يرجى اضافة عنوان جديد دقيق لتمتع بتجربة توصيل مميزة!</span>
                 </div>
                 <form @submit.prevent="handleAddress">
                   <!-- المكتب الخاص أو المنزل -->
-                  <div class="mb-3 px-1">
+                  <div class="mb-2 px-1">
                     <input
                       type="text"
                       v-model="Adress"
                       required
                       :placeholder="$t('Private office or home')"
-                      class="w-full border border-gray-300 py-3 shadow px-2 text-xs rounded-lg focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                      class="w-full border border-gray-300 py-4 shadow px-2 text-xs rounded-lg focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
 
                   <!-- المحافظة -->
-                  <div class="px-1  mb-3">
+                  <div class="px-1  mb-2">
                     <div ref="dropDownCite">
                       <button
-                        class="text-[#979797] bg-white w-full shadow py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-xs px-5 inline-flex items-center justify-between"
+                        class="text-[#979797] bg-white w-full shadow py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-xs px-5 inline-flex items-center justify-between"
                         type="button"
                         @click="isDropdowenCiteVisable = true"
                         @mouseenter="isDropdowenCiteVisable = true"
@@ -100,10 +100,10 @@
                   </div>
 
                   <!-- المنطقة -->
-                  <div class="px-1  mb-3">
+                  <div class="px-1  mb-2">
                     <div ref="dropDownDistrict">
                       <button
-                        class="text-[#979797] bg-white w-full py-3 shadow rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-xs px-5 inline-flex items-center justify-between"
+                        class="text-[#979797] bg-white w-full py-4 shadow rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px] text-xs px-5 inline-flex items-center justify-between"
                         type="button"
                         @click="isDropdowenDistrictVisable = true"
                         @mouseenter="isDropdowenDistrictVisable = true"
@@ -162,22 +162,22 @@
                   </div>
 
                   <!-- معلم قريب -->
-                  <div class="px-1  mb-3">
+                  <div class="px-1  mb-2">
                     <input
                       type="text"
                       v-model="NearestLand"
                       required
                       :placeholder="$t('nearest landmark')"
-                      class="w-full border border-gray-300 py-3 shadow rounded-lg p-2 text-xs focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
+                      class="w-full border border-gray-300 py-4 shadow rounded-lg p-2 text-xs focus:outline-none focus:ring-0 focus:ring-black focus:border-black focus:border-[1px]"
                     />
                   </div>
 
                   <!-- الخريطة  -->
-                  <div class="px-1 mb-3">
+                  <div class="px-1 mb-2">
                     <button
                       type="button"
                       @click="clickOpenMap()"
-                      class="w-full flex items-center bg-white shadow border border-gray-300 text-black gap-2 py-3 rounded-lg font-semibold text-xs"
+                      class="w-full flex items-center bg-white shadow border border-gray-300 text-black gap-2 py-4 rounded-lg font-semibold text-xs"
                     >
                       <svg
                         width="20"

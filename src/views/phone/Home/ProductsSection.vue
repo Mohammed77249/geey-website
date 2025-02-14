@@ -3,15 +3,15 @@
 
 
   <div
-    class="flex items-center justify-center rounded-[10px] h-[70px]  bg-white  gap-2 shadow"
+    class="flex items-center w-full justify-center rounded-[10px] h-[70px]  bg-white  gap-4 shadow"
   >
     <div class="">
       <button
         @click="taggleActiveForYou"
         :class="[
           onclickForYou
-          ? ' text-white bg-[#8a1538] py-1.5 px-3 rounded-full'
-          : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
+          ? ' text-white text-sm bg-[#8a1538] py-1.5 px-3 rounded-full'
+          : ' bg-gray-50 text-sm py-1.5 px-3 rounded-full text-[#252525]',
         ]"
       >
       <p>
@@ -26,8 +26,8 @@
         @click="taggleActiveNewEnters"
         :class="[
           onclickNewEnters
-            ? ' text-white bg-[#8a1538] py-1.5 px-3 rounded-full'
-            : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
+            ? ' text-white text-sm  bg-[#8a1538] py-1.5 px-3 rounded-full'
+            : ' bg-gray-50 py-1.5 px-3 text-sm rounded-full text-[#252525]',
         ]"
       >
       <p>
@@ -42,8 +42,8 @@
         @click="taggleActiveDiscounts"
         :class="[
           onclickDiscounts
-            ? ' text-white bg-[#8a1538] py-1.5 px-3 rounded-full'
-            : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
+            ? ' text-white bg-[#8a1538] text-sm py-1.5 px-3 rounded-full'
+            : ' bg-gray-50 py-1.5 px-3 text-sm rounded-full text-[#252525]',
         ]"
       >
       <p>
@@ -58,8 +58,8 @@
         @click="taggleActiveMoreSells"
         :class="[
           onclickMoreSells
-            ? ' text-white bg-[#8a1538] py-1.5 px-3 rounded-full'
-            : ' bg-gray-50 py-1.5 px-3 rounded-full text-[#252525]',
+            ? ' text-white bg-[#8a1538] text-sm py-1.5 px-3 rounded-full'
+            : ' bg-gray-50 py-1.5 text-sm px-3 rounded-full text-[#252525]',
         ]"
       >
         الاكثر_مبيعا

@@ -21,7 +21,7 @@
               class="w-full h-full object-cover transition rounded-lg duration-300 ease-in-out"
             />
           </div>
-          <p class="font-sembold text-primary-500">{{ product.price }} ر.ي</p>
+          <p class="font-sembold text-primary-500 text-xs">{{ product.price }} ر.ي</p>
         </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
               class="w-full h-full object-cover transition rounded-lg duration-300 ease-in-out"
             />
           </div>
-          <p class="font-sembold text-primary-500">{{ product.price }} ر.ي</p>
+          <p class="font-sembold text-primary-500 text-xs">{{ product.price }} ر.ي</p>
         </div>
     </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="props.isOpen"
-    class="fixed bottom-0 mb-16 w-full z-50"
+    class="fixed bottom-0 mb-16 w-full border-t-2 z-50"
   >
     <!-- Dialog Container -->
     <div
@@ -28,7 +28,7 @@
                   &times;
                 </button>
               </div>
-              <div class="p-2  m-2 sm:max-h-72 md:max-h-[500px] overflow-y-auto">
+              <div class="p-2   sm:max-h-72 md:max-h-[500px] overflow-y-auto">
                 <div class="rounded-xl shadow bg-gray-50 mb-3 py-2 " v-for="address in titles" :key="address.id">
                   <div class="grid grid-cols-12 p-2">
                     <div class="col-span-2 w-10 flex items-center justify-center  rounded-full h-10 bg-gray-200">

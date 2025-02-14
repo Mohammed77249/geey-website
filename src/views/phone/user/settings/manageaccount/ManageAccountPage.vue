@@ -18,11 +18,11 @@
       </div>
 
       <!-- main content -->
-      <div class="mt-10 pt-1 ">
-        <ul class="mt-5 space-y-3  text-gray-600 text-sm ">
+      <div class="mt-8 pt-1 ">
+        <ul class="mt-5 space-y-2  text-gray-600 text-sm ">
             <!-- change passowrd -->
               <li class="bg-white">
-                <button class="cursor-pointer h-16 w-full border-b-2 p-4">
+                <button class="cursor-pointer h-14 w-full border-b-2 p-4">
                   <RouterLink to="/phone/user/setting/manageAccount/changePassowrd">
                     <div class="flex items-center justify-between ">
                       <span class=" text-sm text-black font-medium">  تغيير كلمه المرور</span>

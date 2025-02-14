@@ -1,5 +1,5 @@
 <template>
-  <div  class="bg-gray-100 h-screen">
+  <div  class="bg-gray-50 h-screen">
       <!-- header -->
       <div class="fixed inset-0  bg-white p-2 shadow h-12">
         <div class="grid grid-cols-12 mt-2 items-center justify-between">
@@ -27,10 +27,10 @@
         </div>
         <div v-else-if="storeAddress.getAllAddresses">
           <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 mb-5 ">
-            <div class="col-span-6 bg-gray-100">
+            <div class="col-span-6 ">
 
-              <div class="p-2 m-2 sm:max-h-72 md:max-h-[500px] overflow-y-auto">
-                <div class="rounded-xl shadow mb-3 py-2 bg-white" v-for="address in storeAddress.getAllAddresses" :key="address.id">
+              <div class=" p-2 sm:max-h-72 md:max-h-[500px] overflow-y-auto">
+                <div class="rounded-xl shadow mb-2 py-2 bg-white" v-for="address in storeAddress.getAllAddresses" :key="address.id">
                   <RouterLink :to="`/phone/user/myaddress/editaddress/${address.id}`">
                   <div class="grid grid-cols-12 p-2 " >
                     <div class="col-span-2 w-12 rounded-full flex items-center justify-center   h-12 bg-gray-200">

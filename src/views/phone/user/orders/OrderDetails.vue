@@ -27,22 +27,22 @@
 
         <div v-if="order">
           <div  class="">
-            <div class="px-2 mt-4 shadow  bg-white py-2">
+            <div class="px-2  shadow  bg-white py-2">
                   <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
                     <h3 class="font-semibold   text-xs ">  {{ $t("order number") }} : </h3>
                     <span class="text-gray-500 font-semibold   text-xs ">{{ order.trx_id }} # </span>
                   </div>
             </div>
 
-            <div class="px-2 mt-3 shadow bg-white py-3">
+            <div class="px-2 mt-2 shadow bg-white py-3">
                   <div  class="flex items-center justify-between  gap-2 mb-2 cursor-pointer">
                     <h3 class="font-semibold   text-xs ">  وقت الشحن : </h3>
                     <span class="text-gray-500 font-semibold   text-xs ">{{ order.date }} # </span>
                   </div>
             </div>
 
-                    <div class=" shadow bg-white mt-3  "  v-for="(product, index) in order.order_products" :key="index">
-                      <div class="grid grid-cols-12 p-2 mt-2 mb-3">
+                    <div class=" shadow bg-white mt-2  "  v-for="(product, index) in order.order_products" :key="index">
+                      <div class="grid grid-cols-12 p-2 mt-2 mb-2">
                         <div class="col-span-4  ">
                           <div class="w-[100px] h-[120px] ">
                             <img :src="product.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? product.image :'/jeeeeylogo3.jpg'" alt="no image" class="w-full h-full rounded-lg border  object-contain " />

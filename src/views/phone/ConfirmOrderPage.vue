@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-100 h-screen">
+    <div class="bg-gray-50 h-screen">
     <!-- header -->
     <div class="fixed inset-0  bg-white p-2 shadow h-12">
 
@@ -23,9 +23,9 @@
 
       <!-- main content -->
       <div>
-        <div class="mt-12 pt-3">
+        <div class="mt-10 pt-3">
         <div class="">
-          <form class="space-y-3" @submit.prevent="handlOrder">
+          <form class="space-y-2" @submit.prevent="handlOrder">
             <!-- الصف الأول:  اضافه  الموقع  -->
              <div class="bg-white border shadow ">
               <div class="flex items-center ">
@@ -90,6 +90,7 @@
                 <div class="mb-2 p-2 border flex items-center justify-between" v-for="pay in storeOrder.getPaymentMethods" :key="pay.id" >
                   <div class="flex items-center gap-5 ">
                     <div class="w-10 h-10 bg-gray-200 flex items-center justify-center">
+                      <img src="/jeeeeylogo3.jpg"  alt="" class="  rounded-lg border w-full h-full" />
                     </div>
                     <label for="default-radio-3" class="mr-2 text-sm font-medium text-gray-900"> {{ pay.name }} </label>
                   </div>
@@ -184,7 +185,7 @@
             <div class="bg-white py-2 px-2  flex items-center   fixed bottom-0 w-full">
             <button
               type="submit"
-              class="w-full  bg-primary-900 text-white py-4 font-semibold  text-sm"
+              class="w-full rounded  bg-primary-900 text-white py-4 font-semibold  text-sm"
             >
              {{ $t("Confirm the order") }}
             </button>
@@ -260,11 +261,8 @@ const handlOrder = async () => {
     alert("تم الاضافه بنجاح")
     localStorage.removeItem("adressInfoName");
     localStorage.removeItem("adressInfoId");
-    setTimeout(() => {
-        router.push('/phone/home');
-      }, 1000);
+    router.push('/phone/home');
 
-      window.location.reload();
   }else{
     alert(storeOrder.error + "error");
     localStorage.removeItem("adressInfoName");

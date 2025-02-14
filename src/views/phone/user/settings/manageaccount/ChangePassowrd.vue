@@ -20,7 +20,7 @@
 
     <!-- main content -->
     <div>
-      <main class=" bg-white  mt-16 pt-4">
+      <main class=" bg-white  mt-14 pt-4">
     <!-- نموذج تغيير كلمة المرور -->
     <form @submit.prevent="changePassword">
       <!-- كلمة المرور الحالية -->

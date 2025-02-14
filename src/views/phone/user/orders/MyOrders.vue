@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 h-screen">
+  <div class="bg-gray-50 h-screen">
     <!-- header -->
     <div class="fixed inset-0  bg-white p-2 shadow h-20">
 
@@ -188,28 +188,27 @@
           </div>
 
           <!-- accepted -->
-          <div v-if="onclickNotPay" class="grid grid-cols-1 gap-1 w-full  mt-5  ">
+          <div v-if="onclickNotPay" class="grid grid-cols-1 gap-1 w-full ">
             <div v-for="(order, index) in approvedOrders"
               :key="index"
-                class="p-1 mt-4"
+               @click="GoToOrederDetails(order)"
+                class=" mt-1"
               >
               <div class="border  bg-white shadow p-3">
                 <div class="flex items-center gap-2 mb-2">
                   <div class="rounded-full w-4 h-4 " :style="['background-color:#' + order.status.color + '']"></div>
                   <p class="font-semibold text-xs"> {{ order.status.name }}</p>
                 </div>
-                <RouterLink :to="`/phone/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
                   <h3 class="font-semibold   text-xs "> رقم الطلب : </h3>
                   <span class="text-gray-500 font-semibold   text-xs ">{{ order.trx_id }} # </span>
                 </div>
-              </RouterLink>
 
 
                 <div class=" flex items-center gap-5   overflow-x-auto ">
                   <div class=""  v-for="(product, index) in order.order_products" :key="index">
                     <div class="w-[130px] h-[150px] ">
-                      <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
+                      <img :src="product.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? product.image :'/jeeeeylogo3.jpg'"  alt="" class=" h-full rounded-lg border   object-contain " />
                     </div>
                   </div>
                 </div>
@@ -240,28 +239,27 @@
           </div>
 
           <!-- قيد التجهيز -->
-          <div v-if="onclickEfficientprocessing" class="grid grid-cols-1 gap-1 mt-5 w-full ">
+          <div v-if="onclickEfficientprocessing" class="grid grid-cols-1 gap-1  w-full ">
             <div v-for="(order, index) in EfficientprocessingOrders"
               :key="index"
-                class="p-1 mt-4"
+               @click="GoToOrederDetails(order)"
+                class="mt-1"
               >
               <div class="border  bg-white shadow p-3">
                 <div class="flex items-center gap-2 mb-2">
                   <div class="rounded-full w-4 h-4 " :style="['background-color:#' + order.status.color + '']"></div>
                   <p class="font-semibold text-xs"> {{ order.status.name }}</p>
                 </div>
-                <RouterLink :to="`/phone/user/myorder/${order.id}`">
                 <div  class="flex items-center  gap-2 mb-2 cursor-pointer">
                   <h3 class="font-semibold   text-xs "> رقم الطلب : </h3>
                   <span class="text-gray-500 font-semibold   text-sm ">{{ order.trx_id }} # </span>
                 </div>
-              </RouterLink>
 
 
                 <div class=" flex items-center gap-5   overflow-x-auto ">
                   <div class=""  v-for="(product, index) in order.order_products" :key="index">
                     <div class="w-[130px] h-[150px] ">
-                      <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
+                      <img :src="product.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? product.image :'/jeeeeylogo3.jpg'"  alt="" class=" h-full rounded-lg border   object-contain " />
                     </div>
                   </div>
                 </div>
@@ -293,10 +291,10 @@
 
 
           <!--  تم التوصيل -->
-          <div v-if="onclickShipped" class="grid grid-cols-1 gap-1 w-full mt-5 ">
-            <div v-for="(order, index) in EfficientprocessingOrders"
+          <div v-if="onclickShipped" class="grid grid-cols-1 gap-1 w-full ">
+            <div v-for="(order, index) in shopedOrders"
               :key="index"
-                class="p-1 mt-4"
+                class="mt-1"
               >
               <div class="border  bg-white shadow p-3">
                 <div class="flex items-center gap-2 mb-2">
@@ -314,7 +312,7 @@
                 <div class=" flex items-center gap-5   overflow-x-auto ">
                   <div class=""  v-for="(product, index) in order.order_products" :key="index">
                     <div class="w-[130px] h-[150px] ">
-                      <img :src="product.image"  alt="no image" class="w-full h-full rounded-lg border   object-cover " />
+                      <img :src="product.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? product.image :'/jeeeeylogo3.jpg'"  alt="" class=" h-full rounded-lg border   object-contain " />
                     </div>
                   </div>
                 </div>
@@ -345,54 +343,9 @@
           </div>
 
 
-
-
-          <!-- <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 ">
-          <div v-for="order in orders" :key="order.id" class="mb-4">
-            <div
-              class="bg-white shadow-md rounded-lg p-4 cursor-pointer hover:shadow-lg flex items-center"
-              @click="selectOrder(order)"
-            >
-              <img
-                :src="order.image"
-                alt="Product Image"
-                class="w-16 h-16 rounded-md object-cover mr-4"
-              />
-              <div>
-                <h3 class="text-lg font-medium">طلب رقم: {{ order.number }}</h3>
-                <p class="text-gray-600">تاريخ الطلب: {{ order.date }}</p>
-                <p :class="{
-                    'text-green-500': order.status === 'تم التوصيل',
-                    'text-yellow-500': order.status === 'قيد الشحن'
-                  }"
-                >
-                  {{ order.status }}
-                </p>
-              </div>
-            </div>
-          </div>
-          </div> -->
         </div>
 
-        <!-- تفاصيل الطلب -->
-        <!-- <div v-if="selectedOrder" class="bg-white shadow-md rounded-lg p-4">
-          <h2 class="text-lg font-semibold mb-4">تفاصيل الطلب</h2>
-          <img
-            :src="selectedOrder.image"
-            alt="Product Image"
-            class="w-48 h-48 rounded-md object-cover mx-auto mb-4"
-          />
-          <p><strong>رقم الطلب:</strong> {{ selectedOrder.number }}</p>
-          <p><strong>الحالة:</strong> {{ selectedOrder.status }}</p>
-          <p><strong>تاريخ الطلب:</strong> {{ selectedOrder.date }}</p>
-          <p><strong>السعر الإجمالي:</strong> {{ selectedOrder.total }} ريال</p>
-          <button
-            class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-            @click="clearSelection"
-          >
-            إغلاق التفاصيل
-          </button>
-        </div> -->
+
       </div>
     </main>
     </div>
@@ -500,6 +453,8 @@ onMounted(async() => {
  approvedOrders.value = orderStore.getAllOrders.filter(order => order.status.id == 2)
  EfficientprocessingOrders.value = orderStore.getAllOrders.filter(order => order.status.id == 3);
  shopedOrders.value = orderStore.getAllOrders.filter(order => order.status.id == 6);
+
+
 });
 
 
