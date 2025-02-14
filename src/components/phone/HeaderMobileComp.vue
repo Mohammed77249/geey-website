@@ -182,7 +182,7 @@ const filteredData = ref({
   sectionId:5,
   page: 1,
   perPage: 20,
-  filter:0
+  filter:1
 });
 
 
@@ -199,8 +199,12 @@ const handleScroll = () => {
 const onClickSubsection = async(id) =>{
   activeSectionId.value = id;
   filteredData.value.sectionId = id
+  localStorage.setItem('SectionId', id)
    await storeSecion.fetchSubSectionBySectionID(filteredData)
    await storeSecion.fetchGetBanner(filteredData)
+
+   storeSecion.resetProductsMain();
+   storeSecion.fetchProductForMainPageFilter(filteredData);
 }
 
 // إضافة وإزالة مستمع التمرير
@@ -210,7 +214,9 @@ onMounted(async() => {
    await storeSecion.fetchGetBanner(filteredData)
    activeSectionId.value = filteredData.value.sectionId;
 
-
+   localStorage.setItem('SectionId',  filteredData.value.sectionId)
+   storeSecion.resetProductsMain();
+   storeSecion.fetchProductForMainPageFilter(filteredData);
   window.addEventListener("scroll", handleScroll);
 });
 

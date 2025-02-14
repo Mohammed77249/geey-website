@@ -7,6 +7,7 @@ export const useSectionsPhoneStore = defineStore('sectionsphone', {
     subsections:[],
     categories: [],
     subcategories: [],
+    product_Filter_SubSection:[],
     bannerImage:[],
     products:[],
     totalProducts: {
@@ -15,6 +16,10 @@ export const useSectionsPhoneStore = defineStore('sectionsphone', {
       totalPages: null,
     },
     productDetails: null,
+    showLoadingMessage: false,
+    page:1,
+    perPage: 10,
+    hasMore:true,
     loading: false,
     error: null,
 
@@ -27,6 +32,8 @@ export const useSectionsPhoneStore = defineStore('sectionsphone', {
     getProducts: state => state.products,
     getCategories: state => state.categories,
     getBannerImage : state => state.bannerImage,
+    getProducts_MainPageMoreSells:state => state.product_Filter_SubSection,
+
     },
   actions: {
 
@@ -97,23 +104,45 @@ export const useSectionsPhoneStore = defineStore('sectionsphone', {
 
     // products for main page moreSells
     async fetchProductForMainPageFilter(data) {
-      this.loading = true;
+
+      if ( !this.hasMore) return;
+
+      this.showLoadingMessage = true;
       this.error = null;
       try {
-        const response = await axiosIns.get(`/sections?page=${data.value.page}&perPage=${data.value.perPage}&filter=${data.value.filter}`);
-        this.product_Filter_SubSection = response.data.products.data;
-        this.totalProducts.currentPage = response.data.products.current_page;
-        this.totalProducts.totalItems = response.data.products.total;
-        this.totalProducts.totalPages = response.data.products.last_page;
+        const response = await axiosIns.get(`/sections/${data.value.sectionId}?page=${this.page}&perPage=${this.perPage}&filter=${data.value.filter}`);
+        // تأخير عرض المنتجات لمدة ثانيتين
+        setTimeout(() => {
+          // إضافة المنتجات الجديدة إلى القائمة
+          this.product_Filter_SubSection.push(...response.data.products.data);
+
+          // تحقق مما إذا كان هناك المزيد من المنتجات
+          if (response.data.products.data.length < this.perPage) {
+            this.hasMore = false;
+          } else {
+            this.page++;
+          }
+
+          // إخفاء رسالة تحميل المزيد
+          this.showLoadingMessage = false;
+        }, 1000);
+
       } catch (error) {
-        this.error = 'خطأ أثناء جلب الاقسام';
-        alert(error(error));
+        this.error = error+ 'خطأ أثناء جلب الاقسام';
         this.loading = false;
       } finally {
         this.loading = false;
       }
     },
-
+    resetProductsMain() {
+      this.product_Filter_SubSection = [];
+      this.page = 1;
+      this.hasMore = true;
+      this.loading = false;
+      this.showLoadingMessage = false;
+      this.error = null;
+    },
+    //=============================
 
     async fetchSubCategoryByCategoryID(data) {
       const filter = 0

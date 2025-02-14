@@ -113,18 +113,33 @@
 </template>
 
 <script setup>
-import { ref, onMounted,defineAsyncComponent } from 'vue';
+import { ref,defineAsyncComponent ,onMounted,onBeforeUnmount } from 'vue';
 const DialogAddToCart = defineAsyncComponent(() => import('@/components/phone/DialogAddToCartComp.vue'));
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
-import { useSectionsStore } from '@/stores/section';
+import { useSectionsPhoneStore } from '@/stores/sectionsphone';
 import { useIntersectionObserver } from '@vueuse/core';
 const authStore = useAuthStore();
-const SectionStore = useSectionsStore();
+const SectionStore = useSectionsPhoneStore();
 const router = useRouter();
+
+
+// Props
+const props = defineProps({
+  NumberFilter: {
+    type: String,
+  },
+
+  sectionID: {
+    type: String,
+  },
+})
+
+
+
 const openDialog = (id) => {
   if (!authStore.isAuthenticated) {
     router.push('/phone/login');
@@ -151,8 +166,19 @@ const filteredData2 = ref({
       sectionId:1,
       page: 1,
       perPage: 20,
-      filter:3
+      filter:1,
 });
+
+const hoveredIndex = ref(null);
+    let intervalId;
+    const updateHoveredIndex = () => {
+      const newIndex = localStorage.getItem("SectionId");
+      hoveredIndex.value = newIndex !== null ? parseInt(newIndex) : null;
+    };
+
+
+
+
 
 const loadMoreTrigger = ref(null);
 // استخدام IntersectionObserver لمراقبة نهاية الصفحة
@@ -160,16 +186,35 @@ useIntersectionObserver(
   loadMoreTrigger,
   ([{ isIntersecting }]) => {
     if (isIntersecting) {
+      filteredData2.value.sectionId = hoveredIndex.value
       SectionStore.fetchProductForMainPageFilter(filteredData2);
     }
   },
   { threshold: 0.5 }
 );
 
-// جلب أول مجموعة من المنتجات عند التركيب
+
+
 onMounted(() => {
-  SectionStore.resetProductsMain();
-  SectionStore.fetchProductForMainPageFilter(filteredData2);
-});
+      updateHoveredIndex();
+      intervalId = setInterval(updateHoveredIndex, 500);
+
+      if(props.NumberFilter){
+      filteredData2.value.filter = props.NumberFilter
+      filteredData2.value.sectionId = hoveredIndex.value
+      SectionStore.resetProductsMain();
+      SectionStore.fetchProductForMainPageFilter(filteredData2);
+    }
+
+    });
+
+
+    onBeforeUnmount(() => {
+      clearInterval(intervalId);
+    });
+
+
+
+
 
 </script>

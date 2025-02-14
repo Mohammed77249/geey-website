@@ -123,7 +123,7 @@ export const useSectionsStore = defineStore('sections', {
       this.showLoadingMessage = true;
       this.error = null;
       try {
-        const response = await axiosIns.get(`/sections?page=${this.page}&perPage=${this.perPage}&filter=${data.value.filter}`);
+        const response = await axiosIns.get(`/sections/${data.value.sectionId}?page=${this.page}&perPage=${this.perPage}&filter=${data.value.filter}`);
         // تأخير عرض المنتجات لمدة ثانيتين
         setTimeout(() => {
           // إضافة المنتجات الجديدة إلى القائمة

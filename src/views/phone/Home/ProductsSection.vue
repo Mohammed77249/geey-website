@@ -70,18 +70,25 @@
   </div>
 </div>
   <div class="mb-5">
-    <!-- <div v-if="onclickNewEnters">
-      <ProductComp />
-    </div> -->
-
     <div v-if="onclickForYou">
-      <ProductComp />
+      <ProductComp NumberFilter="1" />
+    </div>
+
+    <div v-if="onclickNewEnters">
+      <ProductComp NumberFilter="2" />
+    </div>
+
+    <div v-if="onclickDiscounts">
+      <ProductComp NumberFilter="3" />
+    </div>
+
+    <div v-if="onclickMoreSells">
+      <ProductComp NumberFilter="4" />
     </div>
   </div>
 </template>
 
 <script setup>
-// import LowProductsell from '@/components/HomeComponent/LowProductsell.vue'
 import ProductComp from '@/components/phone/ProductComp.vue'
 import { ref } from 'vue'
 
