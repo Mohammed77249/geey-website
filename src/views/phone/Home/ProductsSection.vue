@@ -1,9 +1,9 @@
 <template>
-<div class=" bg-white border max-w-md p-2 wshadow h-[70px] flex items-center">
+<div class=" bg-white border max-w-md p-2 shadow h-[70px] flex items-center">
 
 
   <div
-    class="flex items-center  overflow-x-auto custom-scroll    gap-4 "
+    class="flex items-center  overflow-x-auto custom-scroll   gap-4 "
   >
     <div class="">
       <button

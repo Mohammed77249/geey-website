@@ -295,6 +295,7 @@
             <div v-for="(order, index) in shopedOrders"
               :key="index"
                 class="mt-1"
+                @click="GoToOrederDetails(order)"
               >
               <div class="border  bg-white shadow p-3">
                 <div class="flex items-center gap-2 mb-2">

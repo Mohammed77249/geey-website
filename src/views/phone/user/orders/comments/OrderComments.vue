@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-100 h-screen">
+    <div class="bg-gray-50 h-screen">
       <!-- header -->
       <div class="fixed inset-0  bg-white p-2 shadow h-12">
         <div class="grid grid-cols-12 mt-1 items-center justify-between">
@@ -25,29 +25,42 @@
         </div>
         <div v-else-if="commentStore.getReviews.length >0 " >
           <!-- product details -->
-         <div class=" bg-white w-full  mb-4" >
-          <div class="grid grid-cols-12 p-2">
+         <div class=" bg-white w-full  mb-2" >
+          <div class="grid grid-cols-12 gap-4 p-2">
             <div class="col-span-4">
               <img
-                    class="h-full w-full object-contain"
-                    src="/src/assets/images/products/Image (1).svg"
+                    class="h-full w-full object-contain rounded"
+                    :src="productDetails.image? productDetails.image: '/src/assets/images/products/Image (1).svg'"
                   />
             </div>
 
-            <div class="col-span-4">
-
+            <div class="col-span-4 ">
+                    <span>{{ productDetails.name }}</span>
+                          <div class="flex-col items-center  gap-5 ">
+                            <span class="text-xs" >   {{ $t("Quantity") }} :  {{ productDetails.quantity }} </span>
+                          </div>
+                          <div class="text-xs mt-1">
+                            <span class="text-xs "> {{ $t("measuring") }} : {{ productDetails.measuring_value }}</span>
+                          </div>
+                          <div v-if="productDetails.hex_code" class="text-xs mt-1 flex">
+                            <span class="text-xs  "> {{ $t("Color") }} :
+                            </span>
+                            <div class="w-3 h-3 rounded-full flex items-center justify-center mt-[2px] mx-1" :style="{ backgroundColor: productDetails.hex_code }" ></div>
+                            <span>{{ productDetails.color_name }}</span>
+                          </div>
             </div>
 
           </div>
          </div>
 
         <!-- header comments -->
-            <div   class=" grid grid-cols-12 p-2 bg-white mb-4">
+            <div   class=" grid grid-cols-12 p-2 bg-white mb-2">
               <div class="col-span-4">
                 <div class=" border-l-2  h-full w-full flex items-center justify-center">
                   <div class="flex-col items-center justify-center">
-                    <h1 class=" font-bold text-2xl text-black">{{ commentStore.getCommentsForProduct.rates }}</h1>
-                    <span  class="flex mt-5">
+
+                      <h1 class=" font-bold text-2xl text-center text-black">{{ commentStore.getCommentsForProduct.rates }}</h1>
+                    <span  class="flex ">
                       <div class="stars">
                         <span v-for="star in 5" :key="star" class="star" :class="{'filled': star <= fullStars, 'half': star === fullStars + 1 && halfStar}">
                           ★
@@ -55,6 +68,8 @@
                       </div>
 
                     </span>
+
+
                   </div>
 
                 </div>
@@ -63,17 +78,25 @@
 
               <div class="col-span-8 p-2 ">
                 <h1 class="text-xs  text-gray-500 font-semibold"> هل مقاس المنتج مناسب بشكل جيد؟ </h1>
+
                 <div  v-for="(comment, index) in commentStore.getCommentsForProduct.counter" :key="index" class="">
-                  <div class="grid grid-cols-12 items-center  mt-2">
-                    <p class="col-span-3 text-sm font-bold">{{ comment.name }}</p>
+                  <div class="grid grid-cols-12  items-center  mt-2">
+                    <p class="col-span-3 text-sm font-Semibold">{{ comment.name }}</p>
                     <div class=" col-span-9 flex items-center gap-2">
-                      <div class="w-40 h-[5px]">
-                        <div class=" h-[5px]"
-                        :class="comment.value == 1 || comment.value == 2 || comment.value == 3?' bg-primary-900 w-full' : 'bg-gray-300 w-full'"
-                         ></div>
+                      <div class="w-32 bg-gray-200 h-[5px]">
+                        <div
+                          :style="{ width: `${getPercentage(comment)}%` }"
+                          class="h-full rounded-full bg-gray-500'"
+                          :class="{
+                            'bg-primary-900': comment.name === 'صغير',
+                            'bg-primary-900': comment.name === 'مناسب',
+                            'bg-primary-900': comment.name === 'كبير',
+
+                          }"
+                        ></div>
                       </div>
-                      <p v-if="comment.value == 1 || comment.value == 2 || comment.value == 3" class="text-[10px]">100%</p>
-                      <p v-else class="text-[10px]"> 0%</p>
+                      <span class="text-xs ml-2">{{ getPercentage(comment).toFixed(1) }}%</span>
+
                     </div>
                   </div>
 
@@ -126,28 +149,28 @@
           </div>
 
           <!-- images -->
-          <div class="mt-4 gap-2">
-              <div class="flex items-center gap-2">
-                <div class="w-[100px]  bg-gray-50">
-                  <div v-if="comment.images &&comment.images.length>0">
+          <div class="mt-4">
+    <div class="flex items-center overflow-x-auto gap-2 bg-gray-100 w-full">
+      <!-- إذا كان هناك صور -->
+      <div v-if="comment.images && comment.images.length > 0" class="flex items-center gap-2">
+        <img
+          v-for="(image, index) in comment.images"
+          :key="index"
+          class="h-[100px] w-[80px] "
+          :src="image.image"
+          alt="image"
+        />
+      </div>
 
-                    <img  v-for="(image, index) in comment.images " :key="index"
-                    class="h-full w-full object-cover"
-                    :src="image.image"
-                  />
-                  </div>
-
-                  <div v-else>
-                  </div>
-
-                </div>
-
-              </div>
-
-          </div>
+      <!-- إذا لم تكن هناك صور -->
+      <div v-else>
+        <p>No images available</p>
+      </div>
+    </div>
+  </div>
 
           <!-- like and date -->
-          <div class="w-full h-9 flex items-center justify-between mt-1 gap-3">
+          <div class="w-full h-7 flex items-center justify-between mt-1 gap-3">
 
             <!-- date -->
             <div class="flex items-center gap-2">
@@ -155,12 +178,10 @@
             </div>
 
             <!-- like button -->
-            <div class="flex items-center gap-2">
-                  <svg v-if="comment.like_status[0].status == 0"
-                     @click="toggleLike(comment)" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  <svg v-else-if=" comment.like_status[0].status == 1"   @click="toggleLike(comment)" width="20" height="20" viewBox="0 0 24 24" fill="#8a1538" xmlns="http://www.w3.org/2000/svg">
+            <div  class="flex items-center gap-2">
+
+
+                  <svg v-if=" comment.like_status[0].status == 1"   @click="toggleLike(comment)" width="20" height="20" viewBox="0 0 24 24" fill="#8a1538" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                   <svg v-else-if="isLiked == false"
@@ -175,9 +196,10 @@
                   </svg>
 
 
-                  <h1 class=""> {{ comment.review_like_count }}</h1>
+                  <h1 class="text-xs"> {{ comment.review_like_count }}</h1>
 
             </div>
+
           </div>
 
         </div>
@@ -218,7 +240,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref,defineAsyncComponent } from "vue";
+import { onMounted, ref,defineAsyncComponent,computed } from "vue";
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 
 import { useCommentsStore } from '@/stores/comments.js';
@@ -229,6 +251,8 @@ const route = useRoute();
 const router = useRouter();
 const commentStore = useCommentsStore();
 
+
+const productDetails = ref([]);
 const productId = ref();
 const rating = ref(0);
 const fullStars = ref(0);
@@ -247,20 +271,39 @@ const closeDialog = () => {
 
 const goBack = () => {
   router.back();
+  localStorage.removeItem('productDetails')
+};
+
+
+// حساب العدد الإجمالي للتعليقات
+const totalComments = computed(() => commentStore.getCommentsForProduct.counter.reduce((total, item) => total + item.value, 0));
+const getPercentage = (item) => {
+  if (totalComments.value === 0) return 0;
+  return (item.value / totalComments.value) * 100;
 };
 
 
 const toggleLike = async (comment) => {
 
-  if(comment.like_status[0].status == 0 || comment.status == ''){
+  if(comment.like_status.length > 0 ){
+
+    if(comment.like_status[0].status == 0){
+      await commentStore.AddLikeToComment(comment.id);
+    await commentStore.fetchCommentsByProductId(productId.value);
+    isLiked.value = true;
+    }
+
+    if(comment.like_status[0].status == 1){
+      await commentStore.DisLikeComment(comment.id);
+    await commentStore.fetchCommentsByProductId(productId.value);
+    isLiked.value = false;
+    }
+
+
+  }else{
     await commentStore.AddLikeToComment(comment.id);
     await commentStore.fetchCommentsByProductId(productId.value);
     isLiked.value = true;
-
-  }else {
-    await commentStore.DisLikeComment(comment.id);
-    await commentStore.fetchCommentsByProductId(productId.value);
-    isLiked.value = false;
   }
 };
 
@@ -275,6 +318,12 @@ onMounted(async() => {
     halfStar.value = rating.value % 1 >= 0.5;
 
   }
+
+  const storedUser = JSON.parse(localStorage.getItem('productDetails'));
+  if (storedUser) {
+    productDetails.value = storedUser;
+  }
+
 
 });
 

@@ -142,6 +142,9 @@ const goBack = () => {
 };
 
 const GoToOrederComments = (product)=>{
+
+  localStorage.setItem('productDetails',JSON.stringify(product) )
+
   router.push({ path: `/phone/user/myorder/comments`, query: {  id: encodeURIComponent(product.id)  } })
 
 }
