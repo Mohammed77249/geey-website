@@ -1,30 +1,28 @@
 <template>
   <div
     v-if="props.isOpen"
-    class="fixed bottom-0 mb-16 bg-white w-full z-50"
+    class="fixed bottom-0 mb-16  bg-white rounded w-full z-50"
   >
 
       <!-- Dialog Content -->
+    <div class=" bg-white">
 
-        <div>
-          <div class="grid grid-cols-1  gap-3 mb-5 ">
-            <div class="col-span-6 bg-white">
-              <div class="py-2 p-5  border mt-2 bg-white m-2 flex items-center justify-between">
-                <h1 class="text-primary-900 font-bold text-sm"> هل يمكنك ترك رايك؟</h1>
+              <div class="py-2 p-5  mt-2 bg-white m-2 grid grid-cols-12 items-center justify-between">
+                <h1 class="text-black font-bold text-sm text-center col-span-11 "> هل يمكنك ترك رايك؟</h1>
                 <button
                   @click="close"
-                  class="text-primary-900  text-[20px] hover:text-black"
+                  class="text-primary-900  text-[20px] hover:text-black col-span-1"
                 >
                   &times;
                 </button>
               </div>
 
-
-              <div class="p-2  m-2 h-96">
+              <form @submit.prevent="submitReview"  class="">
 
                 <!-- التقييم النجمي -->
-                <div class="flex justify-center items-center space-x-1 relative">
-                  <div
+                <div class="flex  items-center justify-center  ">
+                  <div  class="flex-col justify-center  items-center ">
+                    <div
                     class="flex space-x-1 w-full"
                     @mousedown="startDrag"
                     @mouseup="endDrag"
@@ -35,6 +33,7 @@
                     @touchmove.passive="dragStars"
                     ref="starsContainer"
                     style="cursor: pointer;"
+                    required
                   >
                     <span
                       v-for="star in 5"
@@ -45,79 +44,128 @@
                       ★
                     </span>
                   </div>
-                  <span class="ml-2 text-xl text-gray-700">{{ rating.toFixed(1) }} / 5</span>
+                  <span class=" text-lg text-gray-700 text-center flex items-center justify-center">{{ rating.toFixed(1) }}</span>
+                  </div>
+
+
                 </div>
 
                 <!-- تعليق المستخدم -->
-                <div class="mt-4">
-                  <label for="comment" class="block text-sm font-medium text-gray-700">هل يمكنك ترك رأيك؟</label>
+                <div class="mt-4 px-3">
                   <textarea
                     id="comment"
-                    v-model="comment"
+                    v-model="FormData.comment"
+                    required
                     rows="4"
-                    class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                    class="mt-1 p-2 w-full  bg-gray-50 rounded-md ring-0"
                     placeholder="أضف تعليقك هنا"
                   ></textarea>
                 </div>
 
                   <!-- اللون والمقاس -->
-                  <div class="flex space-x-4 mt-4">
-                    <div>
-                      <label for="color" class="block text-sm font-medium text-gray-700">اللون:</label>
-                      <select id="color" v-model="selectedColor" class="mt-1 p-2 border border-gray-300 rounded-md">
-                        <option value="black">أسود</option>
-                        <option value="white">أبيض</option>
-                        <option value="blue">أزرق</option>
-                      </select>
+                  <div class="px-3 grid grid-cols-12 mt-2">
+
+                    <!-- color -->
+                    <div class="col-span-6">
+                      <div v-if="props.productDetails.hex_code" class="text-xs mt-1 flex">
+                            <span class="text-sm font-medium text-gray-700  "> {{ $t("Color") }} :
+                            </span>
+                            <div class="w-3 h-3 rounded-full flex items-center justify-center mt-[2px] mx-1" :style="{ backgroundColor: productDetails.hex_code }" ></div>
+                            <span>{{ productDetails.color_name }}</span>
+                          </div>
                     </div>
 
-                    <div>
-                      <label for="size" class="block text-sm font-medium text-gray-700">المقاس:</label>
-                      <select id="size" v-model="selectedSize" class="mt-1 p-2 border border-gray-300 rounded-md">
-                        <option value="s">S</option>
-                        <option value="m">M</option>
-                        <option value="l">L</option>
-                      </select>
+                    <!-- size -->
+                    <div class="col-span-6">
+                      <span class="text-sm font-medium text-gray-700"> {{ $t("measuring") }} : {{ productDetails.measuring_value }}</span>
+                    </div>
+
+                  </div>
+
+                  <!-- perfect or not -->
+
+                  <div class="px-3 grid grid-cols-12 mt-4">
+                    <div class="col-span-4 flex items-center">
+                      <input id="default-radio-1" type="radio" value="1" v-model="FormData.proportion" name="default-radio-1" class="w-4 h-4 text-primary-900 bg-primary-900 border-primary-900  focus:ring-primary-900">
+                      <span class="ms-2 text-sm font-medium text-black">صغير </span>
+                    </div>
+                    <div class=" col-span-4 flex items-center">
+                        <input checked id="default-radio-2" type="radio" value="2" v-model="FormData.proportion" name="default-radio-2" class="w-4 h-4 text-primary-900 bg-primary-900 border-primary-900 focus:ring-primary-900">
+                        <span class="ms-2 text-sm font-medium text-black">مناسب</span>
+                    </div>
+                    <div class=" col-span-4 flex items-center">
+                        <input  id="default-radio-3" type="radio" value="3" v-model="FormData.proportion" name="default-radio-3" class="w-4 h-4 text-primary-900 bg-primary-900 border-primary-900 focus:ring-primary-900">
+                        <span  class="ms-2 text-sm font-medium text-black">كبير</span>
                     </div>
                   </div>
 
 
-                      <!-- خيار إضافة صورة -->
-                <div class="mt-4">
-                  <label for="image-upload" class="block text-sm font-medium text-gray-700">إضافة صورة:</label>
-                  <input type="file" id="image-upload" @change="handleImageUpload" class="mt-1 p-2 border border-gray-300 rounded-md" />
+                    <!-- اختيار الصور -->
+                <div class="px-3 mt-4">
+
+                  <!-- اختيار الصور -->
+                  <div class="cursor-pointer ">
+                    <div class="w-28 h-10 shadow rounded-lg relative flex items-center px-2 justify-center gap-2 ">
+                      <img
+                          src="/src/assets/images/camera.svg"
+                          alt="معاينة الصورة"
+                          class="w-4 h-4  object-cover "
+                        />
+                      <span  class=" text-sm font-semibold text-primary-900 ">إضافة صورة</span>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        @change="previewImages"
+                        class="absolute opacity-0 cursor-pointer"
+                      />
+
+
+
+                    </div>
+
+
+                  </div>
+
+                  <!-- عرض الصور -->
+                  <div class=" mx-auto mt-2 w-full  h-24 ">
+                    <div  v-if="images.length > 0" class=" flex items-center gap-2 w-full  h-24 ">
+                      <div
+                        v-for="image in images"
+                        :key="image.id"
+                        class=" w-24 h-24 rounded-lg"
+                      >
+                        <img
+                          :src="image.url"
+                          class="w-full h-full object-cover rounded-lg"
+                        />
+
+                      </div>
+                    </div>
+                    </div>
+
                 </div>
 
+                        <!-- زر الحفظ -->
+                    <div class="bg-white py-2 px-2  flex items-center   fixed bottom-0 w-full">
+                        <button
+                          type="submit"
+                          class="w-full rounded-xl  bg-primary-900 text-white py-4 font-semibold  text-sm"
+                        >
+                      تاكيد
+                        </button>
+                    </div>
 
-
-              </div>
-            </div>
-
-             <!-- زر الحفظ -->
-             <div class="bg-white py-2 px-2  flex items-center   fixed bottom-0 w-full">
-                <button
-                  type="button"
-                  class="w-full rounded-xl  bg-primary-900 text-white py-4 font-semibold  text-sm"
-                >
-               تاكيد
-                </button>
-              </div>
-
-          </div>
-
-
-        </div>
-
+              </form>
+    </div>
 
 
   </div>
 </template>
 
 <script setup>
-
 import { ref ,watch } from 'vue';
-
-
+import { useCommentsStore } from '@/stores/comments.js';
 
 // Props
 const props = defineProps({
@@ -131,16 +179,58 @@ const props = defineProps({
   error: {
     type: String,
   },
-})
+  productDetails:{
+    type:Array
+  },
+  orderId:{
+    type: String,
+  }
+});
 
-const rating = ref(0);
+const commentStore = useCommentsStore();
+
+const rating = ref(2.5);
 let isDragging = false;
 let containerLeft = 0;
 let containerWidth = 0;
 const starsContainer = ref(null);
-const comment = ref('');
+
+const FormData = ref({
+  product_id:null,
+  order_id:null,
+  color_id:null,
+  parent_measuring_id:null,
+  comment:null,
+  rating:null,
+  proportion:2,
+  images:null
+});
 
 
+
+
+const images = ref([]);
+const previewImages = (event) => {
+  const files = event.target.files;
+
+  if (!files) return;
+
+  for (const file of files) {
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        images.value.push({
+          id: Date.now() + file.name,
+          url: e.target.result,
+          file: file
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+};
 
 
 
@@ -158,25 +248,14 @@ watch(() => props.isOpen, (newVal) => {
 });
 
 
-
-// لون المنتج المحدد
-const selectedColor = ref('black');
-
-// المقاس المحدد
-const selectedSize = ref('s');
-
-
-
-// التعامل مع رفع الصورة
-const handleImageUpload = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    // هنا يمكنك معالجة الصورة (مثل رفعها إلى الخادم)
-    console.log("تم رفع الصورة:", file.name);
+// إدارة حالة التمرير
+watch(() => props.isOpen, (newVal) => {
+  if (newVal) {
+    document.body.classList.add('overflow-hidden');
+  } else {
+    document.body.classList.remove('overflow-hidden');
   }
-};
-
-
+});
 
 
 
@@ -226,29 +305,25 @@ const getStarStyle = (star) => {
 
 
 // إرسال التقييم
-const submitReview = () => {
-  const reviewData = {
-    rating: rating.value,
-    comment: comment.value,
-    color: selectedColor.value,
-    size: selectedSize.value,
-    image: "uploaded_image_url",  // استبداله بالرابط الفعلي للصورة
-  };
+const submitReview = async() => {
+  if(props.productDetails){
+    FormData.value.product_id = props.productDetails.id
+    FormData.value.parent_measuring_id = props.productDetails.measuring_id
+    FormData.value.color_id = props.productDetails.color_id
+  }
+  FormData.value.rating = rating.value
+  FormData.value.order_id = props.orderId
 
-  // إرسال البيانات إلى الـ API (على سبيل المثال باستخدام axios)
-  console.log("إرسال التقييم:", reviewData);
+  const result = await commentStore.creatComment(FormData.value);
+  if(result){
+    alert("تم الاضافه بنجاح")
+  }else{
+    alert("error "+commentStore.error)
+  }
+
 };
 
 
-// onMounted(() => {
-//   // تهيئة القيم بعد تحميل المكون
-//   const rect = starsContainer.value.getBoundingClientRect();
-//   containerLeft = rect.left;
-//   containerWidth = rect.width;
-// });
-
-
-// Emits
 const emit = defineEmits(['close'])
 
 // Close the dialog

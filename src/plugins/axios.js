@@ -3,17 +3,18 @@ import i18n from './i18n'
 const language = i18n.global.locale
 import CryptoJS from "crypto-js";
 const encryptionKey = "m-12345krglfksdjojsdkmfkdmsliwefnldvksmlejnsd";
-
 const BaseUrl =  import.meta.env.VITE_API_URL
+const currency = localStorage.getItem('currency');
+
 const axiosIns = axios.create({
   baseURL:BaseUrl,
   timeout: 10000,
   headers: {
     "accept-language": language,
     'Content-Type': 'application/json',
+    'Currency-Code': currency,
 
   },
-
 
 });
 

@@ -3,7 +3,7 @@
     <div>
       <ul class="space-y-5">
         <!-- Loader Component -->
-        <div v-if="storeSection.loading">
+        <div class="w-full h-[245px] text-center" v-if="storeSection.loading">
           <LoaderDatacomp :is-loader="storeSection.loading" />
         </div>
 

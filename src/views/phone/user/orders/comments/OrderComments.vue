@@ -59,7 +59,7 @@
                 <div class=" border-l-2  h-full w-full flex items-center justify-center">
                   <div class="flex-col items-center justify-center">
 
-                      <h1 class=" font-bold text-2xl text-center text-black">{{ commentStore.getCommentsForProduct.rates }}</h1>
+                    <h1 class=" font-bold text-2xl text-center text-black">{{ commentStore.getCommentsForProduct.rates }}</h1>
                     <span  class="flex ">
                       <div class="stars">
                         <span v-for="star in 5" :key="star" class="star" :class="{'filled': star <= fullStars, 'half': star === fullStars + 1 && halfStar}">
@@ -150,24 +150,24 @@
 
           <!-- images -->
           <div class="mt-4">
-    <div class="flex items-center overflow-x-auto gap-2 bg-gray-100 w-full">
-      <!-- إذا كان هناك صور -->
-      <div v-if="comment.images && comment.images.length > 0" class="flex items-center gap-2">
-        <img
-          v-for="(image, index) in comment.images"
-          :key="index"
-          class="h-[100px] w-[80px] "
-          :src="image.image"
-          alt="image"
-        />
-      </div>
+          <div class="flex items-center overflow-x-auto gap-2 bg-gray-100 w-full">
+            <!-- إذا كان هناك صور -->
+            <div v-if="comment.images && comment.images.length > 0" class="flex items-center gap-2">
+              <img
+                v-for="(image, index) in comment.images"
+                :key="index"
+                class="h-[100px] w-[80px] "
+                :src="image.image"
+                alt="image"
+              />
+            </div>
 
-      <!-- إذا لم تكن هناك صور -->
-      <div v-else>
-        <p>No images available</p>
-      </div>
-    </div>
-  </div>
+            <!-- إذا لم تكن هناك صور -->
+            <div v-else>
+              <p>No images available</p>
+            </div>
+          </div>
+         </div>
 
           <!-- like and date -->
           <div class="w-full h-7 flex items-center justify-between mt-1 gap-3">
@@ -179,8 +179,6 @@
 
             <!-- like button -->
             <div  class="flex items-center gap-2">
-
-
                   <svg v-if=" comment.like_status[0].status == 1"   @click="toggleLike(comment)" width="20" height="20" viewBox="0 0 24 24" fill="#8a1538" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
@@ -194,10 +192,7 @@
                   <svg v-else   @click="toggleLike(comment)" width="20" height="20" viewBox="0 0 24 24" fill="#8a1538" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-
-
                   <h1 class="text-xs"> {{ comment.review_like_count }}</h1>
-
             </div>
 
           </div>
@@ -208,7 +203,7 @@
       </div>
 
       <div v-else>
-        <span class="flex items-center justify-center mt-20 font-semibold">
+        <span class="flex items-center justify-center mt-20 font-semibold text-sm">
           لاتوجد تقييمات لهذا المنتج
         </span>
       </div>
@@ -231,7 +226,7 @@
 
 
 
-      <DialogAddComment :is-open="isDialogOpen" @close="closeDialog"  :loading="commentStore.loading" :error="commentStore.error" />
+      <DialogAddComment :is-open="isDialogOpen" :orderId="orderId" :productDetails="productDetails" @close="closeDialog"  :loading="commentStore.loading" :error="commentStore.error" />
 
     </div>
 
@@ -250,6 +245,7 @@ import DialogAddComment from "@/components/phone/Comments/DialogAddComment.vue";
 const route = useRoute();
 const router = useRouter();
 const commentStore = useCommentsStore();
+const orderId = ref()
 
 
 const productDetails = ref([]);
@@ -311,6 +307,7 @@ const toggleLike = async (comment) => {
 
 onMounted(async() => {
   productId.value = decodeURIComponent(route.query.id || '')
+  orderId.value =   decodeURIComponent(route.query.order_id)
   if(productId.value){
     await commentStore.fetchCommentsByProductId(productId.value);
     rating.value = commentStore.getCommentsForProduct.rates;
@@ -318,6 +315,9 @@ onMounted(async() => {
     halfStar.value = rating.value % 1 >= 0.5;
 
   }
+
+
+
 
   const storedUser = JSON.parse(localStorage.getItem('productDetails'));
   if (storedUser) {

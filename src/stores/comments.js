@@ -73,6 +73,36 @@ export const useCommentsStore = defineStore('useCommentsStore', {
       }
     },
 
+    async creatComment(data) {
+      this.loading = true
+      this.error = null
+      const formData = new FormData()
+      formData.append('product_id', data.product_id)
+      formData.append('order_id', data.order_id)
+      formData.append('color_id', data.color_id)
+      formData.append('parent_measuring_id', data.parent_measuring_id)
+      formData.append('comment', data.comment),
+      formData.append('value', data.rateing),
+      formData.append('proportion', data.proportion)
+
+      try {
+        const response = await axiosIns.post('review', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+
+        if (response.data) {
+          return true
+        }
+
+      } catch (err) {
+        this.error = err + 'حدث خطأ غير متوقع، يرجى المحاولة لاحقًا'
+        return false
+      } finally {
+        this.loading = false
+      }
+    },
 
 
 

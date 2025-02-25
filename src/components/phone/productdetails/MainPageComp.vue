@@ -518,9 +518,13 @@
         <div
               class="w-[70px] py-2 rounded-full border flex items-center justify-center"
             >
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg v-if="activeFav" @click="oncklicAddToFav(storeProduct.getproductDetails.id)" width="30" height="30" viewBox="0 0 24 24" fill="#8a1538" xmlns="http://www.w3.org/2000/svg">
               <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
+              <svg v-else @click="oncklicAddToFav(storeProduct.getproductDetails.id)" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+
             </div>
             <button
               @click="addToCart"
@@ -562,11 +566,14 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 import { useAuthStore } from '@/stores/auth';
+import { useFavoriteStore } from '@/stores/favorite';
+
 import { useRouter } from 'vue-router';
 const route = useRoute()
 const storeProduct = useProductStore()
 const storeCart = useCartStore()
 const authStore = useAuthStore();
+const fav = useFavoriteStore()
 const router = useRouter();
 const filteredData2 = ref({
   productID: null,
@@ -628,6 +635,41 @@ const storedLanguage = localStorage.getItem('language')
 //     subtitle: 'XL',
 //   },
 // ])
+
+const activeFav = ref(false)
+const selectedfavIds = ref([]);
+const oncklicAddToFav = async(product_id)=>{
+
+  if (selectedfavIds.value.includes(product_id)) {
+    selectedfavIds.value = selectedfavIds.value.filter((colorId) => colorId !== product_id);
+  } else {
+    selectedfavIds.value.push(product_id);
+  }
+
+
+  if(activeFav.value){
+    const deletePro = await fav.deleteProductFavorite(selectedfavIds.value)
+    if(deletePro){
+      activeFav.value = false
+      selectedfavIds.value = [];
+    }else{
+      alert("error"+fav.error)
+    }
+  }else{
+
+    const addPro = await fav.addProductToFavorite(product_id)
+    if(addPro){
+      activeFav.value = true
+    }else{
+      alert("error"+fav.error)
+    }
+
+  }
+
+
+
+
+}
 
 
 const color_id_measuring = ref(null);
@@ -769,6 +811,13 @@ const changeColor = (index) => {
 
 onMounted(async() => {
  await storeProduct.fetchProductDetailsById(filteredData2)
+
+ if(storeProduct.getproductDetails.favorite== true){
+  activeFav.value = true
+ }else{
+  activeFav.value = false
+ }
+
 
 
    // تعيين اللون الرئيسي

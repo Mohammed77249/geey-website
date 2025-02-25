@@ -11,6 +11,10 @@
   .scrollable-list::-webkit-scrollbar {
     display: none;           
   }
+
+  .overflow-hidden {
+    overflow: hidden;
+  }
 }
 
 :root {

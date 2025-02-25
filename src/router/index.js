@@ -611,13 +611,13 @@ const routes = [
         component: () => import('@/views/phone/user/UserMainPage.vue'),
         meta: {  showFooter:true ,showHeader:false },
       },
-      { path: 'user/setting', name: 'phoneSetting', component: () => import('@/views/phone/user/settings/SettingPage.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
+      { path: 'user/setting', name: 'phoneSetting', component: () => import('@/views/phone/user/settings/SettingPage.vue'),meta: { requiresAuth: false, showFooter:false ,showHeader:false  } },
       { path: 'user/myorders', name: 'phoneMyOrders', component: () => import('@/views/phone/user/orders/MyOrders.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
       { path: 'user/myorder', name: 'phoneOrderDetails', component: () => import('@/views/phone/user/orders/OrderDetails.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  },props: (route) => ({query: route.query}) },
       { path: 'user/myorder/comments', name: 'phoneOrderComments', component: () => import('@/views/phone/user/orders/comments/OrderComments.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  },props: (route) => ({query: route.query})  },
 
-      { path: 'product/:id', name: 'phoneProductDetails', component: () => import('@/views/phone/ProductDetailsPage.vue'), meta: {   showFooter:false ,showHeader:false} },
-      { path: 'cart', name: 'phoneCart', component: () => import('@/views/phone/CartPage.vue'), meta: { requiresAuth: true, showFooter:true ,showHeader:false  } },
+      { path: 'product/:id', name: 'phoneProductDetails', component: () => import('@/views/phone/ProductDetailsPage.vue'), meta: {   showFooter:false ,showHeader:false,} },
+      { path: 'cart', name: 'phoneCart', component: () => import('@/views/phone/CartPage.vue'), meta: { requiresAuth: false, showFooter:true ,showHeader:false  } },
       { path: 'categories', name: 'phonecategories', component: () => import('@/views/phone/CategoriesPage.vue'), meta: { requiresAuth: false, showFooter:true ,showHeader:false  } },
       { path: 'search', name: 'phoneSearch', component: () => import('@/views/phone/SearchPage.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  } },
 
@@ -628,7 +628,9 @@ const routes = [
       { path: 'user/myaddress/editaddress/:id', name: 'phoneEditAddresses', component: () => import('@/views/phone/user/settings/addresses/EditAddress.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
       { path: 'user/setting/manageAccount', name: 'phoneManageAccount', component: () => import('@/views/phone/user/settings/manageaccount/ManageAccountPage.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
       { path: 'user/setting/manageAccount/changePassowrd', name: 'phoneChangePassowrd', component: () => import('@/views/phone/user/settings/manageaccount/ChangePassowrd.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
+      { path: 'user/setting/currencies', name: 'phoneCurrencies', component: () => import('@/views/phone/user/settings/currencies/CurrenciesPage.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
       { path: 'recommend', name: 'phoneRecommend', component: () => import('@/views/phone/RecommendPage.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
+      { path: 'favorite', name: 'phoneFavorite', component: () => import('@/views/phone/Favoriates/FavoritePage.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
 
       {
         path: 'login',

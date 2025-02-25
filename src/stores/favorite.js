@@ -1,0 +1,88 @@
+import { defineStore } from 'pinia'
+import axiosIns from '@/plugins/axios'
+export const useFavoriteStore = defineStore('favorite', {
+  state: () => ({
+    productsInFavorite: [],
+    loading: false,
+    error: null,
+    Messagefavorite:null,
+  }),
+  getters: {
+    getProductsInFavorite: state => state.productsInFavorite,
+
+  },
+  actions: {
+
+    async fetchProductInfavorite() {
+      this.loading = true
+      this.error = null
+      try {
+        const response = await axiosIns.get(`favorite/products`)
+        this.productsInFavorite = response.data.data
+
+      } catch (error) {
+        this.error = error+ 'خطأ أثناء جلب الفئات'
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async addProductToFavorite(product_id) {
+      this.loading = true
+      this.error = null
+      const formData = new FormData()
+      formData.append('product_id', product_id)
+
+      try {
+        const response = await axiosIns.post('favorite/store', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        this.Messagefavorite = response.data;
+        if (response.data) {
+          return true
+        }
+
+      } catch (err) {
+        this.error = err + 'حدث خطأ غير متوقع، يرجى المحاولة لاحقًا'
+
+        return false
+      } finally {
+        this.loading = false
+      }
+    },
+
+
+     async deleteProductFavorite(selectedfavIds) {
+      this.loading = true
+      this.error = null
+
+
+      try {
+        const response = await axiosIns.delete(`favorite/delete_favorite_products`,{
+          data: {
+            product_ids: selectedfavIds
+          },
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        this.Messagefavorite = response.data.message;
+        return true
+      } catch (err) {
+        this.error = err + 'خطأ أثناء  الحذف'
+        return false
+      } finally {
+        this.loading = false
+      }
+    },
+
+
+
+
+
+
+
+  },
+})
