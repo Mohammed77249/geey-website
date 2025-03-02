@@ -128,7 +128,11 @@
                           </div>
 
                           <div class="mt-1 flex justify-between ">
-                            <span class=" text-xs text-primary-900 font-medium">{{ item.product_currency }} {{ item.product_price }}</span>
+                            <div class="flex items-center gap-1">
+                              <span class=" text-xs text-primary-900 font-medium"> {{ item.product_price }}</span>
+                              <p class=" text-[8px] text-primary-900 "> {{ currency?currency:'YER' }} </p>
+
+                            </div>
                             <span class=" text-xs text-primary-900 font-medium">%0</span>
                           </div>
                             <div class="mt-2 flex justify-center">
@@ -174,7 +178,7 @@
                     <div class="border-t my-2"></div>
                     <div class="flex justify-between font-semibold text-lg">
                       <span  class="text-sm">{{ $t("Total") }}:</span>
-                      <span class="text-primary-900 text-sm"> YER {{ selectedTotalPrice }}</span>
+                      <span class="text-primary-900 text-sm"> {{ currency?currency:'YER' }} {{ selectedTotalPrice }}</span>
                     </div>
                   </div>
                 </div>
@@ -212,6 +216,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 // const storedLanguage = localStorage.getItem("language");
 const isDialogOpen = ref(false)
+const currency = localStorage.getItem('currency');
 
 const openDialog = () => {
   isDialogOpen.value = true

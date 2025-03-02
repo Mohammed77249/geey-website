@@ -17,14 +17,29 @@
   }
 }
 
-:root {
+/* :root {
   --tw-font-sans: 'IBM Plex Sans Arabic', sans-serif;
+} */
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('../fonts/NotoKufiArabic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
 }
 
-/* main.css أو App.vue داخل قسم <style> */
-body {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+
+@layer base {
+  html {
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+  }
 }
+
+
+/* main.css أو App.vue داخل قسم <style> */
+/* body {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+} */
 
 
 /* 

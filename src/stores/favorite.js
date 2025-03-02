@@ -3,12 +3,14 @@ import axiosIns from '@/plugins/axios'
 export const useFavoriteStore = defineStore('favorite', {
   state: () => ({
     productsInFavorite: [],
+    allLists:[],
     loading: false,
     error: null,
     Messagefavorite:null,
   }),
   getters: {
     getProductsInFavorite: state => state.productsInFavorite,
+    getAllListsInFavorite: state => state.allLists,
 
   },
   actions: {
@@ -26,6 +28,26 @@ export const useFavoriteStore = defineStore('favorite', {
         this.loading = false
       }
     },
+
+    async fetchAllListsfavorite() {
+      this.loading = true
+      this.error = null
+      try {
+        const response = await axiosIns.get(`favorite/lists_images`)
+        this.allLists = response.data
+
+
+
+
+      } catch (error) {
+        this.error = error+ 'خطأ أثناء جلب القوائم'
+      } finally {
+        this.loading = false
+      }
+    },
+
+
+
 
     async addProductToFavorite(product_id) {
       this.loading = true

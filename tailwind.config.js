@@ -5,8 +5,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"IBM Plex Sans Arabic"', 'sans-serif'],
-        
+        // sans: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+        sans: ['Noto Kufi Arabic', 'sans-serif'],
+
+        // 'kufi': ['Noto Kufi Arabic', 'sans-serif'],
+
       },
       screens: {
         'sm': '640px',
@@ -34,7 +37,8 @@ export default {
       "primary-950":"#560000",
 
       // gray color
-      "gray-50":"#f6f7f9",
+      // "gray-50":"#f6f7f9",
+      "gray-50":"#f6f6f6",
       "gray-100":"#eceef2",
       "gray-200":"#d4dae3",
       "gray-300":"#aebacb",

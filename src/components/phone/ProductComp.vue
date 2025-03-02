@@ -50,8 +50,10 @@
         </div>
 
     <div class="flex items-center justify-between">
-      <div class="flex gap-2 items-center ">
+      <div class="flex gap-1 items-center ">
         <p class="font-sembold text-primary-900 text-xs">{{ product.base_price }}</p>
+         <p class=" text-[8px] text-primary-900 "> {{ currency?currency:'YER' }} </p>
+
         <!-- <div class="border border-primary-900">
          <p class=" text-[10px] text-primary-900 "> %50- </p>
         </div> -->
@@ -137,6 +139,10 @@ const props = defineProps({
     type: String,
   },
 })
+
+
+
+const currency = localStorage.getItem('currency');
 
 
 

@@ -79,8 +79,11 @@ const clickCurrency = (currency)=>{
     } else {
       temp.value = currency.code
       localStorage.setItem('currency',temp.value);
-      router.replace("/phone/home");
-      window.location.reload()
+
+      // for footer
+      localStorage.setItem('activePage', 'home');
+      router.push("/phone/home");
+      // window.location.reload();
     }
 
   }

@@ -32,7 +32,10 @@
                 class="w-4 h-3 text-primary-900"
                 @change="updateSelectAll"
               />
-              <img :src="item.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? item.image :'/jeeeeylogo3.jpg'"  alt="" class=" h-full rounded-lg border " />
+              <div class="w-[150px] h-[70px] ">
+                <img :src="item.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? item.image :'/jeeeeylogo3.jpg'"  alt="" class=" h-full  rounded-lg border   " />
+
+              </div>
             </div>
             <div class="col-span-6 ">
               <div class=" mx-1 mt-1">
@@ -55,10 +58,11 @@
               </button>
 
               <!-- <p class="text-primary-900 text-xs  font-semibold mb-2">-0%</p> -->
-              <p class="text-xs  font-bold">
-                YER
-                {{ item.product_currency }} {{ item.product_price * item.quantity  }}
-              </p>
+               <div class="flex items-center gap-2">
+                <p class="text-xs  font-bold"> {{ item.product_price * item.quantity  }}</p>
+                <p class=" text-[8px] text-primary-900 "> {{ currency?currency:'YER' }} </p>
+               </div>
+
             </div>
 
             </div>
@@ -159,7 +163,7 @@ const filteredData = ref({
 
 const router = useRouter();
 
-
+const currency = localStorage.getItem('currency');
 
 const selectAll = ref(false);
 

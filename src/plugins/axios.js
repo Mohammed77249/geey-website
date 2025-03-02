@@ -12,8 +12,7 @@ const axiosIns = axios.create({
   headers: {
     "accept-language": language,
     'Content-Type': 'application/json',
-    'Currency-Code': currency,
-
+    'Currency-Code': currency?currency :'YER',
   },
 
 });

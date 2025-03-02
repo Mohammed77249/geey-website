@@ -1,47 +1,56 @@
 
 <template>
-  <div class="px-2">
+  <div class="px-2 ">
 
   <!-- رسالة تحميل المزيد -->
-  <div v-if="storeFav.loading" class="mt-4">
+    <div v-if="storeFav.loading" class="mt-4 flex items-center justify-center">
       <LoaderDatacomp :is-loader="storeFav.loading"/>
     </div>
 
-  <div v-else class="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-1 ">
+  <div v-else class="grid grid-cols-2  gap-1 ">
     <div
       v-for="product in storeFav.getProductsInFavorite"
       :key="product.id"
       class="p-1 mt-4 "
     >
 
-      <div class="cursor-pointer w-[full] h-[170px] relative"  >
+      <div class="cursor-pointer w-[full]  "  >
+        <div class="relative h-[170px]">
 
-        <div
+
+
+          <div
           v-if="showDeleteButton === product.id"
-          class="absolute top-0 right-0  z-10 bg-black/30 backdrop-blur-xs h-full w-full"
+          class="absolute  bg-black/50 backdrop-blur-xs h-full w-full"
           @click="deleteProduct(product.id)"
         >
 
           <button class="bg-primary-900 mt-20 mx-4 opacity-100 flex items-center justify-center text-white text-xs font-medium w-40 py-1 rounded-lg">
             حذف
           </button>
-        </div>
-        <RouterLink :to="`/phone/product/${product.id}`">
-      <img v-if="product.main_imags != null && product.main_imags.length > 0 "
-              :src="
-                hoverId === product.id &&
-                isHover &&
-                product.main_imags[1]?.image
-                  ? product.main_imags[1]?.image
-                  : product.main_imags[0]?.image
-              "  alt="" class="w-full h-full rounded  transition duration-300 ease-in-out"
-              />
 
-              <img v-else
-              src="/jeeeylogo.jpg"  alt="" class="w-full h-full rounded  transition duration-300 ease-in-out"
-              />
-            </RouterLink>
+          </div>
+
+          <RouterLink :to="`/phone/product/${product.id}`">
+                <img v-if="product.main_imags != null && product.main_imags.length > 0 "
+                :src="
+                  hoverId === product.id &&
+                  isHover &&
+                  product.main_imags[1]?.image
+                    ? product.main_imags[1]?.image
+                    : product.main_imags[0]?.image
+                "  alt="" class="w-full h-full rounded  transition duration-300 ease-in-out"
+                />
+
+                <img v-else
+                src="/jeeeylogo.jpg"  alt="" class="w-full h-full rounded  transition duration-300 ease-in-out"
+                />
+          </RouterLink>
+        </div>
+
+
       </div>
+
 
 
       <div class="flex items-center justify-between mt-2">
@@ -84,7 +93,7 @@
       <div class="flex gap-2 items-center ">
         <p class="font-sembold text-primary-900 text-xs">{{ product.base_price }}</p>
         <div class="">
-         <p class=" text-[10px] text-primary-900 "> YER </p>
+         <p class=" text-[8px] text-primary-900 "> {{ currency?currency:'YER' }} </p>
         </div>
 
       </div>
@@ -138,6 +147,7 @@ const isDialogOpen = ref(false)
 const filteredData = ref(null)
 const showDeleteButton = ref(null);
 
+const currency = localStorage.getItem('currency');
 
 const toggleDeleteButton = (productId) => {
   showDeleteButton.value = showDeleteButton.value === productId ? null : productId;

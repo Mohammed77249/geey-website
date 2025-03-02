@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50 w-full h-screen">
+  <div class="bg-gray-50 w-full h-screen ">
     <!-- header -->
     <div
       class="fixed inset-0  bg-white p-2 shadow h-24"
@@ -62,7 +62,7 @@
                 }"
                 class="p-2 text-center font-semibold cursor-pointer transition-all duration-200"
               >
-                قائمه
+                قائمه  <span v-if="storeFav.allLists.length > 0">({{ storeFav.getAllListsInFavorite.length }})</span>
               </li>
 
 
@@ -73,10 +73,14 @@
 
 
     <!-- content -->
-    <div class="mt-20 pt-4 ">
+    <div class="mt-20 pt-4   ">
 
-      <div v-if="productsFavorite">
-        <ProductsFavorite/>
+      <div v-if="productsFavorite" class="">
+        <ProductsFavorite class="" />
+      </div>
+
+      <div v-if="menuFavorite">
+        <MenusFavorite/>
       </div>
 
 
@@ -89,6 +93,7 @@ import { ref ,onMounted} from "vue";
 import { useFavoriteStore } from '@/stores/favorite'
 import { useRouter } from 'vue-router';
 import ProductsFavorite from "./ProductsFavorite.vue";
+import MenusFavorite from "./MenusFavorite.vue";
 const router = useRouter();
 const storeFav = useFavoriteStore()
 
@@ -116,6 +121,8 @@ const onClickMenuFavorite = () =>{
 
 onMounted(() => {
   storeFav.fetchProductInfavorite();
+  storeFav.fetchAllListsfavorite();
+
 });
 
 </script>

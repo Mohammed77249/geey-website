@@ -101,7 +101,7 @@
               </div>
               <div class="flex justify-between py-2">
                 <span> {{ $t("Delivery cost") }}: </span>
-                <span class="text-xs"> YER {{ order.delivery_total }}</span>
+                <span class="text-xs"> {{ currency?currency:'YER' }} {{ order.delivery_total }}</span>
               </div>
               <div class="flex justify-between py-2">
                 <span class="text-xs">{{ $t("Discount") }}:</span>
@@ -141,6 +141,8 @@ const goBack = () => {
   router.back();
 };
 
+
+const currency = localStorage.getItem('currency');
 const GoToOrederComments = (product)=>{
 
 

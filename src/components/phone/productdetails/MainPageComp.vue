@@ -114,6 +114,7 @@
             </p>
 
             <!-- discount -->
+            <p class=" text-[8px] text-primary-900 "> {{ currency?currency:'YER' }} </p>
             <!-- <div class="h-5 px-2 flex items-center justify-center bg-black">
               <p class="text-xs text-white">
                 {{ storeProduct.getproductDetails.discount_price }}-
@@ -592,6 +593,8 @@ if (id != null) {
   filteredData2.value.productID = id
   filteredData2.value.product_id = id
 }
+
+const currency = localStorage.getItem('currency');
 
 const isDropdowenDescriptionVisable = ref(false)
 // const isDropdowenSize2Visable = ref(false)

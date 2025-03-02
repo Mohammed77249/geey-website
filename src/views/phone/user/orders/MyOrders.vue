@@ -177,7 +177,10 @@
                 </div>
                 <div class="flex items-center  gap-2 mt-2">
                   <h3 class="font-semibold  text text-xs "> {{ $t("Number of products") }}: {{ order.total_products }} </h3>
-                  <h3 class="font-semibold  text-primary-900 text-xs ">  {{ $t("Total price") }}: {{ order.total }} ري </h3>
+                  <h3 class="font-semibold  text-primary-900 text-xs ">  {{ $t("Total price") }}: {{ order.total }} </h3>
+                  <p class=" text-[8px] text-primary-900 "> {{ currency?currency:'YER' }} </p>
+
+
                 </div>
 
                 <div>
@@ -214,7 +217,9 @@
                 </div>
                 <div class="flex items-center  gap-2 mt-2">
                   <h3 class="font-semibold  text text-xs ">  عدد المنتجات : {{ order.total_products }} </h3>
-                  <h3 class="font-semibold  text-primary-900 text-xs ">  السعر الاجمالي : {{ order.total }} ري </h3>
+                  <h3 class="font-semibold  text-primary-900 text-xs ">  السعر الاجمالي : {{ order.total }}  </h3>
+                  <p class=" text-[8px] text-primary-900 "> {{ currency?currency:'YER' }} </p>
+
                 </div>
 
                 <!-- <div class="flex items-center gap-3 mt-2">
@@ -265,7 +270,9 @@
                 </div>
                 <div class="flex items-center  gap-2 mt-2">
                   <h3 class="font-semibold  text text-xs ">  عدد المنتجات : {{ order.total_products }} </h3>
-                  <h3 class="font-semibold  text-primary-900 text-xs ">  السعر الاجمالي : {{ order.total }} ري </h3>
+                  <h3 class="font-semibold  text-primary-900 text-xs ">  السعر الاجمالي : {{ order.total }}  </h3>
+                  <p class=" text-[8px] text-primary-900 "> {{ currency?currency:'YER' }} </p>
+
                 </div>
 
                 <!-- <div class="flex items-center gap-3 mt-2">
@@ -319,7 +326,10 @@
                 </div>
                 <div class="flex items-center  gap-2 mt-2">
                   <h3 class="font-semibold  text text-xs ">  عدد المنتجات : {{ order.total_products }} </h3>
-                  <h3 class="font-semibold  text-primary-900 text-xs">  السعر الاجمالي : {{ order.total }} ري </h3>
+                  <h3 class="font-semibold  text-primary-900 text-xs">  السعر الاجمالي : {{ order.total }} </h3>
+                  <p class=" text-[8px] text-primary-900 "> {{ currency?currency:'YER' }} </p>
+
+
                 </div>
 
                 <!-- <div class="flex items-center gap-3 mt-2">
@@ -372,6 +382,9 @@ const filteredData = ref({
   page: 1,
   perPage: 100,
 })
+
+
+const currency = localStorage.getItem('currency');
 
 
 

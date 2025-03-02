@@ -446,6 +446,8 @@
             <p class="font-sembold text-primary-900 text-[10px] md:text-[15px]">
               {{ product.base_price }}
             </p>
+            <p class=" text-[8px] text-primary-900 "> {{ currency?currency:'YER' }} </p>
+
             <!-- <div class="border border-primary-400">
               <p class="text-[8px] md:text-[10px] text-primary-400">%50-</p>
             </div> -->
@@ -742,6 +744,8 @@ const router = useRouter();
 const goBack = () => {
   router.back();
 };
+
+const currency = localStorage.getItem('currency');
 
 const storeSecion = useSectionsStore()
 const isDrawerOpen = ref(false)
