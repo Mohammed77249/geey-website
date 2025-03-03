@@ -19,7 +19,7 @@
 
       <!-- Dialog Content -->
       <div>
-        <div v-if="storeCart.loading">
+        <div v-if="storeCart.loading" class="h-[600px]">
           <LoaderDatacomp :isLoader="storeCart.loading" />
         </div>
         <div v-else-if="storeCart.error">{{ storeCart.error }}</div>

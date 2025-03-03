@@ -1,5 +1,5 @@
 <template>
-  <div class="px-2 mt-2">
+  <div class="px-2 mt-2 pb-10" >
     <div v-if="storeFav.allLists.length == 0" class="h-[360px] w-full  bg-white">
       <div class=" mb-1 flex items-center  justify-center">
 
@@ -51,7 +51,7 @@
       <LoaderDatacomp :is-loader="storeFav.loading"/>
     </div>
 
-    <div v-else class="mt-2">
+    <div v-else class="mt-2  ">
 
       <!-- button add list -->
       <div class="flex items-center gap-2  mb-2">
@@ -67,16 +67,19 @@
       </div>
 
       <!-- lists -->
-      <div v-for="list in storeFav.getAllListsInFavorite"
+      <div  v-for="list in storeFav.getAllListsInFavorite"
       :key="list.id"
-      class="bg-white h-[200px] p-2 mb-3 mt-2"
+      class="bg-white w-full h-[200px] p-2 mb-3 mt-2"
       >
-        <div v-if=" list.product_images.length > 0" class="  h-[130px] flex items-center gap-2">
-          <div v-for="image in list.product_images" :key="image.id" class=" w-[80px] h-[120px] ">
-            <img :src="image" class="h-full w-full border" />
+
+        <div v-if=" list.product_images.length > 0" @click="GoTOListProduct(list)"  class=" w-full h-[130px] flex items-center overflow-x-auto custom-scroll gap-2">
+
+          <div v-for="image in list.product_images" :key="image.id" class=" min-w-[80px] h-[120px] flex items-center   ">
+            <img :src="image" class="h-full w-full border object-cover" />
           </div>
+
         </div>
-        <div v-else class="  h-[130px] flex items-center gap-2" >
+        <div v-else @click="GoTOListProduct(list)" class="  h-[130px] flex items-center gap-2" >
           <div class="">
             <svg width="100" height="100" viewBox="0 0 250 200" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="250" height="200" fill="white"/>
@@ -106,10 +109,11 @@
 
         </div>
 
+
         <div class=" h-[45px] mt-2">
           <div class="flex items-center justify-between">
             <!-- list name -->
-            <div>
+            <div  @click="GoTOListProduct(list)">
               <span class="text-sm text-black font-medium">{{ list.name }}</span>
               <div class="flex items-center">
                 <span class="text-sm text-gray-500">البضائع : {{ list.product_images.length }}</span>
@@ -162,10 +166,17 @@
 <script setup>
 import { onMounted,defineAsyncComponent} from "vue";
 import { useFavoriteStore } from '@/stores/favorite'
+import { useRouter } from 'vue-router';
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 
-
+const router = useRouter();
 const storeFav = useFavoriteStore()
+const GoTOListProduct = (list) => {
+  router.push({ path: `/phone/favorite/list`, query: { id: encodeURIComponent(list.id) ,name: encodeURIComponent(list.name)} })
+
+};
+
+
 
 
 
@@ -175,3 +186,24 @@ onMounted(() => {
   // storeFav.fetchAllListsfavorite();
 });
 </script>
+<style scoped>
+
+
+.custom-scroll::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+.custom-scroll:hover::-webkit-scrollbar,
+.custom-scroll:active::-webkit-scrollbar {
+  opacity: 0;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+</style>

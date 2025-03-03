@@ -631,6 +631,7 @@ const routes = [
       { path: 'user/setting/currencies', name: 'phoneCurrencies', component: () => import('@/views/phone/user/settings/currencies/CurrenciesPage.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
       { path: 'recommend', name: 'phoneRecommend', component: () => import('@/views/phone/RecommendPage.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
       { path: 'favorite', name: 'phoneFavorite', component: () => import('@/views/phone/Favoriates/FavoritePage.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
+      { path: 'favorite/list', name: 'phoneFavoriteList', component: () => import('@/views/phone/Favoriates/ProductsInList.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
 
       {
         path: 'login',

@@ -3,6 +3,7 @@ import axiosIns from '@/plugins/axios'
 export const useFavoriteStore = defineStore('favorite', {
   state: () => ({
     productsInFavorite: [],
+    productsInList:[],
     allLists:[],
     loading: false,
     error: null,
@@ -11,6 +12,8 @@ export const useFavoriteStore = defineStore('favorite', {
   getters: {
     getProductsInFavorite: state => state.productsInFavorite,
     getAllListsInFavorite: state => state.allLists,
+    getProductsInList: state => state.productsInList,
+
 
   },
   actions: {
@@ -41,6 +44,26 @@ export const useFavoriteStore = defineStore('favorite', {
 
       } catch (error) {
         this.error = error+ 'خطأ أثناء جلب القوائم'
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async fetchProductInList(data) {
+      this.loading = true
+      this.error = null
+
+      try {
+        const response = await axiosIns.get(`favorite/get_products_by_list`,{
+          params: {
+            list_id: data
+          }
+        });
+        this.productsInList = response.data
+
+      } catch (error) {
+        this.error = error+ 'خطأ أثناء جلب الفئات'
+
       } finally {
         this.loading = false
       }
@@ -100,9 +123,30 @@ export const useFavoriteStore = defineStore('favorite', {
       }
     },
 
+    async deleteListProductFavorite(selectedProductsIds,ListId) {
+      this.loading = true
+      this.error = null
 
+      try {
+        const response = await axiosIns.delete(`favorite/delete_list_products`,{
+          data: {
+            list_id:ListId,
+            product_ids: selectedProductsIds
 
-
+          },
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        this.Messagefavorite = response.data.message;
+        return true
+      } catch (err) {
+        this.error = err + 'خطأ أثناء  الحذف'
+        return false
+      } finally {
+        this.loading = false
+      }
+    },
 
 
 
