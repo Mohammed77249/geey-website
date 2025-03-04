@@ -149,6 +149,89 @@ export const useFavoriteStore = defineStore('favorite', {
     },
 
 
+    async deleteListWithItsProducts(listId) {
+      this.loading = true
+      this.error = null
+
+
+      try {
+        const response = await axiosIns.delete(`favorite/delete_all_list_products`,{
+          data: {
+            list_id: listId
+          },
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        this.Messagefavorite = response.data.message;
+        return true
+      } catch (err) {
+        this.error = err + 'خطأ أثناء  الحذف'
+        return false
+      } finally {
+        this.loading = false
+      }
+    },
+
+
+    async storeList(listName) {
+      this.loading = true
+      this.error = null
+
+      try {
+        const response = await axiosIns.post(
+          'favorite/store_list',
+          { list_name: listName },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+
+            }
+          }
+        );
+
+        this.Messagefavorite = response.data;
+        return true
+      } catch (err) {
+        this.error = err + 'خطأ أثناء  التخزين'
+        return false
+      } finally {
+        this.loading = false
+      }
+    },
+
+
+
+    async updateList(listName ,listId) {
+      this.loading = true
+      this.error = null
+
+      try {
+        const response = await axiosIns.put(
+          'favorite/update_list',
+          {
+            list_id: listId,
+            list_name: listName
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
+        );
+
+
+        this.Messagefavorite = response.data.message;
+        return true
+      } catch (err) {
+        this.error = err + 'خطأ أثناء  التعديل'
+        return false
+      } finally {
+        this.loading = false
+      }
+    },
+
+
 
   },
 })

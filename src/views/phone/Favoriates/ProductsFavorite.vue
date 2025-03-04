@@ -7,11 +7,11 @@
       <LoaderDatacomp :is-loader="storeFav.loading"/>
     </div>
 
-  <div v-else class="grid grid-cols-2  gap-1 ">
+  <div v-else class="grid grid-cols-2  gap-1  ">
     <div
       v-for="product in storeFav.getProductsInFavorite"
       :key="product.id"
-      class="p-1 mt-4 "
+      class="p-1 mt-4 bg-white rounded"
     >
 
       <div class="cursor-pointer w-[full]  "  >

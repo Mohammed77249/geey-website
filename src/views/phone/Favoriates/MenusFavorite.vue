@@ -54,8 +54,8 @@
     <div v-else class="mt-2  ">
 
       <!-- button add list -->
-      <div class="flex items-center gap-2  mb-2">
-        <button class="p-2 text-black">
+      <div class="flex items-center gap-2  mb-2"  @click="openDialog()">
+        <button  class="p-2 text-black">
           <svg class="w-8 h-8" viewBox="0 0 24 24" fill="white" stroke="currentColor">
             <circle cx="12" cy="12" r="12" stroke-width="0"/>
             <line x1="12" y1="8" x2="12" y2="16" stroke-width="1.5" stroke-linecap="round" fill="black"/>
@@ -124,7 +124,7 @@
             <div class="flex   gap-2">
 
               <!--share -->
-              <button class="text-gray-600 hover:text-blue-500">
+              <button  @click="GoTOListProduct(list)"  class="text-gray-600 hover:text-blue-500">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M16.96 6.16992C18.96 7.55992 20.34 9.76992 20.62 12.3199" stroke="#292D32" stroke-width="1.5" />
               <path d="M3.48999 12.3702C3.74999 9.83021 5.10999 7.62021 7.08999 6.22021" stroke="#292D32" stroke-width="1.5" />
@@ -137,20 +137,13 @@
             </button>
 
             <!-- menu -->
-              <button class="text-gray-500 hover:text-blue-500">
+              <button @click="openDialog2(list)" class="text-gray-500 hover:text-blue-500">
                 <svg class="w-6 h-6 flex" viewBox="0 0 24 24" fill="black">
                   <circle cx="6" cy="12" r="2" />
                   <circle cx="12" cy="12" r="2" />
                   <circle cx="18" cy="12" r="2" />
                 </svg>
               </button>
-
-
-
-
-
-
-
 
             </div>
 
@@ -162,11 +155,18 @@
 
 
   </div>
+  <DialogAddNewMenu :is-open="isDialogOpen" @close="closeDialog"  />
+  <DialogRenameDelete :is-open="isDialogOpen2" @close="closeDialog2" :ListId="listId" :ListName="listName" />
+
+
+
 </template>
 <script setup>
-import { onMounted,defineAsyncComponent} from "vue";
+import { onMounted,defineAsyncComponent,ref} from "vue";
 import { useFavoriteStore } from '@/stores/favorite'
 import { useRouter } from 'vue-router';
+import DialogAddNewMenu from "./componentFav/DialogAddNewMenu.vue";
+import DialogRenameDelete from "./componentFav/DialogRenameDelete.vue";
 const LoaderDatacomp = defineAsyncComponent(() => import('@/components/LoaderDatacomp.vue'));
 
 const router = useRouter();
@@ -176,7 +176,28 @@ const GoTOListProduct = (list) => {
 
 };
 
+const listId = ref();
+const listName = ref('');
 
+// for add new list
+const isDialogOpen = ref(false)
+const openDialog = () => {
+  isDialogOpen.value = true
+}
+const closeDialog = () => {
+  isDialogOpen.value = false
+}
+
+// for delete list and rename
+const isDialogOpen2 = ref(false)
+const openDialog2 = (list) => {
+  listId.value = list.id
+  listName.value = list.name
+  isDialogOpen2.value = true
+}
+const closeDialog2 = () => {
+  isDialogOpen2.value = false
+}
 
 
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50 w-full h-screen">
+  <div class="bg-gray-50 w-full min-h-screen h-full">
     <!-- header -->
     <div
       class="fixed inset-0  top-0 left-0 right-0   bg-white p-2 shadow h-24 z-50"
@@ -32,6 +32,7 @@
           <div class="col-span-2  flex items-center justify-end gap-2 font-bold">
             <!-- icon menu -->
             <div v-if="productsFavorite">
+              <RouterLink to="/phone/favorite/chooseproduct">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path opacity="0.4" d="M11 19.5H21" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path opacity="0.4" d="M11 12.5H21" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -40,6 +41,7 @@
               <path d="M3 12.5L4 13.5L7 10.5" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M3 19.5L4 20.5L7 17.5" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
+            </RouterLink>
             </div>
 
             <!-- icon cart -->
