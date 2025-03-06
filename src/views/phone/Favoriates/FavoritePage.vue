@@ -7,6 +7,7 @@
 
     <div class="grid grid-cols-12 items-center justify-between">
       <!-- back button -->
+       <RouterLink to="/phone/home">
       <div @click="goBack" class="col-span-2">
           <svg
             width="15"
@@ -25,6 +26,8 @@
             />
           </svg>
           </div>
+        </RouterLink>
+
           <div class="col-span-8 text-sm font-bold text-center">قائمه الاماني </div>
 
           <!-- go to cart -->
@@ -110,20 +113,18 @@
 <script setup>
 import { ref ,onMounted} from "vue";
 import { useFavoriteStore } from '@/stores/favorite'
-import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import ProductsFavorite from "./ProductsFavorite.vue";
 import MenusFavorite from "./MenusFavorite.vue";
-const router = useRouter();
+
+const route = useRoute();
 const storeFav = useFavoriteStore()
 
 
-const productsFavorite = ref(true);
+const productsFavorite = ref(false);
 const menuFavorite = ref(false);
 
 
-const goBack = () => {
-  router.back();
-};
 
 const onClickProductsfavorite = () =>{
   productsFavorite.value = true
@@ -136,11 +137,23 @@ const onClickMenuFavorite = () =>{
 };
 
 
+const ismenu = ref();
 
 
-onMounted(() => {
-  storeFav.fetchProductInfavorite();
-  storeFav.fetchAllListsfavorite();
+onMounted(async() => {
+
+
+ await storeFav.fetchProductInfavorite();
+ await storeFav.fetchAllListsfavorite();
+
+  ismenu.value = decodeURIComponent(route.query.IsMneu || '')
+
+if(ismenu.value == "yes"){
+  menuFavorite.value = true
+}else{
+  productsFavorite.value = true
+  menuFavorite.value = false
+}
 
 });
 

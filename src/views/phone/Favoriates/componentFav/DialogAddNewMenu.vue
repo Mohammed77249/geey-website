@@ -44,6 +44,7 @@
              <div class="bg-white py-2 px-2  flex items-center   fixed bottom-0 w-full">
                 <button v-if="props.Status == 'new'"
                   type="button"
+                  @click="createNewList"
                   class="w-full rounded bg-primary-900 text-white py-4 font-semibold  text-sm"
                 >
 
@@ -76,6 +77,8 @@
 <script setup>
 import {   ref, watch ,nextTick} from 'vue'
 import { useFavoriteStore } from '@/stores/favorite'
+import { useRouter } from 'vue-router';
+
 // Props
 const props = defineProps({
   isOpen: {
@@ -96,12 +99,36 @@ const props = defineProps({
 
   },
 
+  selectedIds:{
+    type:Array
+  }
+
 });
 
 const inputRef = ref(null)
 const NameList = ref('')
 const storeFav = useFavoriteStore()
+const router = useRouter();
 
+
+const createNewList = async() => {
+
+    if(props.selectedIds){
+      const result = await storeFav.storeList(NameList.value ,props.selectedIds)
+    if(result){
+      alert(storeFav.Messagefavorite)
+      close();
+
+    }else{
+      alert("erroe"+storeFav.error)
+      close();
+    }
+  }else{
+    router.push({ path: `/phone/favorite/addproducttolist`, query: { ListName:encodeURIComponent(NameList.value) ,IsNew:encodeURIComponent("yes") } })
+
+  }
+
+}
 
 
 const ChangeListName = async() =>{

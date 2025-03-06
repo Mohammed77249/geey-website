@@ -633,6 +633,7 @@ const routes = [
       { path: 'favorite', name: 'phoneFavorite', component: () => import('@/views/phone/Favoriates/FavoritePage.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
       { path: 'favorite/list', name: 'phoneFavoriteList', component: () => import('@/views/phone/Favoriates/ProductsInList.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
       { path: 'favorite/chooseproduct', name: 'phoneFavoriteChooseProduct', component: () => import('@/views/phone/Favoriates/ChooseProductsToList.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
+      { path: 'favorite/addproducttolist', name: 'phoneFavoriteAddProductToList', component: () => import('@/views/phone/Favoriates/AddProductsToList.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
 
       {
         path: 'login',

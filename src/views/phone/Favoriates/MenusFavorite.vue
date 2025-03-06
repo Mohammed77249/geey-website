@@ -155,7 +155,7 @@
 
 
   </div>
-  <DialogAddNewMenu :is-open="isDialogOpen" @close="closeDialog"  />
+  <DialogAddNewMenu :is-open="isDialogOpen" @close="closeDialog"  Status="new" />
   <DialogRenameDelete :is-open="isDialogOpen2" @close="closeDialog2" :ListId="listId" :ListName="listName" />
 
 

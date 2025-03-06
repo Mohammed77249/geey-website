@@ -149,6 +149,9 @@ export const useFavoriteStore = defineStore('favorite', {
     },
 
 
+    
+
+
     async deleteListWithItsProducts(listId) {
       this.loading = true
       this.error = null
@@ -174,14 +177,17 @@ export const useFavoriteStore = defineStore('favorite', {
     },
 
 
-    async storeList(listName) {
+    // rename
+    async storeList(listName,product_ids) {
       this.loading = true
       this.error = null
 
       try {
         const response = await axiosIns.post(
           'favorite/store_list',
-          { list_name: listName },
+          { list_name: listName,
+            product_ids: product_ids
+           },
           {
             headers: {
               'Content-Type': 'application/json',
@@ -202,7 +208,9 @@ export const useFavoriteStore = defineStore('favorite', {
 
 
 
-    async updateList(listName ,listId) {
+
+
+    async updateList(listName ,listId ) {
       this.loading = true
       this.error = null
 
@@ -220,8 +228,36 @@ export const useFavoriteStore = defineStore('favorite', {
           }
         );
 
-
         this.Messagefavorite = response.data.message;
+        return true
+      } catch (err) {
+        this.error = err + 'خطأ أثناء  التعديل'
+        return false
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async updateListProducts(listId , product_ids) {
+      this.loading = true
+      this.error = null
+
+
+      try {
+        const response = await axiosIns.post(
+          'favorite/store_list',
+          {
+            list_id: listId,
+            product_ids: product_ids
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
+        );
+
+        this.Messagefavorite = response.data;
         return true
       } catch (err) {
         this.error = err + 'خطأ أثناء  التعديل'

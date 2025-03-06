@@ -812,7 +812,6 @@ const toggleColorSelect = color => {
     selectedColorIds.value = selectedColorIds.value.filter((colorId) => colorId !== color);
   } else {
     selectedColorIds.value.push(color);
-
   }
 
 };

@@ -33,7 +33,7 @@
           <!-- go to cart -->
           <div class="  flex items-center  gap-2 font-bold">
             <!-- icon menu -->
-            <div v-if="storeFav.productsInList.length > 0">
+            <div v-if="storeFav.productsInList.length > 0" @click="GoToCopyProducts">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path opacity="0.4" d="M11 19.5H21" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path opacity="0.4" d="M11 12.5H21" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -65,7 +65,7 @@
     <!-- content -->
     <div class="mt-12 p-2">
       <!-- no product -->
-        <div v-if="storeFav.productsInList.length == 0"  class="h-[360px] w-full  bg-white">
+        <div v-if="storeFav.productsInList.length === 0"  class="h-[360px] w-full  bg-white">
             <div class=" mb-1 flex items-center  justify-center">
 
               <svg width="250" height="180" viewBox="0 0 250 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,6 +107,7 @@
 
 
             </div>
+
         </div>
 
         <div v-else-if="storeFav.loading" class="mt-20">
@@ -116,7 +117,8 @@
         <div v-else >
           <div>
              <!-- button add list -->
-            <div class="flex items-center justify-between ">
+            <div @click="GoToAddProductsToList" class="flex items-center justify-between ">
+
               <div class="flex items-center  ">
                 <button class="p-2 text-white">
                   <svg class="w-7 h-7" viewBox="0 0 24 24" fill="#8a1538" stroke="currentColor">
@@ -275,8 +277,17 @@ const ListName = ref('')
 const ListId = ref()
 
 const goBack = () => {
-  router.back();
+  router.push({ path: `/phone/favorite`, query: { IsMneu:encodeURIComponent("yes")} })
+
 };
+
+const GoToCopyProducts = ()=>{
+    router.push({ path: `/phone/favorite/chooseproduct`, query: { id:encodeURIComponent(ListId.value) , from: encodeURIComponent(ListName.value) } })
+}
+
+const GoToAddProductsToList = ()=>{
+    router.push({ path: `/phone/favorite/addproducttolist`, query: { id:encodeURIComponent(ListId.value) ,ListName: encodeURIComponent("no"), IsNew: encodeURIComponent("no") } })
+}
 
 const isDialogOpen = ref(false)
 const filteredData = ref(null)
