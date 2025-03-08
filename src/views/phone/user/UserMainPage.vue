@@ -3,9 +3,17 @@
   <div class="bg-gray-50 w-full h-screen">
     <!-- header -->
     <div class="flex items-center justify-between bg-white p-2 shadow h-12">
-      <div @click="showSuccess('عملية ناجحة')" class="text-sm font-semibold">
+      <div v-if="storeAuth.isAuthenticated" class="text-sm font-semibold">
       {{ emailUser }}
      </div>
+
+     <RouterLink to="/phone/login">
+            <div v-if="!storeAuth.isAuthenticated" class="cursor-pointer text-center">
+              <h3 class="font-bold text-sm text-primary-900">
+                {{ $t('login') }}
+              </h3>
+            </div>
+          </RouterLink>
      <div>
       <RouterLink to="/phone/user/setting">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -126,7 +134,7 @@
 
     </div>
 
-    <CustomAlert ref="alertRef" />
+    <!-- <CustomAlert ref="alertRef" /> -->
     <!-- <div class="mt-5 bg-white h-12 w-full p-2">
       <div
       class="flex justify-between items-center cursor-pointer"
@@ -140,13 +148,12 @@
   </div>
 </template>
 <script setup>
-
-// import { useAuthStore } from '@/stores/auth';
-// const storeAuth = useAuthStore();
+import { useAuthStore } from '@/stores/auth';
+const storeAuth = useAuthStore();
 
 const emailUser = localStorage.getItem('emailuser');
 
-import CustomAlert from '@/components/CustomAlert .vue';
+// import CustomAlert from '@/components/CustomAlert .vue';
 
 // const toggleLougOut = ()=>{
 //   storeAuth.logout("phone")
@@ -154,14 +161,14 @@ import CustomAlert from '@/components/CustomAlert .vue';
 
 
 
-import { ref } from 'vue'
-const alertRef = ref(null)
-const showSuccess = (message, title = 'نجاح') => {
-  alertRef.value?.show('success', title, message)
-};
-// const showError = (message, title = 'خطأ') => {
-//   alertRef.value?.show('error', title, message)
-// }
+// import { ref } from 'vue'
+// const alertRef = ref(null)
+// const showSuccess = (message, title = 'نجاح') => {
+//   alertRef.value?.show('success', title, message)
+// };
+// // const showError = (message, title = 'خطأ') => {
+// //   alertRef.value?.show('error', title, message)
+// // }
 
 
 </script>
