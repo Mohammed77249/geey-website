@@ -1,0 +1,1 @@
+.custom-scroll::-webkit-scrollbar{width:5px;opacity:0}.custom-scroll:hover::-webkit-scrollbar,.custom-scroll:active::-webkit-scrollbar{opacity:1}.custom-scroll::-webkit-scrollbar-track{background:transparent}.custom-scroll::-webkit-scrollbar-thumb{background-color:#0006;border-radius:4px}
