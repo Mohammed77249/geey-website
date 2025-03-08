@@ -43,6 +43,23 @@
         </RouterLink>
 
 
+         <!-- Icon share -->
+         <div @click="openDialog">
+          <div v-if="isScrolled" class="w-7 h-7">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.39999 6.32003L15.89 3.49003C19.7 2.22003 21.77 4.30003 20.51 8.11003L17.68 16.6C15.78 22.31 12.66 22.31 10.76 16.6L9.91999 14.08L7.39999 13.24C1.68999 11.34 1.68999 8.23003 7.39999 6.32003Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path opacity="0.34" d="M10.11 13.6501L13.69 10.0601" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <div v-if="!isScrolled" class="bg-gray-100 rounded-full h-7 w-7 flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.39999 6.32003L15.89 3.49003C19.7 2.22003 21.77 4.30003 20.51 8.11003L17.68 16.6C15.78 22.31 12.66 22.31 10.76 16.6L9.91999 14.08L7.39999 13.24C1.68999 11.34 1.68999 8.23003 7.39999 6.32003Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path opacity="0.34" d="M10.11 13.6501L13.69 10.0601" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
         <!-- cart icon -->
         <div >
           <RouterLink to="/phone/cart">
@@ -61,9 +78,10 @@
           </div>
         </RouterLink>
 
-
-
         </div>
+
+
+
 
       </div>
 
@@ -121,22 +139,34 @@
 
     <!-- محتوى الصفحة -->
     <div class="">
-
     </div>
+
+
+    <DialogShowAppsToShare :is-open="isDialogOpen"
+    @close="closeDialog"/>
 
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-import { useSectionsPhoneStore } from '@/stores/sectionsphone'
+// import { useSectionsPhoneStore } from '@/stores/sectionsphone'
 import MainPageComp from "@/components/phone/productdetails/MainPageComp.vue";
 import { useRouter } from 'vue-router';
 import SearchPhoneComp from "@/components/phone/SearchPhoneComp.vue";
+import DialogShowAppsToShare from "@/components/phone/productdetails/DialogShowAppsToShare.vue";
 const router = useRouter();
 const goBack = () => {
   router.back();
 };
+
+const isDialogOpen = ref(false)
+const openDialog = () => {
+  isDialogOpen.value = true
+}
+const closeDialog = () => {
+  isDialogOpen.value = false
+}
 
 const onclickForYou = ref(true)
 const onclickNewEnters = ref(false)
@@ -162,13 +192,13 @@ const taggleActiveDiscounts = () => {
 
 
 
-const storeSecion = useSectionsPhoneStore();
-const filteredData = ref({
-  sectionId:5,
-  page: 1,
-  perPage: 20,
-  filter:0
-});
+// const storeSecion = useSectionsPhoneStore();
+// const filteredData = ref({
+//   sectionId:5,
+//   page: 1,
+//   perPage: 20,
+//   filter:0
+// });
 
 
 //////////////////
@@ -185,9 +215,9 @@ const handleScroll = () => {
 
 // إضافة وإزالة مستمع التمرير
 onMounted(async() => {
-   await storeSecion.fetchSections(filteredData);
-   await storeSecion.fetchSubSectionBySectionID(filteredData)
-   await storeSecion.fetchGetBanner(filteredData)
+  //  await storeSecion.fetchSections(filteredData);
+  //  await storeSecion.fetchSubSectionBySectionID(filteredData)
+  //  await storeSecion.fetchGetBanner(filteredData)
 
 
   window.addEventListener("scroll", handleScroll);

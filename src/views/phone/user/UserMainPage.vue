@@ -19,6 +19,19 @@
 
     </div>
 
+
+    <div class=" bg-white h-16 w-full p-2">
+      <div class="flex items-center">
+        <div class="">
+          <RouterLink to="/phone/user/copons">
+            <span class="flex items-center justify-center">0</span>
+            <span class="font-medium text-xs"> كوبونات </span>
+          </RouterLink>
+        </div>
+      </div>
+
+    </div>
+
     <div class="mt-2 bg-white h-24 w-full p-2">
       <div class="flex items-center justify-between">
         <div>

@@ -615,6 +615,7 @@ const routes = [
       { path: 'user/myorders', name: 'phoneMyOrders', component: () => import('@/views/phone/user/orders/MyOrders.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  } },
       { path: 'user/myorder', name: 'phoneOrderDetails', component: () => import('@/views/phone/user/orders/OrderDetails.vue'),meta: { requiresAuth: true, showFooter:false ,showHeader:false  },props: (route) => ({query: route.query}) },
       { path: 'user/myorder/comments', name: 'phoneOrderComments', component: () => import('@/views/phone/user/orders/comments/OrderComments.vue'), meta: { requiresAuth: true, showFooter:false ,showHeader:false  },props: (route) => ({query: route.query})  },
+      { path: 'user/copons', name: 'phoneUserCopons', component: () => import('@/views/phone/user/copons/CoponsPage.vue'),meta: { requiresAuth: false, showFooter:false ,showHeader:false  } },
 
       { path: 'product/:id', name: 'phoneProductDetails', component: () => import('@/views/phone/ProductDetailsPage.vue'), meta: {   showFooter:false ,showHeader:false,} },
       { path: 'cart', name: 'phoneCart', component: () => import('@/views/phone/CartPage.vue'), meta: { requiresAuth: false, showFooter:true ,showHeader:false  } },
@@ -634,6 +635,7 @@ const routes = [
       { path: 'favorite/list', name: 'phoneFavoriteList', component: () => import('@/views/phone/Favoriates/ProductsInList.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
       { path: 'favorite/chooseproduct', name: 'phoneFavoriteChooseProduct', component: () => import('@/views/phone/Favoriates/ChooseProductsToList.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
       { path: 'favorite/addproducttolist', name: 'phoneFavoriteAddProductToList', component: () => import('@/views/phone/Favoriates/AddProductsToList.vue'), meta: { requiresAuth: false, showFooter:false ,showHeader:false  }, props: (route) => ({query: route.query}) },
+
 
       {
         path: 'login',
