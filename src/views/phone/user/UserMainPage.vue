@@ -3,7 +3,7 @@
   <div class="bg-gray-50 w-full h-screen">
     <!-- header -->
     <div class="flex items-center justify-between bg-white p-2 shadow h-12">
-      <div class="text-sm font-semibold">
+      <div @click="showSuccess('عملية ناجحة')" class="text-sm font-semibold">
       {{ emailUser }}
      </div>
      <div>
@@ -126,6 +126,7 @@
 
     </div>
 
+    <CustomAlert ref="alertRef" />
     <!-- <div class="mt-5 bg-white h-12 w-full p-2">
       <div
       class="flex justify-between items-center cursor-pointer"
@@ -145,7 +146,22 @@
 
 const emailUser = localStorage.getItem('emailuser');
 
+import CustomAlert from '@/components/CustomAlert .vue';
+
 // const toggleLougOut = ()=>{
 //   storeAuth.logout("phone")
 // };
+
+
+
+import { ref } from 'vue'
+const alertRef = ref(null)
+const showSuccess = (message, title = 'نجاح') => {
+  alertRef.value?.show('success', title, message)
+};
+// const showError = (message, title = 'خطأ') => {
+//   alertRef.value?.show('error', title, message)
+// }
+
+
 </script>

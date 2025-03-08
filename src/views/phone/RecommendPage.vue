@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-gray-50">
+  <div class="min-h-screen h-full bg-gray-50">
    <!-- header -->
     <div class="fixed  inset-0 w-full bg-white  px-2 py-1 "
     :class="storeSecion.getSubCategories.length<=0 ?'h-16': isScrolled ? 'h-32' : ' h-44'">
@@ -61,7 +61,7 @@
        <!-- قائمة الفئات الرئيسية -->
 
       <div class="mt-4">
-          <div v-if="storeSecion.getSubCategories.length>0" class="flex items-center p-2 gap-2 overflow-x-auto w-full text-gray-600">
+          <div v-if="storeSecion.getSubCategories.length>0" class="flex items-center   p-2 gap-2 overflow-x-auto   w-full text-gray-600">
             <div
               v-for="category in storeSecion.getSubCategories"
               :key="category"
@@ -75,7 +75,7 @@
                 alt="moaham"
                 class=" w-full rounded object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
 
-                :class="isScrolled ? 'h-10' : 'h-16'"
+                :class="isScrolled ? 'h-10' : 'h-16 '"
 
               />
 
