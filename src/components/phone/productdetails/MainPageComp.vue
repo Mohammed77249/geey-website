@@ -633,6 +633,9 @@ const product = ref({
   shortUrl: currentUrl.value
 })
 
+// const isMobile = computed(() =>
+//   /Android|webOS|iPhone|iPad|Desktop/i.test(navigator.userAgent)
+// );
 const isMobile = computed(() => /Android|webOS|iPhone|iPad/i.test(navigator.userAgent))
 const message = `السلام عليكم 🛍\n\n
 
@@ -643,10 +646,23 @@ const message = `السلام عليكم 🛍\n\n
 📲 تواصل معنا للمزيد من التفاصيل!`
 
 const whatsappShareUrl = computed(() => {
+  // return isMobile.value ?
+  //   `whatsapp://send/?phone=${whatsappNumber}&text=${message}` :
+  //   `https://api.whatsapp.com/send/?phone=${whatsappNumber}&text=${message}`
+
   return isMobile.value ?
     `whatsapp://send/?phone=${whatsappNumber}&text=${message}` :
-    `https://web.whatsapp.com/send/?phone=${whatsappNumber}&text=${message}`
+    `https://web.whatsapp.com/send/?phone=${whatsappNumber}&text=${message}`;
+
+  // return `https://api.whatsapp.com/send/?phone=${whatsappNumber.value}&text=${message}`;
+
 })
+
+
+
+
+
+
 
 const isDropdowenDescriptionVisable = ref(false)
 // const isDropdowenSize2Visable = ref(false)
