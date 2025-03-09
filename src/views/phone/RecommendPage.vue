@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen h-full bg-gray-50">
+  <div class="min-h-screen h-full w-full bg-gray-50">
    <!-- header -->
     <div class="fixed  inset-0 w-full bg-white  px-2 py-1 "
     :class="storeSecion.getSubCategories.length<=0 ?'h-16': isScrolled ? 'h-32' : ' h-44'">
@@ -60,27 +60,25 @@
 
        <!-- قائمة الفئات الرئيسية -->
 
-      <div class="mt-4">
-          <div v-if="storeSecion.getSubCategories.length>0" class="flex items-center   p-2 gap-2 overflow-x-auto   w-full text-gray-600">
+      <div class="mt-4 ">
+          <div v-if="storeSecion.getSubCategories.length>0" class="flex items-center p-2 gap-2 overflow-x-auto custom-scroll w-full text-gray-600">
             <div
               v-for="category in storeSecion.getSubCategories"
               :key="category"
               @click="clickCat(category)"
-              class=" bg-gray-50 rounded"
-              :class="isScrolled ? 'w-24 h-12 flex items-center justify-center ' : ' w-16 h-24 flex-col-1 items-center justify-center '"
+              class=" bg-gray-50 rounded flex-shrink-0"
+              :class="isScrolled ? 'w-24 h-12 flex ' : ' w-16 h-24 '"
             >
 
               <img
                 :src="category.image != null ?category.image :'/jeeeylogo.jpg'"
                 alt="moaham"
-                class=" w-full rounded object-cover bg-gray-50 transition-transform duration-200 hover:scale-105 hover:shadow"
+                class=" w-full  rounded object-cover bg-gray-50 transition-transform duration-200 "
 
-                :class="isScrolled ? 'h-10' : 'h-16 '"
+                :class="isScrolled ? 'h-10' : 'h-16'"
 
               />
-
-
-              <button class="  text-xs  w-full hover:text-blue-600">
+              <button class="  text-xs  w-full ">
               <p> {{ category.name }}</p>
               </button>
 
@@ -1052,6 +1050,25 @@ onUnmounted(() => {
 
 
 
-<style>
-/* إضافة أي تخصيصات إضافية هنا */
+
+<style scoped>
+
+
+.custom-scroll::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+.custom-scroll:hover::-webkit-scrollbar,
+.custom-scroll:active::-webkit-scrollbar {
+  opacity: 0;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
 </style>

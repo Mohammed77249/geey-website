@@ -8,7 +8,6 @@
     <div
       class="bg-white w-full overflow-y-auto custom-scroll max-h-[500px] h-full"
     >
-
       <!-- Dialog Content -->
       <div>
         <div >

@@ -106,7 +106,6 @@ export const useSectionsPhoneStore = defineStore('sectionsphone', {
     async fetchProductForMainPageFilter(data) {
 
       if ( !this.hasMore) return;
-
       this.showLoadingMessage = true;
       this.error = null;
       try {

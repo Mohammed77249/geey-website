@@ -1,5 +1,5 @@
 <template>
-  <div v-if="props.isOpen" class="">
+  <div v-if="props.isOpen" class="fixed inset-0 bg-black bg-opacity-50">
     <div class="fixed bottom-0   bg-white rounded-lg w-full z-50">
 
 

@@ -8,7 +8,7 @@
         </div>
 
         <!-- Subsections Rendering -->
-        <li v-else-if="storeSection.getSubSections && storeSection.getSubSections.length">
+        <li v-else-if="storeSection.getSubSections && storeSection.getSubSections.length > 0">
           <!-- Sections with subcategories -->
           <div v-if="storeSection.subsections && storeSection.subsections.length && storeSection.subsections[0].has_sub === 'true'">
             <ul
@@ -143,7 +143,7 @@
 
         <!-- No data available -->
         <div class="w-full h-[245px] text-center" v-else>
-          <p>لا توجد بيانات</p>
+          <!-- <p>لا توجد بيانات</p> -->
         </div>
       </ul>
     </div>

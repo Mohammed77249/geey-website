@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50 w-full h-screen">
+  <div class="bg-gray-50 w-full min-h-screen h-full">
     <!-- header -->
     <div class="fixed inset-0  flex items-center justify-between  bg-white p-2 shadow h-12">
       <div class=" text-sm font-bold">
@@ -33,7 +33,7 @@
                 @change="updateSelectAll"
               />
               <div class="w-[150px] h-[70px] ">
-                <img :src="item.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? item.image :'/jeeeeylogo3.jpg'"  alt="" class=" h-full  rounded-lg border   " />
+                <img :src="item.image !='https:\/\/jeeey-dashboard.najaz.in\/storage' ? item.image :'/jeeeeylogo3.jpg'"  alt="" class=" h-full w-full rounded-lg border   " />
 
               </div>
             </div>

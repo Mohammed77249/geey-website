@@ -336,7 +336,7 @@
         </div> -->
 
         <!-- whats up button -->
-        <div class=" w-full bg-white h-10">
+        <div class=" w-full bg-transparent h-10">
             <a
               :href="whatsappShareUrl"
               target="_blank"
@@ -533,7 +533,7 @@
     <div class="fixed bottom-0 w-full bg-white">
       <div class="flex items-center gap-1 p-3">
         <div
-              class="w-[70px] py-2 rounded-full border flex items-center justify-center"
+              class="w-[60px] py-2 rounded-full border flex items-center justify-center"
             >
               <svg v-if="activeFav" @click="oncklicAddToFav(storeProduct.getproductDetails.id)" width="30" height="30" viewBox="0 0 24 24" fill="#8a1538" xmlns="http://www.w3.org/2000/svg">
               <path d="M12.62 20.812C12.28 20.932 11.72 20.932 11.38 20.812C8.48 19.822 2 15.692 2 8.69199C2 5.60199 4.49 3.10199 7.56 3.10199C9.38 3.10199 10.99 3.98199 12 5.34199C12.5138 4.64787 13.183 4.08372 13.954 3.69473C14.725 3.30575 15.5764 3.10275 16.44 3.10199C19.51 3.10199 22 5.60199 22 8.69199C22 15.692 15.52 19.822 12.62 20.812Z" stroke="#8a1538" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -545,10 +545,10 @@
             </div>
             <button
               @click="addToCart"
-              class=" w-full bg-primary-900 rounded text-white py-3 text-lg font-bold hover:bg-primary-800 transition"
+              class=" w-full bg-primary-900 rounded text-white py-2 text-lg font-bold  transition"
             >
               <span v-if="storeCart.loading" class="loader mr-2"></span>
-              <span>{{
+              <span class="text-sm">{{
                 storeCart.loading ? 'جارٍ التحقق...' : $t('add to cart')
               }}</span>
             </button>
@@ -737,9 +737,6 @@ const oncklicAddToFav = async(product_id)=>{
 
   }
 
-
-
-
 }
 
 
@@ -902,6 +899,13 @@ onMounted(async() => {
   // تعيين الصور الفرعية للون الأول كافتراضي
   if (storeProduct.getproductColors.length > 0) {
     changeColor(0);
+  }
+
+  if (storeProduct.getproductSizes.length > 0) {
+    onclickSize(storeProduct.getproductSizes[0]);
+    priceSize.value = storeProduct.getproductDetails.base_price
+
+   
   }
 
 })
